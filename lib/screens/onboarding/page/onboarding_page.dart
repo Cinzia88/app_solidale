@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnboardingPage extends StatelessWidget {
+  const OnboardingPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,7 @@ class OnboardingPage extends StatelessWidget {
         },
         buildWhen: (_, currState) => currState is OnboardingInitial,
         builder: (context, state) {
-          return OnboardingContent();
+          return const OnboardingContent();
         },
       ),
     );

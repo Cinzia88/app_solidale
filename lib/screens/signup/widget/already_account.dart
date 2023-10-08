@@ -3,13 +3,13 @@ import 'package:anf_app/const/text_constants.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
- Widget CreateHaveAccountText(BuildContext context) {
+ Widget createHaveAccountText(BuildContext context) {
    // final bloc = BlocProvider.of<SignUpBloc>(context);
     return RichText(
       text: TextSpan(
         text: TextConstants.alreadyHaveAccount,
         style: TextStyle(
-          color: ColorConstants.textBlack,
+          color: Colors.black,
           fontSize: 18,
         ),
         children: [

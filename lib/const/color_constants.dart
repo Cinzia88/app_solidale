@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
 
 class ColorConstants {
+  //boardingPage
   static const textColor = Color(0xFF1F2022);
-  static const primaryColor = Color(0xFFF8AE42);
+  static const primaryColor = Color(0xFFff7b00);
   static const colorDoctNotActive = Color(0xFFfce6c5);
 
-  static const textBlack = Color(0xFF1F2022);
-  static const white = Color(0xFFFFFFFF);
-  static const grey = Color(0xFFB6BDC6);
-  static const loadingBlack = Color(0x80000000);
+  //appBar
+  static const background = Color(0xFFff7b00);
+  static const textTitle = Colors.white;
+
+  //text
+  static const titleText = Color(0xFFff7b00);
+
+  //textfield
+  static const enabledBorder = Color(0xFFffc300);
+  static const hintText = Color(0xFFffdd00);
+  static const labelText = Color(0xFFff7b00);
+  static const focusBorder = Color(0xffff9500);
+  static const buttonClear = Color(0xffff9500);
+  static const cursor = Color(0xffff9500);
 
   static const textFieldBackground = Color(0xFFFBFCFF);
   static const textFieldBorder = Color(0xFFB9BBC5);
