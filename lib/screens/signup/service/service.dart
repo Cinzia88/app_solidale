@@ -1,3 +1,4 @@
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -10,7 +11,7 @@ class Service {
       var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
       Map<String, String> headers = {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
       };
 
       List<http.MultipartFile> newList = [];

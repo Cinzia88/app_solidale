@@ -1,6 +1,7 @@
 import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/const/data_constants.dart';
 import 'package:anf_app/screens/onboarding/bloc/onboarding_bloc.dart';
+import 'package:anf_app/screens/presentation/page/presentation_page.dart';
 import 'package:anf_app/screens/signup/page/signup_page.dart';
 import 'package:flutter/gestures.dart';
 
@@ -60,7 +61,7 @@ class OnboardingContent extends StatelessWidget {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpPage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
                           //  bloc.add(SignInTappedEvent());
                         },
                     ),

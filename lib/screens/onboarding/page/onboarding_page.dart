@@ -2,6 +2,7 @@
 
 import 'package:anf_app/screens/onboarding/bloc/onboarding_bloc.dart';
 import 'package:anf_app/screens/onboarding/widget/onboarding_content.dart';
+import 'package:anf_app/screens/presentation/page/presentation_page.dart';
 import 'package:anf_app/screens/signup/page/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,7 @@ class OnboardingPage extends StatelessWidget {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (_) {
-                return SignUpPage();
+                return const PresentationPage();
               },
             ),
           );
