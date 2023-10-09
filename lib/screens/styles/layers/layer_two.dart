@@ -1,0 +1,18 @@
+import 'package:anf_app/screens/styles/layers/config.dart';
+import 'package:flutter/material.dart';
+
+class LayerTwo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * .95,
+      decoration: BoxDecoration(
+        color: layerTwoBg,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(60.0),
+        bottomLeft: Radius.circular(60.0),
+        ),
+      ),
+    );
+  }
+}

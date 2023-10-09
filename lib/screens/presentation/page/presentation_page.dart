@@ -1,7 +1,7 @@
+import 'package:anf_app/const/path_constants.dart';
+import 'package:anf_app/screens/signin/page/signin_page.dart';
 import 'package:anf_app/screens/signup/page/signup_page.dart';
 import 'package:flutter/material.dart';
-
-import '../widgets/custom_container_service.dart';
 
 class PresentationPage extends StatefulWidget {
   const PresentationPage({super.key});
@@ -22,76 +22,146 @@ class _PresentationPageState extends State<PresentationPage> {
       ),
       SafeArea(
           child: Column(
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => SignUpPage()));
-                },
-                icon: Icon(Icons.login),
-                label: Text('Accedi')),
+                children: [
+          Padding(
+            padding: const EdgeInsets.only(top:20.0, right: 20.0),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => SignInPage()));
+                  },
+                  icon: Icon(Icons.login),
+                  label: Text('Accedi')),
+            ),
           ),
           SizedBox(
             height: 70,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                'ANF',
-                style: TextStyle(
-                  color: Colors.white, 
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30.0),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(left:20.0,),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'ANF',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.0),
+                ),
+              ],
+            ),
           ),
-         SizedBox(
+          SizedBox(
             height: 70,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: Column(
               children: [
-              Container(
-              width: MediaQuery.of(context).size.width ,
-              height: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(13.0),
-                              color: Colors.red,
-
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-             Container(
-              width: MediaQuery.of(context).size.width ,
-              height: 150,
-               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(13.0),
-                              color: Colors.red,
-
-              ),
-            ),
-             SizedBox(
-              height: 20,
-            ),
-             Container(
-              width: MediaQuery.of(context).size.width ,
-              height: 150,
-               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(13.0),
-                              color: Colors.red,
-
-              ),
-            )],),
-          )
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(PathConstants.onboarding5),
+                        fit: BoxFit.cover),
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.circular(30), //border corner radius
           
-        ],
-      ))
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3), //color of shadow
+                        offset: const Offset(
+                          5.0,
+                          5.0,
+                        ),
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ),
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: const Offset(0.0, 0.0),
+                        blurRadius: 0.0,
+                        spreadRadius: 0.0,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(PathConstants.onboarding1),
+                        fit: BoxFit.cover),
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.circular(30), //border corner radius
+          
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3), //color of shadow
+                        offset: const Offset(
+                          5.0,
+                          5.0,
+                        ),
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ),
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: const Offset(0.0, 0.0),
+                        blurRadius: 0.0,
+                        spreadRadius: 0.0,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(PathConstants.onboarding2),
+                        fit: BoxFit.cover),
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.circular(30), //border corner radius
+          
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3), //color of shadow
+                        offset: const Offset(
+                          5.0,
+                          5.0,
+                        ),
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ),
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: const Offset(0.0, 0.0),
+                        blurRadius: 0.0,
+                        spreadRadius: 0.0,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )
+                ],
+              ))
     ]));
   }
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:anf_app/const/text_constants.dart';
 import 'package:anf_app/screens/common_widgets/custom_textfield.dart';
+import 'package:anf_app/screens/signup/page/caricamento_dati_page.dart';
 import 'package:anf_app/screens/signup/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -237,13 +238,11 @@ final List<XFile?> imagesList = [];
           CommonStyleButton(
             title: TextConstants.signUp,
             onTap: () {
-              Map<String, String> body = {
-                'name': _nameController.text,
-                'email': _emailController.text,
-                'password': _passwordController.text,
-                'password_confirmation': _confirmPasswordController.text,
-              };
-              service.addImage(body, imagesList);
+             
+              service.registerUser(_nameController.text,
+                _emailController.text,
+                _passwordController.text,
+                _confirmPasswordController.text,).then((value) => Navigator.push(context, MaterialPageRoute(builder: (_) => CaricamentoDati())));
 
               /*FocusScope.of(context).unfocus();
                     bloc.add(SignUpTappedEvent()); */
