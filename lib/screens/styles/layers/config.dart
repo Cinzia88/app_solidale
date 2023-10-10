@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const Color transparent = Color(0x00000000);
 const Color layerOneBg = Color(0x80FFFFFF);
-const Color layerTwoBg = Color(0xFFE9FFF6);
+const Color layerTwoBg = Colors.white;
 
 const Color forgotPasswordText = Color(0xFF024335);
 const Color signInButton = Color(0xFF024335);

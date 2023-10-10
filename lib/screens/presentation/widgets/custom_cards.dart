@@ -1,0 +1,121 @@
+import 'package:anf_app/const/color_constants.dart';
+import 'package:anf_app/const/path_constants.dart';
+import 'package:anf_app/const/text_constants.dart';
+import 'package:anf_app/screens/signup/widget/form.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+
+import '../../common_widgets/custom_button.dart';
+import '../../common_widgets/custom_textfield.dart';
+
+class CustomCard extends StatelessWidget {
+ 
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height / 3.5, right: 20, left: 20),
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Material(
+                elevation: 10,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.only(topRight: Radius.circular(30))),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text('Offro Aiuto',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
+                                      color: Color(0xFFEF6E31))),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                  width: 150, child: Text('Crea il tuo Account per offrire un tuo servizio ad ANF Famiglie')),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                  alignment: Alignment.topRight,
+                  child: Image.asset(
+                    PathConstants.login,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                  ))
+            ],
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Stack(
+            children: [
+              Material(
+                elevation: 10,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.only(topRight: Radius.circular(30))),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text('Chiedo Aiuto',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
+                                      color: Color(0xFFEF6E31))),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                  width: 150, child: Text('Crea il tuo Account per usufruire dei servizi di ANF Famiglie')),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                  alignment: Alignment.topRight,
+                  child: Image.asset(
+                    PathConstants.login,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                  ))
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ColorConstants {
+//backgroundStyle
+  static const orangeGradients1 = Color(0xFFFF9844);
+  static const orangeGradients2 = Color(0xFFFE8853);
+  static const orangeGradients3 = Color(0xFFFD7267);
+
+  static const acquagradients1 = Color(0xFF5AEAF1);
+  static const acquagradients2 = Color(0xFF8EF7DA);
+
   //boardingPage
   static const textColor = Color(0xFF1F2022);
   static const primaryColor = Color(0xFFff7b00);

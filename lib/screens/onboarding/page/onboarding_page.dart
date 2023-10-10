@@ -26,7 +26,7 @@ class OnboardingPage extends StatelessWidget {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (_) {
-                return const PresentationPage();
+                return  PresentationPage(imageBg: '',);
               },
             ),
           );

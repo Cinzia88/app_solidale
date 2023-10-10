@@ -1,5 +1,6 @@
 import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/const/data_constants.dart';
+import 'package:anf_app/screens/common_widgets/custom_button.dart';
 import 'package:anf_app/screens/onboarding/bloc/onboarding_bloc.dart';
 import 'package:anf_app/screens/presentation/page/presentation_page.dart';
 import 'package:anf_app/screens/signup/page/signup_page.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+
+import '../../../const/path_constants.dart';
 
 class OnboardingContent extends StatelessWidget {
   const OnboardingContent({super.key});
@@ -18,6 +21,38 @@ class OnboardingContent extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: "",
+                     
+                      children: [
+                        TextSpan(
+                          text: " Salta",
+                          style: TextStyle(
+                            color: ColorConstants.primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage(imageBg: PathConstants.onboarding1,
+                              button: true)));
+                              //  bloc.add(SignInTappedEvent());
+                            },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Expanded(
             flex: 3,
             child: _createPageView(bloc.pageController, bloc)),
@@ -44,50 +79,13 @@ class OnboardingContent extends StatelessWidget {
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              RichText(
-                text: TextSpan(
-                  text: "",
-                 
-                  children: [
-                    TextSpan(
-                      text: " Salta",
-                      style: TextStyle(
-                        color: ColorConstants.primaryColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
-                          //  bloc.add(SignInTappedEvent());
-                        },
-                    ),
-                  ],
-                ),
-              ),
-              DotsIndicator(
-                dotsCount: 5,
-                position: bloc.pageIndex,
-                decorator: const DotsDecorator(
-                  color: ColorConstants.colorDoctNotActive,
-                  activeColor: ColorConstants.primaryColor,
-                ),
-              ),
-              IconButton(
-                  onPressed: () {
-                    bloc.add(
-                      PageChangedEvent(),
-                    );
-                  },
-                  icon: Icon(
-                    Icons.arrow_right_sharp,
-                    size: 40,
-                    color: ColorConstants.primaryColor,
-                  ))
-            ],
+          child: DotsIndicator(
+            dotsCount: 5,
+            position: bloc.pageIndex,
+            decorator: const DotsDecorator(
+              color: ColorConstants.colorDoctNotActive,
+              activeColor: ColorConstants.primaryColor,
+            ),
           ),
         );
       },

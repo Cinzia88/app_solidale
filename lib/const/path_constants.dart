@@ -1,4 +1,11 @@
 class PathConstants {
+ //Logo
+ static const String logoanf =
+      'assets/images/logo_anf/logo_anf.jpg';
+//login
+static const String login =
+      'assets/images/login/login.png';
+
   // Onboarding
   static const String onboarding1 =
       'assets/images/onboarding/servizio_taxi.png';
