@@ -40,7 +40,7 @@ class Service {
   }
 
 
- Future registerUser(String name, String email, String password, String passwordConfirmation) async {
+ Future registerUser( String email, String password, String passwordConfirmation) async {
     try {
       String XSRFTOKEN = 'eyJpdiI6Ik5KTkZrRnlHbFV4R2xTb0NPdEl6REE9PSIsInZhbHVlIjoiTHhWbFczRE5DQWdGdmlnTDhnTWY5YlRDTnhRQ0VjYU56Z2pGVmhlQndLOVNzWFhrKzhHb3d0NXlKOFRXb1VXOXVmdHRPaHpiYmpMZDE2RWJyU1N2S2RZdGcwSFJNdXM3dFVZRGFaWlE3QUZlNnc4RzVBdlB4TDhHWTRWdU9pRmIiLCJtYWMiOiJlODY3NjI3Nzk3ZmZmZWZmNGQzYzg1YmZmYTgzZDdmNjNmZjQwNzA5OWJkYTg5MDBjNzkwOWY0YTc0YjI3NGFmIiwidGFnIjoiIn0%3D; expires=Wed, 04 Oct 2023 21:04:44 GMT; Max-Age=7200; path=/; samesite=lax,laravel_session=eyJpdiI6ImdGYmxXa2JaWk5CV1pGTDl4TUJ5bGc9PSIsInZhbHVlIjoiOXd2SURieWRreGpvblQ5UGVhWVRuUzRGTWZ3Q0FKWHV0UzNyQjNLREUxWTNuSzhFaU8xaVBpcVZCQTZPeStwd0NHY3BCQlY0SEZBMExkeUEzQnQydDhLcmF3aFhKeTdvMFAyejhReCsyM053YjMzWGt4aWlXbXFobS9BNGVtcGkiLCJtYWMiOiJjMDVmOGIyMGIyMTExMDFjNDc0NWFkMzQ5Y2U2NmNmZmZjZmZlYTFhOGFjNWExYjUwMTFjYjdiNTRhNWI1MzM2IiwidGFnIjoiIn0%3D';
 var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
@@ -52,7 +52,6 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
    'X-XSRF-TOKEN': XSRFTOKEN,
   },
   body: jsonEncode({
-    'name':name,
     'email': email,
     'password': password,
     'password_confirmation': passwordConfirmation,

@@ -1,5 +1,4 @@
 
-import 'package:anf_app/const/path_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/background_style/background_style.dart';
@@ -22,9 +21,9 @@ class _SignInPageState extends State<SignInPage> {
 
           child: ConstrainedBox(
             constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-            child:   Stack(
+            child: const  Stack(
                 children: [
-            BackgroundStyle(image: PathConstants.login,),
+            BackgroundStyle(),
                  SingleChildScrollView(child: LoginForm()),
                 ],
               ),

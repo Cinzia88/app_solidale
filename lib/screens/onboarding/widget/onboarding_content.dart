@@ -1,16 +1,11 @@
 import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/const/data_constants.dart';
-import 'package:anf_app/screens/common_widgets/custom_button.dart';
 import 'package:anf_app/screens/onboarding/bloc/onboarding_bloc.dart';
 import 'package:anf_app/screens/presentation/page/presentation_page.dart';
-import 'package:anf_app/screens/signup/page/signup_page.dart';
 import 'package:flutter/gestures.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-
-import '../../../const/path_constants.dart';
 
 class OnboardingContent extends StatelessWidget {
   const OnboardingContent({super.key});
@@ -30,19 +25,20 @@ class OnboardingContent extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       text: "",
-                     
                       children: [
                         TextSpan(
                           text: " Salta",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: ColorConstants.primaryColor,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage(imageBg: PathConstants.onboarding1,
-                              button: true)));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => PresentationPage()));
                               //  bloc.add(SignInTappedEvent());
                             },
                         ),
@@ -53,9 +49,7 @@ class OnboardingContent extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            flex: 3,
-            child: _createPageView(bloc.pageController, bloc)),
+          Expanded(flex: 3, child: _createPageView(bloc.pageController, bloc)),
           Expanded(child: _createStatic(bloc)),
         ],
       ),

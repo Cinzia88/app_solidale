@@ -1,6 +1,5 @@
 import 'package:anf_app/const/color_constants.dart';
-import 'package:anf_app/const/text_constants.dart';
-import 'package:anf_app/screens/signup/widget/form.dart';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
