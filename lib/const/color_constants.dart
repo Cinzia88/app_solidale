@@ -19,7 +19,7 @@ class ColorConstants {
   static const textTitle = Colors.white;
 
   //text
-  static const titleText = Color(0xFFff7b00);
+  static const titleText = Color(0xFFEF6E31);
 
   //textfield
   static const enabledBorder = Color(0xFFffc300);

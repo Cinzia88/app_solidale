@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:anf_app/const/color_constants.dart';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 import '../../common_widgets/custom_button.dart';
 import '../../common_widgets/custom_textfield.dart';
+import '../../home/page/page_tabs/page_tabs.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -17,6 +21,35 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+
+Future loginUser( String email, String password, ) async {
+    try {
+var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/login';
+  // Await the http get response, then decode the json-formatted response.
+  var response = await http.post(Uri.parse(url),
+  headers: {
+    'Accept': 'application/json',
+    'Content-type': 'application/json',
+  },
+  body: jsonEncode({
+    'email': email,
+    'password': password,
+  }));
+
+  if(response.statusCode == 200) {
+    // ignore: use_build_context_synchronously
+    Navigator.push(context, MaterialPageRoute(builder: (_) => const TabsPage()));
+        print('response ${response.body}');
+
+  } else {
+    print('erroresponse ${response.body}');
+  }
+   
+    } catch (e) {
+      print('sendimage error $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +84,8 @@ class _LoginFormState extends State<LoginForm> {
                     CommonStyleButton(
                       title: 'Accedi',
                       onTap: () {
+                         Navigator.push(context, MaterialPageRoute(builder: (_) => const TabsPage()));
+                        //loginUser(_emailController.text, _passwordController.text );
                         /*FocusScope.of(context).unfocus();
                               bloc.add(SignUpTappedEvent()); */
                       },

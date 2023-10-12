@@ -1,7 +1,10 @@
-import 'package:anf_app/const/color_constants.dart';
+import 'dart:convert';
 
+import 'package:anf_app/const/color_constants.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../common_widgets/custom_button.dart';
 import '../../common_widgets/custom_textfield.dart';
@@ -19,6 +22,37 @@ class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
     final TextEditingController _confirmPasswordController = TextEditingController();
+
+
+    Future registerUser( String email, String password, String passwordConfirmation) async {
+    try {
+var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
+  // Await the http get response, then decode the json-formatted response.
+  var response = await http.post(Uri.parse(url),
+  headers: {
+    'Accept': 'application/json',
+    'Content-type': 'application/json',
+  },
+  body: jsonEncode({
+    'email': email,
+    'password': password,
+    'password_confirmation': passwordConfirmation,
+  }));
+
+  if(response.statusCode == 200) {
+    // ignore: use_build_context_synchronously
+    Navigator.push(context, MaterialPageRoute(builder: (_) => const SignInPage()));
+  } else {
+    print('response ${response.body}');
+  }
+   
+    } catch (e) {
+      print('sendimage error $e');
+    }
+  }
+
+  
+
 
 
   @override
@@ -63,6 +97,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     CommonStyleButton(
                       title: 'Crea',
                       onTap: () {
+                        registerUser(_emailController.text, _passwordController.text, _confirmPasswordController.text);
                         /*FocusScope.of(context).unfocus();
                               bloc.add(SignUpTappedEvent()); */
                       },
