@@ -3,7 +3,6 @@ import 'package:anf_app/screens/signup/page/signup_page.dart';
 
 import 'package:flutter/material.dart';
 
-import '../../signin/page/signin_page.dart';
 
 class CustomCardsAuth extends StatelessWidget {
   const CustomCardsAuth({super.key});
@@ -75,7 +74,7 @@ class CustomCardsAuth extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const SignInPage(),
+                  builder: (_) => const SignUpPage(),
                 ),
               );
             },

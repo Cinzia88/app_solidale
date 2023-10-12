@@ -29,28 +29,28 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Flexible(
                   child: GridView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2, crossAxisSpacing: 20),
-                    children: [
+                    children: const [
                       Stack(children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 35.0),
+                          padding:  EdgeInsets.only(top: 35.0),
                           child: Material(
                               elevation: 10,
-                              color: const Color(0xFFFFFFFF),
-                              shape: const RoundedRectangleBorder(
+                              color:  Color(0xFFFFFFFF),
+                              shape:  RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(30),
-                                topLeft: Radius.circular(30),
+                             
                               )),
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding:  EdgeInsets.all(8.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    const Flexible(
+                                     Flexible(
                                       child: Text('Prenotazione Servizi',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               )),
                         ),
-                        const Align(
+                         Align(
                             alignment: Alignment.topCenter,
                             child: SizedBox(
                               child: CircleAvatar(
@@ -74,21 +74,21 @@ class _HomePageState extends State<HomePage> {
                       ]),
                       Stack(children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 35.0),
+                          padding:  EdgeInsets.only(top: 35.0),
                           child: Material(
                               elevation: 10,
-                              color: const Color(0xFFFFFFFF),
-                              shape: const RoundedRectangleBorder(
+                              color:  Color(0xFFFFFFFF),
+                              shape:  RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(30),
-                                topLeft: Radius.circular(30),
+                           
                               )),
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding:  EdgeInsets.all(8.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    const Flexible(
+                                     Flexible(
                                       child: Text('Banco Alimentare',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               )),
                         ),
-                        const Align(
+                         Align(
                             alignment: Alignment.topCenter,
                             child: SizedBox(
                               child: CircleAvatar(
@@ -113,48 +113,43 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 70.0),
-                    child: TabBar(
-                        labelColor: Colors.white,
-                        unselectedLabelColor: ColorConstants.titleText,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        indicator: BoxDecoration(
-                          gradient: const LinearGradient(colors: [
-                            ColorConstants.orangeGradients1,
-                            ColorConstants.orangeGradients2,
-                          ]),
-                          borderRadius: BorderRadius.circular(50),
+                TabBar(
+                    labelColor: Colors.white,
+                    unselectedLabelColor: ColorConstants.titleText,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicator: BoxDecoration(
+                      gradient: const LinearGradient(colors: [
+                        ColorConstants.orangeGradients1,
+                        ColorConstants.orangeGradients2,
+                      ]),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    tabs: const [
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          'Offro Aiuto',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
                         ),
-                        tabs: const [
-                          Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Offro Aiuto',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Donazioni',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                          ),
-                        ]),
-                  ),
-                ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          'Donazioni',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                      ),
+                    ]),
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 48.0),
+                    padding: const EdgeInsets.only(top: 40.0),
                     child: TabBarView(
                       children: [
                         Stack(
                           children: [
-                            CustomCardsCommon(child: Column(
+                            CustomCardsCommon(child: const Column(
                                       children: [
                                         Row(
                                           mainAxisAlignment:
@@ -188,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                             Align(
                               alignment: Alignment.bottomRight,
                               child: SizedBox(
-                                width: 100,
+                                width: 120,
                                 child: Image.asset(
                                   PathConstants.login,
                                 ),
@@ -198,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Stack(
                           children: [
-                            CustomCardsCommon(child:  Column(
+                            CustomCardsCommon(child: const Column(
                                       children: [
                                         Row(
                                           mainAxisAlignment:
@@ -232,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                             Align(
                               alignment: Alignment.bottomRight,
                               child: SizedBox(
-                                width: 100,
+                                width: 120,
                                 child: Image.asset(
                                   PathConstants.login,
                                 ),

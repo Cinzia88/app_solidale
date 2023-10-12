@@ -1,18 +1,17 @@
-import 'dart:convert';
+
 import 'dart:io';
 
 import 'package:anf_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:image_picker/image_picker.dart';
 
 import 'package:anf_app/screens/common_widgets/background_style/background_style.dart';
 import 'package:anf_app/screens/common_widgets/custom_textfield.dart';
 
 import '../../common_widgets/custom_button.dart';
-import '../../signin/page/signin_page.dart';
+
 
 class FormProfilePage extends StatefulWidget {
   

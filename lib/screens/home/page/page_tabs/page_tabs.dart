@@ -1,13 +1,12 @@
 import 'package:anf_app/const/color_constants.dart';
-import 'package:anf_app/const/path_constants.dart';
+
 import 'package:anf_app/screens/profilo/page/profile_page.dart';
+import 'package:anf_app/screens/settings/page/settings_page.dart';
 import 'package:flutter/material.dart';
 
-import 'package:motion_tab_bar_v2/motion-badge.widget.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:motion_tab_bar_v2/motion-tab-controller.dart';
-import 'package:motion_tab_bar_v2/motion-tab-item.dart';
-import '../../widget/background_style_home.dart';
+
 import 'home_page.dart';
 
 class TabsPage extends StatefulWidget {
@@ -24,15 +23,11 @@ class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     //// Use normal tab controller
-    // _tabController = TabController(
-    //   initialIndex: 1,
-    //   length: 4,
-    //   vsync: this,
-    // );
+    
 
     //// use "MotionTabBarController" to replace with "TabController", if you need to programmatically change the tab
     _motionTabBarController = MotionTabBarController(
-      initialIndex: 1,
+      initialIndex: 0,
       length: 3,
       vsync: this,
     );
@@ -44,11 +39,10 @@ class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
   }
   @override
   Widget build(BuildContext context) {
-    int bottomSelectedIndex = 0;
 
     return DefaultTabController(
       length: 2,
-      initialIndex: 1,
+      initialIndex: 0,
       child: Scaffold(
         body: TabBarView(
            physics: const NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
@@ -56,7 +50,7 @@ class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
           children: const [
             HomePage(),
             ProfilePage(),
-            HomePage(),
+            SettingsPage(),
           ]
         ),
        bottomNavigationBar: MotionTabBar(

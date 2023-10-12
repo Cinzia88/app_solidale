@@ -1,12 +1,9 @@
 
-import 'package:anf_app/screens/signin/page/signin_page.dart';
-import 'package:anf_app/screens/signup/page/signup_page.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/background_style/background_style.dart';
-import '../../signin/widget/form_login.dart';
 import '../widgets/custom_cards.dart';
-import '../../auth/widget/custom_cards_auth.dart';
 
 // ignore: must_be_immutable
 class PresentationPage extends StatefulWidget {
@@ -19,7 +16,7 @@ class PresentationPage extends StatefulWidget {
 class _PresentationPageState extends State<PresentationPage> {
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    return  const Scaffold(
         body:   Stack(
             children: [
         BackgroundStyle(),

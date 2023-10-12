@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/background_style/background_style.dart';
@@ -15,13 +14,13 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
-        body:   Stack(
-            children: [
+    return const Scaffold(
+        body: Stack(
+      children: [
         BackgroundStyle(),
-             CustomCardsAuth(),
-            ],
-          ));
+        CustomCardsAuth(),
+      ],
+    ));
   }
 }
 

@@ -42,6 +42,7 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
   if(response.statusCode == 200) {
     // ignore: use_build_context_synchronously
     Navigator.push(context, MaterialPageRoute(builder: (_) => const SignInPage()));
+    print('response ${response.body}');
   } else {
     print('response ${response.body}');
   }

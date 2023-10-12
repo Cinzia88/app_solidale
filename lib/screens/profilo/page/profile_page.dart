@@ -1,6 +1,6 @@
-import 'package:anf_app/screens/common_widgets/background_style/background_style.dart';
 import 'package:flutter/material.dart';
 
+import '../widget/background_style_form_profile.dart';
 import '../widget/custom_profile.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -19,7 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
             BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
         child: const Stack(
           children: [
-            BackgroundStyle(),
+            BackgroundStyleProfile(),
             CustomProfile(),
           ],
         ),

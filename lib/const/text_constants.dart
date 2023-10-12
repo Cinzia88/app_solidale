@@ -13,7 +13,7 @@ class TextConstants {
 
   // Sign Up
   static const String signUp = "Registrati";
-  static const String signIn = "Login";
+  static const String signIn = "Accedi";
   static const String signOut = "Sign Out";
 
   static const String username = "Nome";
@@ -32,7 +32,7 @@ class TextConstants {
   static const String confirmPasswordPlaceholder = "Conferma password";
   static const String confirmPasswordErrorText = 'Password non coincidono';
 
-  static const String alreadyHaveAccount = "Hai gia un account?";
+  static const String alreadyHaveAccount = "Possiedi già un account?";
 
   // Sing In
   static const String passwordPlaceholderSignIn = "Enter your password";

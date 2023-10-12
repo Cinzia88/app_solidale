@@ -28,7 +28,7 @@ class _CustomProfileState extends State<CustomProfile> {
                 children: [
                   CircularPercentIndicator(
                     radius: 40,
-                    footer: Text(
+                    footer: const Text(
                       "Il Tuo Profilo è Completo al 50%",
                       style: TextStyle(
                           color: ColorConstants.titleText,
@@ -36,7 +36,7 @@ class _CustomProfileState extends State<CustomProfile> {
                           fontWeight: FontWeight.bold),
                     ),
                     backgroundColor: ColorConstants.orangeGradients1,
-                    progressColor: Color(0xFF933C15),
+                    progressColor: const Color(0xFF933C15),
                     percent: percent,
                     center: const Material(
                       shape: CircleBorder(),

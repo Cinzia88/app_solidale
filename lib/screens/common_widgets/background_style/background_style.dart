@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../const/color_constants.dart';
 
@@ -17,7 +16,6 @@ class _BackgroundStyleState extends State<BackgroundStyle> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final percent = getPercent(pageIndex);
     return Container(
         height: size.height / 2.5,
         decoration: const BoxDecoration(

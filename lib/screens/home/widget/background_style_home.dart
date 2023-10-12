@@ -1,5 +1,5 @@
 import 'package:anf_app/main.dart';
-import 'package:anf_app/screens/profilo/page/profile_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -38,7 +38,7 @@ class _BackgroundStyleHomeState extends State<BackgroundStyleHome> {
          Positioned(
           top: MediaQuery.of(context).size.height / 15,
           left: MediaQuery.of(context).size.width / 1.28,
-          child: ProgressIndicatorProfile(pageIndex)
+          child: const ProgressIndicatorProfile()
         ),
       ],
     );
@@ -50,9 +50,11 @@ class _BackgroundStyleHomeState extends State<BackgroundStyleHome> {
 }
 
 
+// ignore: must_be_immutable
 class ProgressIndicatorProfile extends StatefulWidget {
-  int pageIndex;
-   ProgressIndicatorProfile(this.pageIndex);
+  const ProgressIndicatorProfile({super.key});
+
+  
 
   @override
   State<ProgressIndicatorProfile> createState() => _ProgressIndicatorProfileState();
@@ -63,27 +65,24 @@ class _ProgressIndicatorProfileState extends State<ProgressIndicatorProfile> {
   Widget build(BuildContext context) {
 
     return CircularPercentIndicator(
-      radius: 25,
-      animationDuration: 1000,
-      lineWidth: 5,
-      animation: true,
-      backgroundColor: ColorConstants.orangeGradients1,
-      progressColor: Color(0xFF933C15),
-      percent: percent,
-      circularStrokeCap: CircularStrokeCap.round,
-      center: GestureDetector(
-        onTap:()=> Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const ProfilePage(),
-                ),
-       ),
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Icon(Icons.person, size: 25, color: Colors.white, ),
-        ),
-      ),
-    );
+                    radius: 30,
+                    
+                    backgroundColor: ColorConstants.orangeGradients1,
+                    progressColor: const Color(0xFF933C15),
+                    percent: percent,
+                    center: const Material(
+                      shape: CircleBorder(),
+                      color: Color(0xFFf4a881),
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Icon(
+                          Icons.person,
+                          size: 25,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  );
   }
   double getPercent(int index) {
       switch (index) {
