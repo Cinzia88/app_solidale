@@ -1,7 +1,6 @@
 import 'package:anf_app/const/path_constants.dart';
 import 'package:anf_app/screens/common_widgets/custom_cards_common.dart';
 import 'package:anf_app/screens/signin/page/signin_page.dart';
-import 'package:anf_app/screens/signup/page/signup_page.dart';
 import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
