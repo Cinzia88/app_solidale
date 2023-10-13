@@ -22,7 +22,6 @@ class CustomCardsCommon extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width,
                                   child:  Padding(
                                     padding: const EdgeInsets.all(20.0),
-                                    child: SingleChildScrollView(
-                                      child: child))));
+                                    child: child)));
   }
 }

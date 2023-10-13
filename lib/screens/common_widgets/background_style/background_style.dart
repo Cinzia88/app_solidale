@@ -16,9 +16,10 @@ class _BackgroundStyleState extends State<BackgroundStyle> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Stack(
+      alignment: FractionalOffset.center,
       children: [
         Container(
-          height: size.height / 2.5,
+          height: size.height / 3,
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
@@ -30,7 +31,11 @@ class _BackgroundStyleState extends State<BackgroundStyle> {
             end: Alignment.center,
           )),
         ),
-        Image.asset('assets/images/logo-negativo.png'),
+        Container(
+          height: 200,
+          child: Image.asset('assets/images/logo_anf/logo-negativo.png', width: 120,),
+        ),
+         
       ],
     );
   }

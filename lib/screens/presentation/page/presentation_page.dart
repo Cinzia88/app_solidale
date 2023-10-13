@@ -17,7 +17,7 @@ class _PresentationPageState extends State<PresentationPage> {
   @override
   Widget build(BuildContext context) {
     return  const Scaffold(
-        body:   Stack(
+        body:    Stack(
             children: [
         BackgroundStyle(),
              CustomCard(),
