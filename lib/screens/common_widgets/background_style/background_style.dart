@@ -31,10 +31,7 @@ class _BackgroundStyleState extends State<BackgroundStyle> {
             end: Alignment.center,
           )),
         ),
-        Container(
-          height: 200,
-          child: Image.asset('assets/images/logo_anf/logo-negativo.png', width: 120,),
-        ),
+        Image.asset('assets/images/logo_anf/logo-negativo.png', width: 120,),
          
       ],
     );
