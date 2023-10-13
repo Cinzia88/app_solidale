@@ -6,6 +6,7 @@ abstract class SignupEvent extends Equatable{
 }
 
 
+// ignore: must_be_immutable
 class SignUpTappedEvent extends SignupEvent {
   String email;
   String password;
