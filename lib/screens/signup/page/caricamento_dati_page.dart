@@ -184,6 +184,7 @@ final List<XFile?> imagesList = [];
             )),],),
             CommonStyleButton(
               title: TextConstants.signUp,
+              iconWidget: Icon(Icons.login),
               onTap: () {
                 Map<String, String> body = {
                   'tipo_documento': _tipoDocController.text,

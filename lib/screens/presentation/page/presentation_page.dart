@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/background_style/background_style.dart';
@@ -16,13 +14,13 @@ class PresentationPage extends StatefulWidget {
 class _PresentationPageState extends State<PresentationPage> {
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
-        body:    Stack(
-            children: [
+    return const Scaffold(
+        body: Stack(
+      children: [
         BackgroundStyle(),
-             CustomCard(),
-            ],
-          ));
+        CustomCard(),
+      ],
+    ));
   }
 }
 

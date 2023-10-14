@@ -18,7 +18,10 @@ class _CustomProfileState extends State<CustomProfile> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height / 3, right: 20, left: 20),
+          top: MediaQuery.of(context).size.height / 3.5,
+          right: 20,
+          left: 20,
+          bottom: 50),
       child: Column(
         children: [
           Row(
@@ -67,23 +70,38 @@ class _CustomProfileState extends State<CustomProfile> {
               child: CustomCardsCommon(
                 child: const Column(
                   children: [
-                    Column(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Flexible(
-                              child: Text('Dati Anagrafici',
+                        Flexible(
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.person,
+                                color: ColorConstants.orangeGradients3,
+                              ),
+                              Text('  Dati Anagrafici',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: Color(0xFFEF6E31))),
-                            ),
-                          ],
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: ColorConstants.orangeGradients3,
+                                  )),
+                            ],
+                          ),
                         ),
-                        Text(
-                            'Completa il tuo profilo con i tuoi dati anagrafici')
                       ],
+                    ),
+                    Flexible(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              'Completa il tuo profilo con i tuoi dati',
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -97,29 +115,85 @@ class _CustomProfileState extends State<CustomProfile> {
             child: CustomCardsCommon(
               child: const Column(
                 children: [
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Flexible(
-                            child: Text('I Miei Documenti',
+                      Flexible(
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.document_scanner,
+                              color: ColorConstants.orangeGradients3,
+                            ),
+                            Text('  I Miei Documenti',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
                                     color: Color(0xFFEF6E31))),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      Text(
-                      'In questa sezione puoi visionare i documenti inviati')
                     ],
+                  ),
+                  Flexible(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'Carica i tuoi documenti',
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
           ),
-          
+          SizedBox(
+            height: 30,
+          ),
+          Flexible(
+            child: CustomCardsCommon(
+              child: const Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.edit,
+                              color: ColorConstants.orangeGradients3,
+                            ),
+                            Text('  Modifica Dati',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Color(0xFFEF6E31))),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Flexible(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'Modifica i tuoi dati',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

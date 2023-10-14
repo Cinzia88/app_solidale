@@ -1,6 +1,9 @@
 import 'package:anf_app/const/path_constants.dart';
 import 'package:anf_app/screens/common_widgets/custom_cards_common.dart';
+import 'package:anf_app/screens/home/page/page_tabs/home_page.dart';
+import 'package:anf_app/screens/home/page/page_tabs/page_tabs.dart';
 import 'package:anf_app/screens/signin/page/signin_page.dart';
+import 'package:anf_app/screens/signup/page/signup_page.dart';
 import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
@@ -24,79 +27,90 @@ class CustomCard extends StatelessWidget {
         children: [
           Column(
             children: [
-              CustomCardsCommon(
-                child: Row(
-                  children: [
-                    const Flexible(
-                      flex: 2,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Offro Aiuto',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                  color: Color(0xFFEF6E31),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpPage()));
+                },
+                child: CustomCardsCommon(
+                  child: Row(
+                    children: [
+                      const Flexible(
+                        flex: 2,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Offro Aiuto',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                    color: ColorConstants.titleText,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                              'Crea il tuo Account per offrire un tuo servizio ad ANF Famiglie'),
-                        ],
-                      ),
-                    ),
-                    Flexible(
-                      child: SizedBox(
-                        width: 70,
-                        child: Image.asset(
-                          PathConstants.onboarding4,
+                              ],
+                            ),
+                            Text(
+                                'Crea il tuo Account per offrire un tuo servizio ad ANF Famiglie'),
+                          ],
                         ),
                       ),
-                    )
-                  ],
+                      Flexible(
+                        child: SizedBox(
+                          width: 70,
+                          child: Image.asset(
+                            PathConstants.onboarding4,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
                 height: 30,
               ),
-              CustomCardsCommon(
-                child: Row(
-                  children: [
-                    const Flexible(
-                      flex: 2,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Chiedo Aiuto',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                  color: Color(0xFFEF6E31),
+              GestureDetector(
+                onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (_) => TabsPage()));
+
+                },
+                child: CustomCardsCommon(
+                  child: Row(
+                    children: [
+                      const Flexible(
+                        flex: 2,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Chiedo Aiuto',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                    color: ColorConstants.titleText,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                              'Crea il tuo Account per usufruire dei servizi di ANF Famiglie'),
-                        ],
-                      ),
-                    ),
-                    Flexible(
-                      child: SizedBox(
-                        width: 70,
-                        child: Image.asset(
-                          PathConstants.onboarding3,
+                              ],
+                            ),
+                            Text(
+                                'Crea il tuo Account per usufruire dei servizi di ANF Famiglie'),
+                          ],
                         ),
                       ),
-                    )
-                  ],
+                      Flexible(
+                        child: SizedBox(
+                          width: 70,
+                          child: Image.asset(
+                            PathConstants.onboarding3,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(

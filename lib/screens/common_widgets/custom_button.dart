@@ -6,15 +6,16 @@ class CommonStyleButton extends StatelessWidget {
   final String title;
   final bool isEnabled;
   final Function() onTap;
+  final Widget iconWidget;
 
-  const CommonStyleButton({super.key, required this.title, this.isEnabled = true, required this.onTap});
+  const CommonStyleButton({super.key, required this.title, this.isEnabled = true, required this.onTap, required this.iconWidget});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: onTap,
       label: Text(title),
-      icon: const Icon(Icons.person_add_alt),
+      icon: iconWidget,
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0)

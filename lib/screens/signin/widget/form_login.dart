@@ -54,7 +54,7 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/login';
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height / 3.5, right: 20, left: 20),
+      padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height / 3.5, right: 20, left: 20, ),
       child: Material(
         elevation: 10,
                 color: Colors.white,
@@ -69,7 +69,10 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/login';
                 key: _formKey,
                 child: Column(
                   children: [
-                    Text('Login', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Color(0xFFEF6E31)),),
+                    Text('Accedi al Tuo Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: ColorConstants.titleText),),
+                    SizedBox(
+                      height: 20,
+                    ),
                     TextFormFieldCustom(
                       textEditingController: _emailController,
                       labelTextCustom: 'Email:',
@@ -80,9 +83,12 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/login';
                       labelTextCustom: 'Password:',
                       obscure: false,
                     ),
-                   
+                   SizedBox(
+                      height: 20,
+                    ),
                     CommonStyleButton(
                       title: 'Accedi',
+                      iconWidget: Icon(Icons.login),
                       onTap: () {
                          Navigator.push(context, MaterialPageRoute(builder: (_) => const TabsPage()));
                         //loginUser(_emailController.text, _passwordController.text );
@@ -91,7 +97,7 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/login';
                       },
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                      Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -122,36 +128,39 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/login';
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom:20.0, top: 20.0),
+                padding: const EdgeInsets.only(bottom:20.0, top: 30.0),
                 child: Divider(
-                  color: Color(0xFFEF6E31),
+                  color: ColorConstants.titleText,
                 ),
               ),
              
-              RichText(
-          text: TextSpan(
-            text: 'Non hai un account?',
-          style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
+              Padding(
+                padding: const EdgeInsets.only( top: 10.0, bottom: 10),
+                child: RichText(
+                        text: TextSpan(
+                          text: 'Non possiedi un account?',
+                        style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
+                          children: [
+                TextSpan(
+                  text: " Crea",
+                  style: TextStyle(
+                    color: ColorConstants.primaryColor,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                Navigator.pop(context);
+                    //  bloc.add(SignInTappedEvent());
+                    },
                 ),
-            children: [
-              TextSpan(
-                text: " Crea il Tuo Account",
-                style: TextStyle(
-                  color: ColorConstants.primaryColor,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-              Navigator.pop(context);
-                  //  bloc.add(SignInTappedEvent());
-                  },
+                          ],
+                        ),
+                          ),
               ),
-            ],
-          ),
-            ),
             ],
           ),
         ),

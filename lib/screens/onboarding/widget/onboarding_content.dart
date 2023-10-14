@@ -30,7 +30,7 @@ class OnboardingContent extends StatelessWidget {
                         TextSpan(
                           text: " Salta",
                           style: const TextStyle(
-                            color: ColorConstants.primaryColor,
+                            color: ColorConstants.titleText,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),

@@ -11,12 +11,9 @@ class ColorConstants {
 
   //boardingPage
   static const textColor = Color(0xFF1F2022);
-  static const primaryColor = Color(0xFFff7b00);
+  static const primaryColor = Color(0xFFEF6E31);
   static const colorDoctNotActive = Color(0xFFfce6c5);
 
-  //appBar
-  static const background = Color(0xFFff7b00);
-  static const textTitle = Colors.white;
 
   //text
   static const titleText = Color(0xFFEF6E31);

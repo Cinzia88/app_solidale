@@ -78,7 +78,10 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
-                          color: Color(0xFFEF6E31)),
+                          color: ColorConstants.titleText),
+                    ),
+                    SizedBox(
+                      height: 20,
                     ),
                     TextFormFieldCustom(
                       textEditingController: _emailController,
@@ -95,8 +98,12 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
                       labelTextCustom: 'Conferma Password:',
                       obscure: false,
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     CommonStyleButton(
                       title: 'Crea',
+                      iconWidget: Icon(Icons.person_add),
                       onTap: () {
                         registerUser(_emailController.text, _passwordController.text, _confirmPasswordController.text);
                         /*FocusScope.of(context).unfocus();
@@ -113,31 +120,34 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
             const  Padding(
                 padding:  EdgeInsets.only(bottom: 20.0, top: 10.0),
                 child: Divider(
-                  color: Color(0xFFEF6E31),
+                  color: ColorConstants.titleText,
                 ),
               ),
-              RichText(
-                text: TextSpan(
-                  text: 'Possiedi già un account?',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 15,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: " Accedi",
-                      style: const TextStyle(
-                        color: ColorConstants.primaryColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => const SignInPage()));
-                          //  bloc.add(SignInTappedEvent());
-                        },
+              Padding(
+                padding:  EdgeInsets.only( top: 10.0, bottom: 10),
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Possiedi già un account?',
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
                     ),
-                  ],
+                    children: [
+                      TextSpan(
+                        text: " Accedi",
+                        style: const TextStyle(
+                          color: ColorConstants.primaryColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => const SignInPage()));
+                            //  bloc.add(SignInTappedEvent());
+                          },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

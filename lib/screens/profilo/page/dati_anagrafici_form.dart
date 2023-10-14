@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:anf_app/screens/common_widgets/background_style/background_style.dart';
 import 'package:anf_app/screens/common_widgets/custom_textfield.dart';
 
+import '../../../const/color_constants.dart';
 import '../../common_widgets/custom_button.dart';
 
 
@@ -108,7 +109,7 @@ final List<XFile?> imagesList = [];
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 25,
-                            color: Color(0xFFEF6E31)),
+                            color: ColorConstants.titleText),
                       ),
                       TextFormFieldCustom(
                         textEditingController: _nameController,
@@ -257,6 +258,7 @@ final List<XFile?> imagesList = [];
           )),],),
                       CommonStyleButton(
                         title: 'Invia',
+                        iconWidget: Icon(Icons.send),
                         onTap: () {
                           setState(() {
                            percent = 1;

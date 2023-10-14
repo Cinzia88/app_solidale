@@ -16,7 +16,6 @@ class _BackgroundStyleState extends State<BackgroundStyle> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Stack(
-      alignment: FractionalOffset.center,
       children: [
         Container(
           height: size.height / 3,
@@ -31,8 +30,20 @@ class _BackgroundStyleState extends State<BackgroundStyle> {
             end: Alignment.center,
           )),
         ),
-        Image.asset('assets/images/logo_anf/logo-negativo.png', width: 120,),
-         
+        Container(
+            height: 225,
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SafeArea(
+                    child: Image.asset(
+                  'assets/images/logo_anf/logo-negativo.png',
+                  width: 120,
+                )),
+              ],
+            )),
       ],
     );
   }

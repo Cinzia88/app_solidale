@@ -41,7 +41,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
-                          color: Color(0xFFEF6E31)),
+                          color: ColorConstants.titleText),
                     ),
                     TextFormFieldCustom(
                       textEditingController: _emailController,
@@ -71,12 +71,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
-                child: Divider(
-                  color: Color(0xFFEF6E31),
-                ),
-              ),
+            
             ],
           ),
         ),

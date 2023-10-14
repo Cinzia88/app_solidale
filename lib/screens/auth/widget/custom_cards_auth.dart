@@ -1,3 +1,4 @@
+import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/const/path_constants.dart';
 import 'package:anf_app/screens/signup/page/signup_page.dart';
 
@@ -45,7 +46,7 @@ class CustomCardsAuth extends StatelessWidget {
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 25,
-                                        color: Color(0xFFEF6E31))),
+                                        color: ColorConstants.titleText)),
                               ],
                             ),
                             Row(
@@ -100,7 +101,7 @@ class CustomCardsAuth extends StatelessWidget {
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 25,
-                                        color: Color(0xFFEF6E31))),
+                                        color: ColorConstants.titleText)),
                               ],
                             ),
                             Row(
@@ -152,7 +153,7 @@ class CustomCardsAuth extends StatelessWidget {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 25,
-                                      color: Color(0xFFEF6E31))),
+                                      color: ColorConstants.titleText)),
                             ],
                           ),
                           Row(
