@@ -135,10 +135,8 @@ class TextFormFieldCustom extends StatelessWidget {
         onChanged: onChanged,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: textEditingController,
-        obscureText: obscure!,
         autocorrect: true,
         validator: validator,
-        maxLines: obscure == false ? null : 1,
         decoration: InputDecoration(
           errorBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.yellow),
@@ -170,6 +168,7 @@ class TextFormFieldCustom extends StatelessWidget {
             ),
           ),
         ),
+
       ),
     );
   }

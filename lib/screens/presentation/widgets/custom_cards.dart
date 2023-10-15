@@ -1,7 +1,9 @@
 import 'package:anf_app/const/path_constants.dart';
 import 'package:anf_app/screens/common_widgets/custom_cards_common.dart';
-import 'package:anf_app/screens/home/page/page_tabs/home_page.dart';
-import 'package:anf_app/screens/home/page/page_tabs/page_tabs.dart';
+import 'package:anf_app/screens/home/page/home_page.dart';
+import 'package:anf_app/screens/home/tabs/page_tabs.dart';
+import 'package:anf_app/screens/presentation/widgets/custom_container_service.dart';
+import 'package:anf_app/screens/presentation/widgets/donation_anf.dart';
 import 'package:anf_app/screens/signin/page/signin_page.dart';
 import 'package:anf_app/screens/signup/page/signup_page.dart';
 import 'package:flutter/gestures.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/material.dart';
 
 import '../../../const/color_constants.dart';
 import '../../../const/text_constants.dart';
+import 'already_account.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({super.key});
@@ -25,156 +28,50 @@ class CustomCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpPage()));
-                },
-                child: CustomCardsCommon(
-                  child: Row(
-                    children: [
-                      const Flexible(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Offro Aiuto',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25,
-                                    color: ColorConstants.titleText,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                                'Crea il tuo Account per offrire un tuo servizio ad ANF Famiglie'),
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                        child: SizedBox(
-                          width: 70,
-                          child: Image.asset(
-                            PathConstants.onboarding4,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              GestureDetector(
-                onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (_) => TabsPage()));
-
-                },
-                child: CustomCardsCommon(
-                  child: Row(
-                    children: [
-                      const Flexible(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Chiedo Aiuto',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25,
-                                    color: ColorConstants.titleText,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                                'Crea il tuo Account per usufruire dei servizi di ANF Famiglie'),
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                        child: SizedBox(
-                          width: 70,
-                          child: Image.asset(
-                            PathConstants.onboarding3,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              CustomCardsCommon(
-                child: RichText(
-                  text: TextSpan(
-                    text: TextConstants.alreadyHaveAccount,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
+          Flexible(
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => SignUpPage()));
+                  },
+                  child: CustomCardsCommon(
+                    child: const CustomContainerService(
+                      title: 'Offro Aiuto',
+                      subtitle:
+                          'Crea il tuo Account per offrire un tuo servizio ad ANF Famiglie',
+                      image: PathConstants.onboarding3,
                     ),
-                    children: [
-                      TextSpan(
-                        text: "   ${TextConstants.signIn}",
-                        style: const TextStyle(
-                          color: ColorConstants.primaryColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            //  bloc.add(SignInTappedEvent());
-                          },
-                      ),
-                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Vuoi sostenere l\'ANF?',
-                style: TextStyle(color: Colors.black, fontSize: 16),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => SignInPage()));
-                },
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    primary: ColorConstants.primaryColor,
-                    onPrimary: Colors.white),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  Text(
-                    'DONA ORA',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
+                const SizedBox(
+                  height: 30,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => const TabsPage()));
+                  },
+                  child: CustomCardsCommon(
+                    child: const CustomContainerService(
+                      title: 'Chiedo Aiuto',
+                      subtitle:
+                          'Crea il tuo Account per usufruire dei servizi di ANF Famiglie',
+                      image: PathConstants.onboarding3,
                     ),
-                  )
-                ]),
-              ),
-            ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                CustomCardsCommon(
+                  child: alreadyAccount()
+                ),
+              ],
+            ),
           ),
+          donationAnf(context),
         ],
       ),
     );

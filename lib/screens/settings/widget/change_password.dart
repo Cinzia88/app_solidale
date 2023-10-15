@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../common_widgets/custom_textfield.dart';
 
-
 class ChangePasswordForm extends StatefulWidget {
   const ChangePasswordForm({super.key});
 
@@ -18,7 +17,17 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+  
+ bool _obscureText = true;
 
+  String? _password;
+
+  // Toggles the password show status
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,20 +52,29 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                           fontSize: 25,
                           color: ColorConstants.titleText),
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                   
+             IconButton(
+                onPressed: _toggle,
+                icon: _obscureText ? Icon(Icons.visibility) : Icon(Icons.visibility_off)),
                     TextFormFieldCustom(
                       textEditingController: _emailController,
                       labelTextCustom: 'Password Corrente:',
-                      obscure: false,
+                      obscure: _obscureText,
+                       
                     ),
                     TextFormFieldCustom(
                       textEditingController: _passwordController,
                       labelTextCustom: 'Nuova Password:',
-                      obscure: false,
                     ),
                     TextFormFieldCustom(
                       textEditingController: _confirmPasswordController,
                       labelTextCustom: 'Conferma Password:',
-                      obscure: false,
+                    ),
+                    SizedBox(
+                      height: 20,
                     ),
                     ElevatedButton.icon(
                       onPressed: () {},
@@ -71,7 +89,6 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                   ],
                 ),
               ),
-            
             ],
           ),
         ),

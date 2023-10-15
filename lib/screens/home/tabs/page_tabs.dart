@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:motion_tab_bar_v2/motion-tab-controller.dart';
 
-import 'home_page.dart';
+import '../page/home_page.dart';
 
 class TabsPage extends StatefulWidget {
   const TabsPage({super.key});

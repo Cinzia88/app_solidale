@@ -1,8 +1,8 @@
+import 'package:anf_app/screens/profilo/widget/custom_page_profile.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/background_style/background_style.dart';
-import '../widget/background_style_form_profile.dart';
-import '../widget/custom_profile.dart';
+
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -14,17 +14,19 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ConstrainedBox(
-        constraints:
-            BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-        child: const Stack(
-          children: [
-            BackgroundStyle(),
-            CustomProfile(),
-          ],
-        ),
-      ),
+    return  Scaffold(
+      body: SingleChildScrollView(
+    
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+              child:   Stack(
+                  children: [
+              BackgroundStyle(),
+          CustomCardProfile(),
+                  ],
+                ),
+            ),
+          ),
     );
   }
 }

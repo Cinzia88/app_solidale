@@ -22,7 +22,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
     final TextEditingController _confirmPasswordController = TextEditingController();
-
+bool _isHidden = true;
 
     Future registerUser( String email, String password, String passwordConfirmation) async {
     try {
@@ -86,17 +86,14 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
                     TextFormFieldCustom(
                       textEditingController: _emailController,
                       labelTextCustom: 'Email:',
-                      obscure: false,
                     ),
                     TextFormFieldCustom(
                       textEditingController: _passwordController,
                       labelTextCustom: 'Password:',
-                      obscure: false,
                     ),
                     TextFormFieldCustom(
                       textEditingController: _confirmPasswordController,
                       labelTextCustom: 'Conferma Password:',
-                      obscure: false,
                     ),
                     SizedBox(
                       height: 20,

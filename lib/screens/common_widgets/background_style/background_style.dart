@@ -4,7 +4,8 @@ import '../../../const/color_constants.dart';
 
 // ignore: must_be_immutable
 class BackgroundStyle extends StatefulWidget {
-  const BackgroundStyle({super.key});
+  Widget? iconBack;
+   BackgroundStyle({this.iconBack});
 
   @override
   State<BackgroundStyle> createState() => _BackgroundStyleState();
@@ -29,7 +30,9 @@ class _BackgroundStyleState extends State<BackgroundStyle> {
             begin: Alignment.topLeft,
             end: Alignment.center,
           )),
+          
         ),
+        widget.iconBack == null ? SizedBox() : widget.iconBack!,
         Container(
             height: 225,
             alignment: Alignment.center,

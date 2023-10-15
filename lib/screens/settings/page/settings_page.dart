@@ -18,10 +18,10 @@ class _SettingsPageState extends State<SettingsPage> {
       child: ConstrainedBox(
         constraints:
             BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-        child: const Stack(
+        child:  Stack(
           children: [
             BackgroundStyle(),
-            SingleChildScrollView(child: ChangePasswordForm()),
+            ChangePasswordForm(),
           ],
         ),
       ),

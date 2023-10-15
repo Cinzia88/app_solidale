@@ -2,7 +2,7 @@
 import 'package:anf_app/const/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/onboarding/page/onboarding_page.dart';
 
 
@@ -42,7 +42,15 @@ class MyApp extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         useMaterial3: true,
+        colorScheme:     ColorScheme.light(primary: ColorConstants.orangeGradients3),
+   // <-- your color
       ),
+      localizationsDelegates: [
+         GlobalMaterialLocalizations.delegate
+       ],
+       supportedLocales: [
+         const Locale('it'),
+       ],
       home:  const OnboardingPage(),
     );
   }

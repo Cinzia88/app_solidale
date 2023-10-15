@@ -8,7 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import '../../common_widgets/custom_button.dart';
 import '../../common_widgets/custom_textfield.dart';
-import '../../home/page/page_tabs/page_tabs.dart';
+import '../../home/tabs/page_tabs.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -76,12 +76,10 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/login';
                     TextFormFieldCustom(
                       textEditingController: _emailController,
                       labelTextCustom: 'Email:',
-                      obscure: false,
                     ),
                     TextFormFieldCustom(
                       textEditingController: _passwordController,
                       labelTextCustom: 'Password:',
-                      obscure: false,
                     ),
                    SizedBox(
                       height: 20,

@@ -18,10 +18,10 @@ class _SignUpPageState extends State<SignUpPage> {
       child: ConstrainedBox(
         constraints:
             BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-        child: const Stack(
+        child:  Stack(
           children: [
             BackgroundStyle(),
-            SingleChildScrollView(child: SignUpForm()),
+            SignUpForm(),
           ],
         ),
       ),

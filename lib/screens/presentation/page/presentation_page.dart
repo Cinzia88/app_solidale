@@ -14,13 +14,20 @@ class PresentationPage extends StatefulWidget {
 class _PresentationPageState extends State<PresentationPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        body: Stack(
-      children: [
-        BackgroundStyle(),
-        CustomCard(),
-      ],
-    ));
+    return  Scaffold(
+      body: SingleChildScrollView(
+    
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+              child:   Stack(
+                  children: [
+              BackgroundStyle(),
+                   CustomCard(),
+                  ],
+                ),
+            ),
+          ),
+    );
   }
 }
 

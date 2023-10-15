@@ -2,43 +2,59 @@
 
 
 
-import 'package:anf_app/const/path_constants.dart';
-import 'package:anf_app/screens/signup/page/signup_page.dart';
 import 'package:flutter/material.dart';
 
-class CustomContainerService extends StatefulWidget {
-  const CustomContainerService({super.key});
 
-  @override
-  State<CustomContainerService> createState() => _CustomContainerServiceState();
-}
+import '../../../const/color_constants.dart';
 
-class _CustomContainerServiceState extends State<CustomContainerService> {
+class CustomContainerService extends StatelessWidget {
+ final String title;
+ final String subtitle;
+ final String image;
+
+
+  const CustomContainerService({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.image,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return  Flexible(
-      child: GestureDetector(
-        onTap:() => {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpPage()))
-        },
-        child: Stack(
-          alignment: FractionalOffset.center,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(image: DecorationImage(
-                image: AssetImage(PathConstants.onboarding1,),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.4), BlendMode.srcOver))),
-            ),
-            Text('Servizi',
-            style: const TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white
-            ),)
-          ]),
-      ),
-    );
+    return  Row(
+                    children: [
+                       Flexible(
+                        flex: 2,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                    color: ColorConstants.titleText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                                subtitle),
+                          ],
+                        ),
+                      ),
+                      Flexible(
+                        child: SizedBox(
+                          width: 70,
+                          child: Image.asset(
+                            image,
+                          ),
+                        ),
+                      )
+                    ],
+                  );
   }
 }
