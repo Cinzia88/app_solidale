@@ -25,7 +25,8 @@ class _PrenotazioneServizioState extends State<PrenotazioneServizio> {
           child: Stack(
 
             children: [
-              BackgroundStyle(iconBack: IconButton(icon: Icon(Icons.arrow_back, color: Colors.white,),
+              BackgroundStyle(iconBack: IconButton(icon: Icon(                    Icons.arrow_back_ios_new,
+ color: Colors.white,),
               onPressed: () => Navigator.pop(context),),),
              FormPrenotazioneServizio()
             ],

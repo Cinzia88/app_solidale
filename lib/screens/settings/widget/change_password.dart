@@ -13,19 +13,29 @@ class ChangePasswordForm extends StatefulWidget {
 
 class _ChangePasswordFormState extends State<ChangePasswordForm> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordCurrentController = TextEditingController();
+  final TextEditingController _passwordNewController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  
- bool _obscureText = true;
 
-  String? _password;
+  bool _isHidden = true;
+  bool _isHiddenConfirm = true;
+    bool _isHiddenCurrent= true;
 
-  // Toggles the password show status
-  void _toggle() {
+
+  void _onToggleVisibilityPassword() {
     setState(() {
-      _obscureText = !_obscureText;
+      _isHidden = !_isHidden;
+    });
+  }
+ void _onToggleVisibilityPasswordConfirm() {
+    setState(() {
+      _isHiddenConfirm = !_isHiddenConfirm;
+    });
+  }
+   void _onToggleVisibilityPasswordCurrent() {
+    setState(() {
+      _isHiddenCurrent = !_isHiddenCurrent;
     });
   }
   @override
@@ -55,23 +65,53 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                     SizedBox(
                       height: 20,
                     ),
-                   
-             IconButton(
-                onPressed: _toggle,
-                icon: _obscureText ? Icon(Icons.visibility) : Icon(Icons.visibility_off)),
                     TextFormFieldCustom(
-                      textEditingController: _emailController,
+                      textEditingController: _passwordCurrentController,
                       labelTextCustom: 'Password Corrente:',
-                      obscure: _obscureText,
-                       
+                      obscureText: _isHiddenCurrent,
+                      widgetIcon: InkWell(
+                          onTap: _onToggleVisibilityPasswordCurrent,
+                          child: _isHiddenCurrent
+                              ? const Icon(
+                                  Icons.visibility_off,
+                                  color: ColorConstants.orangeGradients3,
+                                )
+                              : const Icon(
+                                  Icons.visibility,
+                                  color: ColorConstants.orangeGradients3,
+                                )),
                     ),
                     TextFormFieldCustom(
-                      textEditingController: _passwordController,
+                      textEditingController: _passwordNewController,
                       labelTextCustom: 'Nuova Password:',
+                      obscureText: _isHidden,
+                      widgetIcon: InkWell(
+                          onTap: _onToggleVisibilityPassword,
+                          child: _isHidden
+                              ? const Icon(
+                                  Icons.visibility_off,
+                                  color: ColorConstants.orangeGradients3,
+                                )
+                              : const Icon(
+                                  Icons.visibility,
+                                  color: ColorConstants.orangeGradients3,
+                                )),
                     ),
                     TextFormFieldCustom(
                       textEditingController: _confirmPasswordController,
                       labelTextCustom: 'Conferma Password:',
+                      obscureText: _isHiddenConfirm,
+                      widgetIcon: InkWell(
+                          onTap: _onToggleVisibilityPasswordConfirm,
+                          child: _isHiddenConfirm
+                              ? const Icon(
+                                  Icons.visibility_off,
+                                  color: ColorConstants.orangeGradients3,
+                                )
+                              : const Icon(
+                                  Icons.visibility,
+                                  color: ColorConstants.orangeGradients3,
+                                )),
                     ),
                     SizedBox(
                       height: 20,

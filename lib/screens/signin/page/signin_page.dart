@@ -5,7 +5,7 @@ import '../../common_widgets/background_style/background_style.dart';
 import '../widget/form_login.dart';
 
 class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -24,7 +24,7 @@ class _SignInPageState extends State<SignInPage> {
             child:   Stack(
                 children: [
             BackgroundStyle(),
-                 SingleChildScrollView(child: LoginForm()),
+                 SingleChildScrollView(child:  LoginForm()),
                 ],
               ),
           ),

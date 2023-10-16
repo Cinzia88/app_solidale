@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'package:anf_app/screens/common_widgets/background_style/background_style.dart';
+import '../../common_widgets/background_style/background_style.dart';
+import 'reset_password_form.dart';
 
-import 'dati_form.dart';
+class ResetPasswordPage extends StatefulWidget {
+  const ResetPasswordPage({super.key});
 
-class FormProfilePage extends StatefulWidget {
   @override
-  State<FormProfilePage> createState() => _FormProfilePageState();
+  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
 }
 
-class _FormProfilePageState extends State<FormProfilePage> {
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,7 +27,7 @@ class _FormProfilePageState extends State<FormProfilePage> {
                   onPressed: () => Navigator.pop(context),
                 ),
               ),
-              FormDatiAnagrafici()
+              ResetPasswordForm()
             ],
           ),
         ),

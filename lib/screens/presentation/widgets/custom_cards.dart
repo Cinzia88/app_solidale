@@ -41,7 +41,7 @@ class CustomCard extends StatelessWidget {
                       title: 'Offro Aiuto',
                       subtitle:
                           'Crea il tuo Account per offrire un tuo servizio ad ANF Famiglie',
-                      image: PathConstants.onboarding3,
+                      image: PathConstants.onboarding4,
                     ),
                   ),
                 ),

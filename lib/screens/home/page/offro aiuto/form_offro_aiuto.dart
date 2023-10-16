@@ -65,23 +65,33 @@ class _FormOffroAiutoState extends State<FormOffroAiuto> {
                                   TextFormFieldCustom(
                                     textEditingController: _nameController,
                                     labelTextCustom: 'Nome:',
+                                                                            obscureText: false,
+
                                   ),
                                   TextFormFieldCustom(
                                     textEditingController: _surnameController,
                                     labelTextCustom: 'Cognome:',
+                                                                            obscureText: false,
+
                                   ),
                                   TextFormFieldCustom(
                                     textEditingController: _telephoneController,
                                     labelTextCustom: 'Telefono:',
+                                                                            obscureText: false,
+
                                   ),
                                    TextFormFieldCustom(
                                     textEditingController: _emailController,
                                     labelTextCustom: 'Email:',
+                                                                            obscureText: false,
+
                                   
                               ),
                            TextFormFieldCustom(
                                     textEditingController: _serviceController,
                                     labelTextCustom: 'Tipo di aiuto:',
+                                                                            obscureText: false,
+
                                   
                               ),
                          

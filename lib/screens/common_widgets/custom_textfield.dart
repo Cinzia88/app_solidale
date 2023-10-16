@@ -113,16 +113,19 @@ class TextFormFieldCustom extends StatelessWidget {
   final bool? obscure;
   final Widget? widgetIcon;
   final Function(String)? onChanged;
+  final bool obscureText;
 
   const TextFormFieldCustom({
     Key? key,
     required this.labelTextCustom,
     required this.textEditingController,
+    required this.obscureText,
     this.validator,
     this.obscure,
     this.widgetIcon,
     this.onChanged,
     this.errorText,
+   
   }) : super(key: key);
 
   @override
@@ -168,7 +171,7 @@ class TextFormFieldCustom extends StatelessWidget {
             ),
           ),
         ),
-
+  obscureText: obscureText,
       ),
     );
   }

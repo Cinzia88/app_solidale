@@ -11,7 +11,6 @@ import '../../common_widgets/custom_textfield.dart';
 import '../../signin/page/signin_page.dart';
 
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({super.key});
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
@@ -19,42 +18,55 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-    final TextEditingController _confirmPasswordController = TextEditingController();
-bool _isHidden = true;
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+  bool _isHidden = true;
+  bool _isHiddenConfirm = true;
 
-    Future registerUser( String email, String password, String passwordConfirmation) async {
+  Future registerUser(
+     String name, String email, String password, String passwordConfirmation) async {
     try {
-var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
-  // Await the http get response, then decode the json-formatted response.
-  var response = await http.post(Uri.parse(url),
-  headers: {
-    'Accept': 'application/json',
-    'Content-type': 'application/json',
-  },
-  body: jsonEncode({
-    'email': email,
-    'password': password,
-    'password_confirmation': passwordConfirmation,
-  }));
+      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
+      // Await the http get response, then decode the json-formatted response.
+      var response = await http.post(Uri.parse(url),
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+          },
+          body: jsonEncode({
+            'name': name,
+            'email': email,
+            'password': password,
+            'password_confirmation': passwordConfirmation,
+          }));
 
-  if(response.statusCode == 200) {
-    // ignore: use_build_context_synchronously
-    Navigator.push(context, MaterialPageRoute(builder: (_) => const SignInPage()));
-    print('response ${response.body}');
-  } else {
-    print('response ${response.body}');
-  }
-   
+      if (response.statusCode == 200) {
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) =>  SignInPage()));
+        print('response ${response.body}');
+      } else {
+        print('response ${response.body}');
+      }
     } catch (e) {
       print('sendimage error $e');
     }
   }
 
-  
+  void _onToggleVisibilityPassword() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
 
-
+  void _onToggleVisibilityPasswordConfirm() {
+    setState(() {
+      _isHiddenConfirm = !_isHiddenConfirm;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,20 +92,50 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
                           fontSize: 25,
                           color: ColorConstants.titleText),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
+                    ),
+                    TextFormFieldCustom(
+                      textEditingController: _nameController,
+                      labelTextCustom: 'Nome:',
+                      obscureText: false,
                     ),
                     TextFormFieldCustom(
                       textEditingController: _emailController,
                       labelTextCustom: 'Email:',
+                      obscureText: false,
                     ),
                     TextFormFieldCustom(
                       textEditingController: _passwordController,
                       labelTextCustom: 'Password:',
+                      obscureText: _isHiddenConfirm,
+                      widgetIcon: InkWell(
+                          onTap: _onToggleVisibilityPasswordConfirm,
+                          child: _isHiddenConfirm
+                              ? const Icon(
+                                  Icons.visibility_off,
+                                  color: ColorConstants.orangeGradients3,
+                                )
+                              : const Icon(
+                                  Icons.visibility,
+                                  color: ColorConstants.orangeGradients3,
+                                )),
                     ),
                     TextFormFieldCustom(
                       textEditingController: _confirmPasswordController,
                       labelTextCustom: 'Conferma Password:',
+                      obscureText: _isHidden,
+                      widgetIcon: InkWell(
+                          onTap: _onToggleVisibilityPassword,
+                          child: _isHidden
+                              ? const Icon(
+                                  Icons.visibility_off,
+                                  color: ColorConstants.orangeGradients3,
+                                )
+                              : const Icon(
+                                  Icons.visibility,
+                                  color: ColorConstants.orangeGradients3,
+                                )),
                     ),
                     SizedBox(
                       height: 20,
@@ -102,26 +144,29 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
                       title: 'Crea',
                       iconWidget: Icon(Icons.person_add),
                       onTap: () {
-                        registerUser(_emailController.text, _passwordController.text, _confirmPasswordController.text);
+                        registerUser(
+                          _nameController.text,
+                            _emailController.text,
+                            _passwordController.text,
+                            _confirmPasswordController.text);
                         /*FocusScope.of(context).unfocus();
                               bloc.add(SignUpTappedEvent()); */
                       },
                     ),
-                 const   SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                   
                   ],
                 ),
               ),
-            const  Padding(
-                padding:  EdgeInsets.only(bottom: 20.0, top: 10.0),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20.0, top: 10.0),
                 child: Divider(
                   color: ColorConstants.titleText,
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.only( top: 10.0, bottom: 10),
+                padding: EdgeInsets.only(top: 10.0, bottom: 10),
                 child: RichText(
                   text: TextSpan(
                     text: 'Possiedi già un account?',
@@ -139,7 +184,10 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => const SignInPage()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>  SignInPage()));
                             //  bloc.add(SignInTappedEvent());
                           },
                       ),

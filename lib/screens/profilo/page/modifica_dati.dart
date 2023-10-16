@@ -84,7 +84,8 @@ final TextEditingController _etaComponentiController =
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: ColorConstants.orangeGradients3,
-          leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white,), onPressed: () {
+          leading: IconButton(icon: Icon(                    Icons.arrow_back_ios_new,
+ color: Colors.white,), onPressed: () {
             Navigator.pop(context);
           },),
         ),
@@ -121,32 +122,46 @@ final TextEditingController _etaComponentiController =
                               TextFormFieldCustom(
                                 textEditingController: _nameController,
                                 labelTextCustom: 'Nome:',
+                                                                        obscureText: false,
+
                               ),
                               TextFormFieldCustom(
                                 textEditingController: _surnameController,
                                 labelTextCustom: 'Cognome:',
+                                                                        obscureText: false,
+
                               ),
                               TextFormFieldCustom(
                                 textEditingController: _emailController,
                                 labelTextCustom: 'Email:',
+                                                                        obscureText: false,
+
                               ),
                               TextFormFieldCustom(
                                 textEditingController: _telephoneController,
                                 labelTextCustom: 'Telefono:',
+                                                                        obscureText: false,
+
                               ),
                               TextFormFieldCustom(
                                 textEditingController: _addressController,
                                 labelTextCustom: 'Indirizzo:',
+                                                                        obscureText: false,
+
                               ),
                               TextFormFieldCustom(
                                 textEditingController:
                                     _numeroComponentiController,
                                 labelTextCustom: 'N° Componenti Familiari:',
+                                                                        obscureText: false,
+
                               ),
                                TextFormFieldCustom(
                                 textEditingController:
                                     _etaComponentiController,
                                 labelTextCustom: 'Età Componenti Familiari:',
+                                                                        obscureText: false,
+
                               ),
                               SizedBox(
                                 height: 20,
@@ -206,6 +221,8 @@ final TextEditingController _etaComponentiController =
                       TextFormFieldCustom(
                                 textEditingController: _tipoDocController,
                                 labelTextCustom: 'Tipo di Documento:',
+                                                                        obscureText: false,
+
                               ),
                               Column(
                                 children: [

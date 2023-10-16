@@ -163,7 +163,7 @@ class _FormPrenotazioneServizioState extends State<FormPrenotazioneServizio> {
                                   taxy = taxyValue!;
                                 });
                               }),
-                          Text('Taxy Solidale'),
+                          Text('Taxi Solidale'),
                         ],
                       ),
                       Row(
@@ -185,10 +185,14 @@ class _FormPrenotazioneServizioState extends State<FormPrenotazioneServizio> {
                       TextFormFieldCustom(
                         textEditingController: _fromAddressController,
                         labelTextCustom: 'Indirizzo di partenza:',
+                                                                obscureText: false,
+
                       ),
                       TextFormFieldCustom(
                         textEditingController: _toAddressController,
                         labelTextCustom: 'Indirizzo di destinazione:',
+                                                                obscureText: false,
+
                       ),
                       
                       Padding(
@@ -242,14 +246,20 @@ class _FormPrenotazioneServizioState extends State<FormPrenotazioneServizio> {
                                   TextFormFieldCustom(
                                     textEditingController: _nameAnotherController,
                                     labelTextCustom: 'Nome:',
+                                                                            obscureText: false,
+
                                   ),
                                   TextFormFieldCustom(
                                     textEditingController: _surnameAnotherController,
                                     labelTextCustom: 'Cognome:',
+                                                                            obscureText: false,
+
                                   ),
                                   TextFormFieldCustom(
                                     textEditingController: _telepAnotherController,
                                     labelTextCustom: 'Telefono:',
+                                                                            obscureText: false,
+
                                   ),
                                 ],
                               ),

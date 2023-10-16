@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:anf_app/const/color_constants.dart';
+import 'package:anf_app/screens/home/page/offro%20aiuto/offro_aiuto_page.dart';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,10 @@ import 'package:http/http.dart' as http;
 import '../../common_widgets/custom_button.dart';
 import '../../common_widgets/custom_textfield.dart';
 import '../../home/tabs/page_tabs.dart';
+import '../../reset_password/page/reset_password_page.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+ 
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -21,7 +23,7 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+bool _isHidden = true;
 
 Future loginUser( String email, String password, ) async {
     try {
@@ -38,9 +40,11 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/login';
   }));
 
   if(response.statusCode == 200) {
-    // ignore: use_build_context_synchronously
-    Navigator.push(context, MaterialPageRoute(builder: (_) => const TabsPage()));
+  
+       Navigator.push(context, MaterialPageRoute(builder: (_) => const TabsPage()));
         print('response ${response.body}');
+    
+   
 
   } else {
     print('erroresponse ${response.body}');
@@ -50,6 +54,13 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/login';
       print('sendimage error $e');
     }
   }
+
+   void _onToggleVisibilityPassword() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +87,15 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/login';
                     TextFormFieldCustom(
                       textEditingController: _emailController,
                       labelTextCustom: 'Email:',
+                      obscureText: false,
                     ),
                     TextFormFieldCustom(
                       textEditingController: _passwordController,
                       labelTextCustom: 'Password:',
+                       obscureText: _isHidden,
+                      widgetIcon: InkWell(
+                        onTap: _onToggleVisibilityPassword,
+                        child: _isHidden ? const Icon(Icons.visibility_off, color: ColorConstants.orangeGradients3,) : const Icon(Icons.visibility, color: ColorConstants.orangeGradients3,)),
                     ),
                    SizedBox(
                       height: 20,
@@ -114,6 +130,7 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/login';
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => ResetPasswordPage()));
                     //  bloc.add(SignInTappedEvent());
                     },
                 ),

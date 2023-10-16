@@ -4,13 +4,14 @@ import '../../common_widgets/background_style/background_style.dart';
 import '../widget/form_signup.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
         child:  Stack(
           children: [
             BackgroundStyle(),
-            SignUpForm(),
+           SingleChildScrollView(child:  SignUpForm()),
           ],
         ),
       ),

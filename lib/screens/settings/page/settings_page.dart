@@ -21,7 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child:  Stack(
           children: [
             BackgroundStyle(),
-            ChangePasswordForm(),
+            SingleChildScrollView(child: ChangePasswordForm()),
           ],
         ),
       ),
