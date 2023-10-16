@@ -6,10 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class SecureStorage {
   
 
-  AndroidOptions _getAndroidOptions() => const AndroidOptions(
-        encryptedSharedPreferences: true,
-      );
-final storage = FlutterSecureStorage();
+final storage = const FlutterSecureStorage();
 
   writeSecureData(String key, String value) async {
     await storage.write(key: key, value: value);
