@@ -4,18 +4,18 @@ class TextConstants {
 
   // Onboarding
   static const String onboarding1Title = "Benvenuti in APP SOLIDALE";
-  static const String onboarding2Title = "Accanto alle famiglie bisognose";
+  static const String onboarding2Title = "Amore per il prossimo";
   static const String onboarding4Title = "Fai la differenza oggi!";
-  static const String onboarding3Title = "Non aspettare!";
+  static const String onboarding3Title = "Uniti come una famiglia";
 
   static const String onboarding1Description =
       "Un' app per connettere chi necessita di assistenza con volontari ed associazioni benefiche!";
   static const String onboarding2Description =
       "APP SOLIDALE è stata ideata da ANF, da anni a sostegno delle famiglie bisognose di Taranto e Provincia.";
   static const String onboarding4Description =
-      "Condividi le tue competenze, a sostegno dei servizi e dei progetti dell'ANF";
+      "Sostieni i servizi e i progetti dell'ANF, regalando il tuo tempo ed il tuo aiuto al prossimo";
   static const String onboarding3Description =
-      "Registrati adesso per chiedere o offrire aiuto.";
+      "Registrati adesso e fatti contagiare dalla nostra solidarietà, per offrire o chiedere aiuto";
 
   // Sign Up
   static const String signUp = "Registrati";

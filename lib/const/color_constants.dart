@@ -12,7 +12,7 @@ class ColorConstants {
   //boardingPage
   static const textColor = Color(0xFF1F2022);
   static const primaryColor = Color(0xFFEF6E31);
-  static const colorDoctNotActive = Color(0xFFfce6c5);
+  static const colorDoctNotActive = Color(0xFFf7b698);
 
 
   //text

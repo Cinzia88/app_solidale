@@ -27,28 +27,23 @@ class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
       _selectedIndex = index;
     });
   }
- 
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      initialIndex: 0,
-      child: Scaffold(
-        body: TabBarView(
-            physics:
-                const NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
-            children: const [
+ List pages =  [
               HomePage(),
               ProfilePage(),
               SettingsPage(),
-            ]),
-        bottomNavigationBar: BottomNavigationBar(items: buildBottomNavBarItems(),
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,)
-        
-      ),
+            ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: buildBottomNavBarItems(),
+        backgroundColor: ColorConstants.orangeGradients3,
+      currentIndex: _selectedIndex,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: ColorConstants.colorDoctNotActive,
+      onTap: _onItemTapped,)
       
     );
   }

@@ -1,6 +1,7 @@
 import 'package:anf_app/const/color_constants.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../common_widgets/custom_textfield.dart';
 
@@ -46,15 +47,15 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
     return Padding(
       padding: EdgeInsets.only(
           top: MediaQuery.of(context).size.height / 3.5, right: 20, left: 20),
-      child: Material(
-        elevation: 10,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Form(
+      child: Column(
+        children: [
+          Material(
+            elevation: 10,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Form(
                 key: _formKey,
                 child: Column(
                   children: [
@@ -108,8 +109,8 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Campo Richiesto*';
-                        } else if(value != _confirmPasswordController.text) {
-                           return 'Le password non coincidono';
+                        } else if (value != _confirmPasswordController.text) {
+                          return 'Le password non coincidono';
                         }
                         return null;
                       },
@@ -132,8 +133,8 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Campo Richiesto*';
-                        } else if(value != _passwordNewController.text) {
-                           return 'Le password non coincidono';
+                        } else if (value != _passwordNewController.text) {
+                          return 'Le password non coincidono';
                         }
                         return null;
                       },
@@ -143,7 +144,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                     ),
                     ElevatedButton.icon(
                       onPressed: () {
-                        if(_formKey.currentState!.validate()) {}
+                        if (_formKey.currentState!.validate()) {}
                       },
                       label: Text('Cambia'),
                       icon: const Icon(Icons.password),
@@ -156,9 +157,56 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                   ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+          Text('Elimina Account'),
+              Divider(),
+              Slidable(
+                startActionPane: ActionPane(
+                    motion: const ScrollMotion(),
+                    children: [
+                   
+                      SlidableAction(
+                        onPressed: (context) {
+                        },
+                        backgroundColor: ColorConstants.orangeGradients3,
+                        icon: Icons.delete,
+                      ),
+                    ],
+                  ),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 1.0,
+                          spreadRadius: 1.0,
+                          color: Colors.grey[400]!),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          
+                          Text(
+                           'Scorri per rimuovere account',
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                              color: ColorConstants.orangeGradients3,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),),
+        ],
       ),
     );
   }

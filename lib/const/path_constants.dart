@@ -18,4 +18,9 @@ class PathConstants {
       'assets/images/icone_servizio_chiedo_aiuto/icona-servizio-01.png';
   static const String servziPrenot =
       'assets/images/icone_servizio_chiedo_aiuto/icona-servizio-02.png';
+
+  //offro aiuto
+  static const String offroAiuto =
+      'assets/images/onboarding/offro_aiuto.png';
+ 
 }
