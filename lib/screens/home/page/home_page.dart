@@ -1,6 +1,5 @@
 import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/const/path_constants.dart';
-import 'package:anf_app/screens/common_widgets/custom_cards_common.dart';
 import 'package:anf_app/screens/home/widget/custom_cards_sevice.dart';
 import 'package:flutter/material.dart';
 

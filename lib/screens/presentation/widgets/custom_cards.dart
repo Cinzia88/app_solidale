@@ -1,17 +1,12 @@
 import 'package:anf_app/const/path_constants.dart';
 import 'package:anf_app/screens/common_widgets/custom_cards_common.dart';
-import 'package:anf_app/screens/home/page/home_page.dart';
-import 'package:anf_app/screens/home/tabs/page_tabs.dart';
+
 import 'package:anf_app/screens/presentation/widgets/custom_container_service.dart';
 import 'package:anf_app/screens/presentation/widgets/donation_anf.dart';
-import 'package:anf_app/screens/signin/page/signin_page.dart';
 import 'package:anf_app/screens/signup/page/signup_page.dart';
-import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 
-import '../../../const/color_constants.dart';
-import '../../../const/text_constants.dart';
 import 'already_account.dart';
 
 class CustomCard extends StatelessWidget {
@@ -50,8 +45,8 @@ class CustomCard extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const TabsPage()));
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => SignUpPage()));
                   },
                   child: CustomCardsCommon(
                     child: const CustomContainerService(

@@ -12,6 +12,7 @@ import 'package:anf_app/screens/common_widgets/custom_textfield.dart';
 
 import '../../../const/color_constants.dart';
 import '../../common_widgets/custom_button.dart';
+import '../../common_widgets/validator_email/validator_email.dart';
 
 class EditFormProfilePage extends StatefulWidget {
   @override
@@ -52,7 +53,7 @@ class _FormProfileState extends State<FormProfile> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _numeroComponentiController =
       TextEditingController();
-final TextEditingController _etaComponentiController =
+  final TextEditingController _etaComponentiController =
       TextEditingController();
   final TextEditingController _tipoDocController = TextEditingController();
   bool isCheck = false;
@@ -84,10 +85,15 @@ final TextEditingController _etaComponentiController =
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: ColorConstants.orangeGradients3,
-          leading: IconButton(icon: Icon(                    Icons.arrow_back_ios_new,
- color: Colors.white,), onPressed: () {
-            Navigator.pop(context);
-          },),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -97,7 +103,6 @@ final TextEditingController _etaComponentiController =
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -122,46 +127,44 @@ final TextEditingController _etaComponentiController =
                               TextFormFieldCustom(
                                 textEditingController: _nameController,
                                 labelTextCustom: 'Nome:',
-                                                                        obscureText: false,
-
+                                obscureText: false,
                               ),
                               TextFormFieldCustom(
                                 textEditingController: _surnameController,
                                 labelTextCustom: 'Cognome:',
-                                                                        obscureText: false,
-
+                                obscureText: false,
                               ),
                               TextFormFieldCustom(
                                 textEditingController: _emailController,
                                 labelTextCustom: 'Email:',
-                                                                        obscureText: false,
-
+                                obscureText: false,
+                                validator: (value) {
+                                   if (!Validators.isValidEmail(value!)) {
+                                    return 'Inserisci un\' email valida';
+                                  }
+                                  return null;
+                                },
                               ),
                               TextFormFieldCustom(
                                 textEditingController: _telephoneController,
                                 labelTextCustom: 'Telefono:',
-                                                                        obscureText: false,
-
+                                obscureText: false,
                               ),
                               TextFormFieldCustom(
                                 textEditingController: _addressController,
                                 labelTextCustom: 'Indirizzo:',
-                                                                        obscureText: false,
-
+                                obscureText: false,
                               ),
                               TextFormFieldCustom(
                                 textEditingController:
                                     _numeroComponentiController,
                                 labelTextCustom: 'N° Componenti Familiari:',
-                                                                        obscureText: false,
-
+                                obscureText: false,
                               ),
-                               TextFormFieldCustom(
-                                textEditingController:
-                                    _etaComponentiController,
+                              TextFormFieldCustom(
+                                textEditingController: _etaComponentiController,
                                 labelTextCustom: 'Età Componenti Familiari:',
-                                                                        obscureText: false,
-
+                                obscureText: false,
                               ),
                               SizedBox(
                                 height: 20,
@@ -206,23 +209,24 @@ final TextEditingController _etaComponentiController =
                                 height: 20,
                               ),
                               const Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Lista dei Tuoi Documenti Inviati',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: ColorConstants.titleText),
-                          ),
-                        ],
-                      ),
-                    Divider(color: ColorConstants.orangeGradients3,),
-                      TextFormFieldCustom(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Lista dei Tuoi Documenti Inviati',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color: ColorConstants.titleText),
+                                  ),
+                                ],
+                              ),
+                              Divider(
+                                color: ColorConstants.orangeGradients3,
+                              ),
+                              TextFormFieldCustom(
                                 textEditingController: _tipoDocController,
                                 labelTextCustom: 'Tipo di Documento:',
-                                                                        obscureText: false,
-
+                                obscureText: false,
                               ),
                               Column(
                                 children: [
@@ -259,7 +263,7 @@ final TextEditingController _etaComponentiController =
                                                     },
                                                     icon: const Icon(
                                                       Icons.delete,
-                                                      color: Colors.red,
+                                                      color: ColorConstants.orangeGradients3,
                                                     ),
                                                   ),
                                                 ),

@@ -13,31 +13,34 @@ class ChangePasswordForm extends StatefulWidget {
 
 class _ChangePasswordFormState extends State<ChangePasswordForm> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _passwordCurrentController = TextEditingController();
+  final TextEditingController _passwordCurrentController =
+      TextEditingController();
   final TextEditingController _passwordNewController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
   bool _isHidden = true;
   bool _isHiddenConfirm = true;
-    bool _isHiddenCurrent= true;
-
+  bool _isHiddenCurrent = true;
 
   void _onToggleVisibilityPassword() {
     setState(() {
       _isHidden = !_isHidden;
     });
   }
- void _onToggleVisibilityPasswordConfirm() {
+
+  void _onToggleVisibilityPasswordConfirm() {
     setState(() {
       _isHiddenConfirm = !_isHiddenConfirm;
     });
   }
-   void _onToggleVisibilityPasswordCurrent() {
+
+  void _onToggleVisibilityPasswordCurrent() {
     setState(() {
       _isHiddenCurrent = !_isHiddenCurrent;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -80,6 +83,12 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                                   Icons.visibility,
                                   color: ColorConstants.orangeGradients3,
                                 )),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Richiesto*';
+                        }
+                        return null;
+                      },
                     ),
                     TextFormFieldCustom(
                       textEditingController: _passwordNewController,
@@ -96,6 +105,14 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                                   Icons.visibility,
                                   color: ColorConstants.orangeGradients3,
                                 )),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Richiesto*';
+                        } else if(value != _confirmPasswordController.text) {
+                           return 'Le password non coincidono';
+                        }
+                        return null;
+                      },
                     ),
                     TextFormFieldCustom(
                       textEditingController: _confirmPasswordController,
@@ -112,12 +129,22 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                                   Icons.visibility,
                                   color: ColorConstants.orangeGradients3,
                                 )),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Richiesto*';
+                        } else if(value != _passwordNewController.text) {
+                           return 'Le password non coincidono';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        if(_formKey.currentState!.validate()) {}
+                      },
                       label: Text('Cambia'),
                       icon: const Icon(Icons.password),
                       style: ElevatedButton.styleFrom(

@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../const/color_constants.dart';
 import '../../../common_widgets/custom_button.dart';
 import '../../../common_widgets/custom_textfield.dart';
+import '../../../common_widgets/validator_email/validator_email.dart';
 import '../../../signup/service/service.dart';
 
 class FormDatiAnagrafici extends StatefulWidget {
@@ -95,37 +96,81 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                               textEditingController: _nameController,
                               labelTextCustom: 'Nome:',
                               obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
                             ),
                             TextFormFieldCustom(
                               textEditingController: _surnameController,
                               labelTextCustom: 'Cognome:',
                               obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
                             ),
                             TextFormFieldCustom(
                               textEditingController: _emailController,
                               labelTextCustom: 'Email:',
                               obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                } else if (!Validators.isValidEmail(value)) {
+                                    return 'Inserisci un\' email valida';
+                                  }
+                                return null;
+                              },
                             ),
                             TextFormFieldCustom(
                               textEditingController: _telephoneController,
                               labelTextCustom: 'Telefono:',
                               obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
                             ),
                             TextFormFieldCustom(
                               textEditingController: _addressController,
                               labelTextCustom: 'Indirizzo:',
                               obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
                             ),
                             TextFormFieldCustom(
                               textEditingController:
                                   _numeroComponentiController,
                               labelTextCustom: 'N° Componenti Familiari:',
                               obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
                             ),
                             TextFormFieldCustom(
                               textEditingController: _etaComponentiController,
                               labelTextCustom: 'Età Componenti Familiari:',
                               obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
                             ),
                             SizedBox(
                               height: 20,
@@ -220,7 +265,7 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                                                   },
                                                   icon: const Icon(
                                                     Icons.delete,
-                                                    color: Colors.red,
+                                                    color: ColorConstants.orangeGradients3,
                                                   ),
                                                 ),
                                               ),
@@ -340,10 +385,11 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                                   'tipo_documento': _tipoDocController.text,
                                 };
                                 service.addImage(body, imagesList);
-
+                              if(_formKey.currentState!.validate()) {
                                 Navigator.pop(context);
                                 /*FocusScope.of(context).unfocus();
                                                 bloc.add(SignUpTappedEvent()); */
+                              }
                               },
                             ),
                             const SizedBox(
