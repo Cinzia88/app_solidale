@@ -8,10 +8,10 @@ static const String login =
 
   // Onboarding
   static const String onboarding1 =
-      'assets/images/onboarding/servizio_taxi.png';
+      'assets/images/icone_slides/icona-slide-01.png';
   static const String onboarding2 =
-      'assets/images/onboarding/consegna_pacchi.png';
-  static const String onboarding3 = 'assets/images/onboarding/chiedo_aiuto.png';
-  static const String onboarding4 = 'assets/images/onboarding/offro_aiuto.png';
-  static const String onboarding5 = 'assets/images/onboarding/donazione.png';
+      'assets/images/icone_slides/icona-slide-02.png';
+  static const String onboarding3 = 'assets/images/icone_slides/icona-slide-03.png';
+  static const String onboarding4 = 'assets/images/icone_slides/icona-slide-04.png';
+  static const String onboarding5 = 'assets/images/icone_slides/icona-slide-05.png';
 }

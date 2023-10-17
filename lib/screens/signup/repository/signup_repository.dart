@@ -17,7 +17,6 @@ class SignupRepository {
               getTokenCSRF();
               globals.csrfToken = await secureStorage.readSecureData('csrf-token');
 
-print('csrfTokenGlobals ${globals.csrfToken}');
 var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
   // Await the http get response, then decode the json-formatted response.
   var response = await http.post(Uri.parse(url),
@@ -38,7 +37,8 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
         // ignore: use_build_context_synchronously
         Navigator.push(
             context, MaterialPageRoute(builder: (_) =>  SignInPage()));
-            
+               
+
       } else {
         print('response ${response.statusCode}');
       }

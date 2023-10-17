@@ -1,4 +1,3 @@
-import 'package:anf_app/screens/signin/widget/form_login.dart';
 import 'package:anf_app/screens/signup/bloc/signup_bloc.dart';
 import 'package:anf_app/screens/signup/repository/signup_repository.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
         body: BlocProvider<SignUpBloc>(
             create: (context) => SignUpBloc(
-              context: context,
+                  context: context,
                   signupRepository: context.read<SignupRepository>(),
                 ),
             child: BlocConsumer<SignUpBloc, SignUpState>(
@@ -33,7 +32,6 @@ class _SignUpPageState extends State<SignUpPage> {
                 );
               }
             }, builder: (context, state) {
-
               return SingleChildScrollView(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
@@ -41,10 +39,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Stack(
                     children: [
                       BackgroundStyle(),
-                      SingleChildScrollView(
-                        
-                        child: SignUpForm()),
-                      
+                      SingleChildScrollView(child: SignUpForm()),
                     ],
                   ),
                 ),
