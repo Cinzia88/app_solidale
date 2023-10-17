@@ -18,6 +18,8 @@ class TabsPage extends StatefulWidget {
 
 class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
   int _selectedIndex = 0;
+    final ScrollController _homeController = ScrollController();
+
 
  void _onItemTapped(int index) {
   
