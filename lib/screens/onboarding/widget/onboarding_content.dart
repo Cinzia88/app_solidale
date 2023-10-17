@@ -74,7 +74,7 @@ class OnboardingContent extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: DotsIndicator(
-            dotsCount: 5,
+            dotsCount: 4,
             position: bloc.pageIndex,
             decorator: const DotsDecorator(
               color: ColorConstants.colorDoctNotActive,

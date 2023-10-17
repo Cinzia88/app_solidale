@@ -43,14 +43,14 @@ Widget CustomCardsService(BuildContext context) {
                                 )),
                           ),
                         ),
-                        Align(
+                       const Align(
                             alignment: Alignment.topCenter,
                             child: SizedBox(
                               child: CircleAvatar(
                                 radius: 38.0,
                                 backgroundColor: Colors.white,
                                 backgroundImage:
-                                    AssetImage(PathConstants.login),
+                                    AssetImage(PathConstants.servziPrenot),
                               ),
                             )),
                       ]),
@@ -87,7 +87,7 @@ Widget CustomCardsService(BuildContext context) {
                                 radius: 38.0,
                                 backgroundColor: Colors.white,
                                 backgroundImage:
-                                    AssetImage(PathConstants.login),
+                                    AssetImage(PathConstants.bancoAlim),
                               ),
                             )),
                       ]),

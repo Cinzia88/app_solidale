@@ -20,20 +20,16 @@ class DataConstants {
       imagePath: PathConstants.onboarding2,
     ),
     OnboardingTile(
+      title: TextConstants.onboarding4Title,
+      mainText: TextConstants.onboarding4Description,
+      imagePath: PathConstants.onboarding4,
+    ),
+    OnboardingTile(
       title: TextConstants.onboarding3Title,
       mainText: TextConstants.onboarding3Description,
       imagePath: PathConstants.onboarding3,
     ),
-     OnboardingTile(
-      title: TextConstants.onboarding3Title,
-      mainText: TextConstants.onboarding3Description,
-      imagePath: PathConstants.onboarding4,
-    ),
-     OnboardingTile(
-      title: TextConstants.onboarding3Title,
-      mainText: TextConstants.onboarding3Description,
-      imagePath: PathConstants.onboarding5,
-    ),
+      
   ];
 
  

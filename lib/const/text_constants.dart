@@ -3,13 +3,19 @@ class TextConstants {
   static const String start = "Start";
 
   // Onboarding
-  static const String onboarding1Title = "Workout anywhere";
-  static const String onboarding2Title = "Learn techniques";
-  static const String onboarding3Title = "Stay strong & healthy";
+  static const String onboarding1Title = "Benvenuti in APP SOLIDALE";
+  static const String onboarding2Title = "Accanto alle famiglie bisognose";
+  static const String onboarding4Title = "Fai la differenza oggi!";
+  static const String onboarding3Title = "Non aspettare!";
 
-  static const String onboarding1Description = "You can do your workout at home without any equipment, outside or at the gym.";
-  static const String onboarding2Description = "Our workout programs are made by professionals.";
-  static const String onboarding3Description = "We want you to fully enjoy the program and stay healthy and positive.";
+  static const String onboarding1Description =
+      "Un' app per connettere chi necessita di assistenza con volontari ed associazioni benefiche!";
+  static const String onboarding2Description =
+      "APP SOLIDALE è stata ideata da ANF, da anni a sostegno delle famiglie bisognose di Taranto e Provincia.";
+  static const String onboarding4Description =
+      "Condividi le tue competenze, a sostegno dei servizi e dei progetti dell'ANF";
+  static const String onboarding3Description =
+      "Registrati adesso per chiedere o offrire aiuto.";
 
   // Sign Up
   static const String signUp = "Registrati";
@@ -22,11 +28,13 @@ class TextConstants {
 
   static const String email = "Email";
   static const String emailPlaceholder = "Email";
-  static const String emailErrorText = 'Email is unvalid, please enter email properly';
+  static const String emailErrorText =
+      'Email is unvalid, please enter email properly';
 
   static const String password = "Password";
   static const String passwordPlaceholder = "Password";
-  static const String passwordErrorText = 'Password should contain at least 6 characters';
+  static const String passwordErrorText =
+      'Password should contain at least 6 characters';
 
   static const String confirmPassword = "Conferma password";
   static const String confirmPasswordPlaceholder = "Conferma password";
@@ -59,7 +67,8 @@ class TextConstants {
   static const String discoverWorkouts = "Discover new workouts";
 
   static const String keepProgress = "Keep the progress!";
-  static const String profileSuccessful = "You are more successful than 88% users.";
+  static const String profileSuccessful =
+      "You are more successful than 88% users.";
 
   // Home screen -> cardio card
   static const String cardioTitle = "Cardio";
@@ -121,7 +130,8 @@ class TextConstants {
   static const String nextExercise = "Next Exercise:";
 
   // Start Workout screen -> Warrior II Pose
-  static const String warriorDescription = "Named for a fierce warrior, an incarnation of Shiva, this version of Warrior Pose increases stamina.";
+  static const String warriorDescription =
+      "Named for a fierce warrior, an incarnation of Shiva, this version of Warrior Pose increases stamina.";
   static const String warriorStep1 =
       "Stand in Tadasana (Mountain Pose). Raise your arms parallel to the floor and reach them actively out to the sides, shoulder blades wide, palms down.";
   static const String warriorStep2 =
@@ -147,12 +157,14 @@ class TextConstants {
   static const String editAccount = 'Edit account';
   static const String editPhoto = 'Edit photo';
   static const String fullName = 'Full name';
-  static const String nameShouldContain2Char = 'Name should contain at least 2 characters';
+  static const String nameShouldContain2Char =
+      'Name should contain at least 2 characters';
   static const String changePassword = 'Change Password';
 
   // Edit account screen -> show settings
   static const String cameraPermission = 'Camera permisson';
-  static const String cameAccess = 'This app needs camera access to take pictures for upload user profile photo';
+  static const String cameAccess =
+      'This app needs camera access to take pictures for upload user profile photo';
   static const String deny = 'Deny';
   static const String settings = 'Settings';
   static const String fullNamePlaceholder = 'Enter your full name';
@@ -164,5 +176,6 @@ class TextConstants {
   //Forgot password screen
   static const passwordReset = 'Password Reset';
   static const sendActivationBuild = 'Send Activation Link';
-  static const resetPasswordLinkWasSent = 'Reset password link was sent on your email.';
+  static const resetPasswordLinkWasSent =
+      'Reset password link was sent on your email.';
 }

@@ -18,7 +18,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   Future<void> _nextPage(OnboardingEvent event, Emitter<OnboardingState> emit) async{
     try {
        if (event is PageChangedEvent) {
-      if (pageIndex == 4) {
+      if (pageIndex == 3) {
               emit(NextScreenState());
         return;
       }
