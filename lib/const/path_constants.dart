@@ -2,6 +2,8 @@ class PathConstants {
   //Logo
   static const String logoanf = 'assets/images/logo_anf/logo_anf.jpg';
   static const String logoanfcompleto = 'assets/images/logo_anf/logo-negativo-completo.png';
+    static const String logoanfcompletoorizz = 'assets/images/logo_anf/logo-negativo-completo-orizzontale.png';
+
 
   
 
@@ -25,5 +27,9 @@ class PathConstants {
   //offro aiuto
   static const String offroAiuto =
       'assets/images/onboarding/offro_aiuto.png';
- 
+
+        //chiedo aiuto
+
+  static const String chiedoAiuto =
+      'assets/images/onboarding/chiedo_aiuto.png';
 }

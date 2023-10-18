@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../const/color_constants.dart';
+import '../../../const/path_constants.dart';
 
 // ignore: must_be_immutable
 class BackgroundStylePresentationPage extends StatefulWidget {
@@ -41,19 +42,12 @@ class _BackgroundStylePresentationPageState extends State<BackgroundStylePresent
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SafeArea(
-                    child: Image.asset(
-                  'assets/images/logo_anf/logo-negativo.png',
-                  width: 100,
+                    child: Image.asset(PathConstants.logoanfcompleto,
+                  width: 150,
                 ),
                 
                 ),
-                 Text(
-                    'App Solidale',
-                    style: TextStyle(
-                        color: ColorConstants.colorLogo,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25),
-                  )
+                
               ],
             )),
       ],

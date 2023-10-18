@@ -24,6 +24,7 @@ class CustomCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Flexible(
+            
             child: Column(
               children: [
                 GestureDetector(
@@ -35,8 +36,8 @@ class CustomCard extends StatelessWidget {
                     child: const CustomContainerService(
                       title: 'Offro Aiuto',
                       subtitle:
-                          'Crea il tuo Account per offrire un tuo servizio ad ANF Famiglie',
-                      image: PathConstants.onboarding4,
+                          'Crea il tuo Account per donare il tuo tempo ad ANF',
+                      image: PathConstants.offroAiuto,
                     ),
                   ),
                 ),
@@ -52,7 +53,7 @@ class CustomCard extends StatelessWidget {
                     child: const CustomContainerService(
                       title: 'Chiedo Aiuto',
                       subtitle:
-                          'Crea il tuo Account per usufruire dei servizi di ANF Famiglie',
+                          'Crea il tuo Account per usufruire dei servizi di ANF',
                       image: PathConstants.onboarding3,
                     ),
                   ),

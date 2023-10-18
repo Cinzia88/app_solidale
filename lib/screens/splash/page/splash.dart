@@ -61,7 +61,9 @@ class _SplashScreenState extends State<SplashScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(PathConstants.logoanfcompleto)
+              SizedBox(
+                width: 200,
+                child: Image.asset(PathConstants.logoanfcompleto))
               
             ],
           ),
