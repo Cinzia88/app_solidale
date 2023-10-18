@@ -107,200 +107,190 @@ class _FormPrenotazioneServizioState extends State<FormPrenotazioneServizio> {
       );
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height / 3.5,
-          right: 20,
-          left: 20,
-          bottom: 20),
-      child: Material(
-          elevation: 10,
-          color: Colors.white,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Prenotazione Servizi',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25,
-                            color: ColorConstants.titleText),
-                      ),
-                    ],
-                  ),
-                  const Divider(
-                    color: ColorConstants.orangeGradients3,
-                  ),
-                  const Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Scegli il tipo di servizio:',
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Checkbox(
-                          value: taxy,
-                          onChanged: (taxyValue) {
-                            setState(() {
-                              taxy = taxyValue!;
-                            });
-                          }),
-                      Text('Taxi Solidale'),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Checkbox(
-                          value: car,
-                          onChanged: (carValue) {
-                            setState(() {
-                              car = carValue!;
-                            });
-                          }),
-                      Text('Accompagnamento Oncologico'),
-                    ],
-                  ),
-                  buildDateTime(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormFieldCustom(
-                    textEditingController: _fromAddressController,
-                    labelTextCustom: 'Indirizzo di partenza:',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo Richiesto*';
-                      }
-                      return null;
-                    },
-                    obscureText: false,
-                  ),
-                  TextFormFieldCustom(
-                    textEditingController: _toAddressController,
-                    labelTextCustom: 'Indirizzo di destinazione:',
-                    obscureText: false,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo Richiesto*';
-                      }
-                      return null;
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text('La richiesta di prenotazione è per:'),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Checkbox(
-                          value: forMe,
-                          onChanged: (forMeValue) {
-                            setState(() {
-                              forMe = forMeValue!;
-                              forAnother = false;
-                            });
-                          }),
-                      Text('Me medesimo'),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                    child: Row(
-                      children: [
-                        Checkbox(
-                            value: forAnother,
-                            onChanged: (forAnotherValue) {
-                              setState(() {
-                                forAnother = forAnotherValue!;
-                                forMe = false;
-                              });
-                            }),
-                        Text('Un altro componente familiare'),
-                      ],
-                    ),
-                  ),
-                  forAnother == true
-                      ? Padding(
-                          padding: const EdgeInsets.only(bottom: 20.0),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 20.0),
-                                child: Text(
-                                    '(Inserisci i dati del familiare per il quale richiedi il servizio scelto:)'),
-                              ),
-                              TextFormFieldCustom(
-                                textEditingController: _nameAnotherController,
-                                labelTextCustom: 'Nome:',
-                                obscureText: false,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Campo Richiesto*';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormFieldCustom(
-                                textEditingController:
-                                    _surnameAnotherController,
-                                labelTextCustom: 'Cognome:',
-                                obscureText: false,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Campo Richiesto*';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormFieldCustom(
-                                textEditingController: _telepAnotherController,
-                                labelTextCustom: 'Telefono:',
-                                obscureText: false,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Campo Richiesto*';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ],
-                          ),
-                        )
-                      : SizedBox(),
-                  CommonStyleButton(
-                    title: 'Prenota',
-                    iconWidget: Icon(Icons.calendar_month),
-                    onTap: () {
-                      if(_formKey.currentState!.validate()) {
-                        Navigator.pop(context);
-                      }
-                      /*FocusScope.of(context).unfocus();
-                                                bloc.add(SignUpTappedEvent()); */
-                    },
+                  Text(
+                    'Prenotazione Servizi',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        color: ColorConstants.titleText),
                   ),
                 ],
               ),
-            ),
-          )),
+              const Divider(
+                color: ColorConstants.orangeGradients3,
+              ),
+              const Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Scegli il tipo di servizio:',
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                      value: taxy,
+                      onChanged: (taxyValue) {
+                        setState(() {
+                          taxy = taxyValue!;
+                        });
+                      }),
+                  Text('Taxi Solidale'),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                      value: car,
+                      onChanged: (carValue) {
+                        setState(() {
+                          car = carValue!;
+                        });
+                      }),
+                  Text('Accompagnamento Oncologico'),
+                ],
+              ),
+              buildDateTime(),
+              SizedBox(
+                height: 10,
+              ),
+              TextFormFieldCustom(
+                textEditingController: _fromAddressController,
+                labelTextCustom: 'Indirizzo di partenza:',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Campo Richiesto*';
+                  }
+                  return null;
+                },
+                obscureText: false,
+              ),
+              TextFormFieldCustom(
+                textEditingController: _toAddressController,
+                labelTextCustom: 'Indirizzo di destinazione:',
+                obscureText: false,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Campo Richiesto*';
+                  }
+                  return null;
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text('La richiesta di prenotazione è per:'),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                      value: forMe,
+                      onChanged: (forMeValue) {
+                        setState(() {
+                          forMe = forMeValue!;
+                          forAnother = false;
+                        });
+                      }),
+                  Text('Me medesimo'),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: Row(
+                  children: [
+                    Checkbox(
+                        value: forAnother,
+                        onChanged: (forAnotherValue) {
+                          setState(() {
+                            forAnother = forAnotherValue!;
+                            forMe = false;
+                          });
+                        }),
+                    Text('Un altro componente familiare'),
+                  ],
+                ),
+              ),
+              forAnother == true
+                  ? Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20.0),
+                            child: Text(
+                                '(Inserisci i dati del familiare per il quale richiedi il servizio scelto:)'),
+                          ),
+                          TextFormFieldCustom(
+                            textEditingController: _nameAnotherController,
+                            labelTextCustom: 'Nome:',
+                            obscureText: false,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Campo Richiesto*';
+                              }
+                              return null;
+                            },
+                          ),
+                          TextFormFieldCustom(
+                            textEditingController:
+                                _surnameAnotherController,
+                            labelTextCustom: 'Cognome:',
+                            obscureText: false,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Campo Richiesto*';
+                              }
+                              return null;
+                            },
+                          ),
+                          TextFormFieldCustom(
+                            textEditingController: _telepAnotherController,
+                            labelTextCustom: 'Telefono:',
+                            obscureText: false,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Campo Richiesto*';
+                              }
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  : SizedBox(),
+              CommonStyleButton(
+                title: 'Prenota',
+                iconWidget: Icon(Icons.calendar_month),
+                onTap: () {
+                  if(_formKey.currentState!.validate()) {
+                    Navigator.pop(context);
+                  }
+                  /*FocusScope.of(context).unfocus();
+                                            bloc.add(SignUpTappedEvent()); */
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../common_widgets/background_style/custom_appbar.dart';
@@ -12,27 +11,15 @@ class PrenotazioneServizio extends StatefulWidget {
 }
 
 class _PrenotazioneServizioState extends State<PrenotazioneServizio> {
- 
-
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-      child: Scaffold(
-         appBar: PreferredSize(
-          
+    return Scaffold(
+      appBar: PreferredSize(
           preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: customAppBar(context)
-        ),
-        body: SingleChildScrollView(
-          child: Stack(
-
-            children: [
-    
-             FormPrenotazioneServizio()
-            ],
-          ),
-        ),
-      ),
+          child: customAppBar(
+            context, true
+          )),
+      body: const SingleChildScrollView(child: FormPrenotazioneServizio()),
     );
   }
 }

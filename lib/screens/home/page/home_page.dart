@@ -45,7 +45,11 @@ class _HomePageState extends State<HomePage> {
               
             ],
           ),
-          Text('Vuoi dare il tuo contributo volontario', style: TextStyle(color: ColorConstants.orangeGradients3, fontWeight: FontWeight.bold, fontSize: 20),)
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => OffroAiutoPage()));
+            },
+            child: Text('Vuoi contribuire ad aiutare il prossimo?', style: TextStyle(color: ColorConstants.orangeGradients3, fontWeight: FontWeight.bold, fontSize: 16),))
         ],
       ),
     );

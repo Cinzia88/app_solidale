@@ -12,20 +12,17 @@ class FormProfilePage extends StatefulWidget {
 class _FormProfilePageState extends State<FormProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          appBar: PreferredSize(
+    return Scaffold(
+        appBar: PreferredSize(
+        
+        preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
+        child: customAppBar(context, true)
+      ),
+      body: const SingleChildScrollView(
+        child: 
+            FormDatiAnagrafici()
           
-          preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: customAppBar(context)
-        ),
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              FormDatiAnagrafici()
-            ],
-          ),
-        ),
+        
       ),
     );
   }

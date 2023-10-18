@@ -17,7 +17,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         appBar: PreferredSize(
         
         preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-        child: customAppBar(context)
+        child: customAppBar(context, true)
       ),
       body: Center(
               child: Column(

@@ -13,22 +13,14 @@ class OffroAiutoPage extends StatefulWidget {
 class _OffroAiutoPageState extends State<OffroAiutoPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          appBar: PreferredSize(
-          
-          preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: customAppBar(context)
-        ),
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              
-              FormOffroAiuto()
-            ],
-          ),
-        ),
+    return Scaffold(
+        appBar: PreferredSize(
+        
+        preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
+        child: customAppBar(context, true)
       ),
-    );
+      body: 
+                  SingleChildScrollView(child: FormOffroAiuto()),
+                );
   }
 }

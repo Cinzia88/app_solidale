@@ -20,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
         appBar: PreferredSize(
           
           preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: customAppBar(context)
+          child: customAppBar(context, true)
         ),
         body: BlocProvider<SignUpBloc>(
             create: (context) => SignUpBloc(

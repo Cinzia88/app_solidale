@@ -3,22 +3,28 @@ import 'package:flutter/material.dart';
 import '../../../const/path_constants.dart';
 import '../../common_widgets/custom_cards_common.dart';
 import '../../presentation/widgets/custom_container_service.dart';
+import '../page/chiedo_aiuto/prenotaz_servizi.dart';
 
 Widget customCardsService(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 30.0),
       child: Column(
         children: [
-            CustomCardsCommon(
-              child: const CustomContainerService(
-                title: 'Prenotazione Servizi',
-                subtitle:
-                    'Ti aiutiamo a raggiungere strutture e servizi primari',
-                image: PathConstants.servziPrenot,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PrenotazioneServizio()));
+              },
+              child: CustomCardsCommon(
+                child: const CustomContainerService(
+                  title: 'Servizi',
+                  subtitle:
+                      'Ti aiutiamo a raggiungere strutture e servizi primari',
+                  image: PathConstants.servziPrenot,
+                ),
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 40,
             ),
             CustomCardsCommon(
               child: const CustomContainerService(

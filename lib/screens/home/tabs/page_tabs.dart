@@ -8,6 +8,7 @@ import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 
 
 import '../../common_widgets/background_style/custom_appbar.dart';
+import '../../news/news_page.dart';
 import '../page/home_page.dart';
 
 class TabsPage extends StatefulWidget {
@@ -29,7 +30,7 @@ class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
   }
  List pages = const [
               HomePage(),
-              ProfilePage(),
+              NewsPage(),
               ProfilePage(),
               SettingsPage(),
             ];
@@ -40,7 +41,7 @@ class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
       appBar: PreferredSize(
           
           preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: customAppBar(context)
+          child: customAppBar(context, false)
         ),
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

@@ -1,5 +1,6 @@
 import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/screens/signup/repository/signup_repository.dart';
+import 'package:anf_app/screens/splash/page/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: [
           const Locale('it'),
         ],
-        home: const OnboardingPage(),
+        home: const SplashScreen(),
       ),
     );
   }

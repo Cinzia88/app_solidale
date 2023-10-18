@@ -23,115 +23,176 @@ class _FormOffroAiutoState extends State<FormOffroAiuto> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height / 3.5,
-          right: 20,
-          left: 20,
-          bottom: 20),
-      child: Material(
-          elevation: 10,
-          color: Colors.white,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Offro Aiuto',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: ColorConstants.titleText),
+                ),
+              ],
+            ),
+            const Divider(
+              color: ColorConstants.orangeGradients3,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TextFormFieldCustom(
+              textEditingController: _nameController,
+              labelTextCustom: 'Nome:',
+              obscureText: false,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Campo Richiesto*';
+                }
+                return null;
+              },
+            ),
+            TextFormFieldCustom(
+              textEditingController: _surnameController,
+              labelTextCustom: 'Cognome:',
+              obscureText: false,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Campo Richiesto*';
+                }
+                return null;
+              },
+            ),
+            TextFormFieldCustom(
+              textEditingController: _telephoneController,
+              labelTextCustom: 'Telefono:',
+              obscureText: false,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Campo Richiesto*';
+                }
+                return null;
+              },
+            ),
+            TextFormFieldCustom(
+              textEditingController: _emailController,
+              labelTextCustom: 'Email:',
+              obscureText: false,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Campo Richiesto*';
+                } else if (!Validators.isValidEmail(value)) {
+                  return 'Inserisci un\' email valida';
+                }
+                return null;
+              },
+            ),
+            const Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Scegli il tipo di aiuto:',
+                    ),
+                  ],
+                ),
+              ),
+            Row(
                 children: [
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Offro Aiuto',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25,
-                            color: ColorConstants.titleText),
-                      ),
-                    ],
-                  ),
-                  const Divider(
-                    color: ColorConstants.orangeGradients3,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormFieldCustom(
-                    textEditingController: _nameController,
-                    labelTextCustom: 'Nome:',
-                    obscureText: false,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo Richiesto*';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormFieldCustom(
-                    textEditingController: _surnameController,
-                    labelTextCustom: 'Cognome:',
-                    obscureText: false,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo Richiesto*';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormFieldCustom(
-                    textEditingController: _telephoneController,
-                    labelTextCustom: 'Telefono:',
-                    obscureText: false,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo Richiesto*';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormFieldCustom(
-                    textEditingController: _emailController,
-                    labelTextCustom: 'Email:',
-                    obscureText: false,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo Richiesto*';
-                      } else if (!Validators.isValidEmail(value)) {
-                        return 'Inserisci un\' email valida';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormFieldCustom(
-                    textEditingController: _serviceController,
-                    labelTextCustom: 'Tipo di aiuto:',
-                    obscureText: false,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo Richiesto*';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  CommonStyleButton(
-                    title: 'Invia',
-                    iconWidget: Icon(Icons.send),
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        Navigator.pop(context);
-                        /*FocusScope.of(context).unfocus();
-                                                bloc.add(SignUpTappedEvent()); */
-                      }
-                    },
-                  ),
+                  Checkbox(
+                      value: false,
+                      onChanged: (taxyValue) {
+                        setState(() {
+                        var  value = taxyValue!;
+                        });
+                      }),
+                  Text('Taxi Solidale'),
                 ],
               ),
+              Row(
+                children: [
+                  Checkbox(
+                      value: false,
+                      onChanged: (carValue) {
+                        setState(() {
+                           var  value  = carValue!;
+                        });
+                      }),
+                  Text('Accompagnamento Oncologico'),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                      value: false,
+                      onChanged: (carValue) {
+                        setState(() {
+                           var  value  = carValue!;
+                        });
+                      }),
+                  Text('ANF & Banco Alimentare'),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                      value: false,
+                      onChanged: (carValue) {
+                        setState(() {
+                           var  value  = carValue!;
+                        });
+                      }),
+                  Text('Banco del farmaco'),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                      value: false,
+                      onChanged: (carValue) {
+                        setState(() {
+                           var  value  = carValue!;
+                        });
+                      }),
+                  Text('Itinerari Didattici - Educativi'),
+                ],
+              ),
+              TextFormFieldCustom(
+              textEditingController: _serviceController,
+              labelTextCustom: 'Altro:',
+              obscureText: false,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Campo Richiesto*';
+                } else if (!Validators.isValidEmail(value)) {
+                  return 'Inserisci un\' email valida';
+                }
+                return null;
+              },
             ),
-          )),
+            SizedBox(
+              height: 20,
+            ),
+            CommonStyleButton(
+              title: 'Invia',
+              iconWidget: Icon(Icons.send),
+              onTap: () {
+                if (_formKey.currentState!.validate()) {
+                  Navigator.pop(context);
+                  /*FocusScope.of(context).unfocus();
+                                          bloc.add(SignUpTappedEvent()); */
+                }
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
