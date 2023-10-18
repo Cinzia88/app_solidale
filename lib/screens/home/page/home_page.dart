@@ -1,9 +1,7 @@
 import 'package:anf_app/const/color_constants.dart';
-import 'package:anf_app/const/path_constants.dart';
 
 import 'package:flutter/material.dart';
 
-import '../../common_widgets/background_style/custom_appbar.dart';
 
 import '../widget/custom_cards_sevice.dart';
 
