@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             children: [
@@ -36,9 +37,7 @@ class _HomePageState extends State<HomePage> {
               customCardsService(context),
             ],
           ),
-         SizedBox(
-          height: 50,
-         ),
+       
           Column(
             children: [
               Text(
