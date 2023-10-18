@@ -3,7 +3,8 @@ import 'package:anf_app/screens/signup/repository/signup_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../common_widgets/background_style/background_style.dart';
+import '../../../const/color_constants.dart';
+import '../../common_widgets/background_style/custom_appbar.dart';
 import '../../signin/page/signin_page.dart';
 import '../widget/form_signup.dart';
 
@@ -16,6 +17,11 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: PreferredSize(
+          
+          preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
+          child: customAppBar(context)
+        ),
         body: BlocProvider<SignUpBloc>(
             create: (context) => SignUpBloc(
                   context: context,
@@ -32,16 +38,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 );
               }
             }, builder: (context, state) {
-              return SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height),
-                  child: Stack(
-                    children: [
-                      BackgroundStyle(),
-                      SingleChildScrollView(child: SignUpForm()),
-                    ],
-                  ),
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SingleChildScrollView(child: SignUpForm()),
+                  ],
                 ),
               );
             })));

@@ -61,7 +61,7 @@ class CustomCard extends StatelessWidget {
                   height: 30,
                 ),
                 CustomCardsCommon(
-                  child: alreadyAccount()
+                  child: alreadyAccount(context)
                 ),
               ],
             ),

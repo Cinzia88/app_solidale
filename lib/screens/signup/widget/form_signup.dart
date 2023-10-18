@@ -77,10 +77,8 @@ class _SignUpFormState extends State<SignUpForm> {
     return BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
      
       return Padding(
-      padding: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height / 3.5,
-        right: 20,
-        left: 20,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20.0
       ),
       child: Material(
         elevation: 10,
@@ -221,7 +219,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                                                          bloc.add(SignInTappedEvent());
-
+      
                           },
                       ),
                     ],
@@ -232,7 +230,7 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
         ),
       ),
-    );
+        );
     });
   }
 }

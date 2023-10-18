@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ColorConstants {
+//colorLogo
+static const colorLogo = Color(0xFFefbfa9);
+
 //colorScheme
   static const orangeColorScheme = Color(0xFFEF6E31);
 

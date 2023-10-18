@@ -25,34 +25,13 @@ class CustomCardProfile extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularPercentIndicator(
-                  radius: 40,
-                  footer: const Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: Text(
+                Text(
                       "Il Tuo Profilo è Completo al 50%",
                       style: TextStyle(
                           color: ColorConstants.titleText,
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  backgroundColor: ColorConstants.colorDoctNotActive,
-                  progressColor: const Color(0xFF933C15),
-                  percent: 0.5,
-                  center: const Material(
-                    shape: CircleBorder(),
-                    color: Color(0xFFf4a881),
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Icon(
-                        Icons.person,
-                        size: 25,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

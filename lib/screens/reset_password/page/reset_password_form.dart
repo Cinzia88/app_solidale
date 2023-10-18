@@ -19,10 +19,8 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height / 3.5,
-        right: 20,
-        left: 20,
+      padding: EdgeInsets.symmetric(
+        horizontal: 20,
       ),
       child: Material(
         elevation: 10,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../common_widgets/background_style/background_style.dart';
+import '../../common_widgets/background_style/custom_appbar.dart';
+import '../../common_widgets/background_style/background_style_presentation.dart';
 import '../widgets/custom_cards.dart';
 
 // ignore: must_be_immutable
@@ -21,7 +22,7 @@ class _PresentationPageState extends State<PresentationPage> {
               constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
               child:   Stack(
                   children: [
-              BackgroundStyle(),
+              BackgroundStylePresentationPage(),
                    CustomCard(),
                   ],
                 ),

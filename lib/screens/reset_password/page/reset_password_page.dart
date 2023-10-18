@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../common_widgets/background_style/background_style.dart';
+import '../../common_widgets/background_style/custom_appbar.dart';
 import 'reset_password_form.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -13,25 +13,20 @@ class ResetPasswordPage extends StatefulWidget {
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              BackgroundStyle(
-                iconBack: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios_new,
-                    color: Colors.white,
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ),
-              ResetPasswordForm()
-            ],
-          ),
-        ),
+    return Scaffold(
+        appBar: PreferredSize(
+        
+        preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
+        child: customAppBar(context)
       ),
-    );
+      body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SingleChildScrollView(child: ResetPasswordForm()),
+                ],
+              ),
+            
+    ),);
   }
 }

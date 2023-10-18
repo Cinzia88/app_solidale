@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
 
-import 'package:anf_app/screens/common_widgets/background_style/background_style.dart';
+import 'package:anf_app/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:anf_app/screens/common_widgets/custom_textfield.dart';
 
 import '../../../const/color_constants.dart';
@@ -23,13 +23,17 @@ class _EditFormProfilePageState extends State<EditFormProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: PreferredSize(
+          
+          preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
+          child: customAppBar(context)
+        ),
       body: SingleChildScrollView(
         child: ConstrainedBox(
           constraints:
               BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
           child: Stack(
             children: [
-              BackgroundStyle(),
               FormProfile(),
             ],
           ),

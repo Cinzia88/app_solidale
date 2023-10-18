@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 
 
+import '../../common_widgets/background_style/custom_appbar.dart';
 import '../page/home_page.dart';
 
 class TabsPage extends StatefulWidget {
@@ -18,7 +19,6 @@ class TabsPage extends StatefulWidget {
 
 class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
   int _selectedIndex = 0;
-    final ScrollController _homeController = ScrollController();
 
 
  void _onItemTapped(int index) {
@@ -27,8 +27,9 @@ class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
       _selectedIndex = index;
     });
   }
- List pages =  [
+ List pages = const [
               HomePage(),
+              ProfilePage(),
               ProfilePage(),
               SettingsPage(),
             ];
@@ -36,8 +37,14 @@ class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+          
+          preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
+          child: customAppBar(context)
+        ),
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+         type: BottomNavigationBarType.fixed,
         items: buildBottomNavBarItems(),
         backgroundColor: ColorConstants.orangeGradients3,
       currentIndex: _selectedIndex,
@@ -49,14 +56,18 @@ class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
   }
 
   List<BottomNavigationBarItem> buildBottomNavBarItems() {
-    return [
+    return const[
       BottomNavigationBarItem(
         label: 'Home',
-        icon: new Icon(Icons.home),
+        icon:  Icon(Icons.home, ),
+      ),
+       BottomNavigationBarItem(
+        label: 'News',
+        icon:  Icon(Icons.newspaper, ),
       ),
       BottomNavigationBarItem(
-        label: 'Notifiche',
-        icon: new Icon(Icons.notifications),
+        label: 'Profilo',
+        icon:  Icon(Icons.person,),
       ),
       BottomNavigationBarItem(
         icon: Icon(

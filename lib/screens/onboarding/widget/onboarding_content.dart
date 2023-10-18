@@ -2,6 +2,7 @@ import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/const/data_constants.dart';
 import 'package:anf_app/screens/home/tabs/page_tabs.dart';
 import 'package:anf_app/screens/onboarding/bloc/onboarding_bloc.dart';
+import 'package:anf_app/screens/presentation/page/presentation_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

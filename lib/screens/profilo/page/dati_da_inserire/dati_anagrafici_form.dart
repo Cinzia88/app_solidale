@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:anf_app/screens/common_widgets/background_style/background_style.dart';
+import 'package:anf_app/screens/common_widgets/background_style/custom_appbar.dart';
 
 import 'dati_form.dart';
 
@@ -14,18 +14,14 @@ class _FormProfilePageState extends State<FormProfilePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          appBar: PreferredSize(
+          
+          preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
+          child: customAppBar(context)
+        ),
         body: SingleChildScrollView(
           child: Stack(
             children: [
-              BackgroundStyle(
-                iconBack: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios_new,
-                    color: Colors.white,
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ),
               FormDatiAnagrafici()
             ],
           ),

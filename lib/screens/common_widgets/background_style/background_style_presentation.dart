@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import '../../../const/color_constants.dart';
 
 // ignore: must_be_immutable
-class BackgroundStyle extends StatefulWidget {
+class BackgroundStylePresentationPage extends StatefulWidget {
   Widget? iconBack;
-   BackgroundStyle({this.iconBack});
+  BackgroundStylePresentationPage({this.iconBack});
 
   @override
-  State<BackgroundStyle> createState() => _BackgroundStyleState();
+  State<BackgroundStylePresentationPage> createState() => _BackgroundStylePresentationPageState();
 }
 
-class _BackgroundStyleState extends State<BackgroundStyle> {
+class _BackgroundStylePresentationPageState extends State<BackgroundStylePresentationPage> {
   final pageIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -43,8 +43,17 @@ class _BackgroundStyleState extends State<BackgroundStyle> {
                 SafeArea(
                     child: Image.asset(
                   'assets/images/logo_anf/logo-negativo.png',
-                  width: 120,
-                )),
+                  width: 100,
+                ),
+                
+                ),
+                 Text(
+                    'App Solidale',
+                    style: TextStyle(
+                        color: ColorConstants.colorLogo,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25),
+                  )
               ],
             )),
       ],

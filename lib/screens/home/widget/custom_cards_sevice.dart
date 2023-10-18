@@ -1,98 +1,35 @@
 import 'package:flutter/material.dart';
 
-import '../../../const/color_constants.dart';
 import '../../../const/path_constants.dart';
-import '../page/chiedo_aiuto/prenotaz_servizi.dart';
+import '../../common_widgets/custom_cards_common.dart';
+import '../../presentation/widgets/custom_container_service.dart';
 
-Widget CustomCardsService(BuildContext context) {
-    return Flexible(
-                  child: GridView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, crossAxisSpacing: 20),
-                    children:  [
-                      Stack(children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => PrenotazioneServizio()));
-                          },
-                          child:  const Padding(
-                            padding: EdgeInsets.only(top: 35.0),
-                            child: Material(
-                                elevation: 10,
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(30),
-                                )),
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Flexible(
-                                        child: Text('Prenotazione Servizi',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-                                                color: ColorConstants.titleText)),
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                          ),
-                        ),
-                       const Align(
-                            alignment: Alignment.topCenter,
-                            child: SizedBox(
-                              child: CircleAvatar(
-                                radius: 38.0,
-                                backgroundColor: Colors.white,
-                                backgroundImage:
-                                    AssetImage(PathConstants.servziPrenot),
-                              ),
-                            )),
-                      ]),
-                      Stack(children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 35.0),
-                          child: Material(
-                              elevation: 10,
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(30),
-                              )),
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Flexible(
-                                      child: Text('Banco Alimentare',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                              color: ColorConstants.titleText)),
-                                    ),
-                                  ],
-                                ),
-                              )),
-                        ),
-                        Align(
-                            alignment: Alignment.topCenter,
-                            child: SizedBox(
-                              child: CircleAvatar(
-                                radius: 38.0,
-                                backgroundColor: Colors.white,
-                                backgroundImage:
-                                    AssetImage(PathConstants.bancoAlim),
-                              ),
-                            )),
-                      ]),
-                    ],
-                  ),
-                );
+Widget customCardsService(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      child: Column(
+        children: [
+            CustomCardsCommon(
+              child: const CustomContainerService(
+                title: 'Prenotazione Servizi',
+                subtitle:
+                    'Ti aiutiamo a raggiungere strutture e servizi primari',
+                image: PathConstants.servziPrenot,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            CustomCardsCommon(
+              child: const CustomContainerService(
+                title: 'Banco Alimentare',
+                subtitle:
+                    'Prenota o conferma il ritiro del tuo pacco alimentare',
+                image: PathConstants.bancoAlim,
+              ),
+            ),
+        ],
+      ),
+    );
   
 }

@@ -31,12 +31,15 @@ class CustomContainerService extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
-                                  title,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25,
-                                    color: ColorConstants.titleText,
+                                Flexible(
+                                  child: Text(
+                                    title,
+                                
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: ColorConstants.titleText,
+                                    ),
                                   ),
                                 ),
                               ],
