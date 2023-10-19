@@ -26,7 +26,7 @@ Widget customAppBar(BuildContext context, bool arrow) {
                  arrow == true ?  IconButton(icon: Icon(Icons.arrow_back, color: Colors.white,),
                onPressed: () {
                  Navigator.pop(context);
-               },) : SizedBox(),
+               },) : Text(''),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

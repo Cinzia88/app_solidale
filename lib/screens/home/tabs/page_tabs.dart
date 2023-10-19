@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 
 
+import '../../../const/path_constants.dart';
 import '../../common_widgets/background_style/custom_appbar.dart';
 import '../../news/news_page.dart';
 import '../page/home_page.dart';
@@ -41,7 +42,43 @@ class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
       appBar: PreferredSize(
           
           preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: customAppBar(context, false)
+          child: Container(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top,
+            ),
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+              colors: [
+                ColorConstants.orangeGradients1,
+                ColorConstants.orangeGradients2,
+                ColorConstants.orangeGradients3,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.center,
+            )),
+            child: 
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                  
+                    Padding(
+                      padding:
+                          const EdgeInsets.only( top: 20.0, bottom: 20.0),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                           PathConstants.logoanfcompletoorizz,
+                            width: 200,
+                          ),
+                         
+                        ],
+                      ),
+                    ),
+                   
+                  ],
+                ),
+             
+          )
         ),
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -72,9 +109,9 @@ class _TabsPageState extends State<TabsPage> with TickerProviderStateMixin {
       ),
       BottomNavigationBarItem(
         icon: Icon(
-          Icons.settings,
+          Icons.logout,
         ),
-        label: 'Impostazioni',
+        label: 'Esci',
       )
     ];
   }

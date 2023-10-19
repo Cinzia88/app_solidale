@@ -53,7 +53,7 @@ class CustomCard extends StatelessWidget {
                     child: const CustomContainerService(
                       title: 'Chiedo Aiuto',
                       subtitle:
-                          'Crea il tuo Account per usufruire dei servizi di ANF',
+                          'Crea il tuo Account per usufruire dei servizi ANF',
                       image: PathConstants.onboarding3,
                     ),
                   ),

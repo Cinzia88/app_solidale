@@ -15,7 +15,7 @@ class PathConstants {
   static const String onboarding3 =
       'assets/images/icone_slides/icona-slide-03.png';
   static const String onboarding4 =
-      'assets/images/icone_slides/icona-slide-04.png';
+      'assets/images/onboarding/offro_aiuto.png';
 
 
   //chiedo aiuto

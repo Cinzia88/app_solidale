@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                   const Divider(
                 color: ColorConstants.orangeGradients3,
               ),
-              Text('Offri il tuo aiuto e condividi le tue competenze.',),
+              Text('Offri il tuo aiuto e condividi il tuo tempo.',),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -1,7 +1,6 @@
 import 'package:anf_app/const/color_constants.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../common_widgets/custom_textfield.dart';
 
@@ -174,66 +173,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
             ),
           ),
          
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Text(
-                            'Elimina Account',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: ColorConstants.titleText),
-                          ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-              Slidable(
-                startActionPane: ActionPane(
-                    motion: const ScrollMotion(),
-                    children: [
-                   
-                      SlidableAction(
-                        onPressed: (context) {
-                        },
-                        backgroundColor: ColorConstants.orangeGradients3,
-                        icon: Icons.delete,
-                      ),
-                    ],
-                  ),
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                  padding: const EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 1.0,
-                          spreadRadius: 1.0,
-                          color: Colors.grey[400]!),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          
-                          Text(
-                           'Scorri per rimuovere account',
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              color: ColorConstants.orangeGradients3,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),),
+          
         ],
       ),
     );

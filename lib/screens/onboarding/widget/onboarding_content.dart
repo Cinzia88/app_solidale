@@ -39,7 +39,7 @@ class OnboardingContent extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (_) => const TabsPage()));
+                                      builder: (_) => const PresentationPage()));
                               //  bloc.add(SignInTappedEvent());
                             },
                         ),
