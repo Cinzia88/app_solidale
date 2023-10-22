@@ -1,6 +1,6 @@
 
 
-import 'package:anf_app/screens/tabs_chiedo_aiuto/repository/read_data_user.dart';
+import 'package:anf_app/screens/tabs/repository/read_data_user.dart';
 import 'package:anf_app/screens/views/screens/news/news_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

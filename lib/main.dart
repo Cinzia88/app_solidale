@@ -7,7 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'screens/signin_chiedo_aiuto/repository/signin_repository.dart';
 import 'screens/signup_chiedo_aiuto/repository/signup_repository.dart';
-import 'screens/tabs_chiedo_aiuto/repository/read_data_user.dart';
+import 'screens/tabs/repository/read_data_user.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
