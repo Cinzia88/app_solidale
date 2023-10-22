@@ -54,14 +54,5 @@ class _BackgroundStylePresentationPageState extends State<BackgroundStylePresent
     );
   }
 
-  double getPercent(int index) {
-    switch (index) {
-      case 0:
-        return 0.50;
-      case 1:
-        return 0.50;
-      default:
-        return 0;
-    }
-  }
+ 
 }

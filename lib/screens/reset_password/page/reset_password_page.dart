@@ -19,12 +19,14 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
         child: customAppBar(context, true)
       ),
-      body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SingleChildScrollView(child: ResetPasswordForm()),
-                ],
+      body: const Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ResetPasswordForm(),
+                  ],
+                ),
               ),
             
     ),);

@@ -34,6 +34,8 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     } else if (event is PageSwipedEvent) {
       pageIndex = event.index;
       emit(PageChangedState(counter: pageIndex));
+    } else  if (event is PresentationPageTappedEvent) {
+      emit(PresentationScreenState());
     }
     } catch (e) {
       print(e);

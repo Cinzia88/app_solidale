@@ -3,14 +3,16 @@ import 'package:anf_app/screens/common_widgets/custom_cards_common.dart';
 
 import 'package:anf_app/screens/presentation/widgets/custom_container_service.dart';
 import 'package:anf_app/screens/presentation/widgets/donation_anf.dart';
-import 'package:anf_app/screens/signup/page/signup_page.dart';
 
 import 'package:flutter/material.dart';
 
+import '../../signup_chiedo_aiuto/page/signup_page.dart';
 import 'already_account.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({super.key});
+  String titleOffroAiuto = "Offro Aiuto";
+    String titleChiedoAiuto = "Chiedo Aiuto";
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +32,13 @@ class CustomCard extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => SignUpPage()));
+                        context, MaterialPageRoute(builder: (_) => SignUpPage(
+                         service: titleOffroAiuto,
+                        )));
                   },
                   child: CustomCardsCommon(
-                    child: const CustomContainerService(
-                      title: 'Offro Aiuto',
+                    child:  CustomContainerService(
+                      title: titleOffroAiuto,
                       subtitle:
                           'Crea il tuo Account per donare il tuo tempo ad ANF',
                       image: PathConstants.offroAiuto,
@@ -47,11 +51,13 @@ class CustomCard extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => SignUpPage()));
+                        context, MaterialPageRoute(builder: (_) => SignUpPage(
+                          service: titleChiedoAiuto,
+                        )));
                   },
                   child: CustomCardsCommon(
-                    child: const CustomContainerService(
-                      title: 'Chiedo Aiuto',
+                    child:  CustomContainerService(
+                      title: titleChiedoAiuto,
                       subtitle:
                           'Crea il tuo Account per usufruire dei servizi ANF',
                       image: PathConstants.onboarding3,

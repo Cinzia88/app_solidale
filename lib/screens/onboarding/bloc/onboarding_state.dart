@@ -14,3 +14,4 @@ class PageChangedState extends OnboardingState {
 }
 
 class NextScreenState extends OnboardingState {}
+class PresentationScreenState extends OnboardingState {}
