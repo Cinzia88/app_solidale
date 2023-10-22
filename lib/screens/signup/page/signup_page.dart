@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 import '../../common_widgets/background_style/custom_appbar.dart';
-import '../../signin_chiedo_aiuto/page/signin_page.dart';
+import '../../signin/page/signin_page.dart';
 import '../bloc/signup_bloc.dart';
 import '../repository/signup_repository.dart';
 import '../widget/form_signup.dart';

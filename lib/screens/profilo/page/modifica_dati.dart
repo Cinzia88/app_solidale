@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:anf_app/main.dart';
+import 'package:anf_app/screens/signup/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,7 +13,6 @@ import 'package:anf_app/screens/common_widgets/custom_textfield.dart';
 import '../../../const/color_constants.dart';
 import '../../common_widgets/custom_button.dart';
 import '../../common_widgets/validator_email/validator_email.dart';
-import '../../signup_chiedo_aiuto/service/service.dart';
 
 
 class EditFormProfilePage extends StatefulWidget {

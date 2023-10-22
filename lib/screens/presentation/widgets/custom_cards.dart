@@ -6,7 +6,7 @@ import 'package:anf_app/screens/presentation/widgets/donation_anf.dart';
 
 import 'package:flutter/material.dart';
 
-import '../../signup_chiedo_aiuto/page/signup_page.dart';
+import '../../signup/page/signup_page.dart';
 import 'already_account.dart';
 
 class CustomCard extends StatelessWidget {

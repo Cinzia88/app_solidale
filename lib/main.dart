@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'screens/signin_chiedo_aiuto/repository/signin_repository.dart';
-import 'screens/signup_chiedo_aiuto/repository/signup_repository.dart';
+import 'screens/signin/repository/signin_repository.dart';
+import 'screens/signup/repository/signup_repository.dart';
 import 'screens/tabs/repository/read_data_user.dart';
 
 Future main() async {
