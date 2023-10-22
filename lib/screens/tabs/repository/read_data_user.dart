@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:anf_app/secure_storage/secure_storage.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import '../tabs/model/get_user_model.dart';
+import '../model/get_user_model.dart';
 import 'package:anf_app/globals_token/globals_token.dart' as globals;
 
 class ReadDataUserRepository {

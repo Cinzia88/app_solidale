@@ -6,7 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../repository/read_data_user.dart';
-import '../tabs/model/get_user_model.dart';
+import '../model/get_user_model.dart';
 
 part 'read_user_event.dart';
 part 'read_user_state.dart';

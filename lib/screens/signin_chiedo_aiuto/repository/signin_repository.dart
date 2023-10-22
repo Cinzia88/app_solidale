@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../../../secure_storage/secure_storage.dart';
-import '../../tabs_chiedo_aiuto/tabs/page_tabs.dart';
+import '../../tabs_chiedo_aiuto/page/page_tabs.dart';
 
 
 class SignInRepository {
