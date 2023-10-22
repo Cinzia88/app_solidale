@@ -1,7 +1,8 @@
 
 
+import 'package:anf_app/screens/home/page/home_page.dart';
+import 'package:anf_app/screens/profilo/page/profile_page.dart';
 import 'package:anf_app/screens/tabs/repository/read_data_user.dart';
-import 'package:anf_app/screens/views/screens/news/news_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:anf_app/secure_storage/secure_storage.dart';
@@ -9,11 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import 'package:anf_app/const/color_constants.dart';
-import 'package:anf_app/screens/screens/profilo/page/profile_page.dart';
 import 'package:anf_app/screens/settings/page/settings_page.dart';
+import 'package:anf_app/screens/news/news_page.dart';
 
 import '../../common_widgets/loading_widget.dart';
-import '../../screens/home/page/home_page.dart';
 import '../bloc/read_user_bloc.dart';
 
 // ignore: must_be_immutable
