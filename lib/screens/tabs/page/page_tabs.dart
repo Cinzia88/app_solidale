@@ -2,13 +2,15 @@
 
 import 'package:anf_app/screens/home/page/home_page.dart';
 import 'package:anf_app/screens/profilo/page/profile_page.dart';
+import 'package:anf_app/screens/service/logout.dart';
+import 'package:anf_app/screens/signin/page/signin_page.dart';
 import 'package:anf_app/screens/tabs/repository/read_data_user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:anf_app/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
+import 'package:anf_app/globals_token/globals_token.dart' as globals;
 import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/screens/settings/page/settings_page.dart';
 import 'package:anf_app/screens/news/news_page.dart';
@@ -24,7 +26,7 @@ class TabsPage extends StatefulWidget {
 
 class _TabsPageState extends State<TabsPage> {
    PersistentTabController? _controller;
-  SecureStorage secureStorage = SecureStorage();
+  ServiceLogout serviceLogout = ServiceLogout();
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,7 @@ class _TabsPageState extends State<TabsPage> {
         } return;
       }, builder: (context, state) {
         if (state is ReadUserLoadedState) {
+          globals.userData = state.data;
           return Scaffold(
             body: PersistentTabView(
               context,
@@ -51,13 +54,16 @@ class _TabsPageState extends State<TabsPage> {
                 HomePage(richiesta: state.data.richiesta),
                 const NewsPage(),
                 ProfilePage(
-                  dataUser: state.data,
+                  
                 ),
-                const SettingsPage(),
+                const NewsPage(),
               ],
               onItemSelected: (value) {
     if (value == 3) {
-      Navigator.pop(context);
+      Navigator.of(context, rootNavigator: true).pushReplacement(                          
+MaterialPageRoute(builder: (context) => SignInPage()));
+      serviceLogout.logoutUser(context);
+      print(globals.tokenValue);
     }
               },
               items: _navBarsItems(),

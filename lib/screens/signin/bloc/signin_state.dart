@@ -19,6 +19,8 @@ class SignInErrorState extends SignInState {
   List<Object?> get props => [message];
 }
 
+class ScreenCreateAccountState extends SignInState{}
+class ScreenResetPasswordState extends SignInState{}
 
 
 class SignInLoadingState extends SignInState {}

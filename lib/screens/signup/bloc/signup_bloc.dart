@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -10,29 +9,28 @@ part 'signup_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final SignupRepository signupRepository;
-final BuildContext context;
+  final BuildContext context;
   SignUpBloc({
     required this.signupRepository,
     required this.context,
   }) : super(SignupInitial()) {
     on<SignUpEvent>((event, emit) async {
-      if(event is SignUpTappedEvent) {
-      emit(SignupLoadingState());
-      try {
-        await signupRepository.registerUser(context,
-            event.nome, event.email, event.password, event.confirmPassword, event.richiesta);
-        emit(SignupLoaded());
-      } catch (e) {
-        emit(
-          SignupErrorState(
-            message: e.toString(),
-          ),
-        );
+      if (event is SignUpTappedEvent) {
+        emit(SignupLoadingState());
+        try {
+          await signupRepository.registerUser(context, event.nome, event.email,
+              event.password, event.confirmPassword, event.richiesta);
+          emit(SignupLoaded());
+        } catch (e) {
+          emit(
+            SignupErrorState(
+              message: e.toString(),
+            ),
+          );
+        }
+      } else  if(event is SignInTappedEvent) {
+        emit(NextSignInPageState(),);
       }
-      }
-      
     });
   }
-
-  
 }

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:anf_app/screens/common_widgets/background_style/custom_appbar.dart';
 
+import '../../../tabs/model/get_user_model.dart';
 import 'dati_form.dart';
 
 class FormProfilePage extends StatefulWidget {
+   
   @override
   State<FormProfilePage> createState() => _FormProfilePageState();
 }
@@ -18,7 +20,7 @@ class _FormProfilePageState extends State<FormProfilePage> {
         preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
         child: customAppBar(context, true)
       ),
-      body: const SingleChildScrollView(
+      body:  SingleChildScrollView(
         child: 
             FormDatiAnagrafici()
           

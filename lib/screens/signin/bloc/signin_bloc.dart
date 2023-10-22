@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -17,21 +16,27 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     required this.signInRepository,
   }) : super(SignInInitial()) {
     on<SignInEvent>((event, emit) async {
-      if(event is SignInFormEvent) {
+      if (event is SignInFormEvent) {
         emit(SignInLoadingState());
-try {
-        await signInRepository.loginUser(context,
-             event.email, event.password, );
-        emit(SignInLoaded());
-      } catch (e) {
-        emit(
-          SignInErrorState(
-            message: e.toString(),
-          ),
-        );
+        try {
+          await signInRepository.loginUser(
+            context,
+            event.email,
+            event.password,
+          );
+          emit(SignInLoaded());
+        } catch (e) {
+          emit(
+            SignInErrorState(
+              message: e.toString(),
+            ),
+          );
+        }
+      } else if (event is ScreenCreateAccountEvent) {
+        emit(ScreenCreateAccountState());
+      } else if (event is ScreenResetPasswordEvent) {
+        emit(ScreenResetPasswordState());
       }
-        
-      } 
     });
   }
 }

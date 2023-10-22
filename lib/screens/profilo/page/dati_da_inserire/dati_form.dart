@@ -9,11 +9,11 @@ import '../../../../const/color_constants.dart';
 import '../../../common_widgets/custom_button.dart';
 import '../../../common_widgets/custom_textfield.dart';
 import '../../../common_widgets/validator_email/validator_email.dart';
-
+import 'package:anf_app/globals_token/globals_token.dart' as globals;
 
 
 class FormDatiAnagrafici extends StatefulWidget {
-  const FormDatiAnagrafici({super.key});
+   
 
   @override
   State<FormDatiAnagrafici> createState() => _FormDatiAnagraficiState();
@@ -52,6 +52,16 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
     } on PlatformException catch (e) {
       print('errorImage $e');
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      _nameController.text =globals.userData!.nome;
+      _emailController.text = globals.userData!.email;
+    });
   }
 
   @override

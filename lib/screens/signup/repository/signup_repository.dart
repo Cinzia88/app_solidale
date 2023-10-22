@@ -31,8 +31,7 @@ var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
  if (response.statusCode == 200) {
                print('signup ${jsonDecode(response.body)}');
 
-               Navigator.push(
-            context, MaterialPageRoute(builder: (_) =>  SignInPage()));
+Navigator.pushReplacement(            context, MaterialPageRoute(builder: (_) =>  SignInPage()));
 
       } else {
         print('response ${response.statusCode}');

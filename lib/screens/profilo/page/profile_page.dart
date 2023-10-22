@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 
 import 'package:anf_app/screens/common_widgets/custom_cards_common.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../const/color_constants.dart';
 import '../../common_widgets/background_style/appbar_pages.dart';
@@ -11,12 +12,7 @@ import '../page/modifica_dati.dart';
 import 'dati_da_inserire/dati_anagrafici_form.dart';
 
 class ProfilePage extends StatefulWidget {
-  UserData dataUser;
-   ProfilePage({
-    Key? key,
-    required this.dataUser,
-  }) : super(key: key);
-
+ 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -66,8 +62,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => FormProfilePage()));
+                       PersistentNavBarNavigator.pushNewScreen(
+              context,
+              screen: FormProfilePage(),
+              withNavBar: true,
+            );
+                      
                     },
                     child: CustomCardsCommon(
                       child: const Column(
@@ -106,8 +106,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => EditFormProfilePage()));
+                       PersistentNavBarNavigator.pushNewScreen(
+              context,
+              screen: EditFormProfilePage(),
+              withNavBar: true,
+            );
+                     
                     },
                     child: CustomCardsCommon(
                       child: const Column(
@@ -146,8 +150,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                        GestureDetector(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => EditFormProfilePage()));
+                      PersistentNavBarNavigator.pushNewScreen(
+              context,
+              screen: EditFormProfilePage(),
+              withNavBar: true,
+            );
+                      
                     },
                     child: CustomCardsCommon(
                       child: const Column(
@@ -207,7 +215,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           SlidableAction(
                             onPressed: (context) {
                             },
-                            backgroundColor: ColorConstants.orangeGradients3,
+                            backgroundColor: Colors.red,
                             icon: Icons.delete,
                           ),
                         ],

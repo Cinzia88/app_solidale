@@ -17,3 +17,6 @@ class SignInFormEvent extends SignInEvent {
   List<Object?> get props => [email, password];
 }
  
+class ScreenCreateAccountEvent extends SignInEvent {}
+
+class ScreenResetPasswordEvent extends SignInEvent {}
