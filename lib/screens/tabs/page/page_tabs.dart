@@ -13,7 +13,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:anf_app/globals_token/globals_token.dart' as globals;
 import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/screens/settings/page/settings_page.dart';
-import 'package:anf_app/screens/news/news_page.dart';
+import 'package:anf_app/screens/news/page/news_page.dart';
 
 import '../../common_widgets/loading_widget.dart';
 import '../bloc/read_user_bloc.dart';

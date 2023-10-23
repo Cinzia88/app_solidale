@@ -19,10 +19,13 @@ class PathConstants {
 
 
   //chiedo aiuto
+  static const String taxiSolidale =
+      'assets/images/icone_servizio_chiedo_aiuto/taxi.png';
+      static const String accompagnamOncolog =
+      'assets/images/icone_servizio_chiedo_aiuto/accompagnamento_oncologico.png';
   static const String bancoAlim =
-      'assets/images/icone_servizio_chiedo_aiuto/icona-servizio-01.png';
-  static const String servziPrenot =
-      'assets/images/icone_servizio_chiedo_aiuto/icona-servizio-02.png';
+      'assets/images/icone_servizio_chiedo_aiuto/banco_alimentare.png';
+  
 
   //offro aiuto
   static const String offroAiuto =
