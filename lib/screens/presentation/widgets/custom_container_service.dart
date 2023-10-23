@@ -34,7 +34,6 @@ class CustomContainerService extends StatelessWidget {
                                 Flexible(
                                   child: Text(
                                     title,
-                                
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,

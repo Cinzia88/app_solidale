@@ -10,10 +10,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:anf_app/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:anf_app/screens/common_widgets/custom_textfield.dart';
 import 'package:anf_app/globals_token/globals_token.dart' as globals;
-import '../../../const/color_constants.dart';
-import '../../common_widgets/custom_button.dart';
-import '../../common_widgets/validator_email/validator_email.dart';
-
+import '../../../../const/color_constants.dart';
+import '../../../common_widgets/custom_button.dart';
+import '../../../common_widgets/validator_email/validator_email.dart';
 
 class EditFormProfilePage extends StatefulWidget {
   @override
@@ -24,17 +23,10 @@ class _EditFormProfilePageState extends State<EditFormProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          
+      appBar: PreferredSize(
           preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: customAppBar(context, true)
-        ),
-      body: 
-              FormProfile(),
-          
-        
-        
-      
+          child: customAppBar(context, true)),
+      body: FormProfile(),
     );
   }
 }
@@ -78,19 +70,20 @@ class _FormProfileState extends State<FormProfile> {
       print('errorImage $e');
     }
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     setState(() {
-      _nameController.text =globals.userData!.nome;
+      _nameController.text = globals.userData!.nome;
       _emailController.text = globals.userData!.email;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.all(20.0),
       child: ListView(
         shrinkWrap: true,
@@ -134,7 +127,7 @@ class _FormProfileState extends State<FormProfile> {
                           labelTextCustom: 'Email:',
                           obscureText: false,
                           validator: (value) {
-                             if (!Validators.isValidEmail(value!)) {
+                            if (!Validators.isValidEmail(value!)) {
                               return 'Inserisci un\' email valida';
                             }
                             return null;
@@ -151,8 +144,7 @@ class _FormProfileState extends State<FormProfile> {
                           obscureText: false,
                         ),
                         TextFormFieldCustom(
-                          textEditingController:
-                              _numeroComponentiController,
+                          textEditingController: _numeroComponentiController,
                           labelTextCustom: 'N° Componenti Familiari:',
                           obscureText: false,
                         ),
@@ -165,8 +157,7 @@ class _FormProfileState extends State<FormProfile> {
                           height: 20,
                         ),
                         Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Checkbox(
                               shape: RoundedRectangleBorder(
@@ -180,8 +171,7 @@ class _FormProfileState extends State<FormProfile> {
                               ),
                               checkColor: ColorConstants
                                   .orangeGradients3, // color of tick Mark
-                              activeColor:
-                                  ColorConstants.colorDoctNotActive,
+                              activeColor: ColorConstants.colorDoctNotActive,
                               value: isCheck,
                               onChanged: (newValue) {
                                 setState(() {
@@ -197,8 +187,8 @@ class _FormProfileState extends State<FormProfile> {
                         ),
                         Text(
                           '(Se sì, spuntare la casella)',
-                          style: TextStyle(
-                              color: ColorConstants.orangeGradients3),
+                          style:
+                              TextStyle(color: ColorConstants.orangeGradients3),
                         ),
                         SizedBox(
                           height: 20,
@@ -227,8 +217,7 @@ class _FormProfileState extends State<FormProfile> {
                           children: [
                             GridView.builder(
                                 shrinkWrap: true,
-                                physics:
-                                    const NeverScrollableScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 3),
@@ -252,13 +241,13 @@ class _FormProfileState extends State<FormProfile> {
                                             child: IconButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  imagesList
-                                                      .removeAt(index);
+                                                  imagesList.removeAt(index);
                                                 });
                                               },
                                               icon: const Icon(
                                                 Icons.delete,
-                                                color: ColorConstants.orangeGradients3,
+                                                color: ColorConstants
+                                                    .orangeGradients3,
                                               ),
                                             ),
                                           ),
@@ -273,11 +262,9 @@ class _FormProfileState extends State<FormProfile> {
                               child: ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(30.0),
+                                      borderRadius: BorderRadius.circular(30.0),
                                     ),
-                                    onPrimary:
-                                        ColorConstants.orangeGradients3),
+                                    onPrimary: ColorConstants.orangeGradients3),
                                 onPressed: () async {
                                   showDialog(
                                     context: context,
@@ -323,17 +310,14 @@ class _FormProfileState extends State<FormProfile> {
                                       actions: [
                                         ElevatedButton.icon(
                                           style: ElevatedButton.styleFrom(
-                                              shape:
-                                                  RoundedRectangleBorder(
+                                              shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        30.0),
+                                                    BorderRadius.circular(30.0),
                                               ),
                                               onPrimary: ColorConstants
                                                   .orangeGradients3),
                                           onPressed: () {
-                                            _pickImage(
-                                                ImageSource.gallery);
+                                            _pickImage(ImageSource.gallery);
                                             Navigator.pop(context);
                                           },
                                           label: const Text('Galleria'),
@@ -341,27 +325,23 @@ class _FormProfileState extends State<FormProfile> {
                                         ),
                                         ElevatedButton.icon(
                                           style: ElevatedButton.styleFrom(
-                                              shape:
-                                                  RoundedRectangleBorder(
+                                              shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        30.0),
+                                                    BorderRadius.circular(30.0),
                                               ),
                                               onPrimary: ColorConstants
                                                   .orangeGradients3),
                                           onPressed: () {
-                                            _pickImage(
-                                                ImageSource.camera);
+                                            _pickImage(ImageSource.camera);
                                             Navigator.pop(context);
                                           },
-                                          label:
-                                              const Text('Scatta Foto'),
+                                          label: const Text('Scatta Foto'),
                                           icon: const Icon(Icons.camera),
                                         ),
                                       ],
                                     ),
                                   );
-    
+
                                   setState(() {
                                     deletedImage = false;
                                   });
@@ -386,7 +366,7 @@ class _FormProfileState extends State<FormProfile> {
                               'tipo_documento': _tipoDocController.text,
                             };
                             service.addImage(body, imagesList);
-    
+
                             Navigator.pop(context);
                             /*FocusScope.of(context).unfocus();
                                   bloc.add(SignUpTappedEvent()); */
