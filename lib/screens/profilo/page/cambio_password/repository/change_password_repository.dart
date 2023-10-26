@@ -5,6 +5,7 @@
 
 
 import 'dart:convert';
+import 'package:anf_app/screens/service/logout.dart';
 import 'package:anf_app/screens/signin/page/signin_page.dart';
 
 import 'package:http/http.dart' as http;
@@ -16,7 +17,7 @@ import 'package:anf_app/globals_token/globals_token.dart' as globals;
 
 class ChangePasswordRepository {
 
-
+ServiceLogout serviceLogout = ServiceLogout();
 Future changePasswordUser(
   BuildContext context,
     String currentPassword,
@@ -35,15 +36,16 @@ Future changePasswordUser(
           },
           body: jsonEncode({
             'old_password': currentPassword,
-            'new_password': newPassword,
+            'password': newPassword,
             'confirmation_password': confirmPassword
           }));
 
     
-     
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) =>  SignInPage()));
-        print('responseCode ${globals.tokenValue}');
+     Navigator.of(context, rootNavigator: true).pushReplacement(                          
+MaterialPageRoute(builder: (context) => SignInPage()));
+      serviceLogout.logoutUser(context);
+        print('responseCode ${response.statusCode}');
+        return response;
      
     } catch (e) {
       print('sendimage error $e');

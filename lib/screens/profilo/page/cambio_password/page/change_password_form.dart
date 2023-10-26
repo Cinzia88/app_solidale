@@ -124,7 +124,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                           labelTextCustom: 'Conferma Password:',
                           obscureText: _isHidden,
                           widgetIcon: InkWell(
-                              onTap: _onToggleVisibilityPassword,
+                              onTap: _onToggleVisibilityPasswordConfirm,
                               child: _isHidden
                                   ? const Icon(
                                       Icons.visibility_off,

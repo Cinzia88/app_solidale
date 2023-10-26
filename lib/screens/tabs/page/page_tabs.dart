@@ -1,5 +1,3 @@
-
-
 import 'package:anf_app/screens/home/page/home_page.dart';
 import 'package:anf_app/screens/profilo/page/profile_page.dart';
 import 'package:anf_app/screens/service/logout.dart';
@@ -23,7 +21,7 @@ class TabsPage extends StatefulWidget {
 }
 
 class _TabsPageState extends State<TabsPage> {
-   PersistentTabController? _controller;
+  PersistentTabController? _controller;
   ServiceLogout serviceLogout = ServiceLogout();
 
   @override
@@ -40,10 +38,12 @@ class _TabsPageState extends State<TabsPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.errorMessage)),
           );
-        } return;
+        }
+        return;
       }, builder: (context, state) {
         if (state is ReadUserLoadedState) {
           globals.userData = state.data;
+          globals.typeRichiesta = state.data.richiesta;
           return Scaffold(
             body: PersistentTabView(
               context,
@@ -51,18 +51,16 @@ class _TabsPageState extends State<TabsPage> {
               screens: [
                 HomePage(richiesta: state.data.richiesta),
                 const NewsPage(),
-                ProfilePage(
-                  
-                ),
+                ProfilePage(),
                 const NewsPage(),
               ],
               onItemSelected: (value) {
-    if (value == 3) {
-      Navigator.of(context, rootNavigator: true).pushReplacement(                          
-MaterialPageRoute(builder: (context) => SignInPage()));
-      serviceLogout.logoutUser(context);
-      print(globals.tokenValue);
-    }
+                if (value == 3) {
+                  Navigator.of(context, rootNavigator: true).pushReplacement(
+                      MaterialPageRoute(builder: (context) => SignInPage()));
+                  serviceLogout.logoutUser(context);
+                  print(globals.tokenValue);
+                }
               },
               items: _navBarsItems(),
               resizeToAvoidBottomInset: true,
@@ -96,19 +94,39 @@ MaterialPageRoute(builder: (context) => SignInPage()));
 
   List<PersistentBottomNavBarItem> _navBarsItems() => [
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.home),
+          icon: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            HomePage(richiesta: globals.typeRichiesta!)));
+              },
+              child: Icon(Icons.home)),
           title: "Home",
           activeColorPrimary: Colors.white,
           inactiveColorPrimary: ColorConstants.colorDoctNotActive,
         ),
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.newspaper),
+          icon: InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => NewsPage()));
+              },
+              child: const Icon(Icons.newspaper)),
           title: "News",
           activeColorPrimary: Colors.white,
           inactiveColorPrimary: ColorConstants.colorDoctNotActive,
         ),
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.person),
+          icon: GestureDetector(
+              onTap: () {
+                Navigator.pushAndRemoveUntil(context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                    (route) => false
+                    );
+              },
+              child: const Icon(Icons.person)),
           title: "Profilo",
           activeColorPrimary: Colors.white,
           inactiveColorPrimary: ColorConstants.colorDoctNotActive,

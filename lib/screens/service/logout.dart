@@ -4,7 +4,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import 'package:anf_app/globals_token/globals_token.dart' as globals;
 
@@ -17,6 +16,7 @@ class ServiceLogout {
   headers: {
     'Accept': 'application/json',
     'Content-type': 'application/json',
+    'Authorization': 'Bearer ${globals.tokenValue}'
   });
 
     
