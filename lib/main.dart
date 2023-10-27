@@ -1,12 +1,13 @@
 import 'package:anf_app/const/color_constants.dart';
-import 'package:anf_app/screens/profilo/page/cambio_password/page/change_password_form.dart';
 import 'package:anf_app/screens/splash/page/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 import 'screens/profilo/page/cambio_password/repository/change_password_repository.dart';
+import 'screens/signin/page/signin_page.dart';
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 import 'screens/tabs/repository/read_data_user.dart';
@@ -15,15 +16,33 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env.example");
-  runApp(const MyApp());
+  runApp( MyApp());
   //...runapp
 }
 
 double percent = 0.5;
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+   MyApp({super.key});
+/// The route configuration.
+final GoRouter _router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return const SplashScreen();
+      },
+      routes: <RouteBase>[
+        GoRoute(
+          path: 'accedi',
+          builder: (BuildContext context, GoRouterState state) {
+            return  SignInPage();
+          },
+        ),
+      ],
+    ),
+  ],
+);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -42,7 +61,7 @@ class MyApp extends StatelessWidget {
           create: (context) => ChangePasswordRepository(),
         ),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -59,8 +78,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: const [
            Locale('it'),
         ],
-        home: const SplashScreen(),
-       
+routerConfig: _router,       
       ),
     );
   }

@@ -359,9 +359,7 @@ class _FormProfileState extends State<FormProfile> {
                           title: 'Aggiorna',
                           iconWidget: Icon(Icons.update),
                           onTap: () {
-                            setState(() {
-                              percent = 1;
-                            });
+                            
                             Map<String, String> body = {
                               'tipo_documento': _tipoDocController.text,
                             };

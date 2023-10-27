@@ -23,3 +23,5 @@ class SignupErrorState extends SignUpState {
 class NextSignInPageState extends SignUpState {}
 
 class SignupLoadingState extends SignUpState {}
+
+class SignUpSuccessState extends SignUpState{}

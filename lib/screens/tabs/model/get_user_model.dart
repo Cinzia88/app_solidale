@@ -16,7 +16,7 @@ class UserData extends Equatable {
   factory UserData.fromJson(Map<String, dynamic> json) {
     return UserData(
       id: json["id"].toString(),
-      nome: json["nome"],
+      nome: json["name"],
       email: json["email"],
       richiesta: json["richiesta"],
     );

@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:anf_app/api_response/model/api_response_model.dart';
+import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../../signin/page/signin_page.dart';
 
 class SignupRepository {
   Future registerUser(BuildContext context, String nome, String email,
@@ -19,7 +19,7 @@ class SignupRepository {
             'Content-type': 'application/json',
           },
           body: jsonEncode({
-            'nome': nome,
+            'name': nome,
             'email': email,
             'password': password,
             'password_confirmation': confirmPassword,
@@ -28,11 +28,9 @@ class SignupRepository {
       print('signup ${response.statusCode}');
 
       if (response.statusCode == 200) {
-        print('signup ${jsonDecode(response.body)}');
+        print('signupBody true');
 
-        // ignore: use_build_context_synchronously
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => SignInPage()));
+     
       } else {
         print('response ${response.statusCode}');
       }

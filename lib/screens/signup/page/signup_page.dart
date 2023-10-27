@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
+import '../../../const/color_constants.dart';
 import '../../common_widgets/background_style/custom_appbar.dart';
 import '../../signin/page/signin_page.dart';
 import '../bloc/signup_bloc.dart';
@@ -42,6 +43,15 @@ class _SignUpPageState extends State<SignUpPage> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
+            } else if(state is SignUpSuccessState) {
+               ScaffoldMessenger.of(context).showSnackBar(
+               SnackBar(
+        backgroundColor: ColorConstants.orangeGradients3,
+        content: Text('inviato link di conferma',
+       style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,),
+       ))
+              );
+                
             }
           }, builder: (context, state) {
             if(state is SignupLoadingState) {
