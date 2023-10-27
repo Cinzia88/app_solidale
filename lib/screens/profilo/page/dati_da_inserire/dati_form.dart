@@ -380,12 +380,13 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                               title: 'Invia',
                               iconWidget: Icon(Icons.send),
                               onTap: () {
-                                Map<String, String> body = {
-                                  'tipo_documento': _tipoDocController.text,
+                                if(_tipoDocController.text.isNotEmpty) {
+                                       Map<String, String> body = {
+                                  'tipo_documento': _tipoDocController.text ,
                                 };
                                 service.addImage(body, imagesList);
+                                }
                                 if (_formKey.currentState!.validate()) {
-                                  Navigator.pop(context);
                                    
                                 bloc.add(ProfileDataFormEvent
                                 (nome: _nameController.text,
