@@ -1,21 +1,13 @@
-
-
-
-
-
-
 import 'dart:convert';
 import 'package:anf_app/screens/tabs/page/page_tabs.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
+import 'package:anf_app/globals_token/globals_token.dart' as globals;
 
 class InsertDataRepository {
-
-
-Future dataFormRepository(
-  BuildContext context,
+  Future dataFormRepository(
+    BuildContext context,
     String nome,
     String cognome,
     String email,
@@ -32,6 +24,7 @@ Future dataFormRepository(
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json',
+            'Authorization': 'Bearer ${globals.tokenValue}'
           },
           body: jsonEncode({
             'nome': nome,
@@ -45,13 +38,12 @@ Future dataFormRepository(
           }));
 
       if (response.statusCode == 200) {
-               print('signin ${jsonDecode(response.body)}');
+        print('signin ${jsonDecode(response.body)}');
 
-     
         // ignore: use_build_context_synchronously
-      
+
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) =>  TabsPage()));
+            context, MaterialPageRoute(builder: (_) => TabsPage()));
         print('response ${response.body}');
       } else {
         print('erroresponse ${response.body}');
@@ -61,7 +53,3 @@ Future dataFormRepository(
     }
   }
 }
-
-
-
-  
