@@ -386,10 +386,7 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                                 service.addImage(body, imagesList);
                                 if (_formKey.currentState!.validate()) {
                                   Navigator.pop(context);
-                                   Map<String, String> body = {
-                                  'tipo_documento': _tipoDocController.text,
-                                };
-                                service.addImage(body, imagesList);
+                                   
                                 bloc.add(ProfileDataFormEvent
                                 (nome: _nameController.text,
                                 cognome: _surnameController.text,
