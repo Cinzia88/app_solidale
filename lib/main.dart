@@ -1,4 +1,5 @@
 import 'package:anf_app/const/color_constants.dart';
+import 'package:anf_app/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
 import 'package:anf_app/screens/splash/page/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,33 +17,34 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env.example");
-  runApp( MyApp());
+  runApp(MyApp());
   //...runapp
 }
 
 double percent = 0.5;
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
-/// The route configuration.
-final GoRouter _router = GoRouter(
-  routes: <RouteBase>[
-    GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return const SplashScreen();
-      },
-      routes: <RouteBase>[
-        GoRoute(
-          path: 'accedi',
-          builder: (BuildContext context, GoRouterState state) {
-            return  SignInPage();
-          },
-        ),
-      ],
-    ),
-  ],
-);
+  MyApp({super.key});
+
+  /// The route configuration.
+  final GoRouter _router = GoRouter(
+    routes: <RouteBase>[
+      GoRoute(
+        path: '/',
+        builder: (BuildContext context, GoRouterState state) {
+          return const SplashScreen();
+        },
+        routes: <RouteBase>[
+          GoRoute(
+            path: 'accedi',
+            builder: (BuildContext context, GoRouterState state) {
+              return SignInPage();
+            },
+          ),
+        ],
+      ),
+    ],
+  );
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -57,8 +59,8 @@ final GoRouter _router = GoRouter(
         RepositoryProvider<ReadDataUserRepository>(
           create: (context) => ReadDataUserRepository(),
         ),
-        RepositoryProvider<ChangePasswordRepository>(
-          create: (context) => ChangePasswordRepository(),
+        RepositoryProvider<InsertDataRepository>(
+          create: (context) => InsertDataRepository(),
         ),
       ],
       child: MaterialApp.router(
@@ -67,7 +69,7 @@ final GoRouter _router = GoRouter(
         theme: ThemeData(
           useMaterial3: true,
           colorScheme:
-            const  ColorScheme.light(primary: ColorConstants.orangeGradients3),
+              const ColorScheme.light(primary: ColorConstants.orangeGradients3),
           // <-- your color
         ),
         localizationsDelegates: const [
@@ -76,9 +78,9 @@ final GoRouter _router = GoRouter(
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [
-           Locale('it'),
+          Locale('it'),
         ],
-routerConfig: _router,       
+        routerConfig: _router,
       ),
     );
   }

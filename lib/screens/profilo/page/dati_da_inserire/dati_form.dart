@@ -1,20 +1,20 @@
 import 'dart:io';
 
+import 'package:anf_app/screens/profilo/page/dati_da_inserire/bloc/profile_bloc.dart';
 import 'package:anf_app/screens/signup/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../const/color_constants.dart';
 import '../../../common_widgets/custom_button.dart';
 import '../../../common_widgets/custom_textfield.dart';
+import '../../../common_widgets/loading_widget.dart';
 import '../../../common_widgets/validator_email/validator_email.dart';
 import 'package:anf_app/globals_token/globals_token.dart' as globals;
 
-
 class FormDatiAnagrafici extends StatefulWidget {
-   
-
   @override
   State<FormDatiAnagrafici> createState() => _FormDatiAnagraficiState();
 }
@@ -59,342 +59,366 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
     // TODO: implement initState
     super.initState();
     setState(() {
-      _nameController.text =globals.userData!.nome;
+      _nameController.text = globals.userData!.nome;
       _emailController.text = globals.userData!.email;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-              padding: const EdgeInsets.all(20.0,
-),
-      child: Column(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Dati Anagrafici',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                          color: ColorConstants.titleText),
-                    ),
-                  ],
-                ),
-                const Divider(
-                  color: ColorConstants.orangeGradients3,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextFormFieldCustom(
-                          textEditingController: _nameController,
-                          labelTextCustom: 'Nome:',
-                          obscureText: false,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Campo Richiesto*';
-                            }
-                            return null;
-                          },
-                        ),
-                        TextFormFieldCustom(
-                          textEditingController: _surnameController,
-                          labelTextCustom: 'Cognome:',
-                          obscureText: false,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Campo Richiesto*';
-                            }
-                            return null;
-                          },
-                        ),
-                        TextFormFieldCustom(
-                          textEditingController: _emailController,
-                          labelTextCustom: 'Email:',
-                          obscureText: false,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Campo Richiesto*';
-                            } else if (!Validators.isValidEmail(value)) {
-                                return 'Inserisci un\' email valida';
-                              }
-                            return null;
-                          },
-                        ),
-                        TextFormFieldCustom(
-                          textEditingController: _telephoneController,
-                          labelTextCustom: 'Telefono:',
-                          obscureText: false,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Campo Richiesto*';
-                            }
-                            return null;
-                          },
-                        ),
-                        TextFormFieldCustom(
-                          textEditingController: _addressController,
-                          labelTextCustom: 'Indirizzo:',
-                          obscureText: false,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Campo Richiesto*';
-                            }
-                            return null;
-                          },
-                        ),
-                        TextFormFieldCustom(
-                          textEditingController:
-                              _numeroComponentiController,
-                          labelTextCustom: 'N° Componenti Familiari:',
-                          obscureText: false,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Campo Richiesto*';
-                            }
-                            return null;
-                          },
-                        ),
-                        TextFormFieldCustom(
-                          textEditingController: _etaComponentiController,
-                          labelTextCustom: 'Età Componenti Familiari:',
-                          obscureText: false,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Campo Richiesto*';
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Checkbox(
-                              
-                              value: isCheck,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  isCheck = newValue!;
-                                });
-                              },
-                            ),
-                            Flexible(
-                                child: Text(
-                              'Nel nucleo familiare è presente una persona con disabilità',
-                            ))
-                          ],
-                        ),
-                        Text(
-                          '(Se sì, spuntare la casella)',
-                          style: TextStyle(
-                              color: ColorConstants.orangeGradients3),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Carica i Tuoi Documenti',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: ColorConstants.titleText),
-                            ),
-                          ],
-                        ),
-                        TextFormFieldCustom(
-                          textEditingController: _tipoDocController,
-                          labelTextCustom: 'Tipo di Documento:',
-                          obscureText: false,
-                        ),
-                        Column(
-                          children: [
-                            GridView.builder(
-                                shrinkWrap: true,
-                                physics:
-                                    const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3),
-                                itemCount: imagesList.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Stack(
-                                      fit: StackFit.expand,
-                                      children: [
-                                        Image.file(
-                                          File(imagesList[index]!.path),
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Positioned(
-                                          right: -4,
-                                          top: -4,
-                                          child: Container(
-                                            color: const Color.fromRGBO(
-                                                255, 255, 244, 0.7),
-                                            child: IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  imagesList
-                                                      .removeAt(index);
-                                                });
-                                              },
-                                              icon: const Icon(
-                                                Icons.delete,
-                                                color: ColorConstants.orangeGradients3,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }),
-                            Center(
-                                child: Padding(
-                              padding: const EdgeInsets.only(top: 20.0),
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(30.0),
-                                    ),
-                                    onPrimary:
-                                        ColorConstants.orangeGradients3),
-                                onPressed: () async {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      backgroundColor: Colors.white,
-                                      icon: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.close,
-                                              color: ColorConstants
-                                                  .orangeGradients3,
-                                            ),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      title: const Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Seleziona file',
-                                                style: TextStyle(
-                                                    color: ColorConstants
-                                                        .orangeGradients3,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      actions: [
-                                        ElevatedButton.icon(
-                                          style: ElevatedButton.styleFrom(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        30.0),
-                                              ),
-                                              onPrimary: ColorConstants
-                                                  .orangeGradients3),
-                                          onPressed: () {
-                                            _pickImage(ImageSource.gallery);
-                                            Navigator.pop(context);
-                                          },
-                                          label: const Text('Galleria'),
-                                          icon: const Icon(Icons.image),
-                                        ),
-                                        ElevatedButton.icon(
-                                          style: ElevatedButton.styleFrom(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        30.0),
-                                              ),
-                                              onPrimary: ColorConstants
-                                                  .orangeGradients3),
-                                          onPressed: () {
-                                            _pickImage(ImageSource.camera);
-                                            Navigator.pop(context);
-                                          },
-                                          label: const Text('Scatta Foto'),
-                                          icon: const Icon(Icons.camera),
-                                        ),
-                                      ],
-                                    ),
-                                  );
+        final bloc = BlocProvider.of<ProfileDataBloc>(context);
 
-                                  setState(() {
-                                    deletedImage = false;
-                                  });
-                                },
-                                label: const Text('Scegli file'),
-                                icon: const Icon(Icons.file_download),
-                              ),
-                            )),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        CommonStyleButton(
-                          title: 'Invia',
-                          iconWidget: Icon(Icons.send),
-                          onTap: () {
-                            Map<String, String> body = {
-                              'tipo_documento': _tipoDocController.text,
-                            };
-                            service.addImage(body, imagesList);
-                          if(_formKey.currentState!.validate()) {
-                            Navigator.pop(context);
-                            /*FocusScope.of(context).unfocus();
-                                            bloc.add(SignUpTappedEvent()); */
-                          }
-                          },
-                        ),
-                        const SizedBox(
-                          height: 20,
+    return BlocBuilder<ProfileDataBloc, ProfileDataState>(
+      builder: (context, state) {
+        if(state is ProfileDataLoadingState) {
+              return loadingWidget(context);
+            }
+        return Padding(
+          padding: const EdgeInsets.all(
+            20.0,
+          ),
+          child: Column(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Dati Anagrafici',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              color: ColorConstants.titleText),
                         ),
                       ],
                     ),
-                  ),
+                    const Divider(
+                      color: ColorConstants.orangeGradients3,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            TextFormFieldCustom(
+                              textEditingController: _nameController,
+                              labelTextCustom: 'Nome:',
+                              obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
+                            ),
+                            TextFormFieldCustom(
+                              textEditingController: _surnameController,
+                              labelTextCustom: 'Cognome:',
+                              obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
+                            ),
+                            TextFormFieldCustom(
+                              textEditingController: _emailController,
+                              labelTextCustom: 'Email:',
+                              obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                } else if (!Validators.isValidEmail(value)) {
+                                  return 'Inserisci un\' email valida';
+                                }
+                                return null;
+                              },
+                            ),
+                            TextFormFieldCustom(
+                              textEditingController: _telephoneController,
+                              labelTextCustom: 'Telefono:',
+                              obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
+                            ),
+                            TextFormFieldCustom(
+                              textEditingController: _addressController,
+                              labelTextCustom: 'Indirizzo:',
+                              obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
+                            ),
+                            TextFormFieldCustom(
+                              textEditingController:
+                                  _numeroComponentiController,
+                              labelTextCustom: 'N° Componenti Familiari:',
+                              obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
+                            ),
+                            TextFormFieldCustom(
+                              textEditingController: _etaComponentiController,
+                              labelTextCustom: 'Età Componenti Familiari:',
+                              obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Checkbox(
+                                  value: isCheck,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      isCheck = newValue!;
+                                    });
+                                  },
+                                ),
+                                Flexible(
+                                    child: Text(
+                                  'Nel nucleo familiare è presente una persona con disabilità',
+                                ))
+                              ],
+                            ),
+                            Text(
+                              '(Se sì, spuntare la casella)',
+                              style: TextStyle(
+                                  color: ColorConstants.orangeGradients3),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Carica i Tuoi Documenti',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: ColorConstants.titleText),
+                                ),
+                              ],
+                            ),
+                            TextFormFieldCustom(
+                              textEditingController: _tipoDocController,
+                              labelTextCustom: 'Tipo di Documento:',
+                              obscureText: false,
+                            ),
+                            Column(
+                              children: [
+                                GridView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3),
+                                    itemCount: imagesList.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: Stack(
+                                          fit: StackFit.expand,
+                                          children: [
+                                            Image.file(
+                                              File(imagesList[index]!.path),
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Positioned(
+                                              right: -4,
+                                              top: -4,
+                                              child: Container(
+                                                color: const Color.fromRGBO(
+                                                    255, 255, 244, 0.7),
+                                                child: IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      imagesList
+                                                          .removeAt(index);
+                                                    });
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.delete,
+                                                    color: ColorConstants
+                                                        .orangeGradients3,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }),
+                                Center(
+                                    child: Padding(
+                                  padding: const EdgeInsets.only(top: 20.0),
+                                  child: ElevatedButton.icon(
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                        onPrimary:
+                                            ColorConstants.orangeGradients3),
+                                    onPressed: () async {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          backgroundColor: Colors.white,
+                                          icon: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              IconButton(
+                                                icon: const Icon(
+                                                  Icons.close,
+                                                  color: ColorConstants
+                                                      .orangeGradients3,
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          title: const Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Seleziona file',
+                                                    style: TextStyle(
+                                                        color: ColorConstants
+                                                            .orangeGradients3,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          actions: [
+                                            ElevatedButton.icon(
+                                              style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.0),
+                                                  ),
+                                                  onPrimary: ColorConstants
+                                                      .orangeGradients3),
+                                              onPressed: () {
+                                                _pickImage(ImageSource.gallery);
+                                                Navigator.pop(context);
+                                              },
+                                              label: const Text('Galleria'),
+                                              icon: const Icon(Icons.image),
+                                            ),
+                                            ElevatedButton.icon(
+                                              style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.0),
+                                                  ),
+                                                  onPrimary: ColorConstants
+                                                      .orangeGradients3),
+                                              onPressed: () {
+                                                _pickImage(ImageSource.camera);
+                                                Navigator.pop(context);
+                                              },
+                                              label: const Text('Scatta Foto'),
+                                              icon: const Icon(Icons.camera),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+
+                                      setState(() {
+                                        deletedImage = false;
+                                      });
+                                    },
+                                    label: const Text('Scegli file'),
+                                    icon: const Icon(Icons.file_download),
+                                  ),
+                                )),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            CommonStyleButton(
+                              title: 'Invia',
+                              iconWidget: Icon(Icons.send),
+                              onTap: () {
+                                Map<String, String> body = {
+                                  'tipo_documento': _tipoDocController.text,
+                                };
+                                service.addImage(body, imagesList);
+                                if (_formKey.currentState!.validate()) {
+                                  Navigator.pop(context);
+                                   Map<String, String> body = {
+                                  'tipo_documento': _tipoDocController.text,
+                                };
+                                service.addImage(body, imagesList);
+                                bloc.add(ProfileDataFormEvent
+                                (nome: _nameController.text,
+                                cognome: _surnameController.text,
+                                telefono: _telephoneController.text,
+                                email: _emailController.text,
+                                indirizzo: _addressController.text,
+                                numeroComponenti: _numeroComponentiController.text,
+                                etaComponenti: _etaComponentiController.text,
+                                presenzaDisabilita: isCheck,
+                                ));
+                                  /*FocusScope.of(context).unfocus();
+                                                bloc.add(SignUpTappedEvent()); */
+                                }
+                              },
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
