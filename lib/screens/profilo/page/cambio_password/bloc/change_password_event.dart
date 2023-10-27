@@ -7,6 +7,7 @@ abstract class ChangePasswordEvent extends Equatable {
 }
 
 
+// ignore: must_be_immutable
 class ChangePasswordFormEvent extends ChangePasswordEvent {
   String currentPassword;
   String newPassword;

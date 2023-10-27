@@ -37,7 +37,7 @@ Future changePasswordUser(
           body: jsonEncode({
             'old_password': currentPassword,
             'password': newPassword,
-            'confirmation_password': confirmPassword
+            'confirm_password': confirmPassword
           }));
 
     

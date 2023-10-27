@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:anf_app/main.dart';
 import 'package:anf_app/screens/signup/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -156,22 +155,12 @@ class _FormProfileState extends State<FormProfile> {
                         SizedBox(
                           height: 20,
                         ),
+                 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Checkbox(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              side: BorderSide(
-                                // ======> CHANGE THE BORDER COLOR HERE <======
-                                color: ColorConstants.orangeGradients3,
-                                // Give your checkbox border a custom width
-                                width: 1.5,
-                              ),
-                              checkColor: ColorConstants
-                                  .orangeGradients3, // color of tick Mark
-                              activeColor: ColorConstants.colorDoctNotActive,
+                      
                               value: isCheck,
                               onChanged: (newValue) {
                                 setState(() {

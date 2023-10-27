@@ -10,6 +10,7 @@ import '../bloc/signup_bloc.dart';
 import '../repository/signup_repository.dart';
 import '../widget/form_signup.dart';
 
+// ignore: must_be_immutable
 class SignUpPage extends StatefulWidget {
   String service;
    SignUpPage({

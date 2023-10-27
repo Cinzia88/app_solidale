@@ -10,6 +10,7 @@ import '../../common_widgets/custom_textfield.dart';
 import '../../common_widgets/validator_email/validator_email.dart';
 import '../bloc/signup_bloc.dart';
 
+// ignore: must_be_immutable
 class SignUpForm extends StatefulWidget {
   String service;
   SignUpForm({

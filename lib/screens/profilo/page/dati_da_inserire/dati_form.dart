@@ -182,19 +182,7 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Checkbox(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              side: BorderSide(
-                                // ======> CHANGE THE BORDER COLOR HERE <======
-                                color: ColorConstants.orangeGradients3,
-                                // Give your checkbox border a custom width
-                                width: 1.5,
-                              ),
-                              checkColor: ColorConstants
-                                  .orangeGradients3, // color of tick Mark
-                              activeColor:
-                                  ColorConstants.colorDoctNotActive,
+                              
                               value: isCheck,
                               onChanged: (newValue) {
                                 setState(() {

@@ -8,7 +8,6 @@ import '../../common_widgets/custom_button.dart';
 import '../../common_widgets/custom_textfield.dart';
 import '../../common_widgets/loading_widget.dart';
 import '../../common_widgets/validator_email/validator_email.dart';
-import '../../reset_password/page/reset_password_page.dart';
 import '../bloc/signin_bloc.dart';
 
 class LoginForm extends StatefulWidget {

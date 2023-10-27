@@ -9,9 +9,12 @@ import 'package:flutter/material.dart';
 import '../../signup/page/signup_page.dart';
 import 'already_account.dart';
 
+// ignore: must_be_immutable
 class CustomCard extends StatelessWidget {
   String titleOffroAiuto = "Offro Aiuto";
     String titleChiedoAiuto = "Chiedo Aiuto";
+
+  CustomCard({super.key});
 
 
   @override

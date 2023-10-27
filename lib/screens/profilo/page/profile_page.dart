@@ -7,7 +7,6 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../const/color_constants.dart';
 import '../../common_widgets/background_style/appbar_pages.dart';
-import '../../tabs/model/get_user_model.dart';
 import 'cambio_password/page/cambio_password_page.dart';
 import 'modifica_dati/modifica_dati.dart';
 import 'dati_da_inserire/dati_anagrafici_form.dart';

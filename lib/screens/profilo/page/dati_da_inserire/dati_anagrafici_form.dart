@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:anf_app/screens/common_widgets/background_style/custom_appbar.dart';
 
-import '../../../tabs/model/get_user_model.dart';
 import 'dati_form.dart';
 
 class FormProfilePage extends StatefulWidget {
