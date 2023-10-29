@@ -35,7 +35,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                 child: Column(
                   children: [
                     Text(
-                      'Recupera Password',
+                      'Resetta la Password',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
@@ -61,7 +61,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                       height: 20,
                     ),
                     CommonStyleButton(
-                      title: 'Recupera',
+                      title: 'Resetta',
                       iconWidget: Icon(Icons.reset_tv),
                       onTap: () {
                         if(_formKey.currentState!.validate()) {

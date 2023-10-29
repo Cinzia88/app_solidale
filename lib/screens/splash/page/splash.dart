@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 
 import '../../../const/color_constants.dart';
+import '../../../main.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
    
     
-    Timer(
+  timer =  Timer(
         const Duration(seconds: 5),
         () { 
           

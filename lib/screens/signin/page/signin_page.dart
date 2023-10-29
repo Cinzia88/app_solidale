@@ -4,6 +4,7 @@ import 'package:anf_app/screens/reset_password/page/reset_password_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../main.dart';
 import '../../common_widgets/background_style/custom_appbar.dart';
 import '../bloc/signin_bloc.dart';
 import '../repository/signin_repository.dart';
@@ -16,6 +17,18 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   setState(() {
+      timer!.cancel();
+   });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SignInBloc>(

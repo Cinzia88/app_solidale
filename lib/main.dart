@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
 import 'package:anf_app/screens/splash/page/splash.dart';
@@ -7,21 +9,23 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
+import 'screens/new_password/page/new_password_page.dart';
 import 'screens/signin/page/signin_page.dart';
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 import 'screens/tabs/repository/read_data_user.dart';
+import 'globals_token/globals_token.dart' as globals;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+print('token ${globals.tokenValue}');
   await dotenv.load(fileName: ".env.example");
   runApp(MyApp());
   //...runapp
 }
 
 double percent = 0.5;
-
+Timer? timer;
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
@@ -38,6 +42,12 @@ class MyApp extends StatelessWidget {
             path: 'accedi',
             builder: (BuildContext context, GoRouterState state) {
               return SignInPage();
+            },
+          ),
+           GoRoute(
+            path: 'reset-password',
+            builder: (BuildContext context, GoRouterState state) {
+              return const NewPasswordPage();
             },
           ),
         ],
