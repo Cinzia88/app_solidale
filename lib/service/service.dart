@@ -1,11 +1,18 @@
 
+import 'package:anf_app/secure_storage/secure_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
+import 'package:anf_app/globals_token/globals_token.dart' as globals;
 
 
 class Service {
+final SecureStorage secureStorage = SecureStorage();
+  Future verifyUser(String email) {
+ return readToken().then((value) => sendVerifyMailUser(email));
+}
 
   Future addImage(Map<String, String> body, List<XFile?> filepath) async {
     try {
@@ -42,8 +49,34 @@ class Service {
 
 
 
+Future sendVerifyMailUser(
+    String email,
 
+  ) async {
+    try {
+      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/send-verify-mail/marraffacinzia5@gmail.com';
+      // Await the http get response, then decode the json-formatted response.
+      var response = await http.get(Uri.parse(url),
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer ${globals.tokenValue}'
+          },
+        );
+
+        return response;
+     
+    } catch (e) {
+      print('sendimage error $e');
+    }
+  }
  
- 
+  Future<String> readToken() async {
+    String token = await secureStorage.readSecureData('token');
+    final startIndex = token.indexOf("|");
+     globals.tokenValue = token.substring(startIndex ).replaceAll("|", "");
+
+    return  globals.tokenValue!;
+  }
 }
   

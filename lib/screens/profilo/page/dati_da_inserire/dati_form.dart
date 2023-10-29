@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:anf_app/screens/profilo/page/dati_da_inserire/bloc/profile_bloc.dart';
-import 'package:anf_app/screens/signup/service/service.dart';
+import 'package:anf_app/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

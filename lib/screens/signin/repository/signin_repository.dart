@@ -41,8 +41,10 @@ Future loginUser(
   await secureStorage.writeSecureData('token', token);
         // ignore: use_build_context_synchronously
        print('responsetoken $token');
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) =>  TabsPage()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) =>  TabsPage()),
+            
+            );
         print('response ${response.body}');
       } else {
         print('erroresponse ${response.body}');

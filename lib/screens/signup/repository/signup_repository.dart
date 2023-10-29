@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:anf_app/secure_storage/secure_storage.dart';
+import 'package:anf_app/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -8,6 +9,15 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SignupRepository {
       final SecureStorage secureStorage = SecureStorage();
+            Service service= Service();
+
+
+      Future registerUserWithVerificationEmail(BuildContext context, String nome, String email,
+      String password, String confirmPassword, String richiesta) {
+         return registerUser(context, nome, email, password, confirmPassword, richiesta).then((value) {
+         service.verifyUser(email);
+         });
+      }
 
   Future registerUser(BuildContext context, String nome, String email,
       String password, String confirmPassword, String richiesta) async {
