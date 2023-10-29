@@ -1,7 +1,12 @@
 import 'dart:async';
 
 import 'package:anf_app/const/color_constants.dart';
+import 'package:anf_app/screens/forget_password/repository/forget_password_repository.dart';
+import 'package:anf_app/screens/profilo/page/cambio_password/repository/change_password_repository.dart';
 import 'package:anf_app/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
+import 'package:anf_app/screens/reset_password/page/reset_password_page.dart';
+import 'package:anf_app/screens/reset_password/repository/reset_password_repository.dart';
+
 import 'package:anf_app/screens/splash/page/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +14,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
-import 'screens/new_password/page/new_password_page.dart';
 import 'screens/signin/page/signin_page.dart';
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
@@ -47,7 +51,7 @@ class MyApp extends StatelessWidget {
            GoRoute(
             path: 'reset-password',
             builder: (BuildContext context, GoRouterState state) {
-              return const NewPasswordPage();
+              return const ResetPasswordPage();
             },
           ),
         ],
@@ -70,6 +74,15 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<InsertDataRepository>(
           create: (context) => InsertDataRepository(),
+        ),
+         RepositoryProvider<ChangePasswordRepository>(
+          create: (context) => ChangePasswordRepository(),
+        ),
+         RepositoryProvider<ResetPasswordRepository>(
+          create: (context) => ResetPasswordRepository(),
+        ),
+         RepositoryProvider<ForgetPasswordRepository>(
+          create: (context) => ForgetPasswordRepository(),
         ),
       ],
       child: MaterialApp.router(

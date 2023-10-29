@@ -1,11 +1,14 @@
 import 'dart:convert';
 
+import 'package:anf_app/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
 class SignupRepository {
+      final SecureStorage secureStorage = SecureStorage();
+
   Future registerUser(BuildContext context, String nome, String email,
       String password, String confirmPassword, String richiesta) async {
     try {
@@ -27,7 +30,8 @@ class SignupRepository {
 
       if (response.statusCode == 200) {
         print('signupBody true');
-
+ String token = jsonDecode(response.body)["token"];
+  await secureStorage.writeSecureData('token', token);
      
       } else {
         print('response ${response.statusCode}');
