@@ -14,9 +14,16 @@ class ValueSharedPrefsViewSlide {
     instance.setBool('viewSlide', value);
   }
 
-   Future getValueViewSlide() async{
+   Future<bool> getValueViewSlide() async{
     final instance = await prefs;
 
-    instance.getBool('viewSlide');
+   final value = instance.getBool('viewSlide');
+   return value ?? true;
+  }
+
+  Future removeValueViewSlide() async{
+    final instance = await prefs;
+
+    instance.remove('viewSlide');
   }
 }

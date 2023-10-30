@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:anf_app/const/path_constants.dart';
 import 'package:anf_app/screens/onboarding/page/onboarding_page.dart';
 import 'package:anf_app/screens/presentation/page/presentation_page.dart';
+import 'package:anf_app/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
 
@@ -18,11 +19,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   int splashTime = 3;
+    ValueSharedPrefsViewSlide valueSharedPrefsViewSlide =
+      ValueSharedPrefsViewSlide();
 
   @override
   void initState() {
     super.initState();
-
+    
+getValueViewSlide();
     timer = Timer(const Duration(seconds: 5), () {
       Navigator.push(
         context,
@@ -37,6 +41,13 @@ class _SplashScreenState extends State<SplashScreen>
         }),
       );
     });
+  }
+
+  Future getValueViewSlide() async {
+   final value =  await valueSharedPrefsViewSlide.getValueViewSlide();
+     setState(() {
+       globals.viewSlide = value;
+     });
   }
 
   @override

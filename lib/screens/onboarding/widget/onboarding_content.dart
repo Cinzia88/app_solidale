@@ -51,11 +51,10 @@ class _OnboardingContentState extends State<OnboardingContent> {
                                 viewSlide = false;
                               });
                               bloc.add(PresentationPageTappedEvent());
-                             await valueSharedPrefsViewSlide
+                              await valueSharedPrefsViewSlide
                                   .setValueViewSlide(viewSlide);
-                             setState(() async{
-                               globals.viewSlide = await valueSharedPrefsViewSlide.getValueViewSlide();
-                             });
+                             
+
                             },
                         ),
                       ],
