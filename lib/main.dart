@@ -18,7 +18,7 @@ import 'screens/signin/page/signin_page.dart';
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 import 'screens/tabs/repository/read_data_user.dart';
-import 'globals_token/globals_token.dart' as globals;
+import 'globals_variables/globals_variables.dart' as globals;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

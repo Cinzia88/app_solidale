@@ -7,6 +7,7 @@ import 'package:anf_app/screens/common_widgets/loading_widget.dart';
 import 'package:anf_app/screens/reset_password/bloc/reset_password_bloc.dart';
 import 'package:anf_app/screens/reset_password/page/reset_password_form.dart';
 import 'package:anf_app/screens/reset_password/repository/reset_password_repository.dart';
+import 'package:anf_app/screens/signin/page/signin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,7 +40,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       child: Scaffold(
          appBar: PreferredSize(
                 preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-                child: customAppBar(context, true)),
+          child: customAppBar(context: context, onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPage())), arrow: true )),
         body: BlocConsumer<ResetPasswordBloc,ResetPasswordState>(
            listener: (context, state) {
               if(state is ResetPasswordErrorState) {

@@ -1,6 +1,7 @@
 import 'package:anf_app/screens/common_widgets/loading_widget.dart';
 import 'package:anf_app/screens/forget_password/bloc/forget_password_bloc.dart';
 import 'package:anf_app/screens/forget_password/repository/forget_password_repository.dart';
+import 'package:anf_app/screens/signin/page/signin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,10 +23,9 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         context: context, 
         forgetPasswordRepository: context.read<ForgetPasswordRepository>()),
       child: Scaffold(
-          appBar: PreferredSize(
-          
+          appBar: PreferredSize(    
           preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: customAppBar(context, true)
+          child: customAppBar(context: context, onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPage())), arrow: true ),
         ),
         body: BlocConsumer<ForgetPasswordBloc, ForgetPasswordState>(
           listener: (context, state) {

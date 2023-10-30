@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:anf_app/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:anf_app/screens/common_widgets/custom_textfield.dart';
-import 'package:anf_app/globals_token/globals_token.dart' as globals;
+import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
 import '../../../../const/color_constants.dart';
 import '../../../common_widgets/custom_button.dart';
 import '../../../common_widgets/validator_email/validator_email.dart';
@@ -24,7 +24,7 @@ class _EditFormProfilePageState extends State<EditFormProfilePage> {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: customAppBar(context, true)),
+          child: customAppBar(context: context, onPressed: () => Navigator.pop(context), arrow: true )),
       body: FormProfile(),
     );
   }

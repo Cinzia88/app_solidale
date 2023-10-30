@@ -4,7 +4,7 @@ import 'package:anf_app/secure_storage/secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:anf_app/globals_token/globals_token.dart' as globals;
+import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
 
 class ForgetPasswordRepository {
   final SecureStorage secureStorage = SecureStorage();

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../const/color_constants.dart';
 
-Widget customAppBar(BuildContext context, bool arrow) {
+Widget customAppBar({required BuildContext context, required bool arrow, required void Function()? onPressed}) {
   return Container(
     padding: EdgeInsets.only(
       top: MediaQuery.of(context).padding.top,
@@ -41,9 +41,7 @@ Widget customAppBar(BuildContext context, bool arrow) {
                     Icons.arrow_back,
                     color: Colors.white,
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                  onPressed: onPressed
                 )
                 : Text(''),
           ],

@@ -16,9 +16,8 @@ class _PrenotazioneServizioState extends State<PrenotazioneServizio> {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: customAppBar(
-            context, true
-          )),
+          child:            customAppBar(context: context, onPressed: () => Navigator.pop(context), arrow: true )),
+
       body: const SingleChildScrollView(child: FormPrenotazioneServizio()),
     );
   }

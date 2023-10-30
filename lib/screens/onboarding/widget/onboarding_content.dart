@@ -5,10 +5,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
 
-class OnboardingContent extends StatelessWidget {
+class OnboardingContent extends StatefulWidget {
   const OnboardingContent({super.key});
 
+  @override
+  State<OnboardingContent> createState() => _OnboardingContentState();
+}
+
+class _OnboardingContentState extends State<OnboardingContent> {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<OnboardingBloc>(context);
@@ -34,7 +40,9 @@ class OnboardingContent extends StatelessWidget {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              
+                              setState(() {
+                                globals.viewSlide = false;
+                              });
                                bloc.add(PresentationPageTappedEvent());
                             },
                         ),

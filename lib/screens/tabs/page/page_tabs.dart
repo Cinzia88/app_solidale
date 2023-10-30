@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:anf_app/globals_token/globals_token.dart' as globals;
+import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
 import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/screens/news/page/news_page.dart';
 

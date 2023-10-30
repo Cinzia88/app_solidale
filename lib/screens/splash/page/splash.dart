@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:anf_app/const/path_constants.dart';
 import 'package:anf_app/screens/onboarding/page/onboarding_page.dart';
+import 'package:anf_app/screens/presentation/page/presentation_page.dart';
 import 'package:flutter/material.dart';
-
+import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
 
 import '../../../const/color_constants.dart';
 import '../../../main.dart';
@@ -17,32 +18,27 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   int splashTime = 3;
-  
 
   @override
   void initState() {
     super.initState();
-   
-    
-  timer =  Timer(
-        const Duration(seconds: 5),
-        () { 
-          
-          Navigator.push(context,
-            MaterialPageRoute(builder: (context) =>  OnboardingPage(),),
-            
-            );
-  });
-     
+
+    timer = Timer(const Duration(seconds: 5), () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) {
+          print('valueToken ${globals.tokenValue}');
+          print('valueViewSlide${globals.viewSlide}');
+
+          if (globals.tokenValue != null || globals.viewSlide == false) {
+            return const PresentationPage();
+          }
+          return const OnboardingPage();
+        }),
+      );
+    });
   }
 
-
-
-
-
- 
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,23 +47,21 @@ class _SplashScreenState extends State<SplashScreen>
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
-              gradient: LinearGradient(
-            colors: [
-              ColorConstants.orangeGradients1,
-              ColorConstants.orangeGradients2,
-              ColorConstants.orangeGradients3,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.center,
-          )),
+            gradient: LinearGradient(
+          colors: [
+            ColorConstants.orangeGradients1,
+            ColorConstants.orangeGradients2,
+            ColorConstants.orangeGradients3,
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.center,
+        )),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 200,
-                child: Image.asset(PathConstants.logoanfcompleto))
-              
+                  width: 200, child: Image.asset(PathConstants.logoanfcompleto))
             ],
           ),
         ),

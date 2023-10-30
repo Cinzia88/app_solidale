@@ -8,3 +8,5 @@ String? tokenValueRegister;
 
 UserData? userData;
 String? typeRichiesta;
+
+bool viewSlide = true;

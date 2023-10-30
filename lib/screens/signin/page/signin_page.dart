@@ -39,7 +39,7 @@ class _SignInPageState extends State<SignInPage> {
       child: Scaffold(
           appBar: PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-              child: customAppBar(context, true)),
+          child: customAppBar(context: context, onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PresentationPage())), arrow: true )),
           body: BlocConsumer<SignInBloc, SignInState>(
               listener: (context, state) {
              if (state is SignInErrorState) {

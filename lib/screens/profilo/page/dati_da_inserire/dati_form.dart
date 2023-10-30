@@ -12,7 +12,7 @@ import '../../../common_widgets/custom_button.dart';
 import '../../../common_widgets/custom_textfield.dart';
 import '../../../common_widgets/loading_widget.dart';
 import '../../../common_widgets/validator_email/validator_email.dart';
-import 'package:anf_app/globals_token/globals_token.dart' as globals;
+import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
 
 class FormDatiAnagrafici extends StatefulWidget {
   @override

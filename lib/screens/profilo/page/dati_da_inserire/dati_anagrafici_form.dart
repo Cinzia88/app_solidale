@@ -23,7 +23,7 @@ class _FormProfilePageState extends State<FormProfilePage> {
       child: Scaffold(
         appBar: PreferredSize(
             preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-            child: customAppBar(context, true)),
+          child: customAppBar(context: context, onPressed: () => Navigator.pop(context), arrow: true )),
         body: BlocConsumer<ProfileDataBloc, ProfileDataState>(
           listener: (context, state) {
              if (state is ProfileDataErrorState) {

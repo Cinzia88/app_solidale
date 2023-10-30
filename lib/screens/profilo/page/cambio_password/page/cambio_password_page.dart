@@ -25,7 +25,7 @@ class _CambioPasswordPageState extends State<CambioPasswordPage> {
       child: Scaffold(
           appBar: PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-              child: customAppBar(context, true)),
+          child: customAppBar(context: context, onPressed: () => Navigator.pop(context), arrow: true )),
           body: BlocConsumer<ChangePasswordBloc, ChangePasswordState>(
             listener: (context, state) {
               if(state is ChangePasswordErrorState) {

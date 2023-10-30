@@ -24,7 +24,7 @@ class _SingleNewPageState extends State<SingleNewPage> {
     return Scaffold(
         appBar: PreferredSize(
             preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-            child: customAppBar(context, true)),
+          child: customAppBar(context: context, onPressed: () => Navigator.pop(context), arrow: true )),
         body: SingleChildScrollView(
           child: Padding(
             padding:

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../const/color_constants.dart';
 import '../../common_widgets/background_style/custom_appbar.dart';
+import '../../presentation/page/presentation_page.dart';
 import '../../signin/page/signin_page.dart';
 import '../bloc/signup_bloc.dart';
 import '../repository/signup_repository.dart';
@@ -33,7 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
           appBar: PreferredSize(
             
             preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-            child: customAppBar(context, true)
+          child: customAppBar(context: context, onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PresentationPage())), arrow: true ),
           ),
           body: BlocConsumer<SignUpBloc, SignUpState>(
               listener: (context, state) {
