@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../const/color_constants.dart';
 import '../home_offro_aiuto/offro aiuto/offro_aiuto_page.dart';
-import 'custom_cards_sevice.dart';
+import 'custom_cards_sevice_chiedo_aiuto.dart';
 
 
 class HomeChiedoAiuto extends StatelessWidget {
@@ -30,7 +30,7 @@ class HomeChiedoAiuto extends StatelessWidget {
                 const Divider(
                   color: ColorConstants.orangeGradients3,
                 ),
-                customCardsService(context),
+                customCardsServiceChiedoAiuto(context),
                 
 
               ],

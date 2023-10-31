@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:anf_app/const/path_constants.dart';
 import 'package:anf_app/screens/onboarding/page/onboarding_page.dart';
 import 'package:anf_app/screens/presentation/page/presentation_page.dart';
+import 'package:anf_app/screens/tabs/page/page_tabs.dart';
 import 'package:anf_app/secure_storage/shared_prefs.dart';
+import 'package:anf_app/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
 
@@ -19,14 +21,16 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   int splashTime = 3;
-    ValueSharedPrefsViewSlide valueSharedPrefsViewSlide =
+  ValueSharedPrefsViewSlide valueSharedPrefsViewSlide =
       ValueSharedPrefsViewSlide();
+  Service service = Service();
 
   @override
   void initState() {
     super.initState();
-    
-getValueViewSlide();
+
+    getValueViewSlide();
+    getTokenUser();
     timer = Timer(const Duration(seconds: 5), () {
       Navigator.push(
         context,
@@ -34,20 +38,28 @@ getValueViewSlide();
           print('valueToken ${globals.tokenValue}');
           print('valueViewSlide${globals.viewSlide}');
 
-          if (globals.tokenValue != null || globals.viewSlide == false) {
+          if (globals.viewSlide == false) {
             return const PresentationPage();
-          }
-          return const OnboardingPage();
-        }),
+          } else if (globals.tokenValue != '') return TabsPage();
+        }
+        
+        ),
       );
     });
   }
 
   Future getValueViewSlide() async {
-   final value =  await valueSharedPrefsViewSlide.getValueViewSlide();
-     setState(() {
-       globals.viewSlide = value;
-     });
+    final value = await valueSharedPrefsViewSlide.getValueViewSlide();
+    setState(() {
+      globals.viewSlide = value;
+    });
+  }
+
+  Future getTokenUser() async {
+    final value = await service.readToken();
+    setState(() {
+      globals.tokenValue = value;
+    });
   }
 
   @override

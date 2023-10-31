@@ -44,6 +44,14 @@ class ForgetPasswordRepository {
     final startIndex = token.indexOf("|");
     globals.tokenValue = token.substring(startIndex).replaceAll("|", "");
 
-    return globals.tokenValue!;
+     if(token == 'Nessun dato trovato!'){
+             globals.tokenValue = null;
+
+    } else {
+           globals.tokenValue = token.substring(startIndex ).replaceAll("|", "") ;
+
+    }
+    return  globals.tokenValue ?? '';
   }
+  
 }

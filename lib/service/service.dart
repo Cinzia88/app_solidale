@@ -73,9 +73,14 @@ Future sendVerifyMailUser(
   Future<String> readToken() async {
     String token = await secureStorage.readSecureData('token');
     final startIndex = token.indexOf("|");
-     globals.tokenValue = token.substring(startIndex ).replaceAll("|", "");
+    if(token == 'Nessun dato trovato!'){
+             globals.tokenValue = null;
 
-    return  globals.tokenValue!;
+    } else {
+           globals.tokenValue = token.substring(startIndex ).replaceAll("|", "") ;
+
+    }
+    return  globals.tokenValue ?? '';
   }
 }
   

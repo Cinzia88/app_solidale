@@ -87,7 +87,7 @@ class _TabsPageState extends State<TabsPage> {
             ),
           );
         }
-        return loadingWidget(context);
+       return loadingWidget(context);
       }),
     );
   }

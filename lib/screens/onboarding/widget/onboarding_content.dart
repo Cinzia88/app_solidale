@@ -1,14 +1,11 @@
 import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/const/data_constants.dart';
 import 'package:anf_app/screens/onboarding/bloc/onboarding_bloc.dart';
-import 'package:anf_app/secure_storage/secure_storage.dart';
 import 'package:anf_app/secure_storage/shared_prefs.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingContent extends StatefulWidget {
   const OnboardingContent({super.key});
@@ -53,8 +50,6 @@ class _OnboardingContentState extends State<OnboardingContent> {
                               bloc.add(PresentationPageTappedEvent());
                               await valueSharedPrefsViewSlide
                                   .setValueViewSlide(viewSlide);
-                             
-
                             },
                         ),
                       ],
