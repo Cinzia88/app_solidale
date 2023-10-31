@@ -52,8 +52,10 @@ Future sendVerifyMailUser(
     String email,
 
   ) async {
+
     try {
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/send-verify-mail/marraffacinzia5@gmail.com';
+      print('email alex $email');
+      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/send-verify-mail/$email';
       // Await the http get response, then decode the json-formatted response.
       var response = await http.get(Uri.parse(url),
           headers: {

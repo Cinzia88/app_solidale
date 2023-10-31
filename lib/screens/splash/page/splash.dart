@@ -34,15 +34,20 @@ class _SplashScreenState extends State<SplashScreen>
     timer = Timer(const Duration(seconds: 5), () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) {
-          print('valueToken ${globals.tokenValue}');
-          print('valueViewSlide${globals.viewSlide}');
+        MaterialPageRoute(
+          builder: (context) {
+            print('valueToken ${globals.tokenValue}');
+            print('valueViewSlide${globals.viewSlide}');
 
-          if (globals.viewSlide == false) {
-            return const PresentationPage();
-          } else if (globals.tokenValue != '') return TabsPage();
-        }
-        
+            if (globals.viewSlide == false && globals.tokenValue == '') {
+              return const PresentationPage();
+            } else if (globals.tokenValue != null &&
+                globals.viewSlide == false) {
+              return TabsPage();
+            } else {
+              return OnboardingPage();
+            }
+          },
         ),
       );
     });

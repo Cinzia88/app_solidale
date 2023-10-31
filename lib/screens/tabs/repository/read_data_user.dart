@@ -26,12 +26,14 @@ class ReadDataUserRepository {
       HttpHeaders.authorizationHeader: "Bearer ${globals.tokenValue}",
     });
 
-    var data = jsonDecode(response.body);
 
-    print('dataUserHeader ${data}');
 
-    UserData dataUser = UserData.fromJson(data);
-    print('dataUser ${dataUser.nome}');
+    if(response.statusCode == 401) {
+       secureStorage.deleteSecureData('token');
+    }
+
+    UserData dataUser = UserData.fromJson(jsonDecode(response.body));
+    print('dataUser ${response.statusCode}');
 
     return dataUser;
   }
