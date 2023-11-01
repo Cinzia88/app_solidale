@@ -19,7 +19,7 @@ class ForgetPasswordBloc extends Bloc<ForgetPasswordEvent, ForgetPasswordState> 
         emit(ForgetPasswordLoadingState());
 
         try {
-          await forgetPasswordRepository.forgetPassword(
+          await forgetPasswordRepository.forgetPasswordUser(
             context,
             event.email,
           );

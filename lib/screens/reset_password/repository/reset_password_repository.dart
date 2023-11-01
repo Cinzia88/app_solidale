@@ -37,7 +37,7 @@ Future resetPasswordUser(
           }));
 
     
-     Navigator.of(context, rootNavigator: true).pushReplacement(                          
+     Navigator.of(context).push(                          
 MaterialPageRoute(builder: (context) => SignInPage()));
         print('responseCode ${response.statusCode}');
         return response;

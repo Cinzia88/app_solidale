@@ -1,10 +1,5 @@
-
-
-
-
-
-
 import 'dart:convert';
+import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/screens/tabs/page/page_tabs.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -13,11 +8,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../../../secure_storage/secure_storage.dart';
 
 class SignInRepository {
-    final SecureStorage secureStorage = SecureStorage();
+  final SecureStorage secureStorage = SecureStorage();
 
-
-Future loginUser(
-  BuildContext context,
+  Future loginUser(
+    BuildContext context,
     String email,
     String password,
   ) async {
@@ -33,28 +27,59 @@ Future loginUser(
             'email': email,
             'password': password,
           }));
+      switch (response.statusCode) {
+        case 200:
+          String token = jsonDecode(response.body)["token"];
+          await secureStorage.writeSecureData('token', token);
+          // ignore: use_build_context_synchronously
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => TabsPage()),
+          );
+          break;
+        case 422:
+          String message = 'Credenziali non corrette';
 
-      if (response.statusCode == 200) {
-               print('signin ${jsonDecode(response.body)}');
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        case 500:
+          String message =
+              'Errore Server: impossibile stabilire una connessione';
 
-         String token = jsonDecode(response.body)["token"];
-  await secureStorage.writeSecureData('token', token);
-        // ignore: use_build_context_synchronously
-       print('responsetoken $token');
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) =>  TabsPage()),
-            
-            );
-        print('response ${response.body}');
-      } else {
-        print('erroresponse ${response.body}');
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        default:
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                'Errore generico',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
       }
     } catch (e) {
       print('sendimage error $e');
     }
   }
 }
-
-
-
-  

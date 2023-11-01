@@ -1,23 +1,24 @@
 import 'dart:convert';
 
+import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/secure_storage/secure_storage.dart';
 import 'package:anf_app/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
 class SignupRepository {
-      final SecureStorage secureStorage = SecureStorage();
-            Service service= Service();
+  final SecureStorage secureStorage = SecureStorage();
+  Service service = Service();
 
-
-      Future registerUserWithVerificationEmail(BuildContext context, String nome, String email,
-      String password, String confirmPassword, String richiesta) {
-         return registerUser(context, nome, email, password, confirmPassword, richiesta).then((value) {
-         service.verifyUser(email);
-         });
-      }
+  Future registerUserWithVerificationEmail(BuildContext context, String nome,
+      String email, String password, String confirmPassword, String richiesta) {
+    return registerUser(
+            context, nome, email, password, confirmPassword, richiesta)
+        .then((value) {
+      service.verifyUser(email, context);
+    });
+  }
 
   Future registerUser(BuildContext context, String nome, String email,
       String password, String confirmPassword, String richiesta) async {
@@ -36,16 +37,64 @@ class SignupRepository {
             'confirm_password': confirmPassword,
             'richiesta': richiesta
           }));
-      print('signup ${response.statusCode}');
 
-      if (response.statusCode == 200) {
-        print('signupBody true');
- String token = jsonDecode(response.body)["token"];
-  await secureStorage.writeSecureData('token', token);
-     
-      } else {
-        print('response ${response.statusCode}');
+      switch (response.statusCode) {
+        case 200:
+          String token = jsonDecode(response.body)["token"];
+          String message = jsonDecode(response.body)["message"];
+          await secureStorage.writeSecureData('token', token);
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: ColorConstants.orangeGradients3,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        case 422:
+          String message = 'L\'email è già registrata';
+          
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+           case 500:
+          String message = 'Errore Server: impossibile stabilire una connessione';
+          
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+          default:
+           // ignore: use_build_context_synchronously
+           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                'Errore generico',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
       }
+
       return response;
     } catch (e) {
       print('sendimage error $e');

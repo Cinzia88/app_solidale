@@ -1,20 +1,14 @@
 import 'dart:convert';
+import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/secure_storage/secure_storage.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
 
 class ForgetPasswordRepository {
   final SecureStorage secureStorage = SecureStorage();
 
-  Future forgetPassword(
-    BuildContext context,
-    String email,
-  ) {
-    return readToken().then((value) => forgetPasswordUser(context, email));
-  }
 
   Future forgetPasswordUser(
     BuildContext context,
@@ -27,31 +21,86 @@ class ForgetPasswordRepository {
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json',
-            'Authorization': 'Bearer ${globals.tokenValue}'
           },
           body: jsonEncode({
             'email': email,
           }));
+          print('code resp ${response.statusCode}');
+switch (response.statusCode) {
+        case 200:
+          String message = jsonDecode(response.body)["message"];
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: ColorConstants.orangeGradients3,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        case 401:
+          String message = 'Utente non autenticato';
 
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        case 400:
+          String message = 'Utente non trovato';
+
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        case 500:
+          String message =
+              'Errore Server: impossibile stabilire una connessione';
+
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        default:
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                'Errore generico',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+      }
       return response;
     } catch (e) {
       print('sendimage error $e');
     }
   }
 
-  Future<String> readToken() async {
-    String token = await secureStorage.readSecureData('token');
-    final startIndex = token.indexOf("|");
-    globals.tokenValue = token.substring(startIndex).replaceAll("|", "");
-
-     if(token == 'Nessun dato trovato!'){
-             globals.tokenValue = null;
-
-    } else {
-           globals.tokenValue = token.substring(startIndex ).replaceAll("|", "") ;
-
-    }
-    return  globals.tokenValue ?? '';
-  }
+  
   
 }

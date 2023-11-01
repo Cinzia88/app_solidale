@@ -28,6 +28,7 @@ class _TabsPageState extends State<TabsPage> {
   Widget build(BuildContext context) {
     return BlocProvider<ReadUserBloc>(
       create: (context) => ReadUserBloc(
+        context: context,
         readDataUserRepository: context.read<ReadDataUserRepository>(),
       )..add(
           FetchUserEvent(),
@@ -56,11 +57,11 @@ class _TabsPageState extends State<TabsPage> {
               ],
               onItemSelected: (value) {
                 if (value == 3) {
-                  Navigator.of(context, rootNavigator: true).pushReplacement(
+                          Navigator.of(context, rootNavigator: true).pushReplacement(
                       MaterialPageRoute(builder: (context) => SignInPage()));
                   serviceLogout.logoutUser(context);
                   print(globals.tokenValue);
-                }
+                } 
               },
               items: _navBarsItems(),
               resizeToAvoidBottomInset: true,

@@ -1,6 +1,7 @@
 
 
 
+import 'package:anf_app/screens/signin/page/signin_page.dart';
 import 'package:anf_app/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -20,9 +21,54 @@ final SecureStorage secureStorage = SecureStorage();
     'Content-type': 'application/json',
     'Authorization': 'Bearer ${globals.tokenValue}'
   });
+  print('resp logout ${response.statusCode}');
+switch (response.statusCode) {
+        case 200:
 
    secureStorage.deleteSecureData('token');
-print('logout');
+          break;
+        case 401:
+          String message = 'Utente non autenticato';
+                 secureStorage.deleteSecureData('token');
+
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+           case 500:
+          String message = 'Errore Server: impossibile stabilire una connessione';
+          
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+          default:
+           // ignore: use_build_context_synchronously
+           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                'Errore generico',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+      }
+
   
   return response;
     } catch (e) {

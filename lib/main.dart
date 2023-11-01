@@ -28,8 +28,9 @@ print('token ${globals.tokenValue}');
   //...runapp
 }
 
-double percent = 0.5;
 Timer? timer;
+
+
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 

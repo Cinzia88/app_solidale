@@ -1,9 +1,3 @@
-
-
-
-
-
-
 import 'dart:convert';
 import 'package:anf_app/screens/service/logout.dart';
 import 'package:anf_app/screens/signin/page/signin_page.dart';
@@ -13,17 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
 
-
-
 class ChangePasswordRepository {
-
-ServiceLogout serviceLogout = ServiceLogout();
-Future changePasswordUser(
-  BuildContext context,
+  ServiceLogout serviceLogout = ServiceLogout();
+  Future changePasswordUser(
+    BuildContext context,
     String currentPassword,
     String newPassword,
-        String confirmPassword,
-
+    String confirmPassword,
   ) async {
     try {
       var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/change-password';
@@ -39,20 +29,74 @@ Future changePasswordUser(
             'password': newPassword,
             'confirm_password': confirmPassword
           }));
+      switch (response.statusCode) {
+        case 200:
+          // ignore: use_build_context_synchronously
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(builder: (context) => SignInPage()));
+          // ignore: use_build_context_synchronously
+          serviceLogout.logoutUser(context);
+          break;
+        case 400:
+          String message = jsonDecode(response.body)['message'];
 
-    
-     Navigator.of(context, rootNavigator: true).pushReplacement(                          
-MaterialPageRoute(builder: (context) => SignInPage()));
-      serviceLogout.logoutUser(context);
-        print('responseCode ${response.statusCode}');
-        return response;
-     
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        case 401:
+          String message = 'Utente non autenticato';
+
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+
+        case 500:
+          String message =
+              'Errore Server: impossibile stabilire una connessione';
+
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        default:
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                'Errore generico',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+      }
+
+      return response;
     } catch (e) {
       print('sendimage error $e');
     }
   }
 }
-
-
-
-  

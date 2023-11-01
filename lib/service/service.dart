@@ -1,30 +1,31 @@
-
+import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/secure_storage/secure_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
 
-
 class Service {
-final SecureStorage secureStorage = SecureStorage();
-  Future verifyUser(String email) {
- return readToken().then((value) => sendVerifyMailUser(email));
-}
+  final SecureStorage secureStorage = SecureStorage();
+  Future verifyUser(String email, BuildContext context) {
+    return readToken().then((value) => sendVerifyMailUser(email, context));
+  }
 
   Future addImage(Map<String, String> body, List<XFile?> filepath) async {
     try {
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/upload-documents';
+      var url =
+          '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/upload-documents';
       Map<String, String> headers = {
         'Accept': 'application/json',
         'Content-Type': 'multipart/form-data',
-        'Authorization': 'Bearer IZNUzFnTD4MeAHqKhPSrQenCu5eMMfNiAMKsuKue30331031'
+        'Authorization': 'Bearer ${globals.tokenValue}'
       };
 
       List<http.MultipartFile> newList = [];
       http.MultipartRequest? request;
-      
+
       for (int i = 0; i < filepath.length; i++) {
         var multipartFile =
             await http.MultipartFile.fromPath('image[]', filepath[i]!.path);
@@ -46,43 +47,97 @@ final SecureStorage secureStorage = SecureStorage();
     }
   }
 
-
-
-Future sendVerifyMailUser(
+  Future sendVerifyMailUser(
     String email,
-
+    BuildContext context,
   ) async {
-
     try {
-      print('email alex $email');
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/send-verify-mail/$email';
+      print('email inviata all\'utente $email');
+      var url =
+          '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/send-verify-mail/$email';
       // Await the http get response, then decode the json-formatted response.
-      var response = await http.get(Uri.parse(url),
-          headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json',
-            'Authorization': 'Bearer ${globals.tokenValue}'
-          },
-        );
+      var response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer ${globals.tokenValue}'
+        },
+      );
+      switch (response.statusCode) {
+        case 200:
+         print('email inviata');
+          break;
+        case 401:
+          String message = 'Utente non autenticato';
 
-        return response;
-     
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        case 400:
+          String message = 'Utente non trovato';
+
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        case 500:
+          String message =
+              'Errore Server: impossibile stabilire una connessione';
+
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        default:
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                'Errore generico',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+      }
+
+      return response;
     } catch (e) {
       print('sendimage error $e');
     }
   }
- 
+
   Future<String> readToken() async {
     String token = await secureStorage.readSecureData('token');
     final startIndex = token.indexOf("|");
-    if(token == 'Nessun dato trovato!'){
-             globals.tokenValue = null;
-
+    if (token == 'Nessun dato trovato!') {
+      globals.tokenValue = null;
     } else {
-           globals.tokenValue = token.substring(startIndex ).replaceAll("|", "") ;
-
+      globals.tokenValue = token.substring(startIndex).replaceAll("|", "");
     }
-    return  globals.tokenValue ?? '';
+    return globals.tokenValue ?? '';
   }
 }
-  

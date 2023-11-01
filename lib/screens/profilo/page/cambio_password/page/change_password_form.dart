@@ -137,7 +137,9 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Campo Richiesto*';
-                            }
+                            } else if (value != _passwordNewController.text) {
+                            return 'Le password non coincidono';
+                          }
                             return null;
                           },
                         ),
