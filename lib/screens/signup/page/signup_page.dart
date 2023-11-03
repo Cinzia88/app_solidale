@@ -1,10 +1,6 @@
-import 'package:anf_app/main.dart';
 import 'package:anf_app/screens/common_widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-
-import '../../../const/color_constants.dart';
 import '../../common_widgets/background_style/custom_appbar.dart';
 import '../../presentation/page/presentation_page.dart';
 import '../../signin/page/signin_page.dart';

@@ -35,7 +35,6 @@ class _BackgroundStylePresentationPageState extends State<BackgroundStylePresent
         ),
         widget.iconBack == null ? SizedBox() : widget.iconBack!,
         Container(
-            height: 225,
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

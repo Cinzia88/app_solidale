@@ -3,7 +3,6 @@ import 'package:anf_app/const/path_constants.dart';
 import 'package:anf_app/screens/onboarding/page/onboarding_page.dart';
 import 'package:anf_app/screens/presentation/page/presentation_page.dart';
 import 'package:anf_app/screens/tabs/page/page_tabs.dart';
-import 'package:anf_app/secure_storage/secure_storage.dart';
 import 'package:anf_app/secure_storage/shared_prefs.dart';
 import 'package:anf_app/service/service.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,3 @@
-import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -64,6 +63,8 @@ class Service {
           'Authorization': 'Bearer ${globals.tokenValue}'
         },
       );
+               print('error verify ${response.statusCode}');
+
       switch (response.statusCode) {
         case 200:
          print('email inviata');

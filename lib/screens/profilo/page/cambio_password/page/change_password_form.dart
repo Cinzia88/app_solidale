@@ -22,25 +22,25 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
-  bool _isHidden = true;
-  bool _isHiddenConfirm = true;
   bool _isHiddenCurrent = true;
+  bool _isHiddenNew = true;
+  bool _isHiddenConfirm = true;
 
-  void _onToggleVisibilityPassword() {
+  void _onToggleVisibilityPasswordCurrent() {
     setState(() {
-      _isHidden = !_isHidden;
+      _isHiddenCurrent = !_isHiddenCurrent;
+    });
+  }
+
+  void _onToggleVisibilityPasswordNew() {
+    setState(() {
+      _isHiddenNew = !_isHiddenNew;
     });
   }
 
   void _onToggleVisibilityPasswordConfirm() {
     setState(() {
       _isHiddenConfirm = !_isHiddenConfirm;
-    });
-  }
-
-  void _onToggleVisibilityPasswordCurrent() {
-    setState(() {
-      _isHiddenCurrent = !_isHiddenCurrent;
     });
   }
 
@@ -78,10 +78,10 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                         TextFormFieldCustom(
                           textEditingController: _passwordCurrentController,
                           labelTextCustom: 'Password Attuale:',
-                          obscureText: _isHidden,
+                          obscureText: _isHiddenCurrent,
                           widgetIcon: InkWell(
-                              onTap: _onToggleVisibilityPassword,
-                              child: _isHidden
+                              onTap: _onToggleVisibilityPasswordCurrent,
+                              child: _isHiddenCurrent
                                   ? const Icon(
                                       Icons.visibility_off,
                                       color: ColorConstants.orangeGradients3,
@@ -100,10 +100,10 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                         TextFormFieldCustom(
                           textEditingController: _passwordNewController,
                           labelTextCustom: 'Nuova Password:',
-                          obscureText: _isHidden,
+                          obscureText: _isHiddenNew,
                           widgetIcon: InkWell(
-                              onTap: _onToggleVisibilityPassword,
-                              child: _isHidden
+                              onTap: _onToggleVisibilityPasswordNew,
+                              child: _isHiddenNew
                                   ? const Icon(
                                       Icons.visibility_off,
                                       color: ColorConstants.orangeGradients3,
@@ -122,10 +122,10 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                         TextFormFieldCustom(
                           textEditingController: _confirmPasswordController,
                           labelTextCustom: 'Conferma Password:',
-                          obscureText: _isHidden,
+                          obscureText: _isHiddenConfirm,
                           widgetIcon: InkWell(
                               onTap: _onToggleVisibilityPasswordConfirm,
-                              child: _isHidden
+                              child: _isHiddenConfirm
                                   ? const Icon(
                                       Icons.visibility_off,
                                       color: ColorConstants.orangeGradients3,

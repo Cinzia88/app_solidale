@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:anf_app/const/color_constants.dart';
 import 'package:anf_app/screens/tabs/page/page_tabs.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';

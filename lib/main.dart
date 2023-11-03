@@ -8,6 +8,7 @@ import 'package:anf_app/screens/reset_password/page/reset_password_page.dart';
 import 'package:anf_app/screens/reset_password/repository/reset_password_repository.dart';
 
 import 'package:anf_app/screens/splash/page/splash.dart';
+import 'package:anf_app/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -24,6 +25,8 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 print('token ${globals.tokenValue}');
   await dotenv.load(fileName: ".env.example");
+     SecureStorage().deleteSecureData('token');
+
   runApp(MyApp());
   //...runapp
 }
