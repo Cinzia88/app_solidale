@@ -22,6 +22,10 @@
 	<string>????</string>
 	<key>FlutterDeepLinkingEnabled</key>
 	<true/>
+	<key>com.apple.developer.associated-domains</key>
+	<array>   
+    <string>applinks:appsolidale.com</string>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
