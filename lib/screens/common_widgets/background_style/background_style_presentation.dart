@@ -31,15 +31,17 @@ class _BackgroundStylePresentationPageState extends State<BackgroundStylePresent
             begin: Alignment.topLeft,
             end: Alignment.center,
           )),
-          
+
         ),
         widget.iconBack == null ? SizedBox() : widget.iconBack!,
         Container(
+          height: size.height / 3.5,
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+
                 SafeArea(
                     child: Image.asset(PathConstants.logoanfcompleto,
                   width: 150,

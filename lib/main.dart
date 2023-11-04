@@ -25,7 +25,6 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 print('token ${globals.tokenValue}');
   await dotenv.load(fileName: ".env.example");
-     SecureStorage().deleteSecureData('token');
 
   runApp(MyApp());
   //...runapp
