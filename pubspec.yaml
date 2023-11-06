@@ -55,6 +55,7 @@ dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   go_router: 
   shared_preferences: ^2.2.2
+  uni_links: ^0.5.1
 
 dev_dependencies:
   flutter_test:

@@ -10,6 +10,7 @@ import 'package:anf_app/screens/reset_password/repository/reset_password_reposit
 import 'package:anf_app/screens/splash/page/splash.dart';
 import 'package:anf_app/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -20,17 +21,29 @@ import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 import 'screens/tabs/repository/read_data_user.dart';
 import 'globals_variables/globals_variables.dart' as globals;
+import 'package:uni_links/uni_links.dart';
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 print('token ${globals.tokenValue}');
   await dotenv.load(fileName: ".env.example");
                  SecureStorage().deleteSecureData('token');
+  initUniLinks();
 
   runApp(MyApp());
+  
+
   //...runapp
 }
-
+initUniLinks()async{
+  try{
+    Uri? initialLink = await getInitialUri();
+    print('initialLink $initialLink');
+  } on PlatformException {
+    print('platfrom exception unilink');
+  }
+}
 Timer? timer;
 
 
