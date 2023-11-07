@@ -21,29 +21,21 @@ import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 import 'screens/tabs/repository/read_data_user.dart';
 import 'globals_variables/globals_variables.dart' as globals;
-import 'package:uni_links/uni_links.dart';
 
+bool initialURILinkHandled = false;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 print('token ${globals.tokenValue}');
   await dotenv.load(fileName: ".env.example");
                  SecureStorage().deleteSecureData('token');
-  initUniLinks();
 
   runApp(MyApp());
   
 
   //...runapp
 }
-initUniLinks()async{
-  try{
-    Uri? initialLink = await getInitialUri();
-    print('initialLink $initialLink');
-  } on PlatformException {
-    print('platfrom exception unilink');
-  }
-}
+
 Timer? timer;
 
 

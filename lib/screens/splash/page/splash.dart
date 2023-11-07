@@ -8,6 +8,10 @@ import 'package:anf_app/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uni_links/uni_links.dart';
 import '../../../const/color_constants.dart';
 import '../../../main.dart';
 
@@ -25,10 +29,17 @@ class _SplashScreenState extends State<SplashScreen>
       ValueSharedPrefsViewSlide();
   Service service = Service();
 
+    Uri? _initialURI;
+  Uri? _currentURI;
+  Object? _err;
+
+  StreamSubscription? _streamSubscription;
+
   @override
   void initState() {
     super.initState();
 
+  
     getValueViewSlide();
     getTokenUser();
 
@@ -54,6 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
     });
   }
 
+ 
   Future getValueViewSlide() async {
     final value = await valueSharedPrefsViewSlide.getValueViewSlide();
     setState(() {
