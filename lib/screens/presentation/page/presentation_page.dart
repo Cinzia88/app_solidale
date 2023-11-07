@@ -34,27 +34,3 @@ class _PresentationPageState extends State<PresentationPage> {
   }
 }
 
-
-/*  Column(
-        children: [
-          CustomContainerService(),
-                  CustomContainerService(),
-          CustomContainerService(),
-    
-        ],
-      ), 
-      
-      
-      SingleChildScrollView(
-
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-            child:   Stack(
-                children: [
-          const  BackgroundStyle(),
-                             CustomCard(),
-
-                ],
-              ),
-          ),
-        ))*/

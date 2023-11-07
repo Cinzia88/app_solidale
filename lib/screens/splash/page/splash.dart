@@ -8,10 +8,7 @@ import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:uni_links/uni_links.dart';
+
 import '../../../const/color_constants.dart';
 import '../../../main.dart';
 
@@ -29,11 +26,6 @@ class _SplashScreenState extends State<SplashScreen>
       ValueSharedPrefsViewSlide();
   Service service = Service();
 
-    Uri? _initialURI;
-  Uri? _currentURI;
-  Object? _err;
-
-  StreamSubscription? _streamSubscription;
 
   @override
   void initState() {
