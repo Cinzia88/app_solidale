@@ -1,4 +1,4 @@
-import 'package:anf_app/const/text_constants.dart';
+import 'package:app_solidale/const/text_constants.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 

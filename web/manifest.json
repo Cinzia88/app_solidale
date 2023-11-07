@@ -1,6 +1,6 @@
 {
-    "name": "anf_app",
-    "short_name": "anf_app",
+    "name": "app_solidale",
+    "short_name": "app_solidale",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

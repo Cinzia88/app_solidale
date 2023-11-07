@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 
-import 'package:anf_app/screens/common_widgets/custom_cards_common.dart';
+import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../const/color_constants.dart';

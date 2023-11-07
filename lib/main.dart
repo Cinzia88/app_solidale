@@ -1,16 +1,15 @@
 import 'dart:async';
 
-import 'package:anf_app/const/color_constants.dart';
-import 'package:anf_app/screens/forget_password/repository/forget_password_repository.dart';
-import 'package:anf_app/screens/profilo/page/cambio_password/repository/change_password_repository.dart';
-import 'package:anf_app/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
-import 'package:anf_app/screens/reset_password/page/reset_password_page.dart';
-import 'package:anf_app/screens/reset_password/repository/reset_password_repository.dart';
+import 'package:app_solidale/const/color_constants.dart';
+import 'package:app_solidale/screens/forget_password/repository/forget_password_repository.dart';
+import 'package:app_solidale/screens/profilo/page/cambio_password/repository/change_password_repository.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
+import 'package:app_solidale/screens/reset_password/page/reset_password_page.dart';
+import 'package:app_solidale/screens/reset_password/repository/reset_password_repository.dart';
 
-import 'package:anf_app/screens/splash/page/splash.dart';
-import 'package:anf_app/secure_storage/secure_storage.dart';
+import 'package:app_solidale/screens/splash/page/splash.dart';
+import 'package:app_solidale/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

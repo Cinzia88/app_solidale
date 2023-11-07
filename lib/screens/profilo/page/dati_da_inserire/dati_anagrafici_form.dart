@@ -1,8 +1,8 @@
-import 'package:anf_app/screens/profilo/page/dati_da_inserire/bloc/profile_bloc.dart';
-import 'package:anf_app/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/bloc/profile_bloc.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
 import 'package:flutter/material.dart';
 
-import 'package:anf_app/screens/common_widgets/background_style/custom_appbar.dart';
+import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'dati_form.dart';

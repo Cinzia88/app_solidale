@@ -1,7 +1,7 @@
-import 'package:anf_app/const/path_constants.dart';
-import 'package:anf_app/screens/common_widgets/custom_cards_common.dart';
-import 'package:anf_app/screens/home/widget/home_chiedo_aiuto/chiedo_aiuto/prenotaz_servizi.dart';
-import 'package:anf_app/screens/presentation/widgets/custom_container_service.dart';
+import 'package:app_solidale/const/path_constants.dart';
+import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
+import 'package:app_solidale/screens/home/widget/home_chiedo_aiuto/chiedo_aiuto/prenotaz_servizi.dart';
+import 'package:app_solidale/screens/presentation/widgets/custom_container_service.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 

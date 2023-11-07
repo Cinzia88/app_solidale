@@ -1,4 +1,4 @@
-import 'package:anf_app/screens/forget_password/repository/forget_password_repository.dart';
+import 'package:app_solidale/screens/forget_password/repository/forget_password_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

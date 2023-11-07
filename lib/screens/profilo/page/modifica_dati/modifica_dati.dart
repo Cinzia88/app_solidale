@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:anf_app/service/service.dart';
+import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
 
-import 'package:anf_app/screens/common_widgets/background_style/custom_appbar.dart';
-import 'package:anf_app/screens/common_widgets/custom_textfield.dart';
-import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
+import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 import '../../../../const/color_constants.dart';
 import '../../../common_widgets/custom_button.dart';
 import '../../../common_widgets/validator_email/validator_email.dart';

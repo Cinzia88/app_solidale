@@ -1,10 +1,10 @@
-import 'package:anf_app/secure_storage/secure_storage.dart';
+import 'package:app_solidale/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
-import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 class Service {
   final SecureStorage secureStorage = SecureStorage();

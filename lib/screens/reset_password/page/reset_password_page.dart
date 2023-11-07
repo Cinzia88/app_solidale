@@ -1,13 +1,13 @@
 
 
 
-import 'package:anf_app/main.dart';
-import 'package:anf_app/screens/common_widgets/background_style/custom_appbar.dart';
-import 'package:anf_app/screens/common_widgets/loading_widget.dart';
-import 'package:anf_app/screens/reset_password/bloc/reset_password_bloc.dart';
-import 'package:anf_app/screens/reset_password/page/reset_password_form.dart';
-import 'package:anf_app/screens/reset_password/repository/reset_password_repository.dart';
-import 'package:anf_app/screens/signin/page/signin_page.dart';
+import 'package:app_solidale/main.dart';
+import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
+import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/reset_password/bloc/reset_password_bloc.dart';
+import 'package:app_solidale/screens/reset_password/page/reset_password_form.dart';
+import 'package:app_solidale/screens/reset_password/repository/reset_password_repository.dart';
+import 'package:app_solidale/screens/signin/page/signin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

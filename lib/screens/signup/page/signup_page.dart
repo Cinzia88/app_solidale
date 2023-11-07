@@ -1,4 +1,4 @@
-import 'package:anf_app/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../common_widgets/background_style/custom_appbar.dart';

@@ -2,9 +2,9 @@
 
 
 
-import 'package:anf_app/const/path_constants.dart';
-import 'package:anf_app/const/text_constants.dart';
-import 'package:anf_app/screens/onboarding/widget/onboarding_tile.dart';
+import 'package:app_solidale/const/path_constants.dart';
+import 'package:app_solidale/const/text_constants.dart';
+import 'package:app_solidale/screens/onboarding/widget/onboarding_tile.dart';
 
 class DataConstants {
   // Onboarding

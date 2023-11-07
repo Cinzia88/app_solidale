@@ -1,8 +1,8 @@
 
 
 
-import 'package:anf_app/screens/common_widgets/custom_button.dart';
-import 'package:anf_app/screens/reset_password/bloc/reset_password_bloc.dart';
+import 'package:app_solidale/screens/common_widgets/custom_button.dart';
+import 'package:app_solidale/screens/reset_password/bloc/reset_password_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,8 +1,8 @@
 
 
-import 'package:anf_app/screens/onboarding/bloc/onboarding_bloc.dart';
-import 'package:anf_app/screens/onboarding/widget/onboarding_content.dart';
-import 'package:anf_app/screens/presentation/page/presentation_page.dart';
+import 'package:app_solidale/screens/onboarding/bloc/onboarding_bloc.dart';
+import 'package:app_solidale/screens/onboarding/widget/onboarding_content.dart';
+import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

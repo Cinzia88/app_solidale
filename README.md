@@ -1,4 +1,4 @@
-# anf_app
+# app_solidale
 
 A new Flutter project.
 

@@ -5,12 +5,12 @@
 
 
 import 'dart:convert';
-import 'package:anf_app/screens/signin/page/signin_page.dart';
+import 'package:app_solidale/screens/signin/page/signin_page.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 
 

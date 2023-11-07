@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:anf_app/const/color_constants.dart';
+import 'package:app_solidale/const/color_constants.dart';
 
 import '../../common_widgets/custom_button.dart';
 import '../../common_widgets/custom_textfield.dart';

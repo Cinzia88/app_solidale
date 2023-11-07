@@ -1,15 +1,15 @@
-import 'package:anf_app/screens/home/page/home_page.dart';
-import 'package:anf_app/screens/profilo/page/profile_page.dart';
-import 'package:anf_app/screens/service/logout.dart';
-import 'package:anf_app/screens/signin/page/signin_page.dart';
-import 'package:anf_app/screens/tabs/repository/read_data_user.dart';
+import 'package:app_solidale/screens/home/page/home_page.dart';
+import 'package:app_solidale/screens/profilo/page/profile_page.dart';
+import 'package:app_solidale/screens/service/logout.dart';
+import 'package:app_solidale/screens/signin/page/signin_page.dart';
+import 'package:app_solidale/screens/tabs/repository/read_data_user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
-import 'package:anf_app/const/color_constants.dart';
-import 'package:anf_app/screens/news/page/news_page.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/const/color_constants.dart';
+import 'package:app_solidale/screens/news/page/news_page.dart';
 
 import '../../common_widgets/loading_widget.dart';
 import '../bloc/read_user_bloc.dart';

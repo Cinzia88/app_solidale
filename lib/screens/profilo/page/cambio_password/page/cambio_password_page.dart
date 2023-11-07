@@ -1,9 +1,9 @@
 
 
 
-import 'package:anf_app/screens/common_widgets/loading_widget.dart';
-import 'package:anf_app/screens/profilo/page/cambio_password/bloc/change_password_bloc.dart';
-import 'package:anf_app/screens/profilo/page/cambio_password/repository/change_password_repository.dart';
+import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/profilo/page/cambio_password/bloc/change_password_bloc.dart';
+import 'package:app_solidale/screens/profilo/page/cambio_password/repository/change_password_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

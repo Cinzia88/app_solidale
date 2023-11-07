@@ -1,4 +1,4 @@
-import 'package:anf_app/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';

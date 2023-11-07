@@ -1,4 +1,4 @@
-  import 'package:anf_app/const/path_constants.dart';
+  import 'package:app_solidale/const/path_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../../const/color_constants.dart';

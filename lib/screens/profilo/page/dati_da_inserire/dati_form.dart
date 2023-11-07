@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:anf_app/screens/profilo/page/dati_da_inserire/bloc/profile_bloc.dart';
-import 'package:anf_app/service/service.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/bloc/profile_bloc.dart';
+import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +12,7 @@ import '../../../common_widgets/custom_button.dart';
 import '../../../common_widgets/custom_textfield.dart';
 import '../../../common_widgets/loading_widget.dart';
 import '../../../common_widgets/validator_email/validator_email.dart';
-import 'package:anf_app/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 class FormDatiAnagrafici extends StatefulWidget {
   @override

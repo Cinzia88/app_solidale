@@ -3,7 +3,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:anf_app/screens/profilo/page/cambio_password/repository/change_password_repository.dart';
+import 'package:app_solidale/screens/profilo/page/cambio_password/repository/change_password_repository.dart';
 import 'package:flutter/material.dart';
 
 part 'change_password_event.dart';

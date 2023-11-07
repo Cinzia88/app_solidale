@@ -1,7 +1,7 @@
-import 'package:anf_app/const/color_constants.dart';
-import 'package:anf_app/const/data_constants.dart';
-import 'package:anf_app/screens/onboarding/bloc/onboarding_bloc.dart';
-import 'package:anf_app/secure_storage/shared_prefs.dart';
+import 'package:app_solidale/const/color_constants.dart';
+import 'package:app_solidale/const/data_constants.dart';
+import 'package:app_solidale/screens/onboarding/bloc/onboarding_bloc.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

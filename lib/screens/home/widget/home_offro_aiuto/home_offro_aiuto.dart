@@ -1,5 +1,5 @@
 
-import 'package:anf_app/screens/home/widget/home_offro_aiuto/offro%20aiuto/custom_cards_service_offro_aiuto.dart';
+import 'package:app_solidale/screens/home/widget/home_offro_aiuto/offro%20aiuto/custom_cards_service_offro_aiuto.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../const/color_constants.dart';

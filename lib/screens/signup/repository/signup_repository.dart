@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:anf_app/const/color_constants.dart';
-import 'package:anf_app/secure_storage/secure_storage.dart';
-import 'package:anf_app/service/service.dart';
+import 'package:app_solidale/const/color_constants.dart';
+import 'package:app_solidale/secure_storage/secure_storage.dart';
+import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
