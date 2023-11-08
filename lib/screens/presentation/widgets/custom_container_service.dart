@@ -22,6 +22,11 @@ class CustomContainerService extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return  Row(
                     children: [
                        Flexible(
@@ -34,9 +39,9 @@ class CustomContainerService extends StatelessWidget {
                                 Flexible(
                                   child: Text(
                                     title,
-                                    style: const TextStyle(
+                                    style:  TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                                      fontSize: 2.5 * blockSizeVertical,
                                       color: ColorConstants.titleText,
                                     ),
                                   ),

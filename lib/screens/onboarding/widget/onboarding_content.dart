@@ -22,6 +22,11 @@ class _OnboardingContentState extends State<OnboardingContent> {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<OnboardingBloc>(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return SafeArea(
       child: Column(
         children: [
@@ -37,9 +42,9 @@ class _OnboardingContentState extends State<OnboardingContent> {
                       children: [
                         TextSpan(
                           text: " Salta",
-                          style: const TextStyle(
+                          style:  TextStyle(
                             color: ColorConstants.titleText,
-                            fontSize: 18,
+                            fontSize: 2.5 * blockSizeVertical,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()

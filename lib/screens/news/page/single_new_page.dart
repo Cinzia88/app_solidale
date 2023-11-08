@@ -21,6 +21,11 @@ class SingleNewPage extends StatefulWidget {
 class _SingleNewPageState extends State<SingleNewPage> {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return Scaffold(
         appBar: PreferredSize(
             preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
@@ -44,16 +49,16 @@ class _SingleNewPageState extends State<SingleNewPage> {
                     )),
                   ),
                 ),
-                const Row(
+                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 15, bottom: 10),
                       child: Text(
                         'Lorem ipsum',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                          fontSize: 2 * blockSizeVertical,
                         ),
                       ),
                     ),
@@ -63,12 +68,12 @@ class _SingleNewPageState extends State<SingleNewPage> {
                   color: ColorConstants.orangeGradients3,
                   height: 15,
                 ),
-                const Padding(
+                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 2 * blockSizeVertical,
                     ),
                   ),
                 ),

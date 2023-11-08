@@ -22,20 +22,25 @@ class _FormOffroAiutoState extends State<FormOffroAiuto> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
       child: Form(
         key: _formKey,
         child: Column(
           children: [
-            const Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Offro Aiuto',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 25,
+                      fontSize: 3 * blockSizeVertical,
                       color: ColorConstants.titleText),
                 ),
               ],

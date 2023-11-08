@@ -21,7 +21,11 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
   @override
   Widget build(BuildContext context) {
             final bloc = BlocProvider.of<ForgetPasswordBloc>(context);
-
+final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return BlocBuilder<ForgetPasswordBloc, ForgetPasswordState>(
       builder: (context, state) {
         return Padding(
@@ -44,7 +48,7 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
                           'Resetta la Password',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 25,
+                              fontSize: 3 * blockSizeVertical,
                               color: ColorConstants.titleText),
                         ),
                         SizedBox(

@@ -41,9 +41,14 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
   @override
   Widget build(BuildContext context) {
         final bloc = BlocProvider.of<ResetPasswordBloc>(context);
-
+ final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return BlocBuilder<ResetPasswordBloc, ResetPasswordState>(
       builder: (context, state) {
+
         return Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Material(
@@ -63,7 +68,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                               'La Tua Nuova Password',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 25,
+                                  fontSize: 3 * blockSizeVertical,
                                   color: ColorConstants.titleText),
                             ),
                             SizedBox(

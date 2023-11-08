@@ -30,6 +30,11 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<SignInBloc>(context);
+     final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
 
     return BlocBuilder<SignInBloc, SignInState>(builder: (context, state) {
        if(state is SignInLoadingState) {
@@ -56,7 +61,7 @@ class _LoginFormState extends State<LoginForm> {
                         'Accedi al Tuo Account',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 25,
+                            fontSize: 3 * blockSizeVertical,
                             color: ColorConstants.titleText),
                       ),
                       SizedBox(
@@ -130,7 +135,7 @@ class _LoginFormState extends State<LoginForm> {
                                   text: "Recupera Password",
                                   style: TextStyle(
                                     color: ColorConstants.primaryColor,
-                                    fontSize: 16,
+                                    fontSize: 2 * blockSizeVertical,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   recognizer: TapGestureRecognizer()
@@ -159,14 +164,14 @@ class _LoginFormState extends State<LoginForm> {
                       text: 'Non possiedi un account?',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 15,
+                        fontSize: 2 * blockSizeVertical,
                       ),
                       children: [
                         TextSpan(
                           text: " Crea",
                           style: TextStyle(
                             color: ColorConstants.primaryColor,
-                            fontSize: 15,
+                            fontSize: 2 * blockSizeVertical,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()

@@ -14,6 +14,11 @@ class HomeChiedoAiuto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return Padding(
         padding: const EdgeInsets.all(20.0),
         child: ListView(
@@ -22,10 +27,10 @@ class HomeChiedoAiuto extends StatelessWidget {
               children: [
                  Text(
                  richiestaChiedoAiuto,
-                  style: const TextStyle(
+                  style:  TextStyle(
                       color: ColorConstants.titleText,
                       fontWeight: FontWeight.bold,
-                      fontSize: 25),
+                      fontSize: 3 * blockSizeVertical),
                 ),
                 const Divider(
                   color: ColorConstants.orangeGradients3,
@@ -45,7 +50,7 @@ class HomeChiedoAiuto extends StatelessWidget {
                     style: TextStyle(
                         color: ColorConstants.orangeGradients3,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16),
+                        fontSize: 2 * blockSizeVertical),
                   ),
                       const Divider(
                     color: ColorConstants.orangeGradients3,

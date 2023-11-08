@@ -46,6 +46,11 @@ class _SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<SignUpBloc>(context);
+     final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
 
     return BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
       return Padding(
@@ -67,7 +72,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         'Crea il Tuo Account',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 25,
+                            fontSize: 3 * blockSizeVertical,
                             color: ColorConstants.titleText),
                       ),
                       SizedBox(
@@ -177,14 +182,14 @@ class _SignUpFormState extends State<SignUpForm> {
                       text: 'Possiedi già un account?',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 15,
+                        fontSize: 2 * blockSizeVertical,
                       ),
                       children: [
                         TextSpan(
                           text: " Accedi",
                           style: TextStyle(
                             color: ColorConstants.primaryColor,
-                            fontSize: 15,
+                            fontSize: 2 * blockSizeVertical,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()

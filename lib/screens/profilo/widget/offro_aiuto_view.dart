@@ -15,6 +15,11 @@ class OffroAiutoView extends StatefulWidget {
 class _OffroAiutoViewState extends State<OffroAiutoView> {
   @override
   Widget build(BuildContext context) {
+     final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return   Padding(
                         padding: const EdgeInsets.only(top: 40.0),
                         child: GestureDetector(
@@ -40,7 +45,7 @@ class _OffroAiutoViewState extends State<OffroAiutoView> {
                                                 'Vuoi offrire il tuo aiuto?',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 25,
+                                                  fontSize: 3 * blockSizeVertical,
                                                   color: ColorConstants.titleText,
                                                 ),
                                               ),

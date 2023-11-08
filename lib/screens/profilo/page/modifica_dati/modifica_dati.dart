@@ -82,6 +82,11 @@ class _FormProfileState extends State<FormProfile> {
 
   @override
   Widget build(BuildContext context) {
+     final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: ListView(
@@ -90,14 +95,14 @@ class _FormProfileState extends State<FormProfile> {
           SingleChildScrollView(
             child: Column(
               children: [
-                const Row(
+                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Modifica I Tuoi Dati',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 25,
+                          fontSize: 3 * blockSizeVertical,
                           color: ColorConstants.titleText),
                     ),
                   ],
@@ -182,14 +187,14 @@ class _FormProfileState extends State<FormProfile> {
                         SizedBox(
                           height: 20,
                         ),
-                        const Row(
+                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               'Lista dei Tuoi Documenti Inviati',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                                  fontSize: 2.5 * blockSizeVertical,
                                   color: ColorConstants.titleText),
                             ),
                           ],

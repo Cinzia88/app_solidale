@@ -8,12 +8,15 @@ class OnboardingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: [
-          const SizedBox(height: 34),
-          Expanded(
+          Flexible(
             child: Image.asset(
               imagePath,
             ),
@@ -22,9 +25,10 @@ class OnboardingTile extends StatelessWidget {
           Text(
             
             title,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w700,
-              fontSize: 24.0,
+              fontSize:  3 * blockSizeVertical,
             ),
           ),
           const SizedBox(height: 15),
@@ -35,7 +39,7 @@ class OnboardingTile extends StatelessWidget {
             child: Text(
               mainText,
               style: TextStyle(
-                fontSize: 16.0,
+                fontSize: 2 * blockSizeVertical,
               ),
               textAlign: TextAlign.center,
             ),
@@ -45,3 +49,6 @@ class OnboardingTile extends StatelessWidget {
     );
   }
 }
+
+
+

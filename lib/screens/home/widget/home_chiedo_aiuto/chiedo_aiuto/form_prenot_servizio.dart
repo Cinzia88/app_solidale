@@ -107,6 +107,11 @@ class _FormPrenotazioneServizioState extends State<FormPrenotazioneServizio> {
       );
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
       child: Form(
@@ -115,14 +120,14 @@ class _FormPrenotazioneServizioState extends State<FormPrenotazioneServizio> {
       
 
           children: [
-            const Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Prenotazione Servizi',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 25,
+                      fontSize: 3 * blockSizeVertical,
                       color: ColorConstants.titleText),
                 ),
               ],

@@ -29,6 +29,11 @@ List images = [
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return  Scaffold(
        appBar: PreferredSize(
           preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
@@ -41,12 +46,12 @@ List images = [
              Row(
               mainAxisAlignment: MainAxisAlignment.center,
                children: [
-                 const Text(
+                  Text(
                       'News',
                       style: TextStyle(
                           color: ColorConstants.titleText,
                           fontWeight: FontWeight.bold,
-                          fontSize: 25),
+                          fontSize: 3 * blockSizeVertical),
                     ),
                ],
              ),
@@ -102,8 +107,8 @@ List images = [
                     children: [
                       Text(
                         'Lorem Ipsum',
-                        style: const TextStyle(
-                          fontSize: 15,
+                        style:  TextStyle(
+                          fontSize: 2 * blockSizeVertical,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -116,8 +121,8 @@ List images = [
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       softWrap: false,
-                      style: const TextStyle(
-                        fontSize: 13,
+                      style:  TextStyle(
+                        fontSize: 2 * blockSizeVertical,
                       ),
                     ),
                   ),
@@ -175,8 +180,8 @@ List images = [
                     children: [
                       Text(
                         'Lorem Ipsum',
-                        style: const TextStyle(
-                          fontSize: 15,
+                        style:  TextStyle(
+                          fontSize: 2 * blockSizeVertical,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -189,8 +194,8 @@ List images = [
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       softWrap: false,
-                      style: const TextStyle(
-                        fontSize: 13,
+                      style:  TextStyle(
+                        fontSize: 2 * blockSizeVertical,
                       ),
                     ),
                   ),
@@ -248,8 +253,8 @@ List images = [
                     children: [
                       Text(
                         'Lorem Ipsum',
-                        style: const TextStyle(
-                          fontSize: 15,
+                        style:  TextStyle(
+                          fontSize: 2 * blockSizeVertical,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -262,8 +267,8 @@ List images = [
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       softWrap: false,
-                      style: const TextStyle(
-                        fontSize: 13,
+                      style:  TextStyle(
+                        fontSize: 2 * blockSizeVertical,
                       ),
                     ),
                   ),

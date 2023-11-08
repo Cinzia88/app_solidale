@@ -6,19 +6,24 @@ import '../../../const/color_constants.dart';
 import '../../signin/page/signin_page.dart';
 
 Widget alreadyAccount(BuildContext context) {
+  final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
 return RichText(
                   text: TextSpan(
                     text: TextConstants.alreadyHaveAccount,
-                    style: const TextStyle(
+                    style:  TextStyle(
                       color: Colors.black,
-                      fontSize: 16,
+                      fontSize: 2 * blockSizeVertical,
                     ),
                     children: [
                       TextSpan(
                         text: "   ${TextConstants.signIn}",
-                        style: const TextStyle(
+                        style:  TextStyle(
                           color: ColorConstants.primaryColor,
-                          fontSize: 18,
+                          fontSize: 2.5 * blockSizeVertical,
                           fontWeight: FontWeight.bold,
                         ),
                         recognizer: TapGestureRecognizer()

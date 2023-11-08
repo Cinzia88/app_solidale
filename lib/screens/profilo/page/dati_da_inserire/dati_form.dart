@@ -67,7 +67,11 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
   @override
   Widget build(BuildContext context) {
         final bloc = BlocProvider.of<ProfileDataBloc>(context);
-
+ final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return BlocBuilder<ProfileDataBloc, ProfileDataState>(
       builder: (context, state) {
         if(state is ProfileDataLoadingState) {
@@ -82,14 +86,14 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    const Row(
+                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           'Dati Anagrafici',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 25,
+                              fontSize: 3 * blockSizeVertical,
                               color: ColorConstants.titleText),
                         ),
                       ],
@@ -211,14 +215,14 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                             SizedBox(
                               height: 30,
                             ),
-                            const Row(
+                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
                                   'Carica i Tuoi Documenti',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                                      fontSize: 2.5 * blockSizeVertical,
                                       color: ColorConstants.titleText),
                                 ),
                               ],

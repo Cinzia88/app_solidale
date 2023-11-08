@@ -19,16 +19,13 @@ class _PresentationPageState extends State<PresentationPage> {
   Widget build(BuildContext context) {
     return  Scaffold(
       body: SingleChildScrollView(
-    
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-              child:   Stack(
-                  children: [
-              BackgroundStylePresentationPage(),
-                   CustomCard(),
-                  ],
-                ),
-            ),
+        
+            child: Stack(
+                children: [
+            BackgroundStylePresentationPage(),
+                 CustomCard(),
+                ],
+              ),
           ),
     );
   }

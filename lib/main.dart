@@ -4,7 +4,6 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/forget_password/repository/forget_password_repository.dart';
 import 'package:app_solidale/screens/profilo/page/cambio_password/repository/change_password_repository.dart';
 import 'package:app_solidale/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
-import 'package:app_solidale/screens/reset_password/page/reset_password_page.dart';
 import 'package:app_solidale/screens/reset_password/repository/reset_password_repository.dart';
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
@@ -13,9 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:go_router/go_router.dart';
+import 'package:one_context/one_context.dart';
 
-import 'screens/signin/page/signin_page.dart';
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 import 'screens/tabs/repository/read_data_user.dart';
@@ -25,47 +23,23 @@ bool initialURILinkHandled = false;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-print('token ${globals.tokenValue}');
+  print('token ${globals.tokenValue}');
   await dotenv.load(fileName: ".env.example");
-                 SecureStorage().deleteSecureData('token');
+  SecureStorage().deleteSecureData('token');
 
-  runApp(MyApp());
-  
+   OnePlatform.app = () => MyApp();
 
   //...runapp
 }
 
 Timer? timer;
 
-
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  MyApp({super.key}) {
+    print('MyApp2 loaded!');
+    OneContext().key = GlobalKey<NavigatorState>();
+  }
 
-  /// The route configuration.
-  final GoRouter _router = GoRouter(
-    routes: <RouteBase>[
-      GoRoute(
-        path: '/',
-        builder: (BuildContext context, GoRouterState state) {
-          return const SplashScreen();
-        },
-        routes: <RouteBase>[
-          GoRoute(
-            path: 'accedi',
-            builder: (BuildContext context, GoRouterState state) {
-              return SignInPage();
-            },
-          ),
-           GoRoute(
-            path: 'reset-password',
-            builder: (BuildContext context, GoRouterState state) {
-              return const ResetPasswordPage();
-            },
-          ),
-        ],
-      ),
-    ],
-  );
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -83,34 +57,40 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<InsertDataRepository>(
           create: (context) => InsertDataRepository(),
         ),
-         RepositoryProvider<ChangePasswordRepository>(
+        RepositoryProvider<ChangePasswordRepository>(
           create: (context) => ChangePasswordRepository(),
         ),
-         RepositoryProvider<ResetPasswordRepository>(
+        RepositoryProvider<ResetPasswordRepository>(
           create: (context) => ResetPasswordRepository(),
         ),
-         RepositoryProvider<ForgetPasswordRepository>(
+        RepositoryProvider<ForgetPasswordRepository>(
           create: (context) => ForgetPasswordRepository(),
         ),
       ],
-      child: MaterialApp.router(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme:
-              const ColorScheme.light(primary: ColorConstants.orangeGradients3),
-          // <-- your color
-        ),
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('it'),
-        ],
-        routerConfig: _router,
+      child: OneNotification(
+        builder: (_, __) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              useMaterial3: true,
+              colorScheme:
+                  const ColorScheme.light(primary: ColorConstants.orangeGradients3),
+              // <-- your color
+            ),
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('it'),
+            ],
+            builder: OneContext().builder,
+            navigatorKey: OneContext().key,
+            home: SplashScreen(),
+          );
+        }
       ),
     );
   }

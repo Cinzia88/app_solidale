@@ -20,6 +20,11 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return Scaffold(
        appBar: PreferredSize(
           preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
@@ -29,12 +34,12 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              const Text(
+               Text(
                     'Area Personale',
                     style: TextStyle(
                         color: ColorConstants.titleText,
                         fontWeight: FontWeight.bold,
-                        fontSize: 25),
+                        fontSize: 3 * blockSizeVertical),
                   ),
                   const Divider(
                     color: ColorConstants.orangeGradients3,
@@ -49,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         "Il Tuo Profilo è Completo al 50%",
                         style: TextStyle(
                             color: ColorConstants.titleText,
-                            fontSize: 18,
+                            fontSize: 2.5 * blockSizeVertical,
                             fontWeight: FontWeight.bold),
                       ),
                 ],
@@ -70,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       
                     },
                     child: CustomCardsCommon(
-                      child: const Column(
+                      child:  Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -82,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Text('  Dati Anagrafici',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    fontSize: 2.5 * blockSizeVertical,
                                     color: ColorConstants.orangeGradients3,
                                   )),
                             ],
@@ -114,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
                      
                     },
                     child: CustomCardsCommon(
-                      child: const Column(
+                      child:  Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -126,7 +131,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Text('  Modifica Il Tuo Profilo',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    fontSize: 2.5 * blockSizeVertical,
                                     color: ColorConstants.orangeGradients3,
                                   )),
                             ],
@@ -158,7 +163,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       
                     },
                     child: CustomCardsCommon(
-                      child: const Column(
+                      child:  Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -170,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Text('  Cambio Password',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    fontSize: 2.5 * blockSizeVertical,
                                     color: ColorConstants.orangeGradients3,
                                   )),
                             ],
@@ -195,11 +200,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text(
+                   Text(
                                 'Elimina Account',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    fontSize: 2.5 * blockSizeVertical,
                                     color: ColorConstants.titleText),
                               ),
                 ],
@@ -242,8 +247,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               
                               Text(
                                'Scorri per rimuovere account',
-                                style: const TextStyle(
-                                  fontSize: 15.0,
+                                style:  TextStyle(
+                                  fontSize: 2 * blockSizeVertical,
                                   color: ColorConstants.orangeGradients3,
                                 ),
                               ),
