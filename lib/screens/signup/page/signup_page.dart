@@ -29,7 +29,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
       child: Scaffold(
           appBar: PreferredSize(
-            
             preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
           child: customAppBar(context: context, onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PresentationPage())), arrow: true ),
           ),
