@@ -15,6 +15,7 @@ class TextFormFieldCustom extends StatelessWidget {
   final Widget? widgetIcon;
   final Function(String)? onChanged;
   final bool obscureText;
+  final TextInputType? keyboardType;
 
   const TextFormFieldCustom({
     Key? key,
@@ -26,6 +27,7 @@ class TextFormFieldCustom extends StatelessWidget {
     this.widgetIcon,
     this.onChanged,
     this.errorText,
+    this.keyboardType
    
   }) : super(key: key);
 
@@ -41,6 +43,7 @@ class TextFormFieldCustom extends StatelessWidget {
         controller: textEditingController,
         autocorrect: true,
         validator: validator,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           errorBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: ColorConstants.orangeGradients3),

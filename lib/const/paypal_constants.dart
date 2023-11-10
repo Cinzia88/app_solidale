@@ -1,7 +1,7 @@
 
 
 class PaypalConstants {
-  static const String clientId = 'AdB5F3PI8pHJIreNTOKMABXrS3HNXxWClzOnVMG-YCEDVDiP_19bo2c5-j6xBvlIKNf4qk_B2rlGMFwE';
-    static const String secretKey = 'EJ6hAEaOf9SUDgYXKQd-lvoYxXgMpHSIxPsLBsbnh05e64Wd0rX3jvLnOHwe7qbKAJBUanWCTS6IankZ';
+  static const String clientId = 'Aa5j6IDuNc1haUqeC6e5dsMbo5wVR9v8VoVGPYJQng0p1bmC9RQ59kYYivg9bNHCYQYHpVbutfnJMW1B';
+    static const String secretKey = 'EGFsZSa1de7FxIHq9Wmpf9EFecluQ3Jniqey2oZGn28emgR3xEs32L_pZ-j1nq4Ns8yaz17jHAJ30nKY';
 
 }

@@ -52,7 +52,7 @@ class _PaymentFormState extends State<PaymentForm> {
                 child: Column(
                   children: [
                     Text(
-                      'Crea il Tuo Account',
+                      'Inserisci un importo',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 3 * blockSizeVertical,
@@ -64,14 +64,14 @@ class _PaymentFormState extends State<PaymentForm> {
                  
                     TextFormFieldCustom(
                       textEditingController: _eurController,
-                      labelTextCustom: 'Email:',
+                      labelTextCustom: '',
                       obscureText: false,
+                      widgetIcon: Icon(Icons.euro, color: ColorConstants.buttonClear,),
+                      keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Campo Richiesto*';
-                        } else if (!Validators.isValidEmail(value)) {
-                          return 'Inserisci un\' email valida';
-                        }
+                          return 'Inserisci un\'importo';
+                        } 
                         return null;
                       },
                     ),
@@ -81,51 +81,26 @@ class _PaymentFormState extends State<PaymentForm> {
                     ),
                     ElevatedButton(
                   onPressed: () async {
-                    Navigator.of(context).push(MaterialPageRoute(
+                    if(_formKey.currentState!.validate()) {
+                      Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) => UsePaypal(
-                        sandboxMode: true,
+                        sandboxMode: false,
                         clientId: PaypalConstants.clientId,
                         secretKey: PaypalConstants.secretKey,
                         returnURL: "https://samplesite.com/return",
                         cancelURL: "https://samplesite.com/cancel",
-                        transactions: const [
+                        transactions:  [
                           {
                             "amount": {
-                              "total": '1.00',
+                              "total": _eurController.text,
                               "currency": "EUR",
                               "details": {
-                                "subtotal": '1.00',
+                                "subtotal": _eurController.text,
                                 "shipping": '0',
                                 "shipping_discount": 0
                               }
                             },
-                            "description": "The payment transaction description.",
-                            // "payment_options": {
-                            //   "allowed_payment_method":
-                            //       "INSTANT_FUNDING_SOURCE"
-                            // },
-                            "item_list": {
-                              "items": [
-                                {
-                                  "name": "Apple",
-                                  "quantity": 1,
-                                  "price": '1.00',
-                                  "currency": "EUR"
-                                },
-                              ],
-    
-                              // shipping address is not required though
-                              "shipping_address": {
-                                "recipient_name": "Raman Singh",
-                                "line1": "Delhi",
-                                "line2": "",
-                                "city": "Delhi",
-                                "country_code": "IN",
-                                "postal_code": "11001",
-                                "phone": "+00000000",
-                                "state": "Texas"
-                              },
-                            }
+                            
                           }
                         ],
                         note: "Contact us for any questions on your order.",
@@ -150,23 +125,20 @@ class _PaymentFormState extends State<PaymentForm> {
                         },
                       ),
                     ));
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)),
                       primary: ColorConstants.primaryColor,
                       onPrimary: Colors.white),
-                  child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'DONA ORA',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 2.5 * blockSizeVertical),
-                        )
-                      ]),
+                  child:  Text(
+                    'DONA ORA',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 2.5 * blockSizeVertical),
+                  ),
                 ),
                   ],
                 ),
