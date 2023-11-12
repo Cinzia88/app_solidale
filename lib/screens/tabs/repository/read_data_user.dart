@@ -38,20 +38,11 @@ ValueSharedPrefsViewSlide valueSharedPrefsViewSlide = ValueSharedPrefsViewSlide(
           print('user auth');
           break;
         case 401:
-          String message = 'Utente non autenticato';
                  secureStorage.deleteSecureData('token');
  Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
 
           // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.red,
-              content: Text(
-                message,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              )));
+         
           break;
            case 500:
           String message = 'Errore Server: impossibile stabilire una connessione';

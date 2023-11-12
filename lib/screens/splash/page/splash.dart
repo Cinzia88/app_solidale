@@ -48,12 +48,9 @@ getUserId();
 
             if (globals.viewSlide == false && globals.tokenValue == '' || globals.tokenValue == null ) {
               return const PresentationPage();
-            } else if (globals.tokenValue != null && globals.userId != null &&
+            } else if (globals.tokenValue != null  &&
                 globals.viewSlide == false) {
               return TabsPage();
-            } else if (globals.userIdNull == null &&
-                globals.viewSlide == false) {
-              return PresentationPage();
             } else {
               return OnboardingPage();
             }
