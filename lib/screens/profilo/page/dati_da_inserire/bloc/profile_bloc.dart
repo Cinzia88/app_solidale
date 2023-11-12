@@ -20,6 +20,7 @@ class ProfileDataBloc extends Bloc<ProfileDataEvent, ProfileDataState> {
         try {
           await dataProfileRepository.dataFormRepository(
             context,
+            event.richiesta,
             event.nome,
             event.cognome,
             event.telefono,

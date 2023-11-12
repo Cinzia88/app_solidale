@@ -3,6 +3,7 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/onboarding/page/onboarding_page.dart';
 import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
 import 'package:app_solidale/screens/tabs/page/page_tabs.dart';
+import 'package:app_solidale/secure_storage/secure_storage.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-
+getUserId();
   
     getValueViewSlide();
     getTokenUser();
@@ -39,15 +40,20 @@ class _SplashScreenState extends State<SplashScreen>
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) {
+          builder: (context)  {
             print('valueToken ${globals.tokenValue}');
             print('valueViewSlide${globals.viewSlide}');
+            print('userId${globals.userId}');
+            print('userIdNull${globals.userIdNull}');
 
-            if (globals.viewSlide == false && globals.tokenValue == '') {
+            if (globals.viewSlide == false && globals.tokenValue == '' || globals.tokenValue == null ) {
               return const PresentationPage();
-            } else if (globals.tokenValue != null &&
+            } else if (globals.tokenValue != null && globals.userId != null &&
                 globals.viewSlide == false) {
               return TabsPage();
+            } else if (globals.userIdNull == null &&
+                globals.viewSlide == false) {
+              return PresentationPage();
             } else {
               return OnboardingPage();
             }
@@ -72,6 +78,14 @@ class _SplashScreenState extends State<SplashScreen>
     });
   }
 
+Future getUserId() async {
+    final value = await valueSharedPrefsViewSlide.getuserId();
+    setState(() {
+      globals.userId = value;
+    });
+     await valueSharedPrefsViewSlide.removeuserId;
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

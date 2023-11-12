@@ -1,3 +1,4 @@
+import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -7,7 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 class Service {
-  final SecureStorage secureStorage = SecureStorage();
+  SecureStorage secureStorage = SecureStorage();
+
   Future verifyUser(String email, BuildContext context) {
     return readToken().then((value) => sendVerifyMailUser(email, context));
   }
@@ -71,6 +73,7 @@ class Service {
           break;
         case 401:
           String message = 'Utente non autenticato';
+Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
 
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -138,6 +141,7 @@ class Service {
       globals.tokenValue = null;
     } else {
       globals.tokenValue = token.substring(startIndex).replaceAll("|", "");
+
     }
     return globals.tokenValue ?? '';
   }

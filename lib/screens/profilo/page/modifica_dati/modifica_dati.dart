@@ -75,8 +75,8 @@ class _FormProfileState extends State<FormProfile> {
     // TODO: implement initState
     super.initState();
     setState(() {
-      _nameController.text = globals.userData!.nome;
-      _emailController.text = globals.userData!.email;
+      _nameController.text = globals.userData!.nome!;
+      _emailController.text = globals.userData!.email!;
     });
   }
 

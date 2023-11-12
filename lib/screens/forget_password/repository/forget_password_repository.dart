@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'package:app_solidale/const/color_constants.dart';
-import 'package:app_solidale/secure_storage/secure_storage.dart';
+import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ForgetPasswordRepository {
-  final SecureStorage secureStorage = SecureStorage();
 
+ValueSharedPrefsViewSlide valueSharedPrefsViewSlide = ValueSharedPrefsViewSlide();
 
   Future forgetPasswordUser(
     BuildContext context,
@@ -28,7 +29,7 @@ class ForgetPasswordRepository {
           print('code resp ${response.statusCode}');
 switch (response.statusCode) {
         case 200:
-          String message = jsonDecode(response.body)["message"];
+          String message = jsonDecode(response.body)["email"];
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: ColorConstants.orangeGradients3,
@@ -42,6 +43,7 @@ switch (response.statusCode) {
           break;
         case 401:
           String message = 'Utente non autenticato';
+Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
 
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(

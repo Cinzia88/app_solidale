@@ -3,10 +3,16 @@ library my_prj.globals;
 import '../screens/tabs/model/get_user_model.dart';
 
 
-String? tokenValue;
-String? tokenValueRegister;
+dynamic tokenValue;
+dynamic tokenValueRegister;
+dynamic tokenInit;
+String? userId;
+String? userIdNull;
+
 
 UserData? userData;
 String? typeRichiesta;
 
 bool? viewSlide;
+
+bool profiloCompleto = false;

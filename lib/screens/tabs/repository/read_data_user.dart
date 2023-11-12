@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -9,7 +11,7 @@ import 'package:app_solidale/globals_variables/globals_variables.dart' as global
 
 class ReadDataUserRepository {
   SecureStorage secureStorage = SecureStorage();
-
+ValueSharedPrefsViewSlide valueSharedPrefsViewSlide = ValueSharedPrefsViewSlide();
   Future readUser(BuildContext context) {
     return readToken().then((value) => getUserData(context));
   }
@@ -27,7 +29,10 @@ class ReadDataUserRepository {
     });
 
  UserData dataUser = UserData.fromJson(jsonDecode(response.body));
-    print('dataUser ${response.statusCode}');
+ print('dataUserId ${dataUser.id}');
+ String userId = dataUser.id;
+ 
+    print('dataUser ${response.headers}');
  switch (response.statusCode) {
         case 200:
           print('user auth');
@@ -35,6 +40,7 @@ class ReadDataUserRepository {
         case 401:
           String message = 'Utente non autenticato';
                  secureStorage.deleteSecureData('token');
+ Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
 
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(

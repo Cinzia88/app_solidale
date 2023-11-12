@@ -55,6 +55,7 @@ dependencies:
   shared_preferences: ^2.2.2
   one_context: ^2.1.0
   flutter_paypal: ^0.2.0
+  flutter_session_manager: ^1.0.3
 
 
 dev_dependencies:

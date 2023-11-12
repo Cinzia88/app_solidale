@@ -1,4 +1,5 @@
 class DataProfileModel {
+  final String richiesta;
   final String nome;
   final String cognome;
   final String telefono;
@@ -6,9 +7,10 @@ class DataProfileModel {
   final String indirizzo;
   final String numeroComponenti;
   final String etaComponenti;
-  final bool presenzaDisabilita;
+  final String presenzaDisabilita;
 
   DataProfileModel({
+    required this.richiesta,
     required this.nome,
     required this.cognome,
     required this.telefono,
@@ -21,6 +23,7 @@ class DataProfileModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'tipoRichiesta':richiesta,
       'nome': nome,
       'cognome': cognome,
       'telefono': telefono,

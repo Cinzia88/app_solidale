@@ -24,7 +24,10 @@ final SecureStorage secureStorage = SecureStorage();
 switch (response.statusCode) {
         case 200:
 
-   secureStorage.deleteSecureData('token');
+await SecureStorage().deleteAll();
+globals.tokenValue = '';
+  print('token logout ${globals.tokenValue}');
+
           break;
         case 401:
           String message = 'Utente non autenticato';

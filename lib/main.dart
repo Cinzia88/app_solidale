@@ -4,10 +4,10 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/forget_password/repository/forget_password_repository.dart';
 import 'package:app_solidale/screens/profilo/page/cambio_password/repository/change_password_repository.dart';
 import 'package:app_solidale/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
-import 'package:app_solidale/screens/reset_password/repository/reset_password_repository.dart';
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -23,9 +23,7 @@ bool initialURILinkHandled = false;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  print('token ${globals.tokenValue}');
   await dotenv.load(fileName: ".env.example");
-  SecureStorage().deleteSecureData('token');
 
    OnePlatform.app = () => MyApp();
 
@@ -36,7 +34,6 @@ Timer? timer;
 
 class MyApp extends StatelessWidget {
   MyApp({super.key}) {
-    print('MyApp2 loaded!');
     OneContext().key = GlobalKey<NavigatorState>();
   }
 
@@ -59,9 +56,6 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<ChangePasswordRepository>(
           create: (context) => ChangePasswordRepository(),
-        ),
-        RepositoryProvider<ResetPasswordRepository>(
-          create: (context) => ResetPasswordRepository(),
         ),
         RepositoryProvider<ForgetPasswordRepository>(
           create: (context) => ForgetPasswordRepository(),

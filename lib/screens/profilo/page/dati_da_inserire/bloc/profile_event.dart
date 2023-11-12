@@ -8,6 +8,7 @@ abstract class ProfileDataEvent extends Equatable {
 
 // ignore: must_be_immutable
 class ProfileDataFormEvent extends ProfileDataEvent {
+  String richiesta;
     String nome;
    String cognome;
    String telefono;
@@ -15,9 +16,10 @@ class ProfileDataFormEvent extends ProfileDataEvent {
    String indirizzo;
    String numeroComponenti;
    String etaComponenti;
-   bool presenzaDisabilita;
+   String presenzaDisabilita;
 
   ProfileDataFormEvent({
+    required this.richiesta,
     required this.nome,
     required this.cognome,
     required this.telefono,
@@ -28,7 +30,7 @@ class ProfileDataFormEvent extends ProfileDataEvent {
     required this.presenzaDisabilita,
   });
   @override
-  List<Object?> get props => [nome, cognome, telefono, email, indirizzo, numeroComponenti, etaComponenti, presenzaDisabilita];
+  List<Object?> get props => [richiesta, nome, cognome, telefono, email, indirizzo, numeroComponenti, etaComponenti, presenzaDisabilita];
 }
  
 

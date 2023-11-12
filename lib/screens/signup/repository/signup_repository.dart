@@ -43,6 +43,7 @@ class SignupRepository {
           String token = jsonDecode(response.body)["token"];
           String message = jsonDecode(response.body)["message"];
           await secureStorage.writeSecureData('token', token);
+         
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: ColorConstants.orangeGradients3,

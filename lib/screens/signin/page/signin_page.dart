@@ -19,14 +19,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
 
 
-@override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-   setState(() {
-      timer!.cancel();
-   });
-  }
+
 
 
   @override
