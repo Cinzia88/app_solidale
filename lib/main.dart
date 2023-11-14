@@ -4,6 +4,7 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/forget_password/repository/forget_password_repository.dart';
 import 'package:app_solidale/screens/profilo/page/cambio_password/repository/change_password_repository.dart';
 import 'package:app_solidale/screens/profilo/page/dati_da_inserire/chiedo_aiuto/repository/insert_data_repository.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/offro_aiuto/repository/insert_data_repository.dart';
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
@@ -51,8 +52,11 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<ReadDataUserRepository>(
           create: (context) => ReadDataUserRepository(),
         ),
-        RepositoryProvider<InsertDataRepository>(
-          create: (context) => InsertDataRepository(),
+        RepositoryProvider<InsertDataChiedoAiutoRepository>(
+          create: (context) => InsertDataChiedoAiutoRepository(),
+        ),
+         RepositoryProvider<InsertDataOffroAiutoRepository>(
+          create: (context) => InsertDataOffroAiutoRepository(),
         ),
         RepositoryProvider<ChangePasswordRepository>(
           create: (context) => ChangePasswordRepository(),

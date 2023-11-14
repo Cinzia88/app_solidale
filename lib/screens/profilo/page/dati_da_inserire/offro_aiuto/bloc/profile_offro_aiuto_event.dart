@@ -12,7 +12,6 @@ class OffroAiutoDataFormEvent extends OffroAiutoDataEvent {
    String cognome;
    String telefono;
    String email;
-   String indirizzo;
    String tipoAiuto;
    String associazione;
 
@@ -21,12 +20,11 @@ class OffroAiutoDataFormEvent extends OffroAiutoDataEvent {
     required this.cognome,
     required this.telefono,
     required this.email,
-    required this.indirizzo,
     required this.tipoAiuto,
     required this.associazione,
   });
   @override
-  List<Object?> get props => [ nome, cognome, telefono, email, indirizzo, tipoAiuto, associazione, ];
+  List<Object?> get props => [ nome, cognome, telefono, email, tipoAiuto, associazione, ];
 }
  
 

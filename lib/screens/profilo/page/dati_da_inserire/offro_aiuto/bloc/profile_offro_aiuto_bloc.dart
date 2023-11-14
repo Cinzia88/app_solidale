@@ -25,7 +25,6 @@ class OffroAiutoDataBloc extends Bloc<OffroAiutoDataEvent, OffroAiutoDataState> 
             event.cognome,
             event.telefono,
             event.email,
-            event.indirizzo,
             event.tipoAiuto,
             event.associazione,);
           emit(OffroAiutoDataLoadedState());

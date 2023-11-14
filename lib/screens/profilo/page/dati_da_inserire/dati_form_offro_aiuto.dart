@@ -1,5 +1,5 @@
 
-import 'package:app_solidale/screens/profilo/page/dati_da_inserire/bloc/profile_bloc.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/offro_aiuto/bloc/profile_offro_aiuto_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,15 +38,15 @@ class _FormDatiAnagraficiOffroAiutoState extends State<FormDatiAnagraficiOffroAi
 
   @override
   Widget build(BuildContext context) {
-        final bloc = BlocProvider.of<ProfileDataBloc>(context);
+        final bloc = BlocProvider.of<OffroAiutoDataBloc>(context);
  final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight =mediaQueryData.size.height;
     final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return BlocBuilder<ProfileDataBloc, ProfileDataState>(
+    return BlocBuilder<OffroAiutoDataBloc, OffroAiutoDataState>(
       builder: (context, state) {
-        if(state is ProfileDataLoadingState) {
+        if(state is OffroAiutoDataLoadingState) {
               return loadingWidget(context);
             }
         return Padding(
@@ -143,7 +143,12 @@ class _FormDatiAnagraficiOffroAiutoState extends State<FormDatiAnagraficiOffroAi
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Checkbox(
+                               
+                                Flexible(
+                                    child: Text(
+                                  'Sei un\'associazione?',
+                                )),
+                                 Checkbox(
                                   value: isCheck,
                                   onChanged: (newValue) {
                                     setState(() {
@@ -151,10 +156,6 @@ class _FormDatiAnagraficiOffroAiutoState extends State<FormDatiAnagraficiOffroAi
                                     });
                                   },
                                 ),
-                                Flexible(
-                                    child: Text(
-                                  'Sei un\'aasociazione?',
-                                ))
                               ],
                             ),
                             Text(
@@ -176,14 +177,14 @@ class _FormDatiAnagraficiOffroAiutoState extends State<FormDatiAnagraficiOffroAi
                                 
                                 if (_formKey.currentState!.validate()) {
                                    
-                                bloc.add(ProfileDataFormEvent
-                                (richiesta: globals.typeRichiesta!,
+                                bloc.add(OffroAiutoDataFormEvent
+                                (
                                   nome: _nameController.text,
                                 cognome: _surnameController.text,
                                 telefono: _telephoneController.text,
                                 email: _emailController.text,
-                              
-                                presenzaDisabilita: isCheck == true ? 'sì' : 'no',
+                              tipoAiuto: _typeController.text,
+                                associazione: isCheck == true ? 'sì' : 'no',
                                 ));
                                   /*FocusScope.of(context).unfocus();
                                                 bloc.add(SignUpTappedEvent()); */

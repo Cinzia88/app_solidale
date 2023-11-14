@@ -13,7 +13,6 @@ class InsertDataChiedoAiutoRepository {
 
   Future dataFormRepository(
     BuildContext context,
-    String richiesta,
     String nome,
     String cognome,
     String email,
@@ -33,7 +32,6 @@ class InsertDataChiedoAiutoRepository {
             'Authorization': 'Bearer ${globals.tokenValue}'
           },
           body: jsonEncode({
-            'tipo_richiesta': richiesta,
             'nome': nome,
             'cognome': cognome,
             'email': email,

@@ -17,7 +17,6 @@ class InsertDataOffroAiutoRepository {
     String cognome,
     String email,
     String telefono,
-    String indirizzo,
     String tipoAiuto,
     String associazione,
   ) async {
@@ -35,7 +34,6 @@ class InsertDataOffroAiutoRepository {
             'cognome': cognome,
             'email': email,
             'telefono': telefono,
-            'indirizzo': indirizzo,
             'tipo_aiuto': tipoAiuto,
             'associazione': associazione,
           }));

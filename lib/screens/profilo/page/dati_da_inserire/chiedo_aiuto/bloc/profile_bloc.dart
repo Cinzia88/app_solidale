@@ -8,10 +8,10 @@ part 'profile_state.dart';
 
 
 
-class ProfileDataBloc extends Bloc<ProfileDataEvent, ProfileDataState> {
+class ProfileChiedoAiutoBloc extends Bloc<ProfileDataEvent, ProfileDataState> {
   final BuildContext context;
   final InsertDataChiedoAiutoRepository dataProfileRepository;
-  ProfileDataBloc({
+  ProfileChiedoAiutoBloc({
     required this.context,
     required this.dataProfileRepository,
   }) : super(ProfileDataInitialState()) {
@@ -20,7 +20,6 @@ class ProfileDataBloc extends Bloc<ProfileDataEvent, ProfileDataState> {
         try {
           await dataProfileRepository.dataFormRepository(
             context,
-            event.richiesta,
             event.nome,
             event.cognome,
             event.telefono,

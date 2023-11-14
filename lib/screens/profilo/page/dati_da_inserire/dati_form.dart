@@ -1,5 +1,5 @@
 
-import 'package:app_solidale/screens/profilo/page/dati_da_inserire/bloc/profile_bloc.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/chiedo_aiuto/bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,13 +41,13 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
 
   @override
   Widget build(BuildContext context) {
-        final bloc = BlocProvider.of<ProfileDataBloc>(context);
+        final bloc = BlocProvider.of<ProfileChiedoAiutoBloc>(context);
  final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight =mediaQueryData.size.height;
     final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return BlocBuilder<ProfileDataBloc, ProfileDataState>(
+    return BlocBuilder<ProfileChiedoAiutoBloc, ProfileDataState>(
       builder: (context, state) {
         if(state is ProfileDataLoadingState) {
               return loadingWidget(context);
@@ -202,7 +202,7 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                                 if (_formKey.currentState!.validate()) {
                                    
                                 bloc.add(ProfileDataFormEvent
-                                (richiesta: globals.typeRichiesta!,
+                                (
                                   nome: _nameController.text,
                                 cognome: _surnameController.text,
                                 telefono: _telephoneController.text,
