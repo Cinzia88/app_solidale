@@ -1,4 +1,4 @@
-import 'package:app_solidale/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/chiedo_aiuto/repository/insert_data_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ part 'profile_state.dart';
 
 class ProfileDataBloc extends Bloc<ProfileDataEvent, ProfileDataState> {
   final BuildContext context;
-  final InsertDataRepository dataProfileRepository;
+  final InsertDataChiedoAiutoRepository dataProfileRepository;
   ProfileDataBloc({
     required this.context,
     required this.dataProfileRepository,

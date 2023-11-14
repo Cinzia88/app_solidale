@@ -1,11 +1,11 @@
-import 'package:app_solidale/screens/profilo/page/dati_da_inserire/bloc/profile_bloc.dart';
-import 'package:app_solidale/screens/profilo/page/dati_da_inserire/repository/insert_data_repository.dart';
-import 'package:flutter/material.dart';
-
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/chiedo_aiuto%20copy/bloc/profile_bloc.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/chiedo_aiuto/bloc/profile_bloc.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/chiedo_aiuto/repository/insert_data_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
-import 'dati_form.dart';
 
 class FormProfilePage extends StatefulWidget {
   @override
@@ -15,10 +15,10 @@ class FormProfilePage extends StatefulWidget {
 class _FormProfilePageState extends State<FormProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ProfileDataBloc>(
+    return  globals.typeRichiesta! == 'Chiedo Aiuto' ? BlocProvider<ProfileDataBloc>(
       create: (context) => ProfileDataBloc(
         context: context,
-        dataProfileRepository: context.read<InsertDataRepository>(),
+        dataProfileRepository: context.read<InsertDataChiedoAiutoRepository>(),
       ),
       child: Scaffold(
         appBar: PreferredSize(
@@ -33,7 +33,9 @@ class _FormProfilePageState extends State<FormProfilePage> {
             }
           },
           builder: (context, state) {
-            return SingleChildScrollView(child: FormDatiAnagrafici());
+            return SingleChildScrollView(child: 
+           
+            FormDatiAnagrafici());
           }
         ),
       ),

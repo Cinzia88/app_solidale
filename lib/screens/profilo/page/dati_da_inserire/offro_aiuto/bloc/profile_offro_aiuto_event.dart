@@ -1,0 +1,32 @@
+part of 'profile_offro_aiuto_bloc.dart';
+
+
+abstract class OffroAiutoDataEvent extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
+
+// ignore: must_be_immutable
+class OffroAiutoDataFormEvent extends OffroAiutoDataEvent {
+    String nome;
+   String cognome;
+   String telefono;
+   String email;
+   String indirizzo;
+   String tipoAiuto;
+   String associazione;
+
+  OffroAiutoDataFormEvent({
+    required this.nome,
+    required this.cognome,
+    required this.telefono,
+    required this.email,
+    required this.indirizzo,
+    required this.tipoAiuto,
+    required this.associazione,
+  });
+  @override
+  List<Object?> get props => [ nome, cognome, telefono, email, indirizzo, tipoAiuto, associazione, ];
+}
+ 
+

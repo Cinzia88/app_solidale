@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
-class InsertDataRepository {
+class InsertDataChiedoAiutoRepository {
    ValueSharedPrefsViewSlide valueSharedPrefsViewSlide =
       ValueSharedPrefsViewSlide();
 
@@ -24,7 +24,7 @@ class InsertDataRepository {
     String presenzaDisabilita,
   ) async {
     try {
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/profile-user';
+      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/profile-user-chiedo-aiuto';
       // Await the http get response, then decode the json-formatted response.
       var response = await http.post(Uri.parse(url),
           headers: {
