@@ -2,8 +2,8 @@ class DataProfileModel {
   final String richiesta;
   final String nome;
   final String cognome;
-  final String telefono;
   final String email;
+  final String telefono;
   final String indirizzo;
   final String numeroComponenti;
   final String etaComponenti;
@@ -13,8 +13,8 @@ class DataProfileModel {
     required this.richiesta,
     required this.nome,
     required this.cognome,
-    required this.telefono,
     required this.email,
+    required this.telefono,
     required this.indirizzo,
     required this.numeroComponenti,
     required this.etaComponenti,
@@ -23,11 +23,11 @@ class DataProfileModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'tipoRichiesta':richiesta,
+      'tipoRichiesta': richiesta,
       'nome': nome,
       'cognome': cognome,
-      'telefono': telefono,
       'email': email,
+      'telefono': telefono,
       'indirizzo': indirizzo,
       'numeroComponenti': numeroComponenti,
       'netaComponenti': etaComponenti,

@@ -21,13 +21,14 @@ class ProfileChiedoAiutoBloc extends Bloc<ProfileDataEvent, ProfileDataState> {
           event.richiesta,
           event.nome,
           event.cognome,
-          event.telefono,
           event.email,
+          event.telefono,
           event.indirizzo,
           event.numeroComponenti,
           event.etaComponenti,
           event.presenzaDisabilita,
         );
+        print('event tel ${event.telefono}');
         emit(ProfileDataLoadedState());
       } catch (e) {
         emit(

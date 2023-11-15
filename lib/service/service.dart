@@ -134,7 +134,96 @@ Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
     }
   }
 
-  Future<String> readToken() async {
+ 
+
+
+   Future deleteAccount(
+    BuildContext context,
+  ) async {
+    try {
+      var url =
+          '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/delete-account';
+      // Await the http get response, then decode the json-formatted response.
+      var response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer ${globals.tokenValue}'
+        },
+      );
+               print('error verify ${response.statusCode}');
+
+      switch (response.statusCode) {
+        case 200:
+ Navigator.of(context, rootNavigator: true).pushReplacement(
+                      MaterialPageRoute(builder: (context) => PresentationPage()));await SecureStorage().deleteAll();
+globals.tokenValue = '';
+  print('token logout ${globals.tokenValue}');
+         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                'Account eliminato',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        case 401:
+Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
+
+         
+          break;
+        case 400:
+          String message = 'Utente non trovato';
+
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        case 500:
+          String message =
+              'Errore Server: impossibile stabilire una connessione';
+
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        default:
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                'Errore generico',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+      }
+
+      return response;
+    } catch (e) {
+      print('sendimage error $e');
+    }
+  }
+
+   Future<String> readToken() async {
     String token = await secureStorage.readSecureData('token');
     final startIndex = token.indexOf("|");
     if (token == 'Nessun dato trovato!') {
@@ -145,4 +234,5 @@ Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
     }
     return globals.tokenValue ?? '';
   }
+
 }

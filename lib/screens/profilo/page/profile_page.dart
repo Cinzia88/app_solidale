@@ -1,4 +1,5 @@
 import 'package:app_solidale/screens/profilo/page/carica_documenti/page/carica_docs_page.dart';
+import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -17,6 +18,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  Service sevice = Service();
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -258,7 +260,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       motion: const ScrollMotion(),
                       children: [
                         SlidableAction(
-                          onPressed: (context) {},
+                          onPressed: (context) {
+                            sevice.deleteAccount(context);
+                          },
                           backgroundColor: Colors.red,
                           icon: Icons.delete,
                         ),

@@ -45,7 +45,7 @@ class InsertDataChiedoAiutoRepository {
           }));
 
       if (response.statusCode == 200) {
-        print('signin ${jsonDecode(response.body)}');
+        print('teluser ${telefono}');
 
         // ignore: use_build_context_synchronously
 bool profiloCompleto = true;

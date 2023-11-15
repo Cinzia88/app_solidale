@@ -7,9 +7,8 @@ import 'package:flutter/material.dart';
 part 'profile_offro_aiuto_event.dart';
 part 'profile_offro_aiuto_state.dart';
 
-
-
-class OffroAiutoDataBloc extends Bloc<OffroAiutoDataEvent, OffroAiutoDataState> {
+class OffroAiutoDataBloc
+    extends Bloc<OffroAiutoDataEvent, OffroAiutoDataState> {
   final BuildContext context;
   final InsertDataOffroAiutoRepository dataProfileOffroAiutoRepository;
   OffroAiutoDataBloc({
@@ -17,26 +16,26 @@ class OffroAiutoDataBloc extends Bloc<OffroAiutoDataEvent, OffroAiutoDataState> 
     required this.dataProfileOffroAiutoRepository,
   }) : super(OffroAiutoDataInitialState()) {
     on<OffroAiutoDataFormEvent>((event, emit) async {
+      emit(OffroAiutoDataLoadedState());
+      try {
+        await dataProfileOffroAiutoRepository.dataFormRepository(
+          context,
+          event.richiesta,
+          event.nome,
+          event.cognome,
+          event.email,
+          event.telefono,
+          event.tipoAiuto,
+          event.associazione,
+        );
         emit(OffroAiutoDataLoadedState());
-        try {
-          await dataProfileOffroAiutoRepository.dataFormRepository(
-            context,
-            event.richiesta,
-            event.nome,
-            event.cognome,
-            event.telefono,
-            event.email,
-            event.tipoAiuto,
-            event.associazione,);
-          emit(OffroAiutoDataLoadedState());
-        } catch (e) {
-          emit(
-            OffroAiutoDataErrorState(
-              message: e.toString(),
-            ),
-          );
-        }
-      
+      } catch (e) {
+        emit(
+          OffroAiutoDataErrorState(
+            message: e.toString(),
+          ),
+        );
+      }
     });
   }
 }
