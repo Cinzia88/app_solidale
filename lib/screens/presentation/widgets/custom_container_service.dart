@@ -49,7 +49,9 @@ class CustomContainerService extends StatelessWidget {
                               ],
                             ),
                             Text(
-                                subtitle),
+                                subtitle, style:  TextStyle(
+                                      fontSize: 2.3 * blockSizeVertical,
+                                    ),),
                           ],
                         ),
                       ),

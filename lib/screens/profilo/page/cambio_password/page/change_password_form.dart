@@ -81,7 +81,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                         ),
                         TextFormFieldCustom(
                           textEditingController: _passwordCurrentController,
-                          labelTextCustom: 'Password Attuale:',
+                          labelTextCustom: 'Password Corrente:',
                           obscureText: _isHiddenCurrent,
                           widgetIcon: InkWell(
                               onTap: _onToggleVisibilityPasswordCurrent,

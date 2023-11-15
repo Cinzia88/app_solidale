@@ -21,7 +21,7 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
           },
           child: CustomCardsCommon(
             child: const CustomContainerService(
-              title: 'Taxi                     Solidale',
+              title: 'Taxi Solidale',
               subtitle: 'Ti aiutiamo a raggiungere strutture e servizi primari',
               image: PathConstants.taxiSolidale,
             ),
@@ -51,7 +51,7 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
         ),
         CustomCardsCommon(
           child: const CustomContainerService(
-            title: 'Banco                 Alimentare',
+            title: 'Banco Alimentare',
             subtitle: 'Prenota o conferma il ritiro del tuo pacco alimentare',
             image: PathConstants.bancoAlim,
           ),

@@ -1,3 +1,4 @@
+import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/profilo/page/carica_documenti/page/carica_docs_page.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
@@ -228,7 +229,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             children: [
                               Flexible(
                                 child: Text(
-                                  'Cambia la tua password attuale ed inserisci quella destinata a sostituirla. ',
+                                  'Cambia la tua password corrente ed inserisci quella destinata a sostituirla. ',
                                 ),
                               ),
                             ],
@@ -255,51 +256,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(
                     height: 10,
                   ),
-                  Slidable(
-                    startActionPane: ActionPane(
-                      motion: const ScrollMotion(),
-                      children: [
-                        SlidableAction(
-                          onPressed: (context) {
-                            sevice.deleteAccount(context);
-                          },
-                          backgroundColor: Colors.red,
-                          icon: Icons.delete,
-                        ),
-                      ],
-                    ),
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                      padding: const EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 1.0,
-                              spreadRadius: 1.0,
-                              color: Colors.grey[400]!),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Scorri per rimuovere account',
-                                style: TextStyle(
-                                  fontSize: 2 * blockSizeVertical,
-                                  color: ColorConstants.orangeGradients3,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CommonStyleButton(title: 'Rimuovi Account', onTap: () {
+                                                    sevice.deleteAccount(context);
+
+                      }, iconWidget: Icon(Icons.delete)),
+                    ],
                   ),
+                
                 ],
               ),
             ],

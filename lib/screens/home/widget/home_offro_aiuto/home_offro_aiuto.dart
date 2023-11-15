@@ -34,7 +34,7 @@ class HomeOffroAiuto extends StatelessWidget {
                 const Divider(
                   color: ColorConstants.orangeGradients3,
                 ),
-                customCardsServiceOffroAiuto(context),
+               // customCardsServiceOffroAiuto(context),
                 
 
               ],

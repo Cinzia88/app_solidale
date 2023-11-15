@@ -32,6 +32,7 @@ Future main() async {
 }
 
 Timer? timer;
+final messengerKey = GlobalKey<ScaffoldMessengerState>();
 
 class MyApp extends StatelessWidget {
   MyApp({super.key}) {
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
             supportedLocales: const [
               Locale('it'),
             ],
+        scaffoldMessengerKey: messengerKey,
             builder: OneContext().builder,
             navigatorKey: OneContext().key,
             home: SplashScreen(),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
 import 'package:app_solidale/service/service.dart';
+import 'package:app_solidale/service/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -71,7 +72,6 @@ class SignupRepository {
           break;
            case 500:
           String message = 'Errore Server: impossibile stabilire una connessione';
-          
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Colors.red,

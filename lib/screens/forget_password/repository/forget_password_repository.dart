@@ -29,7 +29,7 @@ ValueSharedPrefsViewSlide valueSharedPrefsViewSlide = ValueSharedPrefsViewSlide(
           print('code resp ${response.statusCode}');
 switch (response.statusCode) {
         case 200:
-          String message = jsonDecode(response.body)["email"];
+          String message = 'Ti è stato inviato via mail il link di reset password';
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: ColorConstants.orangeGradients3,

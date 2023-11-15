@@ -135,7 +135,7 @@ class _LoginFormState extends State<LoginForm> {
                                   text: "Recupera Password",
                                   style: TextStyle(
                                     color: ColorConstants.primaryColor,
-                                    fontSize: 2 * blockSizeVertical,
+                                    fontSize: 2.5 * blockSizeVertical,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   recognizer: TapGestureRecognizer()
@@ -164,19 +164,21 @@ class _LoginFormState extends State<LoginForm> {
                       text: 'Non possiedi un account?',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 2 * blockSizeVertical,
+                        fontSize: 2.5 * blockSizeVertical,
                       ),
                       children: [
                         TextSpan(
                           text: " Crea",
                           style: TextStyle(
                             color: ColorConstants.primaryColor,
-                            fontSize: 2 * blockSizeVertical,
+                            fontSize: 2.5 * blockSizeVertical,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               bloc.add(ScreenCreateAccountEvent());
+                                                                 FocusScope.of(context).unfocus();
+
                             },
                         ),
                       ],

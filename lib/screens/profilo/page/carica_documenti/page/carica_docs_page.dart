@@ -4,6 +4,7 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
+import 'package:app_solidale/screens/profilo/page/profile_page.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -87,6 +88,12 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
                               textEditingController: _tipoDocController,
                               labelTextCustom: 'Tipo di Documento:',
                               obscureText: false,
+                               validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
                             ),
                             Column(
                               children: [
@@ -247,8 +254,9 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
                                   'tipo_documento': _tipoDocController.text ,
                                 };
                                 service.addImage(body, imagesList);
-                                  /*FocusScope.of(context).unfocus();
-                                                bloc.add(SignUpTappedEvent()); */
+Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => ProfilePage()));
+                                   FocusScope.of(context).unfocus();
                                 }
                               },
                             ),

@@ -16,7 +16,7 @@ return RichText(
                     text: TextConstants.alreadyHaveAccount,
                     style:  TextStyle(
                       color: Colors.black,
-                      fontSize: 2 * blockSizeVertical,
+                      fontSize: 2.5 * blockSizeVertical,
                     ),
                     children: [
                       TextSpan(

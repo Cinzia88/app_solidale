@@ -27,12 +27,16 @@ class TextFormFieldCustom extends StatelessWidget {
     this.widgetIcon,
     this.onChanged,
     this.errorText,
-    this.keyboardType
-   
+    this.keyboardType,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight =mediaQueryData.size.height;
+    final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
@@ -50,7 +54,7 @@ class TextFormFieldCustom extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(35.0)),
 ),
           errorStyle: TextStyle(color: ColorConstants.orangeGradients3),
-          labelStyle: const TextStyle(color: ColorConstants.labelText),
+          labelStyle:  TextStyle(color: ColorConstants.labelText, fontSize: 2 * blockSizeVertical),
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: ColorConstants.enabledBorder),
             borderRadius: BorderRadius.all(Radius.circular(35.0)),

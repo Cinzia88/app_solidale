@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:app_solidale/const/color_constants.dart';
-
 import '../../common_widgets/custom_button.dart';
 import '../../common_widgets/custom_textfield.dart';
 import '../../common_widgets/validator_email/validator_email.dart';
@@ -182,19 +181,20 @@ class _SignUpFormState extends State<SignUpForm> {
                       text: 'Possiedi già un account?',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 2 * blockSizeVertical,
+                        fontSize: 2.5 * blockSizeVertical,
                       ),
                       children: [
                         TextSpan(
                           text: " Accedi",
                           style: TextStyle(
                             color: ColorConstants.primaryColor,
-                            fontSize: 2 * blockSizeVertical,
+                            fontSize: 2.5 * blockSizeVertical,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               bloc.add(SignInTappedEvent());
+                                                                 FocusScope.of(context).unfocus();
                             },
                         ),
                       ],
