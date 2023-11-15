@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 part 'profile_event.dart';
 part 'profile_state.dart';
 
-
-
 class ProfileChiedoAiutoBloc extends Bloc<ProfileDataEvent, ProfileDataState> {
   final BuildContext context;
   final InsertDataChiedoAiutoRepository dataProfileRepository;
@@ -16,27 +14,28 @@ class ProfileChiedoAiutoBloc extends Bloc<ProfileDataEvent, ProfileDataState> {
     required this.dataProfileRepository,
   }) : super(ProfileDataInitialState()) {
     on<ProfileDataFormEvent>((event, emit) async {
+      emit(ProfileDataLoadedState());
+      try {
+        await dataProfileRepository.dataFormRepository(
+          context,
+          event.richiesta,
+          event.nome,
+          event.cognome,
+          event.telefono,
+          event.email,
+          event.indirizzo,
+          event.numeroComponenti,
+          event.etaComponenti,
+          event.presenzaDisabilita,
+        );
         emit(ProfileDataLoadedState());
-        try {
-          await dataProfileRepository.dataFormRepository(
-            context,
-            event.nome,
-            event.cognome,
-            event.telefono,
-            event.email,
-            event.indirizzo,
-            event.numeroComponenti,
-            event.etaComponenti,
-            event.presenzaDisabilita,);
-          emit(ProfileDataLoadedState());
-        } catch (e) {
-          emit(
-            ProfileDataErrorState(
-              message: e.toString(),
-            ),
-          );
-        }
-      
+      } catch (e) {
+        emit(
+          ProfileDataErrorState(
+            message: e.toString(),
+          ),
+        );
+      }
     });
   }
 }

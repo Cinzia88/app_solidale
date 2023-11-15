@@ -11,6 +11,8 @@ import 'package:app_solidale/globals_variables/globals_variables.dart' as global
 
 
 class FormProfilePage extends StatefulWidget {
+  String? offroAiuto;
+  FormProfilePage(this.offroAiuto);
   @override
   State<FormProfilePage> createState() => _FormProfilePageState();
 }
@@ -18,31 +20,7 @@ class FormProfilePage extends StatefulWidget {
 class _FormProfilePageState extends State<FormProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return  globals.typeRichiesta! == 'Chiedo Aiuto' ? BlocProvider<ProfileChiedoAiutoBloc>(
-      create: (context) => ProfileChiedoAiutoBloc(
-        context: context,
-        dataProfileRepository: context.read<InsertDataChiedoAiutoRepository>(),
-      ),
-      child: Scaffold(
-        appBar: PreferredSize(
-            preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: customAppBar(context: context, onPressed: () => Navigator.pop(context), arrow: true )),
-        body: BlocConsumer<ProfileChiedoAiutoBloc, ProfileDataState>(
-          listener: (context, state) {
-             if (state is ProfileDataErrorState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
-            }
-          },
-          builder: (context, state) {
-            return SingleChildScrollView(child: 
-           
-            FormDatiAnagrafici());
-          }
-        ),
-      ),
-    ) : BlocProvider<OffroAiutoDataBloc>(
+    return  globals.typeRichiesta! == 'Offro Aiuto' || widget.offroAiuto == 'Offro Aiuto' ?  BlocProvider<OffroAiutoDataBloc>(
       create: (context) => OffroAiutoDataBloc(
         context: context,
         dataProfileOffroAiutoRepository: context.read<InsertDataOffroAiutoRepository>(),
@@ -63,6 +41,30 @@ class _FormProfilePageState extends State<FormProfilePage> {
             return SingleChildScrollView(child: 
            
             FormDatiAnagraficiOffroAiuto());
+          }
+        ),
+      ),
+    ) : BlocProvider<ProfileChiedoAiutoBloc>(
+      create: (context) => ProfileChiedoAiutoBloc(
+        context: context,
+        dataProfileRepository: context.read<InsertDataChiedoAiutoRepository>(),
+      ),
+      child: Scaffold(
+        appBar: PreferredSize(
+            preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
+          child: customAppBar(context: context, onPressed: () => Navigator.pop(context), arrow: true )),
+        body: BlocConsumer<ProfileChiedoAiutoBloc, ProfileDataState>(
+          listener: (context, state) {
+             if (state is ProfileDataErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+            }
+          },
+          builder: (context, state) {
+            return SingleChildScrollView(child: 
+           
+            FormDatiAnagrafici());
           }
         ),
       ),

@@ -1,6 +1,8 @@
 
 // ignore_for_file: must_be_immutable
 
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/dati_anagrafici_form.dart';
+import 'package:app_solidale/screens/profilo/page/dati_da_inserire/dati_form_offro_aiuto.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../const/color_constants.dart';
@@ -62,7 +64,7 @@ class HomeChiedoAiuto extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => OffroAiutoPage()));
+                            MaterialPageRoute(builder: (_) => FormProfilePage('Offro Aiuto')));
                       },
                         child: Text('Unisciti a noi', style: TextStyle(decoration: TextDecoration.underline,),)),
                     ],

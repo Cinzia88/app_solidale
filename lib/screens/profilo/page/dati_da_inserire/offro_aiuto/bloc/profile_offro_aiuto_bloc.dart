@@ -21,6 +21,7 @@ class OffroAiutoDataBloc extends Bloc<OffroAiutoDataEvent, OffroAiutoDataState> 
         try {
           await dataProfileOffroAiutoRepository.dataFormRepository(
             context,
+            event.richiesta,
             event.nome,
             event.cognome,
             event.telefono,

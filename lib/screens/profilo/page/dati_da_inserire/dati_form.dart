@@ -202,7 +202,7 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                                 if (_formKey.currentState!.validate()) {
                                    
                                 bloc.add(ProfileDataFormEvent
-                                (
+                                (richiesta: 'Chiedo Aiuto',
                                   nome: _nameController.text,
                                 cognome: _surnameController.text,
                                 telefono: _telephoneController.text,

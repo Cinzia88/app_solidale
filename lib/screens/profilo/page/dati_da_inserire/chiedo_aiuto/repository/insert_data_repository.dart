@@ -13,6 +13,7 @@ class InsertDataChiedoAiutoRepository {
 
   Future dataFormRepository(
     BuildContext context,
+    String richiesta,
     String nome,
     String cognome,
     String email,
@@ -23,7 +24,7 @@ class InsertDataChiedoAiutoRepository {
     String presenzaDisabilita,
   ) async {
     try {
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/profile-user-chiedo-aiuto';
+      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/user-app';
       // Await the http get response, then decode the json-formatted response.
       var response = await http.post(Uri.parse(url),
           headers: {
@@ -32,6 +33,7 @@ class InsertDataChiedoAiutoRepository {
             'Authorization': 'Bearer ${globals.tokenValue}'
           },
           body: jsonEncode({
+            'tipo_richiesta': richiesta,
             'nome': nome,
             'cognome': cognome,
             'email': email,

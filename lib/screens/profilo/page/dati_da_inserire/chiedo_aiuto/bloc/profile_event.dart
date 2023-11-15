@@ -8,6 +8,7 @@ abstract class ProfileDataEvent extends Equatable {
 
 // ignore: must_be_immutable
 class ProfileDataFormEvent extends ProfileDataEvent {
+  String richiesta;
     String nome;
    String cognome;
    String telefono;
@@ -18,6 +19,7 @@ class ProfileDataFormEvent extends ProfileDataEvent {
    String presenzaDisabilita;
 
   ProfileDataFormEvent({
+    required this.richiesta,
     required this.nome,
     required this.cognome,
     required this.telefono,

@@ -8,6 +8,7 @@ abstract class OffroAiutoDataEvent extends Equatable {
 
 // ignore: must_be_immutable
 class OffroAiutoDataFormEvent extends OffroAiutoDataEvent {
+  String richiesta;
     String nome;
    String cognome;
    String telefono;
@@ -16,6 +17,7 @@ class OffroAiutoDataFormEvent extends OffroAiutoDataEvent {
    String associazione;
 
   OffroAiutoDataFormEvent({
+    required this.richiesta,
     required this.nome,
     required this.cognome,
     required this.telefono,

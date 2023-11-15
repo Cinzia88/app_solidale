@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     onTap: () {
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
-                        screen: FormProfilePage(),
+                        screen: FormProfilePage(''),
                         withNavBar: true,
                       );
                     },

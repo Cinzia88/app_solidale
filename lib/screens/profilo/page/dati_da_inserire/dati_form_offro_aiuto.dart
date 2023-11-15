@@ -176,9 +176,10 @@ class _FormDatiAnagraficiOffroAiutoState extends State<FormDatiAnagraficiOffroAi
                               onTap: () {
                                 
                                 if (_formKey.currentState!.validate()) {
-                                   
+                                   print('value $isCheck');
                                 bloc.add(OffroAiutoDataFormEvent
                                 (
+                                  richiesta:  'Offro Aiuto',
                                   nome: _nameController.text,
                                 cognome: _surnameController.text,
                                 telefono: _telephoneController.text,
