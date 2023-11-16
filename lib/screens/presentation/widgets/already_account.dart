@@ -16,14 +16,14 @@ return RichText(
                     text: TextConstants.alreadyHaveAccount,
                     style:  TextStyle(
                       color: Colors.black,
-                      fontSize: 2.5 * blockSizeVertical,
+                      fontSize: 2.3 * blockSizeVertical,
                     ),
                     children: [
                       TextSpan(
                         text: "   ${TextConstants.signIn}",
                         style:  TextStyle(
                           color: ColorConstants.primaryColor,
-                          fontSize: 2.5 * blockSizeVertical,
+                          fontSize: 2.3 * blockSizeVertical,
                           fontWeight: FontWeight.bold,
                         ),
                         recognizer: TapGestureRecognizer()

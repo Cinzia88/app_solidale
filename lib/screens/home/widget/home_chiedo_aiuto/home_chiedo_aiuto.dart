@@ -52,13 +52,13 @@ class HomeChiedoAiuto extends StatelessWidget {
                     style: TextStyle(
                         color: ColorConstants.orangeGradients3,
                         fontWeight: FontWeight.bold,
-                        fontSize: 2.3 * blockSizeVertical),
+                        fontSize: 2.0 * blockSizeVertical),
                   ),
                       const Divider(
                     color: ColorConstants.orangeGradients3,
                   ),
                   Text('Offri il tuo aiuto e condividi il tuo tempo.',  style: TextStyle(
-                        fontSize: 2.3 * blockSizeVertical),),
+                        fontSize: 2.0 * blockSizeVertical),),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -67,7 +67,7 @@ class HomeChiedoAiuto extends StatelessWidget {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (_) => FormProfilePage('Offro Aiuto')));
                       },
-                        child: Text('Unisciti a noi', style: TextStyle( color: ColorConstants.orangeGradients3),)),
+                        child: Text('Unisciti a noi', style: TextStyle( color: ColorConstants.orangeGradients3, fontSize: 2.0 * blockSizeVertical),)),
                     ],
                   )
                 ],

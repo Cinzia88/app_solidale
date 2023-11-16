@@ -128,10 +128,10 @@ class _SignUpFormState extends State<SignUpForm> {
                       TextFormFieldCustom(
                         textEditingController: _confirmPasswordController,
                         labelTextCustom: 'Conferma Password:',
-                        obscureText: _isHidden,
+                        obscureText: _isHiddenConfirm,
                         widgetIcon: InkWell(
-                            onTap: _onToggleVisibilityPassword,
-                            child: _isHidden
+                            onTap: _onToggleVisibilityPasswordConfirm,
+                            child: _isHiddenConfirm
                                 ? const Icon(
                                     Icons.visibility_off,
                                     color: ColorConstants.orangeGradients3,
@@ -183,14 +183,14 @@ class _SignUpFormState extends State<SignUpForm> {
                       text: 'Possiedi già un account?',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 2.5 * blockSizeVertical,
+                        fontSize: 2.3 * blockSizeVertical,
                       ),
                       children: [
                         TextSpan(
                           text: " Accedi",
                           style: TextStyle(
                             color: ColorConstants.primaryColor,
-                            fontSize: 2.5 * blockSizeVertical,
+                            fontSize: 2.3 * blockSizeVertical,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()
