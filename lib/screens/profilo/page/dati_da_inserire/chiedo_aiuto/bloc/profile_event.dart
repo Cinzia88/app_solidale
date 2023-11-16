@@ -12,8 +12,10 @@ class ProfileDataFormEvent extends ProfileDataEvent {
   String cognome;
   String email;
   String telefono;
-
   String indirizzo;
+  String citta;
+  String provincia;
+  String cap;
   String numeroComponenti;
   String etaComponenti;
   String presenzaDisabilita;
@@ -25,6 +27,9 @@ class ProfileDataFormEvent extends ProfileDataEvent {
     required this.email,
     required this.telefono,
     required this.indirizzo,
+    required this.citta,
+    required this.provincia,
+    required this.cap,
     required this.numeroComponenti,
     required this.etaComponenti,
     required this.presenzaDisabilita,
@@ -37,6 +42,9 @@ class ProfileDataFormEvent extends ProfileDataEvent {
         email,
         telefono,
         indirizzo,
+        citta,
+        provincia,
+        cap,
         numeroComponenti,
         etaComponenti,
         presenzaDisabilita

@@ -22,6 +22,9 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _telephoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _provController = TextEditingController();
+  final TextEditingController _capController = TextEditingController();
   final TextEditingController _numeroComponentiController =
       TextEditingController();
   final TextEditingController _etaComponentiController =
@@ -139,6 +142,39 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                               },
                             ),
                             TextFormFieldCustom(
+                              textEditingController: _cityController,
+                              labelTextCustom: 'Città:',
+                              obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
+                            ),
+                            TextFormFieldCustom(
+                              textEditingController: _provController,
+                              labelTextCustom: 'Provincia:',
+                              obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
+                            ),
+                            TextFormFieldCustom(
+                              textEditingController: _capController,
+                              labelTextCustom: 'CAP:',
+                              obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
+                            ),
+                            TextFormFieldCustom(
                               textEditingController:
                                   _numeroComponentiController,
                               labelTextCustom: 'N° Componenti Familiari:',
@@ -197,7 +233,8 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                               iconWidget: Icon(Icons.send),
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
-                                  print('telefono ${_telephoneController.text}');
+                                  print(
+                                      'telefono ${_telephoneController.text}');
                                   bloc.add(ProfileDataFormEvent(
                                     richiesta: 'Chiedo Aiuto',
                                     nome: _nameController.text,
@@ -205,6 +242,9 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                                     email: _emailController.text,
                                     telefono: _telephoneController.text,
                                     indirizzo: _addressController.text,
+                                    citta: _cityController.text,
+                                    provincia: _provController.text,
+                                    cap: _capController.text,
                                     numeroComponenti:
                                         _numeroComponentiController.text,
                                     etaComponenti:
@@ -214,7 +254,6 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                                   ));
                                   /*FocusScope.of(context).unfocus();
                                                 bloc.add(SignUpTappedEvent()); */
-                                               
                                 }
                               },
                             ),

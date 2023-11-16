@@ -5,6 +5,9 @@ class DataProfileModel {
   final String email;
   final String telefono;
   final String indirizzo;
+  final String citta;
+  final String provincia;
+  final String cap;
   final String numeroComponenti;
   final String etaComponenti;
   final String presenzaDisabilita;
@@ -16,6 +19,9 @@ class DataProfileModel {
     required this.email,
     required this.telefono,
     required this.indirizzo,
+    required this.citta,
+    required this.provincia,
+    required this.cap,
     required this.numeroComponenti,
     required this.etaComponenti,
     required this.presenzaDisabilita,
@@ -29,6 +35,9 @@ class DataProfileModel {
       'email': email,
       'telefono': telefono,
       'indirizzo': indirizzo,
+      'citta': citta,
+      'provincia': provincia,
+      'cap': cap,
       'numeroComponenti': numeroComponenti,
       'netaComponenti': etaComponenti,
       'presenzaDisabilita': presenzaDisabilita,
