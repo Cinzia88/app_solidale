@@ -119,6 +119,8 @@ class _SignUpFormState extends State<SignUpForm> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Campo Richiesto*';
+                          } else if (value.length < 8) {
+                            return 'La password deve essere maggiore di 8 caratteri';
                           }
                           return null;
                         },

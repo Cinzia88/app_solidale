@@ -214,9 +214,7 @@ class _FormDatiAnagraficiState extends State<FormDatiAnagrafici> {
                                   ));
                                   /*FocusScope.of(context).unfocus();
                                                 bloc.add(SignUpTappedEvent()); */
-                                                setState(() {
-                                                  globals.profiloCompleto = true;
-                                                });
+                                               
                                 }
                               },
                             ),

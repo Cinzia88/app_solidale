@@ -39,6 +39,8 @@ class SignupRepository {
             'richiesta': richiesta
           }));
 
+          print('status ${response.statusCode}');
+
       switch (response.statusCode) {
         case 200:
           String token = jsonDecode(response.body)["token"];

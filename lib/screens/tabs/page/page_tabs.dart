@@ -120,14 +120,7 @@ class _TabsPageState extends State<TabsPage> {
           inactiveColorPrimary: ColorConstants.colorDoctNotActive,
         ),
         PersistentBottomNavBarItem(
-          icon: GestureDetector(
-              onTap: () {
-                Navigator.pushAndRemoveUntil(context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()),
-                    (route) => false
-                    );
-              },
-              child: const Icon(Icons.person)),
+          icon: const Icon(Icons.person),
           title: "Profilo",
           activeColorPrimary: Colors.white,
           inactiveColorPrimary: ColorConstants.colorDoctNotActive,

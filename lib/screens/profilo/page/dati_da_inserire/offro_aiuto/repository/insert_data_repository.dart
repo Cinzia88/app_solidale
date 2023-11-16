@@ -47,6 +47,8 @@ print('associazione $associazione');
         // ignore: use_build_context_synchronously
         bool profiloCompleto = true;
         await valueSharedPrefsViewSlide.setProfileComplete(profiloCompleto);
+                                                          globals.profiloCompleto = true;
+
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => ProfilePage()));
         print('response ${response.body}');

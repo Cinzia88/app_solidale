@@ -53,6 +53,8 @@ await valueSharedPrefsViewSlide
                                   .setProfileComplete(profiloCompleto);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => ProfilePage()));
+                                                              globals.profiloCompleto = true;
+
         print('response ${response.body}');
       } else {
         print('erroresponse ${response.body}');
