@@ -67,7 +67,7 @@ class HomeChiedoAiuto extends StatelessWidget {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (_) => FormProfilePage('Offro Aiuto')));
                       },
-                        child: Text('Unisciti a noi', style: TextStyle( color: ColorConstants.orangeGradients3, fontSize: 2.0 * blockSizeVertical),)),
+                        child: Text('Unisciti a noi', style: TextStyle( color: ColorConstants.orangeGradients3, fontSize: 2.0 * blockSizeVertical, fontWeight: FontWeight.bold),)),
                     ],
                   )
                 ],
