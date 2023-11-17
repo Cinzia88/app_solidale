@@ -78,7 +78,7 @@ class CustomCard extends StatelessWidget {
             ),
             CustomCardsCommon(child: alreadyAccount(context)),
             SizedBox(
-              height: 15 * blockSizeVertical,
+              height: 10 * blockSizeVertical,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
