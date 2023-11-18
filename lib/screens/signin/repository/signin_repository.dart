@@ -33,7 +33,7 @@ class SignInRepository {
           // ignore: use_build_context_synchronously
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => TabsPage()),
+            MaterialPageRoute(builder: (_) => TabsPage('false')),
           );
           break;
         case 422:
@@ -68,9 +68,9 @@ class SignInRepository {
         default:
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.transparent,
               content: Text(
-                'Errore generico',
+                '',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

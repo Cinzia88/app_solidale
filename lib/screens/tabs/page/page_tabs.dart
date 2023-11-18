@@ -16,6 +16,8 @@ import '../bloc/read_user_bloc.dart';
 
 // ignore: must_be_immutable
 class TabsPage extends StatefulWidget {
+  String? utenteTest;
+  TabsPage(this.utenteTest);
   @override
   State<TabsPage> createState() => _TabsPageState();
 }
@@ -26,7 +28,48 @@ class _TabsPageState extends State<TabsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ReadUserBloc>(
+    return widget.utenteTest == 'true' ? Scaffold(
+            body: PersistentTabView(
+              context,
+              controller: _controller,
+              screens: [
+                HomePage(richiesta: 'Chiedo Aiuto'),
+                const NewsPage(),
+                ProfilePage(),
+                const NewsPage(),
+              ],
+              onItemSelected: (value) {
+                if (value == 3) {
+                          Navigator.of(context, rootNavigator: true).pushReplacement(
+                      MaterialPageRoute(builder: (context) => SignInPage()));
+                  serviceLogout.logoutUser(context);
+        print('tokenlogoutTabspage ${globals.tokenValue}');
+                } 
+              },
+              items: _navBarsItems(),
+              resizeToAvoidBottomInset: true,
+              navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
+                  ? 0.0
+                  : kBottomNavigationBarHeight,
+              bottomScreenMargin: MediaQuery.of(context).viewInsets.bottom > 0
+                  ? 0.0
+                  : kBottomNavigationBarHeight,
+              backgroundColor: ColorConstants.orangeGradients3,
+              decoration:
+                  const NavBarDecoration(colorBehindNavBar: Colors.transparent),
+              itemAnimationProperties: const ItemAnimationProperties(
+                duration: Duration(milliseconds: 400),
+                curve: Curves.ease,
+              ),
+              screenTransitionAnimation: const ScreenTransitionAnimation(
+                animateTabTransition: true,
+                duration: Duration(milliseconds: 400),
+                curve: Curves.ease,
+              ),
+              navBarStyle: NavBarStyle
+                  .style6, // Choose the nav bar style with this property
+            ),
+          ) : BlocProvider<ReadUserBloc>(
       create: (context) => ReadUserBloc(
         context: context,
         readDataUserRepository: context.read<ReadDataUserRepository>(),

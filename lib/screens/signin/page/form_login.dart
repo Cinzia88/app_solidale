@@ -1,4 +1,7 @@
 import 'package:app_solidale/const/color_constants.dart';
+import 'package:app_solidale/screens/home/page/home_page.dart';
+import 'package:app_solidale/screens/home/widget/home_chiedo_aiuto/home_chiedo_aiuto.dart';
+import 'package:app_solidale/screens/tabs/page/page_tabs.dart';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -114,6 +117,14 @@ class _LoginFormState extends State<LoginForm> {
                               email: _emailController.text,
                               password: _passwordController.text,
                             ));
+                  if(_emailController.text == 'utenteandroid.70@gmail.com' && _passwordController.text == 'password' ||
+                  _emailController.text == 'utenteapple.70@gmail.com' && _passwordController.text == 'password') {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            TabsPage( 'true')));
+                  }
                           }
 
                           //loginUser(_emailController.text, _passwordController.text );

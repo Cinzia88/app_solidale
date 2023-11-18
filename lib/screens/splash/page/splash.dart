@@ -46,11 +46,17 @@ getUserId();
             print('userId${globals.userId}');
             print('userIdNull${globals.userIdNull}');
 
-            if (globals.viewSlide == false && globals.tokenValue == '' || globals.tokenValue == null ) {
+          /*  if (globals.viewSlide == false && globals.tokenValue == '' || globals.tokenValue == null ) {
               return const PresentationPage();
             } else if (globals.tokenValue != null  &&
                 globals.viewSlide == false) {
               return TabsPage();
+            } else {
+              return OnboardingPage();
+            } */
+             if (globals.tokenValue != null  &&
+                globals.viewSlide == false) {
+              return PresentationPage();
             } else {
               return OnboardingPage();
             }
