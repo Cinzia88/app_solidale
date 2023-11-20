@@ -3,6 +3,7 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 
 import 'package:app_solidale/screens/presentation/widgets/custom_container_service.dart';
+import 'package:app_solidale/screens/presentation/widgets/payment_form.dart';
 import 'package:app_solidale/screens/presentation/widgets/uihelperpaypal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
@@ -89,7 +90,7 @@ class CustomCard extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => DonazioniPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => PaymentForm()));
                   },
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
