@@ -1,6 +1,8 @@
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
+import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
+import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
 
 import 'package:app_solidale/screens/presentation/widgets/custom_container_service.dart';
 import 'package:app_solidale/screens/presentation/widgets/payment_form.dart';
@@ -90,7 +92,7 @@ class CustomCard extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => PaymentForm()));
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => DonazioniPage()));
                   },
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -129,7 +131,22 @@ class DonazioniPage extends StatefulWidget {
 class _DonazioniPageState extends State<DonazioniPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return  Scaffold(
+      appBar: PreferredSize(
+              preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
+          child: customAppBar(context: context, onPressed: () => 
+          Navigator.pop(context,), arrow: true )),
+          body: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    PaymentForm(),
+                  ],
+                ),
+              ),
+            ),
+    );
   }
 }
 
