@@ -89,7 +89,7 @@ class _TabsPageState extends State<TabsPage> {
             ),
           );
         }
-       return SizedBox();
+       return loadingWidget(context);
       }),
     );
   }
