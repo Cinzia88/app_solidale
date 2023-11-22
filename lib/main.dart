@@ -21,11 +21,11 @@ import 'screens/tabs/repository/read_data_user.dart';
 import 'globals_variables/globals_variables.dart' as globals;
 
 bool initialURILinkHandled = false;
-
+final SecureStorage secureStorage = SecureStorage();
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env.example");
-
+  await secureStorage.deleteAll();
    OnePlatform.app = () => MyApp();
 
   //...runapp

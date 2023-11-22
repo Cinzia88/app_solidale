@@ -11,41 +11,23 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
     padding: const EdgeInsets.symmetric(vertical: 30.0),
     child: Column(
       children: [
-        GestureDetector(
-          onTap: () {
-            PersistentNavBarNavigator.pushNewScreen(
-              context,
-              screen: PrenotazioneServizio(),
-              withNavBar: true,
-            );
-          },
-          child: CustomCardsCommon(
-            child: const CustomContainerService(
-              title: 'Taxi Solidale',
-              subtitle: 'Ti aiutiamo a raggiungere strutture e servizi primari',
-              image: PathConstants.taxiSolidale,
-            ),
+        CustomCardsCommon(
+          child: const CustomContainerService(
+            title: 'Taxi Solidale',
+            subtitle: 'Ti aiutiamo a raggiungere strutture e servizi primari',
+            image: PathConstants.taxiSolidale,
           ),
         ),
         SizedBox(
           height: 40,
         ),
-         GestureDetector(
-          onTap: () {
-            PersistentNavBarNavigator.pushNewScreen(
-              context,
-              screen: PrenotazioneServizio(),
-              withNavBar: true,
-            );
-          },
-          child: CustomCardsCommon(
-            child: const CustomContainerService(
-              title: 'Accompagnamento Oncologico',
-              subtitle: 'Ti supportiamo per ricevere le cure necessarie',
-              image: PathConstants.accompagnamOncolog,
-            ),
-          ),
-        ),
+         CustomCardsCommon(
+           child: const CustomContainerService(
+             title: 'Accompagnamento Oncologico',
+             subtitle: 'Ti supportiamo per ricevere le cure necessarie',
+             image: PathConstants.accompagnamOncolog,
+           ),
+         ),
         SizedBox(
           height: 40,
         ),
