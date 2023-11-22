@@ -16,8 +16,7 @@ import '../bloc/read_user_bloc.dart';
 
 // ignore: must_be_immutable
 class TabsPage extends StatefulWidget {
-  String? utenteTest;
-  TabsPage(this.utenteTest);
+ 
   @override
   State<TabsPage> createState() => _TabsPageState();
 }
@@ -28,48 +27,7 @@ class _TabsPageState extends State<TabsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.utenteTest == 'true' ? Scaffold(
-            body: PersistentTabView(
-              context,
-              controller: _controller,
-              screens: [
-                HomePage(richiesta: 'Chiedo Aiuto'),
-                const NewsPage(),
-                ProfilePage(),
-                const NewsPage(),
-              ],
-              onItemSelected: (value) {
-                if (value == 3) {
-                          Navigator.of(context, rootNavigator: true).pushReplacement(
-                      MaterialPageRoute(builder: (context) => SignInPage()));
-                  serviceLogout.logoutUser(context);
-        print('tokenlogoutTabspage ${globals.tokenValue}');
-                } 
-              },
-              items: _navBarsItems(),
-              resizeToAvoidBottomInset: true,
-              navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
-                  ? 0.0
-                  : kBottomNavigationBarHeight,
-              bottomScreenMargin: MediaQuery.of(context).viewInsets.bottom > 0
-                  ? 0.0
-                  : kBottomNavigationBarHeight,
-              backgroundColor: ColorConstants.orangeGradients3,
-              decoration:
-                  const NavBarDecoration(colorBehindNavBar: Colors.transparent),
-              itemAnimationProperties: const ItemAnimationProperties(
-                duration: Duration(milliseconds: 400),
-                curve: Curves.ease,
-              ),
-              screenTransitionAnimation: const ScreenTransitionAnimation(
-                animateTabTransition: true,
-                duration: Duration(milliseconds: 400),
-                curve: Curves.ease,
-              ),
-              navBarStyle: NavBarStyle
-                  .style6, // Choose the nav bar style with this property
-            ),
-          ) : BlocProvider<ReadUserBloc>(
+    return  BlocProvider<ReadUserBloc>(
       create: (context) => ReadUserBloc(
         context: context,
         readDataUserRepository: context.read<ReadDataUserRepository>(),
@@ -93,7 +51,7 @@ class _TabsPageState extends State<TabsPage> {
               context,
               controller: _controller,
               screens: [
-                HomePage(richiesta: state.data.richiesta!),
+                HomePage(richiesta: state.data.richiesta),
                 const NewsPage(),
                 ProfilePage(),
                 const NewsPage(),
@@ -131,7 +89,7 @@ class _TabsPageState extends State<TabsPage> {
             ),
           );
         }
-       return loadingWidget(context);
+       return SizedBox();
       }),
     );
   }
@@ -176,3 +134,104 @@ class _TabsPageState extends State<TabsPage> {
         ),
       ];
 }
+
+
+
+class TabsPageTest extends StatefulWidget {
+  const TabsPageTest({super.key});
+
+  @override
+  State<TabsPageTest> createState() => _TabsPageTestState();
+}
+
+class _TabsPageTestState extends State<TabsPageTest> {
+  PersistentTabController? _controller;
+  ServiceLogout serviceLogout = ServiceLogout();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+            body: PersistentTabView(
+              context,
+              controller: _controller,
+              screens: [
+                HomePage(richiesta: 'Chiedo Aiuto'),
+                const NewsPage(),
+                ProfilePage(),
+                const NewsPage(),
+              ],
+              onItemSelected: (value) {
+                if (value == 3) {
+                          Navigator.of(context, rootNavigator: true).pushReplacement(
+                      MaterialPageRoute(builder: (context) => SignInPage()));
+                  serviceLogout.logoutUser(context);
+        print('tokenlogoutTabspage ${globals.tokenValue}');
+                } 
+              },
+              items: _navBarsItems(),
+              resizeToAvoidBottomInset: true,
+              navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
+                  ? 0.0
+                  : kBottomNavigationBarHeight,
+              bottomScreenMargin: MediaQuery.of(context).viewInsets.bottom > 0
+                  ? 0.0
+                  : kBottomNavigationBarHeight,
+              backgroundColor: ColorConstants.orangeGradients3,
+              decoration:
+                  const NavBarDecoration(colorBehindNavBar: Colors.transparent),
+              itemAnimationProperties: const ItemAnimationProperties(
+                duration: Duration(milliseconds: 400),
+                curve: Curves.ease,
+              ),
+              screenTransitionAnimation: const ScreenTransitionAnimation(
+                animateTabTransition: true,
+                duration: Duration(milliseconds: 400),
+                curve: Curves.ease,
+              ),
+              navBarStyle: NavBarStyle
+                  .style6, // Choose the nav bar style with this property
+            ),
+          );
+  }
+
+  List<PersistentBottomNavBarItem> _navBarsItems() => [
+        PersistentBottomNavBarItem(
+          icon: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            HomePage(richiesta: 'Chiedo Aiuto')));
+              },
+              child: Icon(Icons.home)),
+          title: "Home",
+          activeColorPrimary: Colors.white,
+          inactiveColorPrimary: ColorConstants.colorDoctNotActive,
+        ),
+        PersistentBottomNavBarItem(
+          icon: InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => NewsPage()));
+              },
+              child: const Icon(Icons.newspaper)),
+          title: "News",
+          activeColorPrimary: Colors.white,
+          inactiveColorPrimary: ColorConstants.colorDoctNotActive,
+        ),
+        PersistentBottomNavBarItem(
+          icon: const Icon(Icons.person),
+          title: "Profilo",
+          activeColorPrimary: Colors.white,
+          inactiveColorPrimary: ColorConstants.colorDoctNotActive,
+        ),
+        PersistentBottomNavBarItem(
+          icon: const Icon(Icons.logout),
+          title: "Esci",
+          activeColorPrimary: Colors.white,
+          inactiveColorPrimary: ColorConstants.colorDoctNotActive,
+        ),
+      ];
+}
+
+

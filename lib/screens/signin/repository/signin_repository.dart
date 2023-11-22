@@ -28,13 +28,24 @@ class SignInRepository {
           }));
       switch (response.statusCode) {
         case 200:
-          String token = jsonDecode(response.body)["token"];
+        if(email == 'utenteandroid.70@gmail.com' && password == 'password' ||
+                  email == 'utenteapple.70@gmail.com' && password == 'password') {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            TabsPageTest()));
+                  } else {
+                     String token = jsonDecode(response.body)["token"];
           await secureStorage.writeSecureData('token', token);
           // ignore: use_build_context_synchronously
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => TabsPage('false')),
+            MaterialPageRoute(builder: (_) => TabsPage()),
           );
+                  }
+                          
+         
           break;
         case 422:
           String message = 'Credenziali non corrette';
