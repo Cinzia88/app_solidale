@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/forget_password/repository/forget_password_repository.dart';
 import 'package:app_solidale/screens/profilo/page/cambio_password/repository/change_password_repository.dart';
@@ -8,7 +7,7 @@ import 'package:app_solidale/screens/profilo/page/dati_da_inserire/offro_aiuto/r
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
-import 'package:app_solidale/secure_storage/shared_prefs.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -18,7 +17,6 @@ import 'package:one_context/one_context.dart';
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 import 'screens/tabs/repository/read_data_user.dart';
-import 'globals_variables/globals_variables.dart' as globals;
 
 bool initialURILinkHandled = false;
 final SecureStorage secureStorage = SecureStorage();

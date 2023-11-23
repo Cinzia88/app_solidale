@@ -1,5 +1,4 @@
 
-import 'package:app_solidale/screens/home/widget/home_offro_aiuto/offro%20aiuto/custom_cards_service_offro_aiuto.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../const/color_constants.dart';
@@ -13,10 +12,10 @@ class HomeOffroAiuto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight =mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
+    //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     return Padding(
         padding: const EdgeInsets.all(20.0),

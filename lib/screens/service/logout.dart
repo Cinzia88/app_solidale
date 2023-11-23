@@ -30,7 +30,6 @@ globals.tokenValue = '';
 
           break;
         case 401:
-          String message = 'Utente non autenticato';
                  secureStorage.deleteSecureData('token');
 
          

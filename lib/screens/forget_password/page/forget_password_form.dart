@@ -20,81 +20,79 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
 
   @override
   Widget build(BuildContext context) {
-            final bloc = BlocProvider.of<ForgetPasswordBloc>(context);
-final screenWidth = MediaQuery.of(context).size.width;
+    final bloc = BlocProvider.of<ForgetPasswordBloc>(context);
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
-    final screenHeight =mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
+    final screenHeight = mediaQueryData.size.height;
+    //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     return BlocBuilder<ForgetPasswordBloc, ForgetPasswordState>(
-      builder: (context, state) {
-        return Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 20,
-          ),
-          child: Material(
-            elevation: 10,
-            color: Colors.white,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Text(
-                          'Resetta la Password',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 3 * blockSizeVertical,
-                              color: ColorConstants.titleText),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        TextFormFieldCustom(
-                          textEditingController: _emailController,
-                          labelTextCustom: 'Email:',
-                          obscureText: false,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Campo Richiesto*';
-                            } else if (!Validators.isValidEmail(value)) {
-                                        return 'Inserisci un\' email valida';
-                                      }
-                            return null;
-                          },
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        CommonStyleButton(
-                          title: 'Resetta',
-                          iconWidget: Icon(Icons.reset_tv),
-                          onTap: () {
-                            if(_formKey.currentState!.validate()) {
+        builder: (context, state) {
+      return Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
+        child: Material(
+          elevation: 10,
+          color: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Text(
+                        'Resetta la Password',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 3 * blockSizeVertical,
+                            color: ColorConstants.titleText),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormFieldCustom(
+                        textEditingController: _emailController,
+                        labelTextCustom: 'Email:',
+                        obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo Richiesto*';
+                          } else if (!Validators.isValidEmail(value)) {
+                            return 'Inserisci un\' email valida';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CommonStyleButton(
+                        title: 'Resetta',
+                        iconWidget: Icon(Icons.reset_tv),
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
                             //loginUser(_emailController.text, _passwordController.text );
                             /*FocusScope.of(context).unfocus();
                                   bloc.add(SignUpTappedEvent()); */
-                             bloc.add(ForgetPasswordFormEvent(
-                                 
-                                    email: _emailController.text,
-                                   
-                                  )); 
-                            }
-                          },
-                        ),
-                      ],
-                    ),
+                            bloc.add(ForgetPasswordFormEvent(
+                              email: _emailController.text,
+                            ));
+                          }
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 }

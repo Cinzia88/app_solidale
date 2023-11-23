@@ -56,7 +56,6 @@ class ChangePasswordRepository {
               )));
           break;
         case 401:
-          String message = 'Utente non autenticato';
 Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
 
           

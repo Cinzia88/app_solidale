@@ -1,15 +1,11 @@
 
 import 'package:app_solidale/const/paypal_constants.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 
-import '../../common_widgets/custom_button.dart';
 import '../../common_widgets/custom_textfield.dart';
-import '../../common_widgets/validator_email/validator_email.dart';
 import 'uihelperpaypal.dart';
 
 // ignore: must_be_immutable
@@ -30,10 +26,10 @@ class _PaymentFormState extends State<PaymentForm> {
  
   @override
   Widget build(BuildContext context) {
-     final screenWidth = MediaQuery.of(context).size.width;
+     //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight =mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
+    //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
 
     return Padding(

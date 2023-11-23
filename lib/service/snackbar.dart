@@ -25,5 +25,6 @@ class UtilsSnack {
     messengerKey.currentState!
     ..removeCurrentSnackBar()
     ..showSnackBar(snackBar);
+    return null;
   }
 }

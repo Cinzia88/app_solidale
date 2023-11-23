@@ -1,6 +1,5 @@
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
-import 'package:app_solidale/screens/profilo/page/profile_page.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -75,7 +74,6 @@ class Service {
           
           break;
         case 401:
-          String message = 'Utente non autenticato';
           Navigator.push(
               context, MaterialPageRoute(builder: (_) => PresentationPage()));
 

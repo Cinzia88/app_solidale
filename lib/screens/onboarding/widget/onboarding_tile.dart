@@ -10,7 +10,7 @@ class OnboardingTile extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight =mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
+    //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),

@@ -26,7 +26,6 @@ ValueSharedPrefsViewSlide valueSharedPrefsViewSlide = ValueSharedPrefsViewSlide(
           body: jsonEncode({
             'email': email,
           }));
-          print('code resp ${response.statusCode}');
 switch (response.statusCode) {
         case 200:
           String message = 'Ti è stato inviato via mail il link di reset password';
@@ -42,7 +41,6 @@ switch (response.statusCode) {
               )));
           break;
         case 401:
-          String message = 'Utente non autenticato';
 Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
 
           

@@ -1,4 +1,3 @@
-import 'package:app_solidale/screens/profilo/page/dati_da_inserire/chiedo_aiuto/repository/insert_data_repository.dart';
 import 'package:app_solidale/screens/profilo/page/dati_da_inserire/offro_aiuto/repository/insert_data_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
