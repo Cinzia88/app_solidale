@@ -29,7 +29,9 @@ class SignInRepository {
       switch (response.statusCode) {
         case 200:
 
-    
+         
+  String token = jsonDecode(response.body)["token"];
+          await secureStorage.writeSecureData('token', token);
           
           Navigator.push(
             context,
