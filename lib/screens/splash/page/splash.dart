@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/onboarding/page/onboarding_page.dart';
 import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
+import 'package:app_solidale/screens/tabs/page/page_tabs.dart';
 
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:app_solidale/service/service.dart';
@@ -45,20 +46,15 @@ getUserId();
             print('userId${globals.userId}');
             print('userIdNull${globals.userIdNull}');
 
-          /*  if (globals.viewSlide == false && globals.tokenValue == '' || globals.tokenValue == null ) {
+           if (globals.viewSlide == false && globals.tokenValue == '' || globals.tokenValue == null ) {
               return const PresentationPage();
             } else if (globals.tokenValue != null  &&
                 globals.viewSlide == false) {
               return TabsPage();
             } else {
               return OnboardingPage();
-            } */
-             if (globals.tokenValue != null  &&
-                globals.viewSlide == false) {
-              return PresentationPage();
-            } else {
-              return OnboardingPage();
-            }
+            } 
+           
           },
         ),
       );
