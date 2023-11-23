@@ -38,8 +38,6 @@ class HomeChiedoAiuto extends StatelessWidget {
                   color: ColorConstants.orangeGradients3,
                 ),
                 customCardsServiceChiedoAiuto(context),
-                
-
               ],
             ),
          
