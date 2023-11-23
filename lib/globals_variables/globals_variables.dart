@@ -12,6 +12,8 @@ String? userIdNull;
 
 UserData? userData;
 String? typeRichiesta;
+bool? newUser;
+
 
 bool? viewSlide;
 

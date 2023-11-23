@@ -5,6 +5,7 @@ import 'package:app_solidale/screens/service/logout.dart';
 import 'package:app_solidale/screens/signin/page/signin_page.dart';
 import 'package:app_solidale/screens/tabs/page/nessun_servizio.dart';
 import 'package:app_solidale/screens/tabs/repository/read_data_user.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
@@ -26,6 +27,22 @@ class TabsPage extends StatefulWidget {
 class _TabsPageState extends State<TabsPage> {
   PersistentTabController? _controller;
   ServiceLogout serviceLogout = ServiceLogout();
+  ValueSharedPrefsViewSlide valueSharedPrefsViewSlide = ValueSharedPrefsViewSlide();
+
+@override
+  void initState() {
+getValueNewUser();
+print('value ${globals.newUser}');
+    super.initState();
+  }
+
+
+  Future getValueNewUser() async {
+    final value = await valueSharedPrefsViewSlide.getNewUser();
+    setState(() {
+      globals.newUser = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
