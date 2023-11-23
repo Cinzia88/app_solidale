@@ -1,4 +1,3 @@
-import 'package:app_solidale/screens/common_widgets/background_style/appbar_pages.dart';
 import 'package:app_solidale/screens/home/page/home_page.dart';
 import 'package:app_solidale/screens/profilo/page/profile_page.dart';
 import 'package:app_solidale/screens/service/logout.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 import 'package:app_solidale/const/color_constants.dart';
-import 'package:app_solidale/screens/news/page/news_page.dart';
 
 import '../../common_widgets/loading_widget.dart';
 import '../bloc/read_user_bloc.dart';

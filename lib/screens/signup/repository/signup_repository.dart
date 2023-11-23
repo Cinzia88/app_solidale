@@ -47,8 +47,6 @@ class SignupRepository {
         case 200:
           String token = jsonDecode(response.body)["token"];
           String message = jsonDecode(response.body)["message"];
-          bool newuser = true;
-          await valueSharedPrefsViewSlide.setNewUser(newuser);
           await secureStorage.writeSecureData('token', token);
          
           // ignore: use_build_context_synchronously

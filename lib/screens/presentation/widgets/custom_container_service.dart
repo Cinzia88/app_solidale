@@ -48,10 +48,13 @@ class CustomContainerService extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            Text(
-                                subtitle, style:  TextStyle(
-                                      fontSize: 2.0 * blockSizeVertical,
-                                    ),),
+                            Padding(
+                              padding: const EdgeInsets.only(right:8.0),
+                              child: Text(
+                                  subtitle, style:  TextStyle(
+                                        fontSize: 2 * blockSizeVertical,
+                                      ),),
+                            ),
                           ],
                         ),
                       ),

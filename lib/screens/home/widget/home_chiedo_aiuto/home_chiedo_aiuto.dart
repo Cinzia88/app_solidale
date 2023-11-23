@@ -19,58 +19,60 @@ class HomeChiedoAiuto extends StatelessWidget {
     final screenHeight =mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: ListView(
-    shrinkWrap: true,        children: [
-            Column(
-              children: [
-                 Text(
-                 richiestaChiedoAiuto,
-                  style:  TextStyle(
-                      color: ColorConstants.titleText,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 3 * blockSizeVertical),
-                ),
-                const Divider(
-                  color: ColorConstants.orangeGradients3,
-                ),
-                customCardsServiceChiedoAiuto(context),
-              ],
-            ),
-         
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Column(
+    return SingleChildScrollView(
+      child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+         children: [
+              Column(
                 children: [
-                  Text(
-                    'Vuoi contribuire ad aiutare il prossimo?',
-                    style: TextStyle(
-                        color: ColorConstants.orangeGradients3,
+                   Text(
+                   richiestaChiedoAiuto,
+                    style:  TextStyle(
+                        color: ColorConstants.titleText,
                         fontWeight: FontWeight.bold,
-                        fontSize: 2.0 * blockSizeVertical),
+                        fontSize: 3 * blockSizeVertical),
                   ),
-                      const Divider(
+                  const Divider(
                     color: ColorConstants.orangeGradients3,
                   ),
-                  Text('Offri il tuo aiuto e condividi il tuo tempo.',  style: TextStyle(
-                        fontSize: 2.0 * blockSizeVertical),),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => FormProfilePage('Offro Aiuto')));
-                      },
-                        child: Text('Unisciti a noi', style: TextStyle( color: ColorConstants.orangeGradients3, fontSize: 2.0 * blockSizeVertical, fontWeight: FontWeight.bold),)),
-                    ],
-                  )
+                  customCardsServiceChiedoAiuto(context),
                 ],
               ),
-            ),
-          ],
+           
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Column(
+                  children: [
+                    Text(
+                      'Vuoi contribuire ad aiutare il prossimo?',
+                      style: TextStyle(
+                          color: ColorConstants.orangeGradients3,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 2.0 * blockSizeVertical),
+                    ),
+                        const Divider(
+                      color: ColorConstants.orangeGradients3,
+                    ),
+                    Text('Offri il tuo aiuto e condividi il tuo tempo.',  style: TextStyle(
+                          fontSize: 2.0 * blockSizeVertical),),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) => FormProfilePage('Offro Aiuto')));
+                        },
+                          child: Text('Unisciti a noi', style: TextStyle( color: ColorConstants.orangeGradients3, fontSize: 2.0 * blockSizeVertical, fontWeight: FontWeight.bold),)),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      );
+    );
   }
 }
