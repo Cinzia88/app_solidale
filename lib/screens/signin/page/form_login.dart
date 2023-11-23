@@ -32,17 +32,15 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<SignInBloc>(context);
-     //final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
-    final screenHeight =mediaQueryData.size.height;
+    final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
 
     return BlocBuilder<SignInBloc, SignInState>(builder: (context, state) {
-       if(state is SignInLoadingState) {
-              return loadingWidget(context);
-            }
-      return Padding(
+     
+      return state is SignInLoadingState ? loadingWidget(context ) : Padding(
         padding: EdgeInsets.symmetric(
           horizontal: 20,
         ),
@@ -108,22 +106,20 @@ class _LoginFormState extends State<LoginForm> {
                         height: 20,
                       ),
                       CommonStyleButton(
-                        title: 'Accedi',
-                        iconWidget: Icon(Icons.login),
-                        onTap: () {
-                             
-                          if (_formKey.currentState!.validate()) {
-                            bloc.add(SignInFormEvent(
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                            ));
+                          title: 'Accedi',
+                          iconWidget: Icon(Icons.login),
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              bloc.add(SignInFormEvent(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                              ));
 
-                          }
-                          //loginUser(_emailController.text, _passwordController.text );
-                          /*FocusScope.of(context).unfocus();
+                              //loginUser(_emailController.text, _passwordController.text );
+                              /*FocusScope.of(context).unfocus();
                                   bloc.add(SignUpTappedEvent()); */
-                        },
-                      ),
+                            }
+                          }),
                       SizedBox(
                         height: 30,
                       ),
@@ -180,8 +176,7 @@ class _LoginFormState extends State<LoginForm> {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               bloc.add(ScreenCreateAccountEvent());
-                                                                 FocusScope.of(context).unfocus();
-
+                              FocusScope.of(context).unfocus();
                             },
                         ),
                       ],

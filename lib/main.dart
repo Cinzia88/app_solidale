@@ -23,7 +23,7 @@ final SecureStorage secureStorage = SecureStorage();
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env.example");
-  await secureStorage.deleteAll();
+ // await secureStorage.deleteSecureData('token');
    OnePlatform.app = () => MyApp();
 
   //...runapp

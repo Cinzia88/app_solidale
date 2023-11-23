@@ -48,7 +48,7 @@ class _TabsPageState extends State<TabsPage> {
         if (state is ReadUserLoadedState) {
           globals.userData = state.data;
           globals.typeRichiesta = state.data.richiesta;
-          return Scaffold(
+          return  Scaffold(
         
             body: PersistentTabView(
               context,
