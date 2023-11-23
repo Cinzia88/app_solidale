@@ -29,10 +29,7 @@ ValueSharedPrefsViewSlide valueSharedPrefsViewSlide = ValueSharedPrefsViewSlide(
     });
 
  UserData dataUser = UserData.fromJson(jsonDecode(response.body));
- print('dataUserId ${dataUser.id}');
- String userId = dataUser.id;
- 
-    print('dataUser ${response.headers}');
+
  switch (response.statusCode) {
         case 200:
           print('user auth');

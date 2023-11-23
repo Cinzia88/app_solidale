@@ -2,15 +2,9 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
-import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
-
 import 'package:app_solidale/screens/presentation/widgets/custom_container_service.dart';
 import 'package:app_solidale/screens/presentation/widgets/payment_form.dart';
-import 'package:app_solidale/screens/presentation/widgets/uihelperpaypal.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_paypal/flutter_paypal.dart';
-
-import '../../../const/paypal_constants.dart';
 import '../../signup/page/signup_page.dart';
 import 'already_account.dart';
 
@@ -23,10 +17,10 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight =mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
+    //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     return SingleChildScrollView(
       child: Padding(

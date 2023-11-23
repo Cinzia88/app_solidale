@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:app_solidale/screens/profilo/page/profile_page.dart';
-import 'package:app_solidale/screens/tabs/page/page_tabs.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';

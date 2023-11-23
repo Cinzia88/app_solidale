@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 
+// ignore: must_be_immutable
 class FormProfilePage extends StatefulWidget {
   String? offroAiuto;
   FormProfilePage(this.offroAiuto);

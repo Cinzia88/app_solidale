@@ -2,7 +2,6 @@ import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/profilo/page/carica_documenti/page/carica_docs_page.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -22,10 +21,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Service sevice = Service();
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
+    //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     return Scaffold(
       appBar: PreferredSize(

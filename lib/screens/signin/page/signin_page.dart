@@ -3,7 +3,6 @@ import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../main.dart';
 import '../../common_widgets/background_style/custom_appbar.dart';
 import '../../forget_password/page/forget_password_page.dart';
 import '../bloc/signin_bloc.dart';

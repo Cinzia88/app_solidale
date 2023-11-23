@@ -93,7 +93,7 @@ class _TabsPageState extends State<TabsPage> {
               context,
               controller: _controller,
               screens: [
-                HomePage(richiesta: state.data.richiesta!),
+                HomePage(richiesta: state.data.richiesta),
                 const NewsPage(),
                 ProfilePage(),
                 const NewsPage(),

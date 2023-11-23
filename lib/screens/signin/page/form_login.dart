@@ -1,6 +1,5 @@
 import 'package:app_solidale/const/color_constants.dart';
-import 'package:app_solidale/screens/home/page/home_page.dart';
-import 'package:app_solidale/screens/home/widget/home_chiedo_aiuto/home_chiedo_aiuto.dart';
+
 import 'package:app_solidale/screens/tabs/page/page_tabs.dart';
 
 import 'package:flutter/gestures.dart';
@@ -33,10 +32,10 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<SignInBloc>(context);
-     final screenWidth = MediaQuery.of(context).size.width;
+     //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight =mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
+    //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
 
     return BlocBuilder<SignInBloc, SignInState>(builder: (context, state) {
