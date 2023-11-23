@@ -111,21 +111,14 @@ class _LoginFormState extends State<LoginForm> {
                         title: 'Accedi',
                         iconWidget: Icon(Icons.login),
                         onTap: () {
+                             
                           if (_formKey.currentState!.validate()) {
                             bloc.add(SignInFormEvent(
                               email: _emailController.text,
                               password: _passwordController.text,
                             ));
-                  if(_emailController.text == 'utenteandroid.70@gmail.com' && _passwordController.text == 'password' ||
-                  _emailController.text == 'utenteapple.70@gmail.com' && _passwordController.text == 'password') {
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            TabsPage( 'true')));
-                  }
-                          }
 
+                          }
                           //loginUser(_emailController.text, _passwordController.text );
                           /*FocusScope.of(context).unfocus();
                                   bloc.add(SignUpTappedEvent()); */

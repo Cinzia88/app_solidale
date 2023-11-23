@@ -2,14 +2,17 @@ import 'dart:convert';
 
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 class SignupRepository {
   final SecureStorage secureStorage = SecureStorage();
   Service service = Service();
+  ValueSharedPrefsViewSlide valueSharedPrefsViewSlide = ValueSharedPrefsViewSlide();
 
   Future registerUserWithVerificationEmail(BuildContext context, String nome,
       String email, String password, String confirmPassword, String richiesta) {
@@ -44,6 +47,8 @@ class SignupRepository {
         case 200:
           String token = jsonDecode(response.body)["token"];
           String message = jsonDecode(response.body)["message"];
+          bool newuser = true;
+          await valueSharedPrefsViewSlide.setNewUser(newuser);
           await secureStorage.writeSecureData('token', token);
          
           // ignore: use_build_context_synchronously

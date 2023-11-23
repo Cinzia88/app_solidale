@@ -74,39 +74,7 @@ class CustomCard extends StatelessWidget {
               height: 30,
             ),
             CustomCardsCommon(child: alreadyAccount(context)),
-            SizedBox(
-              height: 10 * blockSizeVertical,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                 Text(
-                  'Vuoi sostenere l\'ANF?',
-                  style: TextStyle(color: Colors.black, fontSize: 2 * blockSizeVertical),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => DonazioniPage()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
-                      primary: ColorConstants.primaryColor,
-                      onPrimary: Colors.white),
-                  child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'DONA ORA',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 2.5 * blockSizeVertical),
-                        )
-                      ]),
-                ),
-              ],
-            ),
+           
           ],
         ),
       ),

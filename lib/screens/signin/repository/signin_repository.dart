@@ -28,13 +28,16 @@ class SignInRepository {
           }));
       switch (response.statusCode) {
         case 200:
-          String token = jsonDecode(response.body)["token"];
-          await secureStorage.writeSecureData('token', token);
-          // ignore: use_build_context_synchronously
+
+    
+          
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => TabsPage('false')),
+            MaterialPageRoute(builder: (_) => TabsPage()),
           );
+
+                          
+
           break;
         case 422:
           String message = 'Credenziali non corrette';

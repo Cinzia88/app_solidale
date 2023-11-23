@@ -66,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Column(
                 children: [
-                  GestureDetector(
+                  globals.profiloCompleto == true ?  SizedBox(): GestureDetector(
                     onTap: () {
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
@@ -151,49 +151,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      PersistentNavBarNavigator.pushNewScreen(
-                        context,
-                        screen: EditFormProfilePage(),
-                        withNavBar: true,
-                      );
-                    },
-                    child: CustomCardsCommon(
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.edit,
-                                color: ColorConstants.orangeGradients3,
-                              ),
-                              Text('  Modifica Il Tuo Profilo',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 2.5 * blockSizeVertical,
-                                    color: ColorConstants.orangeGradients3,
-                                  )),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  'Modifica i tuoi dati e visualizza la lista dei documenti caricati',
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                 
+                 
                   const SizedBox(
                     height: 40,
                   ),
