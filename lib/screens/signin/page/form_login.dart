@@ -112,12 +112,13 @@ class _LoginFormState extends State<LoginForm> {
                         title: 'Accedi',
                         iconWidget: Icon(Icons.login),
                         onTap: () {
+                             
                           if (_formKey.currentState!.validate()) {
                             bloc.add(SignInFormEvent(
                               email: _emailController.text,
                               password: _passwordController.text,
                             ));
-                 
+
                           }
                           //loginUser(_emailController.text, _passwordController.text );
                           /*FocusScope.of(context).unfocus();
