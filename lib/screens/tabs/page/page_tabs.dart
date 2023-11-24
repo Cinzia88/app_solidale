@@ -1,3 +1,4 @@
+import 'package:app_solidale/screens/common_widgets/background_style/appbar_pages.dart';
 import 'package:app_solidale/screens/home/page/home_page.dart';
 import 'package:app_solidale/screens/profilo/page/profile_page.dart';
 import 'package:app_solidale/screens/service/logout.dart';
@@ -8,15 +9,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 import 'package:app_solidale/const/color_constants.dart';
+import 'package:app_solidale/screens/news/page/news_page.dart';
 
 import '../../common_widgets/loading_widget.dart';
 import '../bloc/read_user_bloc.dart';
 
 // ignore: must_be_immutable
 class TabsPage extends StatefulWidget {
-  
   @override
   State<TabsPage> createState() => _TabsPageState();
 }
@@ -46,23 +48,23 @@ class _TabsPageState extends State<TabsPage> {
         if (state is ReadUserLoadedState) {
           globals.userData = state.data;
           globals.typeRichiesta = state.data.richiesta;
-          return  Scaffold(
-        
+          return Scaffold(
             body: PersistentTabView(
               context,
               controller: _controller,
               screens: [
                 ProfilePage(),
-              state.data.richiesta.isEmpty ? const NessunServizioPage() : HomePage(richiesta: state.data.richiesta),
+                state.data.richiesta.isEmpty
+                    ? const NessunServizioPage()
+                    : HomePage(richiesta: state.data.richiesta),
                 const SizedBox(),
               ],
               onItemSelected: (value) {
                 if (value == 2) {
-                          Navigator.of(context, rootNavigator: true).pushReplacement(
+                  Navigator.of(context, rootNavigator: true).pushReplacement(
                       MaterialPageRoute(builder: (context) => SignInPage()));
                   serviceLogout.logoutUser(context);
-        print('tokenlogoutTabspage ${globals.tokenValue}');
-                } 
+                }
               },
               items: _navBarsItems(),
               resizeToAvoidBottomInset: true,
@@ -89,13 +91,13 @@ class _TabsPageState extends State<TabsPage> {
             ),
           );
         }
-       return loadingWidget(context);
+        return loadingWidget(context);
       }),
     );
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() => [
-    PersistentBottomNavBarItem(
+        PersistentBottomNavBarItem(
           icon: const Icon(Icons.person),
           title: "Profilo",
           activeColorPrimary: Colors.white,
@@ -107,7 +109,6 @@ class _TabsPageState extends State<TabsPage> {
           activeColorPrimary: Colors.white,
           inactiveColorPrimary: ColorConstants.colorDoctNotActive,
         ),
-        
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.logout),
           title: "Esci",
@@ -116,7 +117,3 @@ class _TabsPageState extends State<TabsPage> {
         ),
       ];
 }
-
-
-
-

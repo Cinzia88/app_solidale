@@ -39,19 +39,16 @@ class InsertDataOffroAiutoRepository {
             'tipo_aiuto': tipoAiuto,
             'associazione': associazione,
           }));
-print('associazione $associazione');
       if (response.statusCode == 200) {
-        print('signin ${jsonDecode(response.body)}');
 
         // ignore: use_build_context_synchronously
         bool profiloCompleto = true;
         await valueSharedPrefsViewSlide.setProfileComplete(profiloCompleto);
-                                                          globals.profiloCompleto = true;
+        globals.profiloCompleto = true;
 
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => ProfilePage()));
-        print('response ${response.body}');
-        
       } else {
         print('erroresponse ${response.body}');
       }

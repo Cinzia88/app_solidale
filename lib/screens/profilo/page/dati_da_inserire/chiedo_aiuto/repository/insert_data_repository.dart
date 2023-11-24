@@ -4,10 +4,11 @@ import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 
 class InsertDataChiedoAiutoRepository {
-   ValueSharedPrefsViewSlide valueSharedPrefsViewSlide =
+  ValueSharedPrefsViewSlide valueSharedPrefsViewSlide =
       ValueSharedPrefsViewSlide();
 
   Future dataFormRepository(
@@ -50,21 +51,20 @@ class InsertDataChiedoAiutoRepository {
           }));
 
       if (response.statusCode == 200) {
-        print('teluser ${telefono}');
 
         // ignore: use_build_context_synchronously
-bool profiloCompleto = true;
-await valueSharedPrefsViewSlide
-                                  .setProfileComplete(profiloCompleto);
+        bool profiloCompleto = true;
+        await valueSharedPrefsViewSlide.setProfileComplete(profiloCompleto);
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => ProfilePage()));
-                                                              globals.profiloCompleto = true;
 
-        print('response ${response.body}');
       } else {
+        // ignore: avoid_print
         print('erroresponse ${response.body}');
       }
     } catch (e) {
+      // ignore: avoid_print
       print('sendimage error $e');
     }
   }

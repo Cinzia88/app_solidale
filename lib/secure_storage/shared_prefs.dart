@@ -8,6 +8,9 @@ class ValueSharedPrefsViewSlide {
 
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance(); 
 
+
+  
+
    Future setNewUser(bool value) async{
     final instance = await prefs;
 

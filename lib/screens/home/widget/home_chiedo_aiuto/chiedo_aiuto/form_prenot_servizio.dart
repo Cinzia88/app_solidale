@@ -77,7 +77,7 @@ class _FormPrenotazioneServizioState extends State<FormPrenotazioneServizio> {
               onTap: () {
                 selectDate(context);
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 prefixIcon: Icon(
                   Icons.calendar_today_sharp,
@@ -93,7 +93,7 @@ class _FormPrenotazioneServizioState extends State<FormPrenotazioneServizio> {
               onTap: () {
                 selectTime(context);
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 prefixIcon: Icon(
                   Icons.access_time,
@@ -136,7 +136,7 @@ class _FormPrenotazioneServizioState extends State<FormPrenotazioneServizio> {
               color: ColorConstants.orangeGradients3,
             ),
             const Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              padding:  EdgeInsets.symmetric(vertical: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -155,7 +155,7 @@ class _FormPrenotazioneServizioState extends State<FormPrenotazioneServizio> {
                         taxy = taxyValue!;
                       });
                     }),
-                Text('Taxi Solidale'),
+                const Text('Taxi Solidale'),
               ],
             ),
             Row(

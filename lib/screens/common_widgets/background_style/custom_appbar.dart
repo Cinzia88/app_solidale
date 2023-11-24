@@ -37,13 +37,13 @@ Widget customAppBar({required BuildContext context, required bool arrow, require
             ),
              arrow == true
                 ? IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back,
                     color: Colors.white,
                   ),
                   onPressed: onPressed
                 )
-                : Text(''),
+                : const Text(''),
           ],
         ),
       ],

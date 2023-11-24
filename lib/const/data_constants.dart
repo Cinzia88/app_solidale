@@ -5,6 +5,7 @@
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/const/text_constants.dart';
 import 'package:app_solidale/screens/onboarding/widget/onboarding_tile.dart';
+import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
 
 class DataConstants {
   // Onboarding
@@ -29,6 +30,7 @@ class DataConstants {
       mainText: TextConstants.onboarding3Description,
       imagePath: PathConstants.onboarding3,
     ),
+    const PresentationPage()
       
   ];
 

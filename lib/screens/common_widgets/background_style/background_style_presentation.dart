@@ -6,6 +6,7 @@ import '../../../const/path_constants.dart';
 // ignore: must_be_immutable
 class BackgroundStylePresentationPage extends StatefulWidget {
   Widget? iconBack;
+  // ignore: use_key_in_widget_constructors
   BackgroundStylePresentationPage({this.iconBack});
 
   @override
@@ -33,7 +34,7 @@ class _BackgroundStylePresentationPageState extends State<BackgroundStylePresent
           )),
 
         ),
-        widget.iconBack == null ? SizedBox() : widget.iconBack!,
+        widget.iconBack == null ? const SizedBox() : widget.iconBack!,
         Container(
           height: size.height / 3.5,
             alignment: Alignment.center,

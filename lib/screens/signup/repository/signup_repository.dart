@@ -7,12 +7,14 @@ import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 
 class SignupRepository {
   final SecureStorage secureStorage = SecureStorage();
   Service service = Service();
-  ValueSharedPrefsViewSlide valueSharedPrefsViewSlide = ValueSharedPrefsViewSlide();
+  ValueSharedPrefsViewSlide valueSharedPrefsViewSlide =
+      ValueSharedPrefsViewSlide();
 
   Future registerUserWithVerificationEmail(BuildContext context, String nome,
       String email, String password, String confirmPassword, String richiesta) {
@@ -41,14 +43,16 @@ class SignupRepository {
             'richiesta': richiesta
           }));
 
-          print('status ${response.statusCode}');
+      print('status ${response.statusCode}');
 
       switch (response.statusCode) {
         case 200:
           String token = jsonDecode(response.body)["token"];
           String message = jsonDecode(response.body)["message"];
+          bool profiloCompleto = false;
+          await valueSharedPrefsViewSlide.setProfileComplete(profiloCompleto);
           await secureStorage.writeSecureData('token', token);
-         
+          globals.profiloCompleto = false;
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: ColorConstants.orangeGradients3,
@@ -62,7 +66,7 @@ class SignupRepository {
           break;
         case 422:
           String message = 'L\'email è già registrata';
-          
+
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Colors.red,
@@ -74,8 +78,9 @@ class SignupRepository {
                 ),
               )));
           break;
-           case 500:
-          String message = 'Errore Server: impossibile stabilire una connessione';
+        case 500:
+          String message =
+              'Errore Server: impossibile stabilire una connessione';
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Colors.red,
@@ -87,9 +92,9 @@ class SignupRepository {
                 ),
               )));
           break;
-          default:
-           // ignore: use_build_context_synchronously
-           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        default:
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.red,
               content: Text(
                 'Errore generico',

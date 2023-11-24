@@ -8,10 +8,11 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../const/color_constants.dart';
 import '../../common_widgets/background_style/appbar_pages.dart';
 import 'cambio_password/page/cambio_password_page.dart';
-import 'modifica_dati/modifica_dati.dart';
 import 'dati_da_inserire/dati_anagrafici_form.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 
+// ignore: use_key_in_widget_constructors
 class ProfilePage extends StatefulWidget {
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -46,14 +47,16 @@ class _ProfilePageState extends State<ProfilePage> {
               const Divider(
                 color: ColorConstants.orangeGradients3,
               ),
-              SizedBox(
+             const SizedBox(
                 height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                  globals.profiloCompleto == true ?  "Il Tuo Profilo è Completo al 100%" : "Il Tuo Profilo è Completo al 50%",
+                    globals.profiloCompleto == true
+                        ? "Il Tuo Profilo è Completo al 100%"
+                        : "Il Tuo Profilo è Completo al 50%",
                     style: TextStyle(
                         color: ColorConstants.titleText,
                         fontSize: 2.5 * blockSizeVertical,
@@ -61,53 +64,85 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
-              SizedBox(
+             const SizedBox(
                 height: 30,
               ),
               Column(
                 children: [
-                  globals.profiloCompleto == true ?  SizedBox(): GestureDetector(
-                    onTap: () {
-                      PersistentNavBarNavigator.pushNewScreen(
-                        context,
-                        screen: FormProfilePage(''),
-                        withNavBar: true,
-                      );
-                    },
-                    child: CustomCardsCommon(
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.person,
-                                color: ColorConstants.orangeGradients3,
-                              ),
-                              Text('  Dati Anagrafici',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 2.5 * blockSizeVertical,
-                                    color: ColorConstants.orangeGradients3,
-                                  )),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  'Completa il tuo profilo con i tuoi dati anagrafici',
+                  globals.profiloCompleto == true
+                      ? CustomCardsCommon(
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                              const  Icon(
+                                  Icons.person,
+                                  color: ColorConstants.orangeGradients3,
                                 ),
-                              ),
-                            ],
+                                Text(' Modifica Dati',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 2.5 * blockSizeVertical,
+                                      color:
+                                          ColorConstants.orangeGradients3,
+                                    )),
+                              ],
+                            ),
+                           const Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    'Modifica il tuo profilo con i tuoi dati anagrafici',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                      : GestureDetector(
+                          onTap: () {
+                            PersistentNavBarNavigator.pushNewScreen(
+                              context,
+                              screen: FormProfilePage(''),
+                              withNavBar: true,
+                            );
+                          },
+                          child: CustomCardsCommon(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                  const  Icon(
+                                      Icons.person,
+                                      color: ColorConstants.orangeGradients3,
+                                    ),
+                                    Text('  Dati Anagrafici',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 2.5 * blockSizeVertical,
+                                          color:
+                                              ColorConstants.orangeGradients3,
+                                        )),
+                                  ],
+                                ),
+                              const  Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        'Completa il tuo profilo con i tuoi dati anagrafici',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                
-                 
+                        ),
                   const SizedBox(
                     height: 40,
                   ),
@@ -115,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     onTap: () {
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
-                        screen: CaricaDocsPage(),
+                        screen: const CaricaDocsPage(),
                         withNavBar: true,
                       );
                     },
@@ -125,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(
+                            const  Icon(
                                 Icons.document_scanner,
                                 color: ColorConstants.orangeGradients3,
                               ),
@@ -137,7 +172,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   )),
                             ],
                           ),
-                          Row(
+                         const Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
@@ -151,8 +186,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                 
-                 
                   const SizedBox(
                     height: 40,
                   ),
@@ -160,7 +193,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     onTap: () {
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
-                        screen: CambioPasswordPage(),
+                        screen: const CambioPasswordPage(),
                         withNavBar: true,
                       );
                     },
@@ -170,7 +203,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(
+                           const   Icon(
                                 Icons.password,
                                 color: ColorConstants.orangeGradients3,
                               ),
@@ -182,7 +215,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   )),
                             ],
                           ),
-                          Row(
+                        const  Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
@@ -211,20 +244,20 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                const  SizedBox(
                     height: 10,
                   ),
-                
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      CommonStyleButton(title: 'Rimuovi Account', onTap: () {
-                                                    sevice.deleteAccount(context);
-
-                      }, iconWidget: Icon(Icons.delete)),
+                      DangerStyleButton(
+                          title: 'Rimuovi Account',
+                          onTap: () {
+                            sevice.deleteAccount(context);
+                          },
+                          iconWidget: const Icon(Icons.delete)),
                     ],
                   ),
-                
                 ],
               ),
             ],
