@@ -1,6 +1,5 @@
 import 'package:app_solidale/const/color_constants.dart';
 
-import 'package:app_solidale/screens/tabs/page/page_tabs.dart';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

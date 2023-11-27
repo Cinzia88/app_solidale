@@ -28,8 +28,12 @@ class _SingleNewPageState extends State<SingleNewPage> {
     final blockSizeVertical = screenHeight / 100;
     return Scaffold(
         appBar: PreferredSize(
-            preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: customAppBar(context: context, onPressed: () => Navigator.pop(context), arrow: true )),
+            preferredSize: const Size.fromHeight(150.0),
+            child: AppBar(
+                toolbarHeight: 75.0,
+                automaticallyImplyLeading: false,
+                flexibleSpace: customAppBar(context: context)),
+          ),
         body: SingleChildScrollView(
           child: Padding(
             padding:

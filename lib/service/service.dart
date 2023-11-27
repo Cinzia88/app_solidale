@@ -1,5 +1,5 @@
 import 'package:app_solidale/const/color_constants.dart';
-import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
+import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -31,9 +31,9 @@ class Service {
 
       for (int i = 0; i < filepath.length; i++) {
         var multipartFile =
-            await http.MultipartFile.fromPath('image[]', filepath[i]!.path);
-
+            await http.MultipartFile.fromPath('files[]', filepath[i]!.path);
         newList.add(multipartFile);
+print('filepath ${multipartFile.filename!.split('.').last}');
 
         request = http.MultipartRequest('POST', Uri.parse(url))
           ..fields.addAll(body)

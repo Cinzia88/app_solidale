@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:app_solidale/const/color_constants.dart';
-import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
+import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 
 import 'package:http/http.dart' as http;

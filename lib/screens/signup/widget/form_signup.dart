@@ -11,11 +11,7 @@ import '../bloc/signup_bloc.dart';
 
 // ignore: must_be_immutable
 class SignUpForm extends StatefulWidget {
-  String service;
-  SignUpForm({
-    Key? key,
-    required this.service,
-  }) : super(key: key);
+
   @override
   State<SignUpForm> createState() => _SignUpFormState();
 }
@@ -162,7 +158,6 @@ class _SignUpFormState extends State<SignUpForm> {
                               email: _emailController.text,
                               password: _passwordController.text,
                               confirmPassword: _confirmPasswordController.text,
-                              richiesta: widget.service,
                             ));
                           }
                         },

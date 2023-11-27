@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:app_solidale/const/path_constants.dart';
-import 'package:app_solidale/screens/onboarding/page/onboarding_page.dart';
-import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
-import 'package:app_solidale/screens/slides/page.dart';
-import 'package:app_solidale/screens/tabs/page/page_tabs.dart';
+import 'package:app_solidale/screens/home/page/presentation_page.dart';
+import 'package:app_solidale/screens/signin/page/signin_page.dart';
+import 'package:app_solidale/screens/slides/page/page.dart';
 
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:app_solidale/service/service.dart';
@@ -42,14 +41,11 @@ getUserId();
         context,
         MaterialPageRoute(
           builder: (context)  {
-
-  
-
            if (globals.viewSlide == false && globals.tokenValue == '' || globals.tokenValue == null ) {
-              return const PresentationPage();
+              return SignInPage();
             } else if (globals.tokenValue != null  &&
                 globals.viewSlide == false) {
-              return TabsPage();
+              return PresentationPage();
             } else {
               return const SlidesPage();
             } 

@@ -1,48 +1,48 @@
 import 'dart:convert';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
+import 'package:app_solidale/screens/menu/logout/logout.dart';
+import 'package:app_solidale/screens/signin/page/signin_page.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
-import '../../../secure_storage/secure_storage.dart';
+class ChangePasswordRepository {
+  ValueSharedPrefsViewSlide valueSharedPrefsViewSlide = ValueSharedPrefsViewSlide();
 
-class SignInRepository {
-  final SecureStorage secureStorage = SecureStorage();
-
-  Future loginUser(
+  ServiceLogout serviceLogout = ServiceLogout();
+  Future changePasswordUser(
     BuildContext context,
-    String email,
-    String password,
+    String currentPassword,
+    String newPassword,
+    String confirmPassword,
   ) async {
     try {
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/login';
+      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/change-password';
       // Await the http get response, then decode the json-formatted response.
       var response = await http.post(Uri.parse(url),
           headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json',
+            'Authorization': 'Bearer ${globals.tokenValue}'
           },
           body: jsonEncode({
-            'email': email,
-            'password': password,
+            'old_password': currentPassword,
+            'password': newPassword,
+            'confirm_password': confirmPassword
           }));
       switch (response.statusCode) {
         case 200:
-
-         
-  String token = jsonDecode(response.body)["token"];
-          await secureStorage.writeSecureData('token', token);
-          
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => PresentationPage()),
-          );
-
-                          
-
+          // ignore: use_build_context_synchronously
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(builder: (context) => SignInPage()));
+          // ignore: use_build_context_synchronously
+          serviceLogout.logoutUser(context);
           break;
-        case 422:
-          String message = 'Credenziali non corrette';
+        case 400:
+          String message = jsonDecode(response.body)['message'];
 
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -55,6 +55,12 @@ class SignInRepository {
                 ),
               )));
           break;
+        case 401:
+Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
+
+          
+          break;
+
         case 500:
           String message =
               'Errore Server: impossibile stabilire una connessione';
@@ -73,15 +79,17 @@ class SignInRepository {
         default:
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              backgroundColor: Colors.transparent,
+              backgroundColor: Colors.red,
               content: Text(
-                '',
+                'Errore generico',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               )));
       }
+
+      return response;
     } catch (e) {
       print('sendimage error $e');
     }

@@ -24,7 +24,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
               event.email,
               event.password,
               event.confirmPassword,
-              event.richiesta);
+             );
           emit(SignupLoaded());
           emit(SignUpSuccessState());
         } catch (e) {

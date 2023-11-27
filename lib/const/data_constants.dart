@@ -4,8 +4,7 @@
 
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/const/text_constants.dart';
-import 'package:app_solidale/screens/onboarding/widget/onboarding_tile.dart';
-import 'package:app_solidale/screens/presentation/page/presentation_page.dart';
+import 'package:app_solidale/screens/slides/widget/slide_tile.dart';
 
 class DataConstants {
   // Onboarding
@@ -29,9 +28,7 @@ class DataConstants {
       title: TextConstants.onboarding3Title,
       mainText: TextConstants.onboarding3Description,
       imagePath: PathConstants.onboarding3,
-    ),
-    const PresentationPage()
-      
+    ),      
   ];
 
  

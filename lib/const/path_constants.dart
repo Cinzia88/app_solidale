@@ -3,6 +3,7 @@ class PathConstants {
   static const String logoanf = 'assets/images/logo_anf/logo_anf.jpg';
   static const String logoanfcompleto = 'assets/images/logo_anf/logo-negativo-completo.png';
     static const String logoanfcompletoorizz = 'assets/images/logo_anf/logo-negativo-completo-orizzontale.png';
+    static const String logoanfcompletovertic = 'assets/images/logo_anf/logo-negativo-completo.png';
 
 
   

@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/forget_password/repository/forget_password_repository.dart';
-import 'package:app_solidale/screens/profilo/page/cambio_password/repository/change_password_repository.dart';
-import 'package:app_solidale/screens/profilo/page/dati_da_inserire/chiedo_aiuto/repository/insert_data_repository.dart';
-import 'package:app_solidale/screens/profilo/page/dati_da_inserire/offro_aiuto/repository/insert_data_repository.dart';
+import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
+import 'package:app_solidale/screens/menu/cambio_password/repository/change_password_repository.dart';
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
@@ -16,9 +15,7 @@ import 'package:one_context/one_context.dart';
 
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
-import 'screens/tabs/repository/read_data_user.dart';
 
-bool initialURILinkHandled = false;
 
 final SecureStorage secureStorage = SecureStorage();
 Future main() async {
@@ -51,12 +48,6 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<ReadDataUserRepository>(
           create: (context) => ReadDataUserRepository(),
-        ),
-        RepositoryProvider<InsertDataChiedoAiutoRepository>(
-          create: (context) => InsertDataChiedoAiutoRepository(),
-        ),
-         RepositoryProvider<InsertDataOffroAiutoRepository>(
-          create: (context) => InsertDataOffroAiutoRepository(),
         ),
         RepositoryProvider<ChangePasswordRepository>(
           create: (context) => ChangePasswordRepository(),

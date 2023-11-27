@@ -12,13 +12,11 @@ class SignUpTappedEvent extends SignUpEvent {
   String email;
   String password;
   String confirmPassword;
-  String richiesta;
   SignUpTappedEvent({
     required this.nome,
     required this.email,
     required this.password,
     required this.confirmPassword,
-    required this.richiesta,
   });
 @override
   List<Object?> get props => [email, password, confirmPassword];
