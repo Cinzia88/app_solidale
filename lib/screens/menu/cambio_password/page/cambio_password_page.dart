@@ -34,9 +34,7 @@ class _CambioPasswordPageState extends State<CambioPasswordPage> {
             toolbarHeight: 75.0,
             automaticallyImplyLeading: true,
             flexibleSpace: customAppBar(context: context),
-            actions: [
-              IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PresentationPage())), icon: Icon(Icons.home, color: Colors.white,))
-            ],),
+          ),
             drawer: NavigationDrawerWidget(),
           body: BlocConsumer<ChangePasswordBloc, ChangePasswordState>(
             listener: (context, state) {

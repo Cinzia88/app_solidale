@@ -28,7 +28,7 @@ class HomeChiedoAiuto extends StatelessWidget {
             automaticallyImplyLeading: true,
             flexibleSpace: customAppBar(context: context),
             actions: [
-              IconButton(onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.home, color: Colors.white,))
+              IconButton(onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.arrow_back, color: Colors.white,))
             ],),
             drawer: NavigationDrawerWidget(),
       body: SingleChildScrollView(

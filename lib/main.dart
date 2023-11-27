@@ -66,6 +66,8 @@ class MyApp extends StatelessWidget {
               colorScheme:
                   const ColorScheme.light(primary: ColorConstants.orangeGradients3),
               // <-- your color
+  dividerTheme: const DividerThemeData(color: Colors.transparent),
+ 
             ),
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,

@@ -34,9 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
             toolbarHeight: 75.0,
             automaticallyImplyLeading: true,
             flexibleSpace: customAppBar(context: context),
-            actions: [
-              IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PresentationPage())), icon: Icon(Icons.home, color: Colors.white,))
-            ],),
+           ),
             drawer: NavigationDrawerWidget(),
       body: SingleChildScrollView(
         child: Padding(
