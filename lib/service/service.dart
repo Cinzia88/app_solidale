@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
@@ -30,20 +32,19 @@ class Service {
       http.MultipartRequest? request;
 
       for (int i = 0; i < filepath.length; i++) {
+        File file = File(filepath[i]!.path);
         var multipartFile =
-            await http.MultipartFile.fromPath('files[]', filepath[i]!.path);
+             http.MultipartFile('files[]', file.readAsBytes().asStream(), file.lengthSync(), filename: file.path.split('/').last);
         newList.add(multipartFile);
-print('filepath ${multipartFile.filename!.split('.').last}');
 
         request = http.MultipartRequest('POST', Uri.parse(url))
           ..fields.addAll(body)
           ..headers.addAll(headers)
           ..files.addAll(newList);
       }
-      http.Response response =
-          await http.Response.fromStream(await request!.send());
+      http.StreamedResponse response = await request!.send();
       print('sendimage success ${request.files.length}');
-      print('sendimage successbody ${(json.decode(response.body))}');
+      print('sendimage successbody ${response.statusCode}');
       return response;
     } catch (e) {
       print('sendimage error $e');
