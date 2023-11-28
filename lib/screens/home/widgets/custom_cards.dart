@@ -7,7 +7,6 @@ import 'package:app_solidale/screens/home/widgets/custom_container_service.dart'
 import 'package:app_solidale/screens/home/widgets/payment_form.dart';
 import 'package:flutter/material.dart';
 
-
 // ignore: must_be_immutable
 class CustomCard extends StatelessWidget {
   String titleOffroAiuto = "Offro Aiuto";
@@ -23,83 +22,68 @@ class CustomCard extends StatelessWidget {
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     return Padding(
-      padding: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height / 3.5,
-          right: 20,
-          left: 20,
-          bottom: 20),
+      padding: const EdgeInsets.all(20.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-         
-          Flexible(
-            child: Column(
-              children: [
-                
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeChiedoAiuto()));
-                  },
-                  child: CustomCardsCommon(
-                    child: CustomContainerService(
-                      title: titleChiedoAiuto,
-                      subtitle: 'Scopri i servizi ANF',
-                      image: PathConstants.onboarding3,
-                    ),
-                  ),
-                ),
-                 const SizedBox(
-                  height: 30,
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: CustomCardsCommon(
-                    child: CustomContainerService(
-                      title: titleOffroAiuto,
-                      subtitle: 'Dona il tuo tempo ad ANF',
-                      image: PathConstants.offroAiuto,
-                    ),
-                  ),
-                ),
-                 SizedBox(
-            height: 30,
+          Text('La tua email non è stata verificata'),
+          SizedBox(
+            height: 20,
           ),
-                Text('La tua email non è stata verificata'),
-         
-              ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeChiedoAiuto()));
+            },
+            child: CustomCardsCommon(
+              child: CustomContainerService(
+                title: titleChiedoAiuto,
+                subtitle: 'Scopri i nostri principali servizi',
+                image: PathConstants.onboarding3,
+              ),
             ),
           ),
-          Column(
-                  children: [
-                    Text(
-                      'Vuoi sostenere l\'ANF?',
-                      style: TextStyle(
-                          color: Colors.black, fontSize: 2 * blockSizeVertical),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => DonazioniPage()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0)),
-                          primary: ColorConstants.primaryColor,
-                          onPrimary: Colors.white),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'DONA ORA',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 2.5 * blockSizeVertical),
-                            )
-                          ]),
-                    ),
-                  ],
-                ),
+          const SizedBox(
+            height: 30,
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: CustomCardsCommon(
+              child: CustomContainerService(
+                title: titleOffroAiuto,
+                subtitle: 'Dona il tuo tempo a chi ne ha bisogno',
+                image: PathConstants.offroAiuto,
+              ),
+            ),
+          ),
+           SizedBox(
+              height: 5 * blockSizeVertical,
+            ),
+          Text(
+            'Vuoi sostenere l\'ANF?',
+            style:
+                TextStyle(color: Colors.black, fontSize: 2 * blockSizeVertical),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => DonazioniPage()));
+            },
+            style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                primary: ColorConstants.primaryColor,
+                onPrimary: Colors.white),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(
+                'DONA ORA',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 2.5 * blockSizeVertical),
+              )
+            ]),
+          ),
         ],
       ),
     );

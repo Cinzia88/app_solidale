@@ -37,7 +37,7 @@ getUserId();
     getTokenUser();
 
     timer = Timer(const Duration(seconds: 5), () {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context)  {
@@ -45,7 +45,7 @@ getUserId();
               return SignInPage();
             } else if (globals.tokenValue != null  &&
                 globals.viewSlide == false) {
-              return PresentationPage();
+              return const PresentationPage();
             } else {
               return const SlidesPage();
             } 

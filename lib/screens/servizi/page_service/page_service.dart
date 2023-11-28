@@ -6,15 +6,13 @@ import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/page/carica_docs_page.dart';
 import 'package:flutter/material.dart';
 
-
-
 class FormServizio extends StatefulWidget {
   final String title;
-  const FormServizio({required this.title});
+  final String image;
+  const FormServizio({required this.title, required this.image});
 
   @override
-  State<FormServizio> createState() =>
-      _FormServizioState();
+  State<FormServizio> createState() => _FormServizioState();
 }
 
 class _FormServizioState extends State<FormServizio> {
@@ -25,44 +23,59 @@ class _FormServizioState extends State<FormServizio> {
       TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
 
- 
   bool forAnother = false;
-
-
 
   @override
   Widget build(BuildContext context) {
+     //final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight = mediaQueryData.size.height;
+    //final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return Scaffold(
       appBar: AppBar(
-           iconTheme: const IconThemeData(
-            color: Colors.white,
-           ),
-            toolbarHeight: 75.0,
-            automaticallyImplyLeading: true,
-            flexibleSpace: customAppBar(context: context),actions: [
-              IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back, color: Colors.white,))
-            ],
-            ),
-                       drawer: NavigationDrawerWidget(),
-
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        toolbarHeight: 75.0,
+        automaticallyImplyLeading: true,
+        flexibleSpace: customAppBar(context: context),
+        actions: [
+          IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ))
+        ],
+      ),
+      drawer: NavigationDrawerWidget(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
           child: Form(
             key: _formKey,
             child: Column(
-          
-          
               children: [
-                 Row(
+                 SizedBox(
+                  width: 70,
+                  child: Image.asset(
+                    widget.image,
+                  ),
+                ),
+                SizedBox(
+                  height: 3 * blockSizeVertical,
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Flexible(
                       child: Text(
                         '${widget.title}',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 25,
+                             fontSize: 3 * blockSizeVertical,
                             color: ColorConstants.titleText),
                       ),
                     ),
@@ -71,42 +84,46 @@ class _FormServizioState extends State<FormServizio> {
                 const Divider(
                   color: ColorConstants.orangeGradients3,
                 ),
-               widget.title == 'Servizio: Banco Alimentare' ? CaricaDocsPage() : SizedBox(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                widget.title == 'Richiesta: \nBanco Alimentare'
+                    ? CaricaDocsPage()
+                    : SizedBox(),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text('La richiesta di prenotazione è:'),
+                      Text('La richiesta è:'),
                     ],
                   ),
                 ),
                 ListTile(
-                        
-                        title: forAnother == true ?   Text('Per familiare') : Text('Per me', ),
-                        trailing: Switch(
-                          inactiveThumbColor: ColorConstants.orangeGradients3,
-                            activeColor: ColorConstants.orangeGradients3,
-                            value: forAnother,
-                            onChanged: (value) {
-                              setState(() {
-                                forAnother = value;
-                              });
-      
-                              //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
-                              //tale value lo salvo nel provider
-                            }),
-                      ),
-               SizedBox(
-                height: 20,
-               ),
-              
+                  title: forAnother == true
+                      ? Text('Per familiare')
+                      : Text(
+                          'Per me',
+                        ),
+                  trailing: Switch(
+                      inactiveThumbColor: ColorConstants.orangeGradients3,
+                      activeColor: ColorConstants.orangeGradients3,
+                      value: forAnother,
+                      onChanged: (value) {
+                        setState(() {
+                          forAnother = value;
+                        });
+
+                        //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
+                        //tale value lo salvo nel provider
+                      }),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 forAnother == true
                     ? Padding(
                         padding: const EdgeInsets.only(bottom: 20.0),
                         child: Column(
                           children: [
-                            Padding(
+                       const     Padding(
                               padding: const EdgeInsets.only(bottom: 20.0),
                               child: Text(
                                   '(Inserisci i dati del familiare per il quale richiedi il servizio)'),
@@ -123,8 +140,7 @@ class _FormServizioState extends State<FormServizio> {
                               },
                             ),
                             TextFormFieldCustom(
-                              textEditingController:
-                                  _surnameAnotherController,
+                              textEditingController: _surnameAnotherController,
                               labelTextCustom: 'Cognome:',
                               obscureText: false,
                               validator: (value) {
@@ -153,7 +169,7 @@ class _FormServizioState extends State<FormServizio> {
                   title: 'Clicca per essere contattato',
                   iconWidget: Icon(Icons.contact_phone),
                   onTap: () {
-                    if(_formKey.currentState!.validate()) {
+                    if (_formKey.currentState!.validate()) {
                       Navigator.pop(context);
                     }
                     /*FocusScope.of(context).unfocus();

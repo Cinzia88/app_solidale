@@ -32,7 +32,7 @@ class CustomContainerService extends StatelessWidget {
                 title,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 3 * blockSizeVertical,
+                  fontSize: 2.5 * blockSizeVertical,
                   color: ColorConstants.titleText,
                 ),
               ),
@@ -50,7 +50,7 @@ class CustomContainerService extends StatelessWidget {
                     child: Text(
                       subtitle,
                       style: TextStyle(
-                        fontSize: 2.2 * blockSizeVertical,
+                        fontSize: 2 * blockSizeVertical,
                       ),
                     ),
                   ),
