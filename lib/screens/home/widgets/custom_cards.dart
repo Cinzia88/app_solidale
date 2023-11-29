@@ -26,7 +26,8 @@ class CustomCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('La tua email non è stata verificata'),
+          Text('La tua email non è stata verificata',  style:
+                TextStyle(color: Colors.black, fontSize: 2 * blockSizeVertical),),
           SizedBox(
             height: 20,
           ),
@@ -80,7 +81,7 @@ class CustomCard extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 2.5 * blockSizeVertical),
+                    fontSize: 2 * blockSizeVertical),
               )
             ]),
           ),

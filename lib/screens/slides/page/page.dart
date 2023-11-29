@@ -43,7 +43,7 @@ class _SlidesPageState extends State<SlidesPage> {
                           text:  _curr == 3 ? "Chiudi" : " Salta",
                           style:  TextStyle(
                             color: ColorConstants.titleText,
-                            fontSize: 2.5 * blockSizeVertical,
+                            fontSize: 2 * blockSizeVertical,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()

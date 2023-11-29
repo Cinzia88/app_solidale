@@ -1,4 +1,5 @@
 import 'package:app_solidale/const/color_constants.dart';
+import 'package:app_solidale/const/text_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
@@ -57,20 +58,18 @@ class _FormServizioState extends State<FormServizio> {
             key: _formKey,
             child: Column(
               children: [
-                 SizedBox(
+                Row(
+                  children: [
+                    SizedBox(
                   width: 70,
                   child: Image.asset(
                     widget.image,
                   ),
                 ),
                 SizedBox(
-                  height: 3 * blockSizeVertical,
+                  width: 3 * blockSizeVertical,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      child: Text(
+                Text(
                         '${widget.title}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -78,13 +77,13 @@ class _FormServizioState extends State<FormServizio> {
                              fontSize: 3 * blockSizeVertical,
                             color: ColorConstants.titleText),
                       ),
-                    ),
                   ],
                 ),
-                const Divider(
-                  color: ColorConstants.orangeGradients3,
-                ),
-                widget.title == 'Richiesta: \nBanco Alimentare'
+                
+                
+                
+               
+                widget.title == TextConstants.infoAlertTitleBancoAlim
                     ? CaricaDocsPage()
                     : SizedBox(),
                 const Padding(
@@ -96,6 +95,7 @@ class _FormServizioState extends State<FormServizio> {
                     ],
                   ),
                 ),
+                
                 ListTile(
                   title: forAnother == true
                       ? Text('Per familiare')
@@ -164,7 +164,20 @@ class _FormServizioState extends State<FormServizio> {
                           ],
                         ),
                       )
-                    : SizedBox(),
+                    :  TextFormFieldCustom(
+                              textEditingController: _nameAnotherController,
+                              labelTextCustom: 'Telefono:',
+                              obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo Richiesto*';
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
                 CommonStyleButton(
                   title: 'Clicca per essere contattato',
                   iconWidget: Icon(Icons.contact_phone),

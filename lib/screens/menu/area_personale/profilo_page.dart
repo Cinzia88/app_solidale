@@ -1,6 +1,9 @@
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
+import 'package:app_solidale/screens/home/widgets/custom_cards.dart';
+import 'package:app_solidale/screens/menu/area_personale/cambio_password/page/cambio_password_page.dart';
+import 'package:app_solidale/screens/menu/area_personale/modifca_dati/page/modifica_dati_page.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
@@ -27,22 +30,22 @@ class _ProfilePageState extends State<ProfilePage> {
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     return Scaffold(
-    appBar: AppBar(
-           iconTheme: const IconThemeData(
-            color: Colors.white,
-           ),
-            toolbarHeight: 75.0,
-            automaticallyImplyLeading: true,
-            flexibleSpace: customAppBar(context: context),
-           ),
-            drawer: NavigationDrawerWidget(),
+      appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        toolbarHeight: 75.0,
+        automaticallyImplyLeading: true,
+        flexibleSpace: customAppBar(context: context),
+      ),
+      drawer: NavigationDrawerWidget(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
               Text(
-                'Area Personale',
+                'Il Mio Account',
                 style: TextStyle(
                     color: ColorConstants.titleText,
                     fontWeight: FontWeight.bold,
@@ -51,46 +54,47 @@ class _ProfilePageState extends State<ProfilePage> {
               const Divider(
                 color: ColorConstants.orangeGradients3,
               ),
-            
-             
-             const SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Column(
                 children: [
-                      CustomCardsCommon(
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                              const  Icon(
-                                  Icons.person,
-                                  color: ColorConstants.orangeGradients3,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ModificaDatiPage()));
+                    },
+                    child: CustomCardsCommon(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(
+                                Icons.person,
+                                color: ColorConstants.orangeGradients3,
+                              ),
+                              Text(' Modifica Dati',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 2.5 * blockSizeVertical,
+                                    color: ColorConstants.orangeGradients3,
+                                  )),
+                            ],
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  'Modifica i tuoi dati anagrafici',
                                 ),
-                                Text(' Modifica Dati',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 2.5 * blockSizeVertical,
-                                      color:
-                                          ColorConstants.orangeGradients3,
-                                    )),
-                              ],
-                            ),
-                           const Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    'Modifica i tuoi dati anagrafici',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                     
+                    ),
+                  ),
                   const SizedBox(
                     height: 40,
                   ),
@@ -100,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                          const  Icon(
+                            const Icon(
                               Icons.document_scanner,
                               color: ColorConstants.orangeGradients3,
                             ),
@@ -112,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 )),
                           ],
                         ),
-                       const Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Flexible(
@@ -125,35 +129,71 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
-                
-                  const SizedBox(
+                  SizedBox(
                     height: 40,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Elimina Account',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 2.5 * blockSizeVertical,
-                            color: ColorConstants.titleText),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CambioPasswordPage()));
+                    },
+                    child: CustomCardsCommon(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(
+                                Icons.password,
+                                color: ColorConstants.orangeGradients3,
+                              ),
+                              Text(' Cambio Password',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 2.5 * blockSizeVertical,
+                                    color: ColorConstants.orangeGradients3,
+                                  )),
+                            ],
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  'Cambia la tua passord attuale',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                const  SizedBox(
-                    height: 10,
+                  const SizedBox(
+                    height: 60,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      DangerStyleButton(
-                          title: 'Rimuovi Account',
-                          onTap: () {
-                            sevice.deleteAccount(context);
-                          },
-                          iconWidget: const Icon(Icons.delete)),
-                    ],
+                  
+                  ElevatedButton(
+                    onPressed: () async {
+                       sevice.deleteAccount(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        primary: Colors.red,
+                        onPrimary: Colors.white),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          
+                          Text(
+                            'Rimuovi Account',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 2 * blockSizeVertical),
+                          ),
+                         
+                        ]),
                   ),
                 ],
               ),

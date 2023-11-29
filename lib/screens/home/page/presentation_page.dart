@@ -21,26 +21,7 @@ class PresentationPage extends StatefulWidget {
 class _PresentationPageState extends State<PresentationPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ReadUserBloc>(
-      create: (context) => ReadUserBloc(
-        context: context,
-        readDataUserRepository: context.read<ReadDataUserRepository>(),
-      )..add(
-          FetchUserEvent(),
-        ),
-      child:
-          BlocConsumer<ReadUserBloc, ReadUserState>(listener: (context, state) {
-        if (state is ReadUserErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage)),
-          );
-        }
-        return;
-      }, builder: (context, state) {
-        if (state is ReadUserLoadedState) {
-          globals.userData = state.data;
-
-          return Scaffold(
+    return  Scaffold(
              appBar: AppBar(
            iconTheme: const IconThemeData(
             color: Colors.white,
@@ -57,8 +38,4 @@ class _PresentationPageState extends State<PresentationPage> {
             ),
           );
         }
-        return loadingWidget(context);
-      }),
-    );
-  }
 }

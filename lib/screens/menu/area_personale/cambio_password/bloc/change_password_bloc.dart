@@ -1,6 +1,6 @@
 
 
-import 'package:app_solidale/screens/menu/cambio_password/repository/change_password_repository.dart';
+import 'package:app_solidale/screens/menu/area_personale/cambio_password/repository/change_password_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 

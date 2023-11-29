@@ -1,6 +1,8 @@
 
 
 
+import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
+import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/news/page/single_new_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +36,16 @@ List images = [
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     return  Scaffold(
-       appBar: PreferredSize(
-          preferredSize: Size(MediaQuery.of(context).size.width, 150.0),
-          child: appBarPages(context),),
+      appBar: AppBar(
+           iconTheme: const IconThemeData(
+            color: Colors.white,
+           ),
+            toolbarHeight: 75.0,
+            automaticallyImplyLeading: true,
+            flexibleSpace: customAppBar(context: context),
+           
+          ),
+            drawer: NavigationDrawerWidget(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
         child: ListView(

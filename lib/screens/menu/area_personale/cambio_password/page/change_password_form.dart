@@ -1,7 +1,7 @@
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
-import 'package:app_solidale/screens/menu/cambio_password/bloc/change_password_bloc.dart';
+import 'package:app_solidale/screens/menu/area_personale/cambio_password/bloc/change_password_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

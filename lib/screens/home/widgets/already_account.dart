@@ -13,17 +13,17 @@ Widget alreadyAccount(BuildContext context) {
     final blockSizeVertical = screenHeight / 100;
 return RichText(
                   text: TextSpan(
-                    text: TextConstants.alreadyHaveAccount,
+                    text: 'Possiedi già un account?',
                     style:  TextStyle(
                       color: Colors.black,
-                      fontSize: 2.3 * blockSizeVertical,
+                      fontSize: 2 * blockSizeVertical,
                     ),
                     children: [
                       TextSpan(
-                        text: "   ${TextConstants.signIn}",
+                        text: "   Accedi",
                         style:  TextStyle(
                           color: ColorConstants.primaryColor,
-                          fontSize: 2.3 * blockSizeVertical,
+                          fontSize: 2 * blockSizeVertical,
                           fontWeight: FontWeight.bold,
                         ),
                         recognizer: TapGestureRecognizer()

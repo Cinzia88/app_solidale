@@ -2,8 +2,9 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/menu/area_personale/profilo_page.dart';
-import 'package:app_solidale/screens/menu/cambio_password/page/cambio_password_page.dart';
 import 'package:app_solidale/screens/menu/logout/logout.dart';
+import 'package:app_solidale/screens/news/page/news_page.dart';
+import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:app_solidale/screens/signin/page/signin_page.dart';
 import 'package:flutter/material.dart';
 
@@ -51,13 +52,27 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                  Navigator.push(context,
                     MaterialPageRoute(builder: (context) => PresentationPage()));
               }),
+               ListTile(
+              leading: Icon(
+                Icons.newspaper,
+                color: Colors.white,
+              ),
+              title: Text(
+                'News',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                 Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => NewsPage()));
+              }),
           ListTile(
               leading: Icon(
                 Icons.account_circle,
                 color: Colors.white,
               ),
               title: Text(
-                'Area Personale',
+                'Il Mio Account',
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
@@ -65,20 +80,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ProfilePage()));
               }),
-          ListTile(
-              leading: Icon(
-                Icons.password,
-                color: Colors.white,
-              ),
-              title: Text(
-                'Cambio Password',
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CambioPasswordPage()));
-              }),
+         
           ListTile(
               leading: Icon(
                 Icons.logout,
@@ -93,6 +95,35 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                  Navigator.of(context, rootNavigator: true).pushReplacement(
                       MaterialPageRoute(builder: (context) => SignInPage()));
                   serviceLogout.logoutUser(context);
+              }),
+              Divider(color: ColorConstants.colorDoctNotActive,),
+               ListTile(
+              leading: Icon(
+                Icons.favorite,
+                color: Colors.white,
+              ),
+              title: Text(
+                'Chiedo Aiuto',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                 Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomeChiedoAiuto()));
+              }),
+               ListTile(
+              leading: Icon(
+                Icons.favorite,
+                color: Colors.white,
+              ),
+              title: Text(
+                'Offro Aiuto',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                 Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomeChiedoAiuto()));
               }),
           const SizedBox(
             height: 50,

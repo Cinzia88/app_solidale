@@ -67,7 +67,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         'Crea il Tuo Account',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 3 * blockSizeVertical,
+                            fontSize: 2.5 * blockSizeVertical,
                             color: ColorConstants.titleText),
                       ),
                       SizedBox(
@@ -75,7 +75,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       ),
                       TextFormFieldCustom(
                         textEditingController: _nameController,
-                        labelTextCustom: 'Nome:',
+                        labelTextCustom: 'Nome e Cognome:',
                         obscureText: false,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -178,14 +178,14 @@ class _SignUpFormState extends State<SignUpForm> {
                       text: 'Possiedi già un account?',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 2.3 * blockSizeVertical,
+                        fontSize: 2 * blockSizeVertical,
                       ),
                       children: [
                         TextSpan(
                           text: " Accedi",
                           style: TextStyle(
                             color: ColorConstants.primaryColor,
-                            fontSize: 2.3 * blockSizeVertical,
+                            fontSize: 2 * blockSizeVertical,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()
