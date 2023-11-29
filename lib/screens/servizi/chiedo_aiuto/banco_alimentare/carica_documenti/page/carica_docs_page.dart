@@ -5,6 +5,7 @@ import 'package:app_solidale/screens/common_widgets/background_style/custom_appb
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/service/service.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -24,7 +25,7 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
   XFile? fileToDisplay;
   bool deletedImage = false;
 
-  Future _pickImage(ImageSource imageSource) async {
+  Future _pickImageCamera(ImageSource imageSource) async {
     try {
       final XFile? selectedImage =
           await ImagePicker().pickImage(source: imageSource);
@@ -41,12 +42,28 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
     }
   }
 
+  Future _pickFile() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+      if (result != null) {
+        XFile file = XFile(result.files.single.path!);
+        setState(() {
+          imagesList.add(file);
+          fileToDisplay = file;
+        });
+      } else {
+        // User canceled the picker
+      }
+    } on PlatformException catch (e) {}
+  }
+
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
+    //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0),
@@ -184,7 +201,9 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
                                             ),
                                             onPrimary: ColorConstants
                                                 .orangeGradients3),
-                                        onPressed: () async {},
+                                        onPressed: () async {
+                                          _pickFile();
+                                        },
                                         label: const Text('Scegli File'),
                                         icon: const Icon(Icons.file_copy),
                                       ),
@@ -197,7 +216,7 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
                                             onPrimary: ColorConstants
                                                 .orangeGradients3),
                                         onPressed: () {
-                                          _pickImage(ImageSource.camera);
+                                          _pickImageCamera(ImageSource.camera);
                                           Navigator.pop(context);
                                         },
                                         label: const Text('Scatta Foto'),
