@@ -72,7 +72,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                           'Cambio Password',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 3 * blockSizeVertical,
+                              fontSize: 2.5 * blockSizeVertical,
                               color: ColorConstants.titleText),
                         ),
                         SizedBox(

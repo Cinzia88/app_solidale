@@ -83,24 +83,22 @@ class _FormServizioState extends State<FormServizio> {
                 
                 
                
-                widget.title == TextConstants.infoAlertTitleBancoAlim
-                    ? CaricaDocsPage()
-                    : SizedBox(),
+               
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text('La richiesta è:'),
+                      Flexible(child: Text('Richiesta del \nServizio Taxi Solidale in qualità di:')),
                     ],
                   ),
                 ),
                 
                 ListTile(
                   title: forAnother == true
-                      ? Text('Per familiare')
+                      ? Text('Familiare')
                       : Text(
-                          'Per me',
+                          'Beneficiario',
                         ),
                   trailing: Switch(
                       inactiveThumbColor: ColorConstants.orangeGradients3,
@@ -175,6 +173,9 @@ class _FormServizioState extends State<FormServizio> {
                                 return null;
                               },
                             ),
+                             widget.title == TextConstants.infoAlertTitleBancoAlim
+                    ? CaricaDocsPage()
+                    : SizedBox(),
                             SizedBox(
                               height: 50,
                             ),

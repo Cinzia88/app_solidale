@@ -93,7 +93,7 @@ class _ModificaDatiPageState extends State<ModificaDatiPage> {
                                   'Modifica I Tuoi Dati',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 3 * blockSizeVertical,
+                                      fontSize: 2.5 * blockSizeVertical,
                                       color: ColorConstants.titleText),
                                 ),
                               ],

@@ -17,9 +17,9 @@ class CaricaDocsPage extends StatefulWidget {
 }
 
 class _CaricaDocsPageState extends State<CaricaDocsPage> {
-   final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _tipoDocController = TextEditingController();
-   Service service = Service();
+  Service service = Service();
   final List<XFile?> imagesList = [];
   XFile? fileToDisplay;
   bool deletedImage = false;
@@ -45,14 +45,14 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
-    final screenHeight =mediaQueryData.size.height;
+    final screenHeight = mediaQueryData.size.height;
     final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.only(top: 20.0),
       child: Column(
         children: [
-           Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
@@ -64,19 +64,17 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
               ),
             ],
           ),
-         
           Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: Form(
               key: _formKey,
               child: Column(
                 children: [
-                  
                   TextFormFieldCustom(
                     textEditingController: _tipoDocController,
                     labelTextCustom: 'Tipo di Documento:',
                     obscureText: false,
-                     validator: (value) {
+                    validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Campo Richiesto*';
                       }
@@ -87,8 +85,7 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
                     children: [
                       GridView.builder(
                           shrinkWrap: true,
-                          physics:
-                              const NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 3),
@@ -112,8 +109,7 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
                                       child: IconButton(
                                         onPressed: () {
                                           setState(() {
-                                            imagesList
-                                                .removeAt(index);
+                                            imagesList.removeAt(index);
                                           });
                                         },
                                         icon: const Icon(
@@ -133,42 +129,25 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            /*ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(30.0),
-                                  ),
-                                  onPrimary:
-                                      ColorConstants.orangeGradients3),
-                              onPressed: () async {
-                              
-                              },
-                              label: const Text('Carica PDF'),
-                              icon: const Icon(Icons.upload),
-                            ), */
                             ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(30.0),
+                                    borderRadius: BorderRadius.circular(30.0),
                                   ),
-                                  onPrimary:
-                                      ColorConstants.orangeGradients3),
+                                  onPrimary: ColorConstants.orangeGradients3),
                               onPressed: () async {
                                 showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
                                     backgroundColor: Colors.white,
                                     icon: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         IconButton(
                                           icon: const Icon(
                                             Icons.close,
-                                            color: ColorConstants
-                                                .orangeGradients3,
+                                            color:
+                                                ColorConstants.orangeGradients3,
                                           ),
                                           onPressed: () {
                                             Navigator.pop(context);
@@ -190,8 +169,7 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
                                               style: TextStyle(
                                                   color: ColorConstants
                                                       .orangeGradients3,
-                                                  fontWeight:
-                                                      FontWeight.bold),
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ],
                                         ),
@@ -202,24 +180,19 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
                                         style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(
-                                                      30.0),
+                                                  BorderRadius.circular(30.0),
                                             ),
                                             onPrimary: ColorConstants
                                                 .orangeGradients3),
-                                        onPressed: () {
-                                          _pickImage(ImageSource.gallery);
-                                          Navigator.pop(context);
-                                        },
-                                        label: const Text('Galleria'),
-                                        icon: const Icon(Icons.image),
+                                        onPressed: () async {},
+                                        label: const Text('Scegli File'),
+                                        icon: const Icon(Icons.file_copy),
                                       ),
                                       ElevatedButton.icon(
                                         style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(
-                                                      30.0),
+                                                  BorderRadius.circular(30.0),
                                             ),
                                             onPrimary: ColorConstants
                                                 .orangeGradients3),
@@ -233,7 +206,7 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
                                     ],
                                   ),
                                 );
-    
+
                                 setState(() {
                                   deletedImage = false;
                                 });
@@ -246,8 +219,8 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
                       )),
                     ],
                   ),
-                  
-                  SizedBox(
+
+                  /* SizedBox(
                     height: 20,
                   ),
                   CommonStyleButton(
@@ -265,7 +238,7 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
                          FocusScope.of(context).unfocus();
                       }
                     },
-                  ),
+                  ), */
                   const SizedBox(
                     height: 20,
                   ),
@@ -276,9 +249,5 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
         ],
       ),
     );
-          }
-      
-      
-  
+  }
 }
-
