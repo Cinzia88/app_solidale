@@ -4,7 +4,8 @@ import 'package:app_solidale/screens/common_widgets/background_style/custom_appb
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/page/carica_docs_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/carica_parenti_page.dart';
 import 'package:flutter/material.dart';
 
 class FormServizio extends StatefulWidget {
@@ -69,14 +70,15 @@ class _FormServizioState extends State<FormServizio> {
                 SizedBox(
                   width: 3 * blockSizeVertical,
                 ),
-                Text(
-                        '${widget.title}',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                             fontSize: 3 * blockSizeVertical,
-                            color: ColorConstants.titleText),
-                      ),
+                Flexible(
+                  child: Text(
+                          '${widget.title}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                               fontSize: 3 * blockSizeVertical,
+                              color: ColorConstants.titleText),
+                        ),
+                ),
                   ],
                 ),
                 
@@ -174,7 +176,7 @@ class _FormServizioState extends State<FormServizio> {
                               },
                             ),
                              widget.title == TextConstants.infoAlertTitleBancoAlim
-                    ? CaricaDocsPage()
+                    ? _selectButton()
                     : SizedBox(),
                             SizedBox(
                               height: 50,
@@ -197,4 +199,22 @@ class _FormServizioState extends State<FormServizio> {
       ),
     );
   }
+
+  Widget _selectButton() {
+    return Column(
+      children: [
+ CommonStyleButton(
+  title: 'Carica file',
+  iconWidget: Icon(Icons.upload),
+  onTap:() => Navigator.push(context, MaterialPageRoute(builder: (context) => CaricaDocsPage()))),
+  CommonStyleButton(
+  title: 'Componenti familiari',
+  iconWidget: Icon(Icons.family_restroom),
+  onTap:() => Navigator.push(context, MaterialPageRoute(builder: (context) => ParentsPage()))),
+      ]
+    );
+  }
 }
+
+
+

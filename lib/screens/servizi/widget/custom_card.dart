@@ -18,13 +18,15 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: ColorConstants.orangeGradients3,
-                    fontSize: 20),
+              Flexible(
+                flex: 2,
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: ColorConstants.orangeGradients3,
+                      fontSize: 15),
+                ),
               ),
               IconButton(
                   onPressed: () {
@@ -84,15 +86,33 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
             subtitle:
                 'Ti aiutiamo a raggiungere strutture e servizi primari in città',
             image: PathConstants.taxiSolidale,
-            widget: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: Row(
-                    children: [
-                      ElevatedButton(
+            widget: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FormServizio(
+                                      image: PathConstants.taxiSolidale,
+                                      title: TextConstants
+                                          .infoAlertTitleTaxiSolidale,
+                                    )));
+                      },
+                      child: Text(
+                        'Richiedi',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                  GestureDetector(
+                    onTap: () {
+                      showAlertDialog(
+                          title: TextConstants.infoAlertTitleTaxiSolidale,
+                          desc: TextConstants.infoAlertTaxiSolidale,
                           onPressed: () {
+                            Navigator.pop(context);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -101,38 +121,16 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                                           title: TextConstants
                                               .infoAlertTitleTaxiSolidale,
                                         )));
-                          },
-                          child: Text(
-                            'Richiedi',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                      IconButton(
-                          onPressed: () {
-                            showAlertDialog(
-                              title: TextConstants.infoAlertTitleTaxiSolidale,
-                              desc: TextConstants.infoAlertTaxiSolidale,
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const FormServizio(
-                                              image:
-                                                  PathConstants.taxiSolidale,
-                                              title: TextConstants
-                                                  .infoAlertTitleTaxiSolidale,
-                                            )));
-                              },
-                            );
-                          },
-                          icon: Text(
-                            'i',
-                          )),
-                    ],
+                          });
+                    },
+                    child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: Image.asset(PathConstants.infoService),
+                    ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -144,56 +142,52 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
             title: 'Accompagnamento Oncologico',
             subtitle: 'Ti supportiamo per ricevere le cure necessarie',
             image: PathConstants.accompagnamOncolog,
-            widget: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: Row(
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const FormServizio(
-                                          image:
-                                              PathConstants.accompagnamOncolog,
-                                          title: TextConstants
-                                              .infoAlertTitleAccompagnOncol,
-                                        )));
-                          },
-                          child: Text(
-                            'Richiedi',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                      IconButton(
-                          onPressed: () {
-                            showAlertDialog(
-                              title: TextConstants.infoAlertTitleAccompagnOncol,
-                              desc: TextConstants.infoAlertAccompagnOncol,
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const FormServizio(
-                                              image: PathConstants
-                                                  .accompagnamOncolog,
-                                              title: TextConstants
-                                                  .infoAlertTitleAccompagnOncol,
-                                            )));
-                              },
-                            );
-                          },
-                          icon: Text(
-                            'i',
-                          )),
-                    ],
+            widget: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FormServizio(
+                                      image: PathConstants.accompagnamOncolog,
+                                      title: TextConstants
+                                          .infoAlertTitleAccompagnOncol,
+                                    )));
+                      },
+                      child: Text(
+                        'Richiedi',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                  GestureDetector(
+                    onTap: () {
+                      showAlertDialog(
+                        title: TextConstants.infoAlertTitleAccompagnOncol,
+                        desc: TextConstants.infoAlertAccompagnOncol,
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const FormServizio(
+                                        image: PathConstants.accompagnamOncolog,
+                                        title: TextConstants
+                                            .infoAlertTitleAccompagnOncol,
+                                      )));
+                        },
+                      );
+                    },
+                    child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: Image.asset(PathConstants.infoService),
+                    ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -205,65 +199,58 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
             title: 'Banco Alimentare',
             subtitle: 'Prenota o conferma il ritiro del tuo pacco alimentare',
             image: PathConstants.bancoAlim,
-            widget: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: Row(
-                    children: [
-                       ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const FormServizio(
-                                          image:
-                                              PathConstants.bancoAlim,
-                                          title: TextConstants
-                                              .infoAlertTitleBancoAlim,
-                                        )));
-                          },
-                          child: Text(
-                            'Richiedi',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                      IconButton(
-                          onPressed: () {
-                            showAlertDialog(
-                              title: TextConstants.infoAlertTitleBancoAlim,
-                              desc: TextConstants.infoAlertBancoAlim,
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const FormServizio(
-                                              image: PathConstants
-                                                  .accompagnamOncolog,
-                                              title: TextConstants
-                                                  .infoAlertTitleAccompagnOncol,
-                                            )));
-                              },
-                            );
-                          },
-                          icon: Text(
-                            'i',
-                          )),
-                     
-                    ],
+            widget: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FormServizio(
+                                      image: PathConstants.bancoAlim,
+                                      title: TextConstants
+                                          .infoAlertTitleBancoAlim,
+                                    )));
+                      },
+                      child: Text(
+                        'Richiedi',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                  GestureDetector(
+                    onTap: () {
+                      showAlertDialog(
+                        title: TextConstants.infoAlertTitleBancoAlim,
+                        desc: TextConstants.infoAlertBancoAlim,
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const FormServizio(
+                                        image: PathConstants
+                                            .accompagnamOncolog,
+                                        title: TextConstants
+                                            .infoAlertTitleAccompagnOncol,
+                                      )));
+                        },
+                      );
+                    },
+                    child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: Image.asset(PathConstants.infoService),
+                    ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ],
     ),
-    
   );
-
-
-  
 }

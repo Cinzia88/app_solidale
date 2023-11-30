@@ -26,6 +26,8 @@ class PathConstants {
       'assets/images/icone_servizio_chiedo_aiuto/accompagnamento_oncologico.png';
   static const String bancoAlim =
       'assets/images/icone_servizio_chiedo_aiuto/banco_alimentare.png';
+   static const String infoService =
+      'assets/images/icone_servizio_chiedo_aiuto/info_service.png';
   
 
   //offro aiuto

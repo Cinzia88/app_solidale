@@ -18,7 +18,7 @@ class Service {
     return readToken().then((value) => sendVerifyMailUser(email, context));
   }
 
-  Future addImage(Map<String, String> body, List<XFile?> filepath) async {
+  Future addImage(Map<String, String> body, List<File> imagepath, List<File> pdfpath) async {
     try {
       var url =
           '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/upload-documents';
@@ -31,8 +31,9 @@ class Service {
       List<http.MultipartFile> newList = [];
       http.MultipartRequest? request;
 
-      for (int i = 0; i < filepath.length; i++) {
-        File file = File(filepath[i]!.path);
+     if(imagepath.isNotEmpty) {
+       for (int i = 0; i < imagepath.length; i++) {
+        File file = File(imagepath[i].path);
         var multipartFile =
              http.MultipartFile('files[]', file.readAsBytes().asStream(), file.lengthSync(), filename: file.path.split('/').last);
         newList.add(multipartFile);
@@ -42,6 +43,19 @@ class Service {
           ..headers.addAll(headers)
           ..files.addAll(newList);
       }
+     } else {
+       for (int i = 0; i < pdfpath.length; i++) {
+        File file = File(pdfpath[i].path);
+        var multipartFile =
+             http.MultipartFile('files[]', file.readAsBytes().asStream(), file.lengthSync(), filename: file.path.split('/').last);
+        newList.add(multipartFile);
+
+        request = http.MultipartRequest('POST', Uri.parse(url))
+          ..fields.addAll(body)
+          ..headers.addAll(headers)
+          ..files.addAll(newList);
+      }
+     }
       http.StreamedResponse response = await request!.send();
       print('sendimage success ${request.files.length}');
       print('sendimage successbody ${response.statusCode}');

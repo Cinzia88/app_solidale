@@ -19,6 +19,15 @@ class PresentationPage extends StatefulWidget {
 }
 
 class _PresentationPageState extends State<PresentationPage> {
+
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ReadDataUserRepository().readUser(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
