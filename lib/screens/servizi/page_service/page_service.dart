@@ -29,7 +29,7 @@ class _FormServizioState extends State<FormServizio> {
 
   @override
   Widget build(BuildContext context) {
-     //final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
@@ -62,40 +62,36 @@ class _FormServizioState extends State<FormServizio> {
                 Row(
                   children: [
                     SizedBox(
-                  width: 70,
-                  child: Image.asset(
-                    widget.image,
-                  ),
-                ),
-                SizedBox(
-                  width: 3 * blockSizeVertical,
-                ),
-                Flexible(
-                  child: Text(
-                          '${widget.title}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                               fontSize: 3 * blockSizeVertical,
-                              color: ColorConstants.titleText),
-                        ),
-                ),
+                      width: 70,
+                      child: Image.asset(
+                        widget.image,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 3 * blockSizeVertical,
+                    ),
+                    Flexible(
+                      child: Text(
+                        '${widget.title}',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 3 * blockSizeVertical,
+                            color: ColorConstants.titleText),
+                      ),
+                    ),
                   ],
                 ),
-                
-                
-                
-               
-               
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Flexible(child: Text('Richiesta del \nServizio Taxi Solidale in qualità di:')),
+                      Flexible(
+                          child: Text(
+                              'Richiesta del \nServizio Taxi Solidale in qualità di:')),
                     ],
                   ),
                 ),
-                
                 ListTile(
                   title: forAnother == true
                       ? Text('Familiare')
@@ -123,7 +119,7 @@ class _FormServizioState extends State<FormServizio> {
                         padding: const EdgeInsets.only(bottom: 20.0),
                         child: Column(
                           children: [
-                       const     Padding(
+                            const Padding(
                               padding: const EdgeInsets.only(bottom: 20.0),
                               child: Text(
                                   '(Inserisci i dati del familiare per il quale richiedi il servizio)'),
@@ -164,24 +160,25 @@ class _FormServizioState extends State<FormServizio> {
                           ],
                         ),
                       )
-                    :  TextFormFieldCustom(
-                              textEditingController: _nameAnotherController,
-                              labelTextCustom: 'Telefono:',
-                              obscureText: false,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Campo Richiesto*';
-                                }
-                                return null;
-                              },
-                            ),
-                             widget.title == TextConstants.infoAlertTitleBancoAlim
+                    : TextFormFieldCustom(
+                        textEditingController: _nameAnotherController,
+                        labelTextCustom: 'Telefono:',
+                        obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo Richiesto*';
+                          }
+                          return null;
+                        },
+                      ),
+                       SizedBox(
+                  height: 30,
+                ),
+                widget.title == TextConstants.infoAlertTitleBancoAlim
                     ? _selectButton()
                     : SizedBox(),
-                            SizedBox(
-                              height: 50,
-                            ),
-                CommonStyleButton(
+               
+              /*  CommonStyleButton(
                   title: 'Clicca per essere contattato',
                   iconWidget: Icon(Icons.contact_phone),
                   onTap: () {
@@ -191,7 +188,7 @@ class _FormServizioState extends State<FormServizio> {
                     /*FocusScope.of(context).unfocus();
                                               bloc.add(SignUpTappedEvent()); */
                   },
-                ),
+                ),*/
               ],
             ),
           ),
@@ -201,20 +198,23 @@ class _FormServizioState extends State<FormServizio> {
   }
 
   Widget _selectButton() {
-    return Column(
-      children: [
- CommonStyleButton(
-  title: 'Carica file',
-  iconWidget: Icon(Icons.upload),
-  onTap:() => Navigator.push(context, MaterialPageRoute(builder: (context) => CaricaDocsPage()))),
-  CommonStyleButton(
-  title: 'Componenti familiari',
-  iconWidget: Icon(Icons.family_restroom),
-  onTap:() => Navigator.push(context, MaterialPageRoute(builder: (context) => ParentsPage()))),
-      ]
-    );
+    return Column(children: [
+      Text('Per completare la richiesta, devi aggiungere i dati dei tuoi componenti familiari'),
+       SizedBox(
+                  height: 30,
+                ),
+      CommonStyleButton(
+          title: 'Componenti familiari',
+          iconWidget: Icon(Icons.family_restroom),
+          onTap: () {
+            Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ParentsPage()));
+          }),
+              /*CommonStyleButton(
+          title: 'Carica file',
+          iconWidget: Icon(Icons.upload),
+          onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CaricaDocsPage()))), */
+    ]);
   }
 }
-
-
-

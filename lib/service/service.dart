@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:app_solidale/const/color_constants.dart';
@@ -6,8 +7,6 @@ import 'package:app_solidale/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:image_picker/image_picker.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 
@@ -18,7 +17,8 @@ class Service {
     return readToken().then((value) => sendVerifyMailUser(email, context));
   }
 
-  Future addImage(Map<String, String> body, List<File> imagepath, List<File> pdfpath) async {
+  Future addImage(Map<String, String> body, List<File> imagepath,
+      List<File> pdfpath) async {
     try {
       var url =
           '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/upload-documents';
@@ -31,31 +31,33 @@ class Service {
       List<http.MultipartFile> newList = [];
       http.MultipartRequest? request;
 
-     if(imagepath.isNotEmpty) {
-       for (int i = 0; i < imagepath.length; i++) {
-        File file = File(imagepath[i].path);
-        var multipartFile =
-             http.MultipartFile('files[]', file.readAsBytes().asStream(), file.lengthSync(), filename: file.path.split('/').last);
-        newList.add(multipartFile);
+      if (imagepath.isNotEmpty) {
+        for (int i = 0; i < imagepath.length; i++) {
+          File file = File(imagepath[i].path);
+          var multipartFile = http.MultipartFile(
+              'files[]', file.readAsBytes().asStream(), file.lengthSync(),
+              filename: file.path.split('/').last);
+          newList.add(multipartFile);
 
-        request = http.MultipartRequest('POST', Uri.parse(url))
-          ..fields.addAll(body)
-          ..headers.addAll(headers)
-          ..files.addAll(newList);
-      }
-     } else {
-       for (int i = 0; i < pdfpath.length; i++) {
-        File file = File(pdfpath[i].path);
-        var multipartFile =
-             http.MultipartFile('files[]', file.readAsBytes().asStream(), file.lengthSync(), filename: file.path.split('/').last);
-        newList.add(multipartFile);
+          request = http.MultipartRequest('POST', Uri.parse(url))
+            ..fields.addAll(body)
+            ..headers.addAll(headers)
+            ..files.addAll(newList);
+        }
+      } else {
+        for (int i = 0; i < pdfpath.length; i++) {
+          File file = File(pdfpath[i].path);
+          var multipartFile = http.MultipartFile(
+              'files[]', file.readAsBytes().asStream(), file.lengthSync(),
+              filename: file.path.split('/').last);
+          newList.add(multipartFile);
 
-        request = http.MultipartRequest('POST', Uri.parse(url))
-          ..fields.addAll(body)
-          ..headers.addAll(headers)
-          ..files.addAll(newList);
+          request = http.MultipartRequest('POST', Uri.parse(url))
+            ..fields.addAll(body)
+            ..headers.addAll(headers)
+            ..files.addAll(newList);
+        }
       }
-     }
       http.StreamedResponse response = await request!.send();
       print('sendimage success ${request.files.length}');
       print('sendimage successbody ${response.statusCode}');
@@ -86,13 +88,11 @@ class Service {
 
       switch (response.statusCode) {
         case 200:
-          
           break;
         case 401:
           Navigator.push(
               context, MaterialPageRoute(builder: (_) => PresentationPage()));
 
-         
           break;
         case 400:
           String message = 'Utente non trovato';
@@ -176,13 +176,13 @@ class Service {
               )));
           break;
         case 401:
-         Navigator.of(context, rootNavigator: true).pushReplacement(
+          Navigator.of(context, rootNavigator: true).pushReplacement(
               MaterialPageRoute(builder: (context) => PresentationPage()));
 
           break;
         case 400:
           String message = 'Utente non trovato';
-Navigator.of(context, rootNavigator: true).pushReplacement(
+          Navigator.of(context, rootNavigator: true).pushReplacement(
               MaterialPageRoute(builder: (context) => PresentationPage()));
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -198,7 +198,7 @@ Navigator.of(context, rootNavigator: true).pushReplacement(
         case 500:
           String message =
               'Errore Server: impossibile stabilire una connessione';
-Navigator.of(context, rootNavigator: true).pushReplacement(
+          Navigator.of(context, rootNavigator: true).pushReplacement(
               MaterialPageRoute(builder: (context) => PresentationPage()));
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -212,7 +212,7 @@ Navigator.of(context, rootNavigator: true).pushReplacement(
               )));
           break;
         default:
-        Navigator.of(context, rootNavigator: true).pushReplacement(
+          Navigator.of(context, rootNavigator: true).pushReplacement(
               MaterialPageRoute(builder: (context) => PresentationPage()));
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -242,4 +242,71 @@ Navigator.of(context, rootNavigator: true).pushReplacement(
     }
     return globals.tokenValue ?? '';
   }
+
+
+Future sendDataParents(
+    BuildContext context, String nome, String anni, String grado) async {
+  try {
+    var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/familiari';
+    // Await the http get response, then decode the json-formatted response.
+    var response = await http.post(Uri.parse(url),
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer ${globals.tokenValue}'
+        },
+        body: jsonEncode({
+          'nome': nome,
+          'anni': anni,
+          'grado': grado,
+        }));
+    print('error verify ${response.statusCode}');
+
+    switch (response.statusCode) {
+      case 200:
+      print('dati familiari inviati');
+        break;
+      case 401:
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => PresentationPage()));
+
+        break;
+      case 400:
+        String message = 'Utente non trovato';
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => PresentationPage()));
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              message,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            )));
+        break;
+      case 500:
+        String message = 'Errore Server: impossibile stabilire una connessione';
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => PresentationPage()));
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              message,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            )));
+        break;
+      default:
+              print('errore generico');
+
+    }
+
+    return response;
+  } catch (e) {}
+}
 }

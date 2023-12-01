@@ -3,6 +3,7 @@
 
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 
 
@@ -16,6 +17,7 @@ class TextFormFieldCustom extends StatelessWidget {
   final Function(String)? onChanged;
   final bool obscureText;
   final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
 
   const TextFormFieldCustom({
     Key? key,
@@ -28,6 +30,7 @@ class TextFormFieldCustom extends StatelessWidget {
     this.onChanged,
     this.errorText,
     this.keyboardType,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -46,6 +49,7 @@ class TextFormFieldCustom extends StatelessWidget {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: textEditingController,
         autocorrect: true,
+        inputFormatters: inputFormatters,
         validator: validator,
         keyboardType: keyboardType,
         decoration: InputDecoration(
