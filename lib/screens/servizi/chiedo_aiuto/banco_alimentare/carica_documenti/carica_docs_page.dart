@@ -6,10 +6,14 @@ import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/menu/area_personale/profilo_page.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/bloc/send_docs_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/form_docs.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/repository/send_docs_repository.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CaricaDocsPage extends StatefulWidget {
@@ -71,265 +75,39 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
     final screenHeight = mediaQueryData.size.height;
     final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return Scaffold(
-        appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.white,
-          ),
-          toolbarHeight: 75.0,
-          automaticallyImplyLeading: true,
-          flexibleSpace: customAppBar(context: context),
-          actions: [
-            IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                ))
-          ],
-        ),
-        drawer: NavigationDrawerWidget(),
-        body: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.all(
-            20.0,
-          ),
-          child: Column(
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Carica I Tuoi Documenti',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 3 * blockSizeVertical,
-                              color: ColorConstants.titleText),
-                        ),
-                      ],
-                    ),
-                    const Divider(
-                      color: ColorConstants.orangeGradients3,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            TextFormFieldCustom(
-                              textEditingController: _tipoDocController,
-                              labelTextCustom: 'Tipo di Documento:',
-                              obscureText: false,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Campo Richiesto*';
-                                }
-                                return null;
-                              },
-                            ),
-                            GridView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3),
-                                itemCount: imagesList.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Stack(
-                                      fit: StackFit.expand,
-                                      children: [
-                                        Image.file(
-                                          File(imagesList[index].path),
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Positioned(
-                                          right: -4,
-                                          top: -4,
-                                          child: Container(
-                                            color: const Color.fromRGBO(
-                                                255, 255, 244, 0.7),
-                                            child: IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  imagesList.removeAt(index);
-                                                });
-                                              },
-                                              icon: const Icon(
-                                                Icons.delete,
-                                                color: Colors.red,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }),
-                            Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 20.0),
-                                child: ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0),
-                                      ),
-                                      onPrimary:
-                                          ColorConstants.orangeGradients3),
-                                  onPressed: () async {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        backgroundColor: Colors.white,
-                                        icon: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            IconButton(
-                                              icon: const Icon(
-                                                Icons.close,
-                                                color: ColorConstants
-                                                    .orangeGradients3,
-                                              ),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
-                                        title: const Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Seleziona file',
-                                                  style: TextStyle(
-                                                      color: ColorConstants
-                                                          .orangeGradients3,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        actions: [
-                                          ElevatedButton.icon(
-                                            style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30.0),
-                                                ),
-                                                onPrimary: ColorConstants
-                                                    .orangeGradients3),
-                                            onPressed: () {
-                                              _pickImage(ImageSource.gallery);
-                                              Navigator.pop(context);
-                                            },
-                                            label: const Text('Galleria'),
-                                            icon: const Icon(Icons.image),
-                                          ),
-                                          ElevatedButton.icon(
-                                            style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30.0),
-                                                ),
-                                                onPrimary: ColorConstants
-                                                    .orangeGradients3),
-                                            onPressed: () {
-                                              _pickImage(ImageSource.camera);
-                                              Navigator.pop(context);
-                                            },
-                                            label: const Text('Scatta Foto'),
-                                            icon: const Icon(Icons.camera),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-
-                                    setState(() {
-                                      deletedImage = false;
-                                    });
-                                  },
-                                  label: const Text('Scegli immagine'),
-                                  icon: const Icon(Icons.image),
-                                ),
-                              ),
-                            ),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: filePdf.length,
-                              itemBuilder: (context, index) {
-                                return Text(
-                                    filePdf[index].path.split('/').last);
-                              },
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                  ),
-                                  onPrimary: ColorConstants.orangeGradients3),
-                              onPressed: () async {
-                                _pickFile();
-
-                                setState(() {
-                                  deletedImage = false;
-                                });
-                              },
-                              label: const Text('Carica PDF'),
-                              icon: const Icon(Icons.picture_as_pdf),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            CommonStyleButton(
-                              title: 'Invia',
-                              iconWidget: Icon(Icons.send),
-                              onTap: () {
-                                if (_formKey.currentState!.validate()) {
-                                  Map<String, String> body = {
-                                    'tipo_documento': _tipoDocController.text,
-                                  };
-                                  service.addImage(body, imagesList, filePdf);
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProfilePage()));
-                                  FocusScope.of(context).unfocus();
-                                }
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+    return BlocProvider<SendDocsBloc>(
+      create: (context) => SendDocsBloc(
+        context: context,
+        sendDocsRepository: context.read<SendDocsRepository>(),
+      ),
+      child: Scaffold(
+          appBar: AppBar(
+            iconTheme: const IconThemeData(
+              color: Colors.white,
+            ),
+            toolbarHeight: 75.0,
+            automaticallyImplyLeading: true,
+            flexibleSpace: customAppBar(context: context),
+            actions: [
+              IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ))
             ],
           ),
-        )));
+          drawer: NavigationDrawerWidget(),
+          body: BlocConsumer<SendDocsBloc, SendDocsState>(
+ listener: (context, state) {
+            if (state is SendDocsErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+            }
+          }, builder: (context, state) {              return FormDocs();
+            }
+          )),
+    );
   }
 }

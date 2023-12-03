@@ -9,6 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
+import 'package:image_picker/image_picker.dart';
 
 class Service {
   SecureStorage secureStorage = SecureStorage();
@@ -17,7 +18,42 @@ class Service {
     return readToken().then((value) => sendVerifyMailUser(email, context));
   }
 
-  Future addImage(Map<String, String> body, List<File> imagepath,
+  Future addImage(Map<String, String> body, List<File?> filepath, List<File?> imagePath) async {
+    try {
+      var url =
+          '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/upload-documents';
+      Map<String, String> headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
+        'Authorization': 'Bearer ${globals.tokenValue}'
+      };
+
+      List<http.MultipartFile> newList = [];
+      http.MultipartRequest? request;
+
+      for (int i = 0; i < filepath.length; i++) {
+        var multipartFile =
+            await http.MultipartFile.fromPath('files[]', filepath[i]!.path);
+
+        newList.add(multipartFile);
+
+        request = http.MultipartRequest('POST', Uri.parse(url))
+          ..fields.addAll(body)
+          ..headers.addAll(headers)
+          ..files.addAll(newList);
+      }
+      http.Response response =
+          await http.Response.fromStream(await request!.send());
+      print('sendimage success ${request.files.length}');
+      print('sendimage successbody ${(json.decode(response.body))}');
+      return response;
+    } catch (e) {
+      print('sendimage error $e');
+    }
+  }
+
+
+  Future addImageFile(Map<String, String> body, List<File> imagepath,
       List<File> pdfpath) async {
     try {
       var url =
@@ -244,69 +280,6 @@ class Service {
   }
 
 
-Future sendDataParents(
-    BuildContext context, String nome, String anni, String grado) async {
-  try {
-    var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/familiari';
-    // Await the http get response, then decode the json-formatted response.
-    var response = await http.post(Uri.parse(url),
-        headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json',
-          'Authorization': 'Bearer ${globals.tokenValue}'
-        },
-        body: jsonEncode({
-          'nome': nome,
-          'anni': anni,
-          'grado': grado,
-        }));
-    print('error verify ${response.statusCode}');
 
-    switch (response.statusCode) {
-      case 200:
-      print('dati familiari inviati');
-        break;
-      case 401:
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => PresentationPage()));
 
-        break;
-      case 400:
-        String message = 'Utente non trovato';
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => PresentationPage()));
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(
-              message,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            )));
-        break;
-      case 500:
-        String message = 'Errore Server: impossibile stabilire una connessione';
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => PresentationPage()));
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(
-              message,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            )));
-        break;
-      default:
-              print('errore generico');
-
-    }
-
-    return response;
-  } catch (e) {}
-}
 }

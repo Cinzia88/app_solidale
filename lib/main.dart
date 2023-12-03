@@ -3,6 +3,9 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/forget_password/repository/forget_password_repository.dart';
 import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
 import 'package:app_solidale/screens/menu/area_personale/cambio_password/repository/change_password_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/repository/send_docs_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
+import 'package:app_solidale/screens/servizi/page_service/repository/send_phone_repository.dart';
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
@@ -16,13 +19,12 @@ import 'package:one_context/one_context.dart';
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 
-
 final SecureStorage secureStorage = SecureStorage();
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env.example");
- // await secureStorage.deleteSecureData('token');
-   OnePlatform.app = () => MyApp();
+  // await secureStorage.deleteSecureData('token');
+  OnePlatform.app = () => MyApp();
 
   //...runapp
 }
@@ -55,35 +57,41 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<ForgetPasswordRepository>(
           create: (context) => ForgetPasswordRepository(),
         ),
+        RepositoryProvider<SendDataParentsRepository>(
+          create: (context) => SendDataParentsRepository(),
+        ),
+        RepositoryProvider<SendDocsRepository>(
+          create: (context) => SendDocsRepository(),
+        ),
+        RepositoryProvider<SendPhoneRepository>(
+          create: (context) => SendPhoneRepository(),
+        ),
       ],
-      child: OneNotification(
-        builder: (_, __) {
-          return MaterialApp(
-            title: 'Flutter Demo',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              useMaterial3: true,
-              colorScheme:
-                  const ColorScheme.light(primary: ColorConstants.orangeGradients3),
-              // <-- your color
-  dividerTheme: const DividerThemeData(color: Colors.transparent),
- 
-            ),
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('it'),
-            ],
-        scaffoldMessengerKey: messengerKey,
-            builder: OneContext().builder,
-            navigatorKey: OneContext().key,
-            home: SplashScreen(),
-          );
-        }
-      ),
+      child: OneNotification(builder: (_, __) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: const ColorScheme.light(
+                primary: ColorConstants.orangeGradients3),
+            // <-- your color
+            dividerTheme: const DividerThemeData(color: Colors.transparent),
+          ),
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('it'),
+          ],
+          scaffoldMessengerKey: messengerKey,
+          builder: OneContext().builder,
+          navigatorKey: OneContext().key,
+          home: SplashScreen(),
+        );
+      }),
     );
   }
 }

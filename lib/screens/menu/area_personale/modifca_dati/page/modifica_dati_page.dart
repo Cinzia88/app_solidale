@@ -80,75 +80,68 @@ class _ModificaDatiPageState extends State<ModificaDatiPage> {
                           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                       child: Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: ListView(
-                            shrinkWrap: true,
+                          child: Column(
                             children: [
-                      SingleChildScrollView(
-                        child: Column(
-                          children: [
-                             Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Modifica I Tuoi Dati',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 2.5 * blockSizeVertical,
-                                      color: ColorConstants.titleText),
-                                ),
-                              ],
-                            ),
-                            const Divider(
-                              color: ColorConstants.orangeGradients3,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20.0),
-                              child: Form(
-                                key: _formKey,
-                                child: Column(
-                                  children: [
-                                    TextFormFieldCustom(
-                                      textEditingController: _nameController,
-                                      labelTextCustom: 'Nome e Cognome:',
-                                      obscureText: false,
-                                    ),
-                                   
-                                    TextFormFieldCustom(
-                                      textEditingController: _emailController,
-                                      labelTextCustom: 'Email:',
-                                      obscureText: false,
-                                      validator: (value) {
-                                        if (!Validators.isValidEmail(value!)) {
-                                          return 'Inserisci un\' email valida';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    
-                                  SizedBox(
-                                    height: 20,
+                               Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Modifica I Tuoi Dati',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 2.5 * blockSizeVertical,
+                                        color: ColorConstants.titleText),
                                   ),
-                                    CommonStyleButton(
-                                      title: 'Aggiorna',
-                                      iconWidget: Icon(Icons.update),
-                                      onTap: () {
-                                        
-                                       
-                                        Navigator.pop(context);
-                                        /*FocusScope.of(context).unfocus();
-                                              bloc.add(SignUpTappedEvent()); */
-                                      },
-                                    ),
-                                    const SizedBox(
+                                ],
+                              ),
+                              const Divider(
+                                color: ColorConstants.orangeGradients3,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20.0),
+                                child: Form(
+                                  key: _formKey,
+                                  child: Column(
+                                    children: [
+                                      TextFormFieldCustom(
+                                        textEditingController: _nameController,
+                                        labelTextCustom: 'Nome e Cognome:',
+                                        obscureText: false,
+                                      ),
+                                     
+                                      TextFormFieldCustom(
+                                        textEditingController: _emailController,
+                                        labelTextCustom: 'Email:',
+                                        obscureText: false,
+                                        validator: (value) {
+                                          if (!Validators.isValidEmail(value!)) {
+                                            return 'Inserisci un\' email valida';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      
+                                    SizedBox(
                                       height: 20,
                                     ),
-                                  ],
+                                      CommonStyleButton(
+                                        title: 'Aggiorna',
+                                        iconWidget: Icon(Icons.update),
+                                        onTap: () {
+                                          
+                                         
+                                          Navigator.pop(context);
+                                          /*FocusScope.of(context).unfocus();
+                                                bloc.add(SignUpTappedEvent()); */
+                                        },
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
                             ],
                           ),
                         ),
