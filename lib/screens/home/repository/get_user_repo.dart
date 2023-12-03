@@ -34,7 +34,7 @@ ValueSharedPrefsViewSlide valueSharedPrefsViewSlide = ValueSharedPrefsViewSlide(
     print('dataUser ${response.headers}');
  switch (response.statusCode) {
         case 200:
-          print('user auth');
+          print('user auth ${dataUser.id}');
           break;
         case 401:
                  secureStorage.deleteSecureData('token');

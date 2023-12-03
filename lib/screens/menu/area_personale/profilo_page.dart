@@ -3,6 +3,7 @@ import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/home/widgets/custom_cards.dart';
 import 'package:app_solidale/screens/menu/area_personale/cambio_password/page/cambio_password_page.dart';
+import 'package:app_solidale/screens/menu/area_personale/lista_docs_inviati/page/docs_list_page.dart';
 import 'package:app_solidale/screens/menu/area_personale/modifca_dati/page/modifica_dati_page.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/service/service.dart';
@@ -98,35 +99,40 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(
                     height: 40,
                   ),
-                  CustomCardsCommon(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Icon(
-                              Icons.document_scanner,
-                              color: ColorConstants.orangeGradients3,
-                            ),
-                            Text(' Documenti Inviati',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 2.5 * blockSizeVertical,
-                                  color: ColorConstants.orangeGradients3,
-                                )),
-                          ],
-                        ),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Flexible(
-                              child: Text(
-                                'Visulizza qui i tuoi documenti inviati',
+                  GestureDetector(
+                     onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ListDocsPage()));
+                    },
+                    child: CustomCardsCommon(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(
+                                Icons.document_scanner,
+                                color: ColorConstants.orangeGradients3,
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                              Text(' Documenti Inviati',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 2.5 * blockSizeVertical,
+                                    color: ColorConstants.orangeGradients3,
+                                  )),
+                            ],
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  'Visulizza qui i tuoi documenti inviati',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(
