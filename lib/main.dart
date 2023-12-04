@@ -79,9 +79,12 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSwatch().copyWith(
-                primaryContainer: Colors.white,
                 background: Colors.white,
                 primary: Colors.white),
+                switchTheme: SwitchThemeData(
+                  
+                  trackOutlineColor: MaterialStateProperty.all(ColorConstants.orangeGradients3)
+                ),
             elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
                 backgroundColor: ColorConstants.secondaryColor,

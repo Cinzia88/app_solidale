@@ -8,8 +8,7 @@ import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/carica_parenti_page.dart';
-import 'package:app_solidale/screens/servizi/page_service/bloc/send_phone_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
 import 'package:app_solidale/screens/servizi/page_service/form_phone.dart';
 import 'package:app_solidale/screens/servizi/page_service/repository/send_phone_repository.dart';
 import 'package:flutter/material.dart';
@@ -25,16 +24,9 @@ class FormServizio extends StatefulWidget {
 }
 
 class _FormServizioState extends State<FormServizio> {
- 
-
   @override
   Widget build(BuildContext context) {
-   
-    return BlocProvider<SendPhoneBloc>(
-      create: (context) => SendPhoneBloc(
-        context: context, 
-        sendPhoneRepository: context.read<SendPhoneRepository>()),
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(
             color: Colors.white,
@@ -52,23 +44,6 @@ class _FormServizioState extends State<FormServizio> {
           ],
         ),
         drawer: NavigationDrawerWidget(),
-        body: BlocConsumer<SendPhoneBloc, SendPhoneState>(
-              listener: (context, state) {
-            if (state is SendPhoneErrorState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
-            }
-          }, builder: (context, state) {
-            return FormPhone(title: widget.title, image: widget.image);
-          }
-        ),
-      ),
-    );
+        body: FormPhone(title: widget.title, image: widget.image));
   }
-
- 
-
-
-
 }

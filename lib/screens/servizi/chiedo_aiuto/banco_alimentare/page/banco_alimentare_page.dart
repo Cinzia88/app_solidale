@@ -1,40 +1,45 @@
-import 'dart:io';
-import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/model/model_parents_data.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
-import 'package:flutter/services.dart';
+
+
+
 
 import 'package:app_solidale/const/color_constants.dart';
+import 'package:app_solidale/const/text_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
+import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
-import 'package:app_solidale/screens/menu/area_personale/profilo_page.dart';
+import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/service/service.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/form_data_parents.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 
-class ParentsPage extends StatefulWidget {
-  const ParentsPage({super.key});
+class BancoAlimentarePage extends StatefulWidget {
+  final String title;
+  final String image;
+  const BancoAlimentarePage({required this.title, required this.image});
 
   @override
-  State<ParentsPage> createState() => _ParentsPageState();
+  State<BancoAlimentarePage> createState() => _FormPhoneState();
 }
 
-class _ParentsPageState extends State<ParentsPage> {
- 
+class _FormPhoneState extends State<BancoAlimentarePage> {
+   final _formKey = GlobalKey<FormState>();
 
+  
 
   @override
   Widget build(BuildContext context) {
-   
-
-    return BlocProvider<SendParentsDataBloc>(
+     //final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight = mediaQueryData.size.height;
+    //final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
+    return  BlocProvider<SendParentsDataBloc>(
       create: (context) => SendParentsDataBloc(
         context: context,
         sendDataParentsRepository: context.read<SendDataParentsRepository>(),
@@ -68,14 +73,6 @@ class _ParentsPageState extends State<ParentsPage> {
             return FormDataParents();
   })));
   }
+
+  
 }
-
-
-
-/*     List<ParentsData> entries = [];
-    for (int i = 0; i < cards.length; i++) {
-      var nome = nomeComponente[i].text;
-      var anni = anniComponente[i].text;
-      var grado = gradoComponente[i].text;
-      service.sendDataParents(context, nome, anni, grado);
-    } */

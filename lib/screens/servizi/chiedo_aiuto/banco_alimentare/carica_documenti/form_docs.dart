@@ -3,11 +3,13 @@
 import 'dart:io';
 
 import 'package:app_solidale/const/color_constants.dart';
+import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/bloc/send_docs_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,9 +25,15 @@ class FormDocs extends StatefulWidget {
 
 class _FormDocsState extends State<FormDocs> {
     final _formKey = GlobalKey<FormState>();
-  final TextEditingController _tipoDocController = TextEditingController();
   final List<File> imagesList = [];
   final List<File> filePdf = [];
+  final List<String> items = [
+    'Carta d\'identità',
+    'ISEE',
+    'Patente',
+  ];
+  String selectedValue = 'Seleziona Documento';
+
 
   bool deletedImage = false;
 
@@ -85,11 +93,28 @@ class _FormDocsState extends State<FormDocs> {
                     SingleChildScrollView(
                       child: Column(
                         children: [
+                           SizedBox(
+                          width: 70,
+                          child: Image.asset(
+                            PathConstants.bancoAlim,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 3 * blockSizeVertical,
+                        ),
+                        Text(
+                          'Banco Alimentare',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Carica I Tuoi Documenti',
+                                'Fase 3 di 3',
                                                        style: Theme.of(context).textTheme.titleSmall,
 
                               ),
@@ -104,17 +129,85 @@ class _FormDocsState extends State<FormDocs> {
                               key: _formKey,
                               child: Column(
                                 children: [
-                                  TextFormFieldCustom(
-                                    textEditingController: _tipoDocController,
-                                    labelTextCustom: 'Tipo di Documento:',
-                                    obscureText: false,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Campo Richiesto*';
-                                      }
-                                      return null;
+
+                                  DropdownButtonHideUnderline(
+                                  child: DropdownButton2<String>(
+                                    hint: Text(
+                                      'N° Componenti',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: ColorConstants.labelText,
+                                      ),
+                                    ),
+                                    items: items
+                                        .map((String item) =>
+                                            DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Text(
+                                                item,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ))
+                                        .toList(),
+                                    value: selectedValue,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        selectedValue = value!;
+                                      });
                                     },
+                                    buttonStyleData: ButtonStyleData(
+                                      height: 50,
+                                      width: 160,
+                                      padding: const EdgeInsets.only(
+                                          left: 14, right: 14),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14),
+                                        border: Border.all(
+                                          color:
+                                              ColorConstants.orangeGradients1,
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    iconStyleData: const IconStyleData(
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                      ),
+                                      iconSize: 20,
+                                      iconEnabledColor:
+                                          ColorConstants.orangeGradients3,
+                                      iconDisabledColor: Colors.grey,
+                                    ),
+                                    dropdownStyleData: DropdownStyleData(
+                                      maxHeight: 200,
+                                      width: MediaQuery.of(context).size.width -
+                                          150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14),
+                                        color: Colors.white,
+                                      ),
+                                      scrollbarTheme: ScrollbarThemeData(
+                                        radius: const Radius.circular(40),
+                                        thickness:
+                                            MaterialStateProperty.all<double>(
+                                                6),
+                                        thumbVisibility:
+                                            MaterialStateProperty.all<bool>(
+                                                true),
+                                      ),
+                                    ),
+                                    menuItemStyleData: const MenuItemStyleData(
+                                      height: 40,
+                                      padding:
+                                          EdgeInsets.only(left: 14, right: 14),
+                                    ),
                                   ),
+                                ),
+                               
                                   GridView.builder(
                                       shrinkWrap: true,
                                       physics: const NeverScrollableScrollPhysics(),
@@ -265,7 +358,7 @@ class _FormDocsState extends State<FormDocs> {
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
                                         Map<String, String> body = {
-                                          'nome': _tipoDocController.text,
+                                          'nome': selectedValue,
                                         };
                                         bloc.add(SendDocsFormEvent(body: body, imagepath: imagesList, pdfpath: filePdf));
                                         

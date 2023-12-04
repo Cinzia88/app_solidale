@@ -11,7 +11,7 @@ static const colorLogo = Color(0xFFefbfa9);
   static const orangeGradients1 = Color(0xFFFF9844);
   static const orangeGradients2 = Color(0xFFFE8853);
   static const orangeGradients3 = Color(0xFFEF6E31);
-  static const secondaryColor = Color(0xFFfaa307);
+  static const secondaryColor = Color(0xFF31B2EF);
 
   //boardingPage
   static const textColor = Color(0xFF1F2022);

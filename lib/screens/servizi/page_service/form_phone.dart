@@ -10,8 +10,7 @@ import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/carica_parenti_page.dart';
-import 'package:app_solidale/screens/servizi/page_service/bloc/send_phone_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,10 +38,7 @@ class _FormPhoneState extends State<FormPhone> {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-  final bloc = BlocProvider.of<SendPhoneBloc>(context);
-    return BlocBuilder<SendPhoneBloc, SendPhoneState>(builder: (context, state) {
-     
-      return  state is SendPhonLoadingState ? loadingWidget(context ) : SingleChildScrollView(
+    return    SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
                 child: Form(
@@ -67,7 +63,7 @@ class _FormPhoneState extends State<FormPhone> {
                       
                    
                         widget.title != TextConstants.infoAlertTitleBancoAlim
-                          ?  _altriServizi() : _servizioBancoAlimentare(),
+                          ?  _altriServizi() : SizedBox(),
                           SizedBox(
                             height: 30,
                           ),
@@ -76,7 +72,7 @@ class _FormPhoneState extends State<FormPhone> {
                   iconWidget: Icon(Icons.contact_phone),
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      bloc.add(SendPhoneFormEvent(telefono: _telephoneUserController.text));
+                     // bloc.add(SendPhoneFormEvent(telefono: _telephoneUserController.text));
                     }
                     /*FocusScope.of(context).unfocus();
                                               bloc.add(SignUpTappedEvent()); */
@@ -87,22 +83,10 @@ class _FormPhoneState extends State<FormPhone> {
                 ),
               ),
   );
-  });
+  
   }
 
-    _fieldTelephone() {
-    return TextFormFieldCustom(
-                        textEditingController: _telephoneUserController,
-                        labelTextCustom: 'Telefono:',
-                        obscureText: false,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Campo Richiesto*';
-                          }
-                          return null;
-                        },
-                      );
-  }
+  
 
 
   _altriServizi() {
@@ -176,7 +160,7 @@ class _FormPhoneState extends State<FormPhone> {
                           ],
                         ),
                       )
-                    : _fieldTelephone(),
+                    : SizedBox(),
                  
              
               
@@ -190,123 +174,13 @@ class _FormPhoneState extends State<FormPhone> {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return Padding(
-      padding: const EdgeInsets.only(top: 40.0),
+    return const Padding(
+      padding:  EdgeInsets.only(top: 40.0),
       child: Column(
         children: [
+        ParentsPage()
         
-          CustomCardsCommon(
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const Icon(
-                                  Icons.family_restroom,
-                                  color: ColorConstants.orangeGradients3,
-                                ),
-                                Flexible(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: Text('Aggiungi Componenti Familiari',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 2.5 * blockSizeVertical,
-                                          color: ColorConstants.orangeGradients3,
-                                        )),
-                                  ),
-                                ),
-                              ]
-                            ),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    'Aggiungi i dati dei tuoi componenti familiari',
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                             Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                               children: [
-                                 ElevatedButton.icon(
-                                   onPressed: () {
-                                     Navigator.push(context, MaterialPageRoute(builder: (context) => ParentsPage()));
-                                   },
-                                   icon: const Icon(Icons.person_add),
-                                   label: const Text('Aggiungi'),
-                                 ),
-                               ],
-                             ),
-                           
-                  
-                          ],
-                        ),
-                      ),
-     SizedBox(
-                              height: 50,
-                            ),
-                       CustomCardsCommon(
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const Icon(
-                                  Icons.file_copy,
-                                  color: ColorConstants.orangeGradients3,
-                                ),
-                                Flexible(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: Text('Carica I Tuoi Documenti',
-                                                                style: Theme.of(context).textTheme.titleSmall,
-),
-                                  ),
-                                ),
-                              ]
-                            ),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    'Carica i documenti per completare la richiesta',
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                             Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                               children: [
-                                 ElevatedButton.icon(
-                                   onPressed: () {
-                                     Navigator.push(context, MaterialPageRoute(builder: (context) => CaricaDocsPage()));
-                                   },
-                                   icon: const Icon(Icons.upload_file),
-                                   label: const Text('Carica File'),
-                                 ),
-                               ],
-                             ),
-                           
-                  
-                          ],
-                        ),
-                      ),
-                         SizedBox(
-            height: 40,
-          ),
-                        _fieldTelephone(),
-       
-                  
+                        
         ],
       ),
     );
