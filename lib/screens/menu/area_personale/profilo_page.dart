@@ -47,10 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Text(
                 'Il Mio Account',
-                style: TextStyle(
-                    color: ColorConstants.titleText,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 3 * blockSizeVertical),
+                style: Theme.of(context).textTheme.titleSmall,
               ),
               const Divider(
                 color: ColorConstants.orangeGradients3,
@@ -62,7 +59,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ModificaDatiPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ModificaDatiPage()));
                     },
                     child: CustomCardsCommon(
                       child: Column(
@@ -100,8 +100,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 40,
                   ),
                   GestureDetector(
-                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ListDocsPage()));
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ListDocsPage()));
                     },
                     child: CustomCardsCommon(
                       child: Column(
@@ -114,11 +117,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: ColorConstants.orangeGradients3,
                               ),
                               Text(' Documenti Inviati',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 2.5 * blockSizeVertical,
-                                    color: ColorConstants.orangeGradients3,
-                                  )),
+                                                         style: Theme.of(context).textTheme.titleSmall,
+),
                             ],
                           ),
                           const Row(
@@ -140,7 +140,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CambioPasswordPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CambioPasswordPage()));
                     },
                     child: CustomCardsCommon(
                       child: Column(
@@ -177,20 +180,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(
                     height: 60,
                   ),
-                  
                   ElevatedButton(
                     onPressed: () async {
-                       sevice.deleteAccount(context);
+                      sevice.deleteAccount(context);
                     },
                     style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
-                        primary: Colors.red,
-                        onPrimary: Colors.white),
+                        primary: Colors.red, onPrimary: Colors.white),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          
                           Text(
                             'Rimuovi Account',
                             style: TextStyle(
@@ -198,7 +196,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 2 * blockSizeVertical),
                           ),
-                         
                         ]),
                   ),
                 ],

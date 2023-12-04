@@ -22,10 +22,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                 flex: 2,
                 child: Text(
                   title,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: ColorConstants.orangeGradients3,
-                      fontSize: 15),
+                                         style: Theme.of(context).textTheme.titleSmall,
+
                 ),
               ),
               IconButton(

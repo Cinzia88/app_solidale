@@ -40,10 +40,8 @@ class HomeChiedoAiuto extends StatelessWidget {
                   children: [
                      Text(
                       'Chiedo Aiuto',
-                      style:  TextStyle(
-                          color: ColorConstants.titleText,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 3 * blockSizeVertical),
+                                              style: Theme.of(context).textTheme.titleSmall,
+
                     ),
                     const Divider(
                       color: ColorConstants.orangeGradients3,

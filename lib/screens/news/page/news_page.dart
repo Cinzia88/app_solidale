@@ -56,10 +56,8 @@ List images = [
                children: [
                   Text(
                       'News',
-                      style: TextStyle(
-                          color: ColorConstants.titleText,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 3 * blockSizeVertical),
+                                             style: Theme.of(context).textTheme.titleSmall,
+
                     ),
                ],
              ),

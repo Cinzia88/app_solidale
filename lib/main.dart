@@ -40,6 +40,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight = mediaQueryData.size.height;
+    //final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<SignupRepository>(
@@ -73,9 +78,22 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             useMaterial3: true,
-            colorScheme: const ColorScheme.light(
-                primary: ColorConstants.orangeGradients3),
-            // <-- your color
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+                primaryContainer: Colors.white,
+                background: Colors.white,
+                primary: Colors.white),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ColorConstants.secondaryColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+              ),
+            ),
+            textTheme: TextTheme(titleSmall: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 2.5 * blockSizeVertical,
+                  color: ColorConstants.titleText,
+                ),),
             dividerTheme: const DividerThemeData(color: Colors.transparent),
           ),
           localizationsDelegates: const [

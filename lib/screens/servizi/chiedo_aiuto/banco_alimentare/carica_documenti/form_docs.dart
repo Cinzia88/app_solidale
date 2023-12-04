@@ -50,7 +50,7 @@ class _FormDocsState extends State<FormDocs> {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: true,
         type: FileType.custom,
-        allowedExtensions: ['pdf', 'doc'],
+        allowedExtensions: ['pdf'],
       );
       if (result != null) {
         List<File> files = result.paths.map((path) => File(path!)).toList();
@@ -90,10 +90,8 @@ class _FormDocsState extends State<FormDocs> {
                             children: [
                               Text(
                                 'Carica I Tuoi Documenti',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 3 * blockSizeVertical,
-                                    color: ColorConstants.titleText),
+                                                       style: Theme.of(context).textTheme.titleSmall,
+
                               ),
                             ],
                           ),
@@ -161,13 +159,7 @@ class _FormDocsState extends State<FormDocs> {
                                     child: Padding(
                                       padding: const EdgeInsets.only(top: 20.0),
                                       child: ElevatedButton.icon(
-                                        style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                            ),
-                                            onPrimary:
-                                                ColorConstants.orangeGradients3),
+                                       
                                         onPressed: () async {
                                           showDialog(
                                             context: context,
@@ -189,9 +181,7 @@ class _FormDocsState extends State<FormDocs> {
                                                   ),
                                                 ],
                                               ),
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20)),
+                                           
                                               title: const Column(
                                                 children: [
                                                   Row(
@@ -212,14 +202,7 @@ class _FormDocsState extends State<FormDocs> {
                                               ),
                                               actions: [
                                                 ElevatedButton.icon(
-                                                  style: ElevatedButton.styleFrom(
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                30.0),
-                                                      ),
-                                                      onPrimary: ColorConstants
-                                                          .orangeGradients3),
+                                                 
                                                   onPressed: () {
                                                     _pickImage(ImageSource.gallery);
                                                     Navigator.pop(context);
@@ -228,14 +211,7 @@ class _FormDocsState extends State<FormDocs> {
                                                   icon: const Icon(Icons.image),
                                                 ),
                                                 ElevatedButton.icon(
-                                                  style: ElevatedButton.styleFrom(
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                30.0),
-                                                      ),
-                                                      onPrimary: ColorConstants
-                                                          .orangeGradients3),
+                                                 
                                                   onPressed: () {
                                                     _pickImage(ImageSource.camera);
                                                     Navigator.pop(context);
@@ -269,11 +245,7 @@ class _FormDocsState extends State<FormDocs> {
                                     height: 20,
                                   ),
                                   ElevatedButton.icon(
-                                    style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(30.0),
-                                        ),
-                                        onPrimary: ColorConstants.orangeGradients3),
+                                    
                                     onPressed: () async {
                                       _pickFile();
     

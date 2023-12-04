@@ -10,11 +10,13 @@ abstract class SignUpEvent extends Equatable{
 class SignUpTappedEvent extends SignUpEvent {
   String nome;
   String email;
+  String telefono;
   String password;
   String confirmPassword;
   SignUpTappedEvent({
     required this.nome,
     required this.email,
+    required this.telefono,
     required this.password,
     required this.confirmPassword,
   });

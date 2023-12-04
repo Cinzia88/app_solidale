@@ -16,17 +16,34 @@ class SignupRepository {
   ValueSharedPrefsViewSlide valueSharedPrefsViewSlide =
       ValueSharedPrefsViewSlide();
 
-  Future registerUserWithVerificationEmail(BuildContext context, String nome,
-      String email, String password, String confirmPassword, ) {
+  Future registerUserWithVerificationEmail(
+    BuildContext context,
+    String nome,
+    String email,
+    String telefono,
+    String password,
+    String confirmPassword,
+  ) {
     return registerUser(
-            context, nome, email, password, confirmPassword, )
-        .then((value) {
+      context,
+      nome,
+      email,
+      telefono,
+      password,
+      confirmPassword,
+    ).then((value) {
       service.verifyUser(email, context);
     });
   }
 
-  Future registerUser(BuildContext context, String nome, String email,
-      String password, String confirmPassword,) async {
+  Future registerUser(
+    BuildContext context,
+    String nome,
+    String email,
+    String telefono,
+    String password,
+    String confirmPassword,
+  ) async {
     try {
       var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/register';
       // Await the http get response, then decode the json-formatted response.
@@ -38,6 +55,7 @@ class SignupRepository {
           body: jsonEncode({
             'name': nome,
             'email': email,
+            'telefono': telefono,
             'password': password,
             'confirm_password': confirmPassword,
           }));

@@ -58,10 +58,8 @@ class _LoginFormState extends State<LoginForm> {
                     children: [
                       Text(
                         'Accedi al Tuo Account',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 2.5 * blockSizeVertical,
-                            color: ColorConstants.titleText),
+                                               style: Theme.of(context).textTheme.titleSmall,
+
                       ),
                       SizedBox(
                         height: 20,
@@ -131,11 +129,8 @@ class _LoginFormState extends State<LoginForm> {
                               children: [
                                 TextSpan(
                                   text: "Recupera Password",
-                                  style: TextStyle(
-                                    color: ColorConstants.primaryColor,
-                                    fontSize: 2 * blockSizeVertical,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                                         style: Theme.of(context).textTheme.titleSmall,
+
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
                                       bloc.add(ScreenResetPasswordEvent());
@@ -188,20 +183,5 @@ class _LoginFormState extends State<LoginForm> {
         ),
       );
     });
-  }
-}
-
-class ChiedoAiutoPage extends StatelessWidget {
-  const ChiedoAiutoPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          children: [Text('Chiedo Aiuto')],
-        ),
-      ),
-    );
   }
 }

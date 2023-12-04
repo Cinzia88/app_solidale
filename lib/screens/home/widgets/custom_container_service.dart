@@ -30,11 +30,7 @@ class CustomContainerService extends StatelessWidget {
             Flexible(
               child: Text(
                 title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 2.5 * blockSizeVertical,
-                  color: ColorConstants.titleText,
-                ),
+               style: Theme.of(context).textTheme.titleSmall,
               ),
             ),
            

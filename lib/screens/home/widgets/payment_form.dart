@@ -49,10 +49,8 @@ class _PaymentFormState extends State<PaymentForm> {
                   children: [
                     Text(
                       'Inserisci un importo',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 3 * blockSizeVertical,
-                          color: ColorConstants.titleText),
+                                             style: Theme.of(context).textTheme.titleSmall,
+
                     ),
                     SizedBox(
                       height: 20,
@@ -123,11 +121,8 @@ class _PaymentFormState extends State<PaymentForm> {
                     ));
                     }
                   },
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
-                      primary: ColorConstants.primaryColor,
-                      onPrimary: Colors.white),
+                  
+                     
                   child:  Text(
                     'DONA ORA',
                     style: TextStyle(

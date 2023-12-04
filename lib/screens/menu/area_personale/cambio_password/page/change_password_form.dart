@@ -70,10 +70,8 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                       children: [
                         Text(
                           'Cambio Password',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 2.5 * blockSizeVertical,
-                              color: ColorConstants.titleText),
+                                                 style: Theme.of(context).textTheme.titleSmall,
+
                         ),
                         SizedBox(
                           height: 20,

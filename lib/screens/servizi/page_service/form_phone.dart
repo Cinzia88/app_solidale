@@ -29,8 +29,6 @@ class _FormPhoneState extends State<FormPhone> {
   final TextEditingController _telephoneUserController = TextEditingController();
 
   final TextEditingController _nameAnotherController = TextEditingController();
-  final TextEditingController _surnameAnotherController =
-      TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
 
   bool forAnother = false;
@@ -63,10 +61,8 @@ class _FormPhoneState extends State<FormPhone> {
                       Text(
                         '${widget.title}',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 3 * blockSizeVertical,
-                            color: ColorConstants.titleText),
+                                              style: Theme.of(context).textTheme.titleSmall,
+
                       ),
                       
                    
@@ -269,11 +265,8 @@ class _FormPhoneState extends State<FormPhone> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 10.0),
                                     child: Text('Carica I Tuoi Documenti',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 2.5 * blockSizeVertical,
-                                          color: ColorConstants.orangeGradients3,
-                                        )),
+                                                                style: Theme.of(context).textTheme.titleSmall,
+),
                                   ),
                                 ),
                               ]

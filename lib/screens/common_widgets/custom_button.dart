@@ -1,14 +1,18 @@
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:flutter/material.dart';
 
-
 class CommonStyleButton extends StatelessWidget {
   final String title;
   final bool isEnabled;
   final Function() onTap;
   final Widget iconWidget;
 
-  const CommonStyleButton({super.key, required this.title, this.isEnabled = true, required this.onTap, required this.iconWidget});
+  const CommonStyleButton(
+      {super.key,
+      required this.title,
+      this.isEnabled = true,
+      required this.onTap,
+      required this.iconWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +20,9 @@ class CommonStyleButton extends StatelessWidget {
       onPressed: onTap,
       label: Text(title),
       icon: iconWidget,
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0)
-        ),
-        primary: ColorConstants.primaryColor,
-        onPrimary: Colors.white
-      ),
     );
-      
   }
 }
-
 
 class DangerStyleButton extends StatelessWidget {
   final String title;
@@ -35,7 +30,12 @@ class DangerStyleButton extends StatelessWidget {
   final Function() onTap;
   final Widget iconWidget;
 
-  const DangerStyleButton({super.key, required this.title, this.isEnabled = true, required this.onTap, required this.iconWidget});
+  const DangerStyleButton(
+      {super.key,
+      required this.title,
+      this.isEnabled = true,
+      required this.onTap,
+      required this.iconWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +44,7 @@ class DangerStyleButton extends StatelessWidget {
       label: Text(title),
       icon: iconWidget,
       style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0)
-        ),
-        primary: Colors.red,
-        onPrimary: Colors.white
-      ),
+          primary: Colors.red, onPrimary: Colors.white),
     );
-      
   }
 }

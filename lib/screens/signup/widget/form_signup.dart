@@ -20,6 +20,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+    final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
@@ -65,10 +66,8 @@ class _SignUpFormState extends State<SignUpForm> {
                     children: [
                       Text(
                         'Crea il Tuo Account',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 2.5 * blockSizeVertical,
-                            color: ColorConstants.titleText),
+                                             style: Theme.of(context).textTheme.titleSmall,
+
                       ),
                       SizedBox(
                         height: 20,
@@ -94,6 +93,18 @@ class _SignUpFormState extends State<SignUpForm> {
                           } else if (!Validators.isValidEmail(value)) {
                             return 'Inserisci un\' email valida';
                           }
+                          return null;
+                        },
+                      ),
+                       TextFormFieldCustom(
+                        textEditingController: _phoneController,
+                        labelTextCustom: 'Telefono:',
+                        keyboardType: TextInputType.number,
+                        obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo Richiesto*';
+                          } 
                           return null;
                         },
                       ),
@@ -156,6 +167,7 @@ class _SignUpFormState extends State<SignUpForm> {
                             bloc.add(SignUpTappedEvent(
                               nome: _nameController.text,
                               email: _emailController.text,
+                              telefono: _phoneController.text,
                               password: _passwordController.text,
                               confirmPassword: _confirmPasswordController.text,
                             ));

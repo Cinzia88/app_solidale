@@ -14,7 +14,7 @@ class FormDataParents extends StatefulWidget {
 }
 
 class _FormDataParentsState extends State<FormDataParents> {
-   final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _countParentController = TextEditingController();
   var nomeComponente = <TextEditingController>[];
   var anniComponente = <TextEditingController>[];
@@ -46,6 +46,7 @@ class _FormDataParentsState extends State<FormDataParents> {
         TextFormFieldCustom(
           textEditingController: anniController,
           labelTextCustom: 'Età:',
+          keyboardType: TextInputType.number,
           obscureText: false,
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -74,17 +75,20 @@ class _FormDataParentsState extends State<FormDataParents> {
     super.initState();
     cards.add(createCard());
   }
+
   @override
   Widget build(BuildContext context) {
-     final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
     final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     final bloc = BlocProvider.of<SendParentsDataBloc>(context);
-    return BlocBuilder<SendParentsDataBloc, SendParentsDataState>(builder: (context, state) {
-     
-      return state is SendParentsDataLoadingState ? loadingWidget(context ) :Stack(
+    return BlocBuilder<SendParentsDataBloc, SendParentsDataState>(
+        builder: (context, state) {
+      return state is SendParentsDataLoadingState
+          ? loadingWidget(context)
+          : Stack(
               children: [
                 SingleChildScrollView(
                   child: Padding(
@@ -97,10 +101,8 @@ class _FormDataParentsState extends State<FormDataParents> {
                           children: [
                             Text(
                               'Componenti Familiari',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 3 * blockSizeVertical,
-                                  color: ColorConstants.titleText),
+                                                     style: Theme.of(context).textTheme.titleSmall,
+
                             ),
                           ],
                         ),
@@ -259,6 +261,6 @@ class _FormDataParentsState extends State<FormDataParents> {
                 ),
               ],
             );
-  });}
-  
+    });
+  }
 }

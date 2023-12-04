@@ -70,11 +70,7 @@ class CustomCard extends StatelessWidget {
               Navigator.push(
                   context, MaterialPageRoute(builder: (_) => DonazioniPage()));
             },
-            style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                primary: ColorConstants.primaryColor,
-                onPrimary: Colors.white),
+         
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(
                 'DONA ORA',

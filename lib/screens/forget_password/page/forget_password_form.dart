@@ -47,10 +47,7 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
                     children: [
                       Text(
                         'Resetta la Password',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 2.5 * blockSizeVertical,
-                            color: ColorConstants.titleText),
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                       SizedBox(
                         height: 20,

@@ -87,10 +87,8 @@ class _ModificaDatiPageState extends State<ModificaDatiPage> {
                                 children: [
                                   Text(
                                     'Modifica I Tuoi Dati',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 2.5 * blockSizeVertical,
-                                        color: ColorConstants.titleText),
+                                                          style: Theme.of(context).textTheme.titleSmall,
+
                                   ),
                                 ],
                               ),
