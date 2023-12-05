@@ -13,7 +13,6 @@ import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 class ModificaDatiPage extends StatefulWidget {
   const ModificaDatiPage({super.key});
@@ -30,10 +29,10 @@ class _ModificaDatiPageState extends State<ModificaDatiPage> {
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
-    final mediaQueryData = MediaQuery.of(context);
-    final screenHeight = mediaQueryData.size.height;
+    //final mediaQueryData = MediaQuery.of(context);
+    //final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
-    final blockSizeVertical = screenHeight / 100;
+    //final blockSizeVertical = screenHeight / 100;
     return BlocProvider<ReadUserBloc>(
       create: (context) => ReadUserBloc(
         context: context,

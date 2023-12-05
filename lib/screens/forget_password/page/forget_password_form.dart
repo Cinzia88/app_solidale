@@ -1,8 +1,6 @@
 import 'package:app_solidale/screens/forget_password/bloc/forget_password_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../const/color_constants.dart';
 import '../../common_widgets/custom_button.dart';
 import '../../common_widgets/custom_textfield.dart';
 import '../../common_widgets/validator_email/validator_email.dart';
@@ -22,10 +20,10 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<ForgetPasswordBloc>(context);
     //final screenWidth = MediaQuery.of(context).size.width;
-    final mediaQueryData = MediaQuery.of(context);
-    final screenHeight = mediaQueryData.size.height;
+    //final mediaQueryData = MediaQuery.of(context);
+    //final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
-    final blockSizeVertical = screenHeight / 100;
+    //final blockSizeVertical = screenHeight / 100;
     return BlocBuilder<ForgetPasswordBloc, ForgetPasswordState>(
         builder: (context, state) {
       return Padding(

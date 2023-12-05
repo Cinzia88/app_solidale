@@ -1,4 +1,3 @@
-import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';

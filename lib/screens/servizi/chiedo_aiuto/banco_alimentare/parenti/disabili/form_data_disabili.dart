@@ -19,7 +19,7 @@ class FormDataDisabili extends StatefulWidget {
 
 class _FormDataDisabiliState extends State<FormDataDisabili> {
   final _formKey = GlobalKey<FormState>();
-  
+
   final List<String> items = [
     '1',
     '2',
@@ -41,8 +41,6 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
 
   bool yes = false;
   String disabile = 'no';
-  
- 
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +51,6 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
     final blockSizeVertical = screenHeight / 100;
     final bloc = BlocProvider.of<SendParentsDataBloc>(context);
 
-   
     return BlocBuilder<SendParentsDataBloc, SendParentsDataState>(
         builder: (context, state) {
       return state is SendParentsDataLoadingState
@@ -95,7 +92,6 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                         const Divider(
                           color: ColorConstants.orangeGradients3,
                         ),
-
                         Padding(
                           padding: const EdgeInsets.only(top: 20.0),
                           child: Form(
@@ -141,102 +137,104 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                                         //tale value lo salvo nel provider
                                       }),
                                 ),
-                           disabile == 'no' ? SizedBox() :    DropdownButtonHideUnderline(
-                                  child: DropdownButton2<String>(
-                                    hint: Text(
-                                      'N° Componenti',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: ColorConstants.labelText,
-                                      ),
-                                    ),
-                                    items: items
-                                        .map((String item) =>
-                                            DropdownMenuItem<String>(
-                                              value: item,
-                                              child: Text(
-                                                item,
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
+                                disabile == 'no'
+                                    ? SizedBox()
+                                    : Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 20.0),
+                                        child: DropdownButtonHideUnderline(
+                                          child: DropdownButton2<String>(
+                                            hint: Text(
+                                              '',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: ColorConstants.labelText,
                                               ),
-                                            ))
-                                        .toList(),
-                                    value: selectedValue,
-                                    onChanged: (String? value) {
-                                      setState(() {
-                                        selectedValue = value!;
-                                      });
-                                    },
-                                    buttonStyleData: ButtonStyleData(
-                                      height: 50,
-                                      width: 160,
-                                      padding: const EdgeInsets.only(
-                                          left: 14, right: 14),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(14),
-                                        border: Border.all(
-                                          color:
-                                              ColorConstants.orangeGradients1,
+                                            ),
+                                            items: items
+                                                .map((String item) =>
+                                                    DropdownMenuItem<String>(
+                                                      value: item,
+                                                      child: Text(
+                                                        item,
+                                                        style: const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                        ),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ))
+                                                .toList(),
+                                            value: selectedValue,
+                                            onChanged: (String? value) {
+                                              setState(() {
+                                                selectedValue = value!;
+                                              });
+                                            },
+                                            buttonStyleData: ButtonStyleData(
+                                              height: 50,
+                                              width: 160,
+                                              padding: const EdgeInsets.only(
+                                                  left: 14, right: 14),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(14),
+                                                border: Border.all(
+                                                  color: ColorConstants
+                                                      .orangeGradients1,
+                                                ),
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            iconStyleData: const IconStyleData(
+                                              icon: Icon(
+                                                Icons.arrow_drop_down,
+                                              ),
+                                              iconSize: 20,
+                                              iconEnabledColor: ColorConstants
+                                                  .orangeGradients3,
+                                              iconDisabledColor: Colors.grey,
+                                            ),
+                                            dropdownStyleData:
+                                                DropdownStyleData(
+                                              maxHeight: 200,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  150,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(14),
+                                                color: Colors.white,
+                                              ),
+                                              scrollbarTheme:
+                                                  ScrollbarThemeData(
+                                                radius:
+                                                    const Radius.circular(40),
+                                                thickness: MaterialStateProperty
+                                                    .all<double>(6),
+                                                thumbVisibility:
+                                                    MaterialStateProperty.all<
+                                                        bool>(true),
+                                              ),
+                                            ),
+                                            menuItemStyleData:
+                                                const MenuItemStyleData(
+                                              height: 40,
+                                              padding: EdgeInsets.only(
+                                                  left: 14, right: 14),
+                                            ),
+                                          ),
                                         ),
-                                        color: Colors.white,
                                       ),
-                                    ),
-                                    iconStyleData: const IconStyleData(
-                                      icon: Icon(
-                                        Icons.arrow_drop_down,
-                                      ),
-                                      iconSize: 20,
-                                      iconEnabledColor:
-                                          ColorConstants.orangeGradients3,
-                                      iconDisabledColor: Colors.grey,
-                                    ),
-                                    dropdownStyleData: DropdownStyleData(
-                                      maxHeight: 200,
-                                      width: MediaQuery.of(context).size.width -
-                                          150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(14),
-                                        color: Colors.white,
-                                      ),
-                                      scrollbarTheme: ScrollbarThemeData(
-                                        radius: const Radius.circular(40),
-                                        thickness:
-                                            MaterialStateProperty.all<double>(
-                                                6),
-                                        thumbVisibility:
-                                            MaterialStateProperty.all<bool>(
-                                                true),
-                                      ),
-                                    ),
-                                    menuItemStyleData: const MenuItemStyleData(
-                                      height: 40,
-                                      padding:
-                                          EdgeInsets.only(left: 14, right: 14),
-                                    ),
-                                  ),
+                                SizedBox(
+                                  height: 20,
                                 ),
-                               
-                                
-                               
                               ],
                             ),
                           ),
                         ),
-                         CommonStyleButton(
-                            title: 'Invia',
-                            onTap: () {
-                              if (_formKey.currentState!.validate()) {
-                                bloc.add(SendParentsDisabileFormEvent(
-                                    numeroDisabili: selectedValue,
-                                    disabile: disabile
-                                    ));
-                               
-                              }
-                            },
-                            iconWidget: Icon(Icons.send)),
                       ])),
                 ),
                 Align(
@@ -245,21 +243,18 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 20.0, horizontal: 20.0),
                     child: Row(
-mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        FloatingActionButton(
-                      
-                      onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => BancoAlimentarePage()));
-                    },
-                    child: Icon(Icons.arrow_back),),
-                        FloatingActionButton(
-                      
-                      onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CaricaDocsPage()));
-                    },
-                    child: Icon(Icons.arrow_forward),),
-                       
+                        CommonStyleButton(
+                            title: 'Invia e Continua',
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                bloc.add(SendParentsDisabileFormEvent(
+                                    numeroDisabili: selectedValue,
+                                    disabile: disabile));
+                              }
+                            },
+                            iconWidget: Text('')),
                       ],
                     ),
                   ),

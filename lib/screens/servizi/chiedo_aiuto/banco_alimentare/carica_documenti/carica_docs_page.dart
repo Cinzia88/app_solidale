@@ -1,10 +1,7 @@
 import 'dart:io';
 
-import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
-import 'package:app_solidale/screens/common_widgets/custom_button.dart';
-import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
-import 'package:app_solidale/screens/menu/area_personale/profilo_page.dart';
+
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/bloc/send_docs_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/form_docs.dart';
@@ -24,8 +21,6 @@ class CaricaDocsPage extends StatefulWidget {
 }
 
 class _CaricaDocsPageState extends State<CaricaDocsPage> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _tipoDocController = TextEditingController();
   Service service = Service();
   final List<File> imagesList = [];
   final List<File> filePdf = [];
@@ -70,11 +65,11 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final mediaQueryData = MediaQuery.of(context);
-    final screenHeight = mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
-    final blockSizeVertical = screenHeight / 100;
+    //final screenWidth = MediaQuery.of(context).size.width;
+    //final mediaQueryData = MediaQuery.of(context);
+    //final screenHeight = mediaQueryData.size.height;
+    //final blockSizeHorizontal = screenWidth / 100;
+    //final blockSizeVertical = screenHeight / 100;
     return BlocProvider<SendDocsBloc>(
       create: (context) => SendDocsBloc(
         context: context,
@@ -99,15 +94,15 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
           ),
           drawer: NavigationDrawerWidget(),
           body: BlocConsumer<SendDocsBloc, SendDocsState>(
- listener: (context, state) {
+              listener: (context, state) {
             if (state is SendDocsErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
             }
-          }, builder: (context, state) {              return FormDocs();
-            }
-          )),
+          }, builder: (context, state) {
+            return FormDocs();
+          })),
     );
   }
 }

@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:intl/intl.dart';
 
-
 class FormDataParents extends StatefulWidget {
   FormDataParents({Key? key}) : super(key: key);
 
@@ -21,9 +20,9 @@ class FormDataParents extends StatefulWidget {
 class _FormDataParentsState extends State<FormDataParents> {
   final _formKey = GlobalKey<FormState>();
   var nomeComponente = <TextEditingController>[];
-  var dateinput= <TextEditingController>[];
+  var dateinput = <TextEditingController>[];
   var gradoComponente = <TextEditingController>[];
-    String selectedValue = '1';
+  String selectedValue = '1';
   List<Widget>? growableList;
   final List<String> items = [
     '1',
@@ -44,9 +43,6 @@ class _FormDataParentsState extends State<FormDataParents> {
   ];
 
   //text editing controller for text field
-  
-
-
 
   var cards = <Widget>[];
   bool yes = false;
@@ -63,7 +59,7 @@ class _FormDataParentsState extends State<FormDataParents> {
       children: <Widget>[
         TextFormFieldCustom(
           textEditingController: nomeController,
-          labelTextCustom: 'Nome:',
+          labelTextCustom: 'Nome e Cognome:',
           obscureText: false,
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -73,49 +69,56 @@ class _FormDataParentsState extends State<FormDataParents> {
           },
         ),
         TextFormFieldCustom(
-                textEditingController: birthController, //editing controller of this TextField
-                labelTextCustom: 'Data di Nascita:',
-                readOnly: true, 
-                          obscureText: false,
- //set it true, so that user will not able to edit text
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                      context: context, initialDate: DateTime.now(),
-                      firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime(2101), builder: (BuildContext context, Widget? child) {
-    return Theme(
-      data: ThemeData.light().copyWith(
-          colorScheme: ColorScheme.dark(
-                    primary: ColorConstants.secondaryColor,
-                    onPrimary: Colors.white,
-                    surface: Colors.white,
-                    onSurface: ColorConstants.orangeGradients3,
+          textEditingController:
+              birthController, //editing controller of this TextField
+          labelTextCustom: 'Data di Nascita:',
+          readOnly: true,
+          obscureText: false,
+          //set it true, so that user will not able to edit text
+          onTap: () async {
+            DateTime? pickedDate = await showDatePicker(
+              context: context, initialDate: DateTime.now(),
+              firstDate: DateTime(
+                  1900), //DateTime.now() - not to allow to choose before today.
+              lastDate: DateTime(2101),
+              builder: (BuildContext context, Widget? child) {
+                return Theme(
+                  data: ThemeData.light().copyWith(
+                    colorScheme: const ColorScheme.dark(
+                      primary: ColorConstants.secondaryColor,
+                      onPrimary: Colors.white,
+                      surface: Colors.white,
+                      onSurface: ColorConstants.orangeGradients3,
                     ),
-                dialogBackgroundColor:Colors.white,
-      ),
-      child: child!,
-    );
-  },
-                  );
-                  
-                  if(pickedDate != null ){
-                      print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-                      String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate); 
-                      print(formattedDate); //formatted date output using intl package =>  2021-03-16
-                        //you can implement different kind of Date Format here according to your requirement
+                    dialogBackgroundColor: Colors.white,
+                    
+                  ),
+                  child: child!,
+                );
+              },
+            );
 
-                      setState(() {
-                         birthController.text = formattedDate; //set output date to TextField value. 
-                      });
-                  }else{
-                      print("Date is not selected");
-                  }
-                },
-             ),
-      
+            if (pickedDate != null) {
+              print(
+                  pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+              String formattedDate =
+                  DateFormat('dd-MM-yyyy').format(pickedDate);
+              print(
+                  formattedDate); //formatted date output using intl package =>  2021-03-16
+              //you can implement different kind of Date Format here according to your requirement
+
+              setState(() {
+                birthController.text =
+                    formattedDate; //set output date to TextField value.
+              });
+            } else {
+              print("Date is not selected");
+            }
+          },
+        ),
         TextFormFieldCustom(
           textEditingController: gradoController,
-          labelTextCustom: 'Grado di parentela:',
+          labelTextCustom: 'Grado di Parentela:',
           obscureText: false,
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -128,8 +131,6 @@ class _FormDataParentsState extends State<FormDataParents> {
     );
   }
 
- 
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -139,44 +140,42 @@ class _FormDataParentsState extends State<FormDataParents> {
     final blockSizeVertical = screenHeight / 100;
     final bloc = BlocProvider.of<SendParentsDataBloc>(context);
 
-     growableList =
-    List<Widget>.generate(int.parse(selectedValue), (int index) {
+    growableList = List<Widget>.generate(int.parse(selectedValue), (int index) {
       cards.add(createCard());
       return Column(
-      children: [
-        Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 40.0),
-                                      child: Material(
-                                        elevation: 10,
-                                        color: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(20.0),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                  'Componente ${index + 1}'),
-                                                   cards[index]
-
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    )
-      ],
-    );
-    }  );
-print(growableList); 
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40.0),
+            child: Material(
+              elevation: 10,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('Componente ${index + 1}',
+                      style: Theme.of(context).textTheme.titleMedium,),
+                    ],
+                  ), cards[index]],
+                ),
+              ),
+            ),
+          )
+        ],
+      );
+    });
+    print(growableList);
     return BlocBuilder<SendParentsDataBloc, SendParentsDataState>(
         builder: (context, state) {
       return state is SendParentsDataLoadingState
           ? loadingWidget(context)
           : Stack(
-              children: [
-                SingleChildScrollView(
+            children: [
+              SingleChildScrollView(
                   child: Padding(
                       padding: const EdgeInsets.all(
                         20.0,
@@ -211,7 +210,15 @@ print(growableList);
                         const Divider(
                           color: ColorConstants.orangeGradients3,
                         ),
-
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text('Seleziona il numero dei componenti '),
+                          ],
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20.0),
                           child: Form(
@@ -221,7 +228,7 @@ print(growableList);
                                 DropdownButtonHideUnderline(
                                   child: DropdownButton2<String>(
                                     hint: Text(
-                                      'N° Componenti',
+                                      '',
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: ColorConstants.labelText,
@@ -255,8 +262,7 @@ print(growableList);
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(14),
                                         border: Border.all(
-                                          color:
-                                              ColorConstants.orangeGradients1,
+                                          color: ColorConstants.orangeGradients1,
                                         ),
                                         color: Colors.white,
                                       ),
@@ -272,8 +278,8 @@ print(growableList);
                                     ),
                                     dropdownStyleData: DropdownStyleData(
                                       maxHeight: 200,
-                                      width: MediaQuery.of(context).size.width -
-                                          150,
+                                      width:
+                                          MediaQuery.of(context).size.width - 150,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(14),
                                         color: Colors.white,
@@ -281,56 +287,38 @@ print(growableList);
                                       scrollbarTheme: ScrollbarThemeData(
                                         radius: const Radius.circular(40),
                                         thickness:
-                                            MaterialStateProperty.all<double>(
-                                                6),
+                                            MaterialStateProperty.all<double>(6),
                                         thumbVisibility:
-                                            MaterialStateProperty.all<bool>(
-                                                true),
+                                            MaterialStateProperty.all<bool>(true),
                                       ),
                                     ),
                                     menuItemStyleData: const MenuItemStyleData(
                                       height: 40,
-                                      padding:
-                                          EdgeInsets.only(left: 14, right: 14),
+                                      padding: EdgeInsets.only(left: 14, right: 14),
                                     ),
                                   ),
                                 ),
-                               
-                                
                                 SizedBox(
                                   height: 30,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text('Inserisci i dati di ciascun componente'),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20,
                                 ),
                                 ListView.builder(
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount: growableList!.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return  growableList![index]; 
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return growableList![index];
                                   },
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 30.0),
-                                  child: CommonStyleButton(
-                                                        title: 'Invia',
-                                                        onTap: () {
-                                                          if (_formKey.currentState!.validate()) {
-                                                            bloc.add(SendParentsNumberFormEvent(
-                                  numeroComponenti: selectedValue,
-                                  ));
-                                                            for (int i = 0; i < growableList!.length; i++) {
-                                                              var nome = nomeComponente[i].text;
-                                                              var anni = dateinput[i].text;
-                                                              var grado = gradoComponente[i].text;
-                                                              bloc.add(SendParentsFormEvent(
-                                    nomeParente: nome,
-                                    dataDiNascitaParente: anni,
-                                    gradoParente: grado));
-                                                            }
-                                                          }
-                                                        },
-                                                        iconWidget: Icon(Icons.send)),
-                                ),
+                              
                               ],
                             ),
                           ),
@@ -342,21 +330,36 @@ print(growableList);
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 20.0, horizontal: 20.0),
-                    child: FloatingActionButton(
-                      
-                      onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => DisabiliPage()));
-                    },
-                    child: Icon(Icons.arrow_forward),),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                       CommonStyleButton(
+                                      title: 'Invia e Continua',
+                                      onTap: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          bloc.add(SendParentsNumberFormEvent(
+                                            numeroComponenti: selectedValue,
+                                          ));
+                                          for (int i = 0;
+                                              i < growableList!.length;
+                                              i++) {
+                                            var nome = nomeComponente[i].text;
+                                            var anni = dateinput[i].text;
+                                            var grado = gradoComponente[i].text;
+                                            bloc.add(SendParentsFormEvent(
+                                                nomeParente: nome,
+                                                dataDiNascitaParente: anni,
+                                                gradoParente: grado));
+                                          }
+                                        }
+                                      },
+                                      iconWidget: Text('')),
+                      ],
+                    ),
                   ),
                 ),
-              ],
-            );
+            ],
+          );
     });
   }
 }
-
-
-
-
-

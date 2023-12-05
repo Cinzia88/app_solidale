@@ -1,14 +1,8 @@
-import 'package:app_solidale/const/color_constants.dart';
-import 'package:app_solidale/const/text_constants.dart';
+
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
-import 'package:app_solidale/screens/common_widgets/custom_button.dart';
-import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
-import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
-import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/form_data_parents.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
@@ -17,11 +11,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BancoAlimentarePage extends StatefulWidget {
   @override
-  State<BancoAlimentarePage> createState() => _FormPhoneState();
+  State<BancoAlimentarePage> createState() => _BancoAlimentarePageState();
 }
 
-class _FormPhoneState extends State<BancoAlimentarePage> {
-  final _formKey = GlobalKey<FormState>();
+class _BancoAlimentarePageState extends State<BancoAlimentarePage> {
 
   @override
   Widget build(BuildContext context) {

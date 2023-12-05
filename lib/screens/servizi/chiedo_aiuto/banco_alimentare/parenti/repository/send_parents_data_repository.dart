@@ -32,18 +32,8 @@ class SendDataParentsRepository {
 
       switch (response.statusCode) {
         case 200:
-            String message = 'Dati inviati con successo';
-            Navigator.push(context, MaterialPageRoute(builder: (context) => DisabiliPage()));
             // ignore: use_build_context_synchronously
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                backgroundColor: ColorConstants.orangeGradients3,
-                content: Text(
-                  message,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )));
+            
           break;
         case 401:
           Navigator.of(context, rootNavigator: true).pushReplacement(
@@ -105,23 +95,14 @@ Future sendDisabiliParents(
             'numero_disabili': numeroDisabili,
             'disabile': disabile,
           }));
-      print('statuscodeNumber ${response.statusCode}');
+      print('statuscodeNumberDis ${response.statusCode}');
       print('disabile ${disabile}');
 
       switch (response.statusCode) {
         case 200:
-            String message = 'Dati inviati con successo';
             Navigator.push(context, MaterialPageRoute(builder: (context) => CaricaDocsPage()));
             // ignore: use_build_context_synchronously
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                backgroundColor: ColorConstants.orangeGradients3,
-                content: Text(
-                  message,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )));
+           
           break;
         case 401:
           Navigator.of(context, rootNavigator: true).pushReplacement(
@@ -188,6 +169,9 @@ Future sendDisabiliParents(
               'grado': grado,
             }));
         print('statuscodedata ${response.statusCode}');
+        print('statuscodenome ${nome}');
+        print('statuscodeanni ${data}');
+        print('statuscodegrado${grado}');
 
         switch (response.statusCode) {
           case 200:

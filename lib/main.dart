@@ -9,6 +9,7 @@ import 'package:app_solidale/screens/servizi/page_service/repository/send_phone_
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,13 +79,15 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             useMaterial3: true,
-            colorScheme: ColorScheme.fromSwatch().copyWith(
-                background: Colors.white,
-                primary: Colors.white),
-                switchTheme: SwitchThemeData(
-                  
-                  trackOutlineColor: MaterialStateProperty.all(ColorConstants.orangeGradients3)
-                ),
+            colorScheme: ColorScheme.fromSwatch()
+                .copyWith(background: Colors.white, primary: Colors.white),
+            switchTheme: SwitchThemeData(
+                trackOutlineColor:
+                    MaterialStateProperty.all(ColorConstants.orangeGradients3)),
+            textSelectionTheme: const TextSelectionThemeData(
+              cursorColor: ColorConstants.orangeGradients3,
+              selectionHandleColor: ColorConstants.orangeGradients3,
+            ),
             elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
                 backgroundColor: ColorConstants.secondaryColor,
@@ -92,17 +95,23 @@ class MyApp extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20.0)),
               ),
             ),
-            textTheme: TextTheme(titleSmall: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 2.5 * blockSizeVertical,
-                  color: ColorConstants.titleText,
-                ),
-                
-                ),
-                floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: ColorConstants.secondaryColor,
-                shape:  RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(100)
-     ),),
+            textTheme: TextTheme(
+              titleSmall: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 2.5 * blockSizeVertical,
+                color: ColorConstants.titleText,
+              ),
+              titleMedium: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 2 * blockSizeVertical,
+                color: ColorConstants.titleText,
+              ),
+            ),
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+              backgroundColor: ColorConstants.secondaryColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100)),
+            ),
             dividerTheme: const DividerThemeData(color: Colors.transparent),
           ),
           localizationsDelegates: const [

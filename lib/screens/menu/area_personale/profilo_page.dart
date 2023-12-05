@@ -1,7 +1,4 @@
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
-import 'package:app_solidale/screens/common_widgets/custom_button.dart';
-import 'package:app_solidale/screens/home/page/presentation_page.dart';
-import 'package:app_solidale/screens/home/widgets/custom_cards.dart';
 import 'package:app_solidale/screens/menu/area_personale/cambio_password/page/cambio_password_page.dart';
 import 'package:app_solidale/screens/menu/area_personale/lista_docs_inviati/page/docs_list_page.dart';
 import 'package:app_solidale/screens/menu/area_personale/modifca_dati/page/modifica_dati_page.dart';
@@ -11,9 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import '../../../const/color_constants.dart';
-import '../../common_widgets/background_style/appbar_pages.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart'
-    as globals;
+
 
 // ignore: use_key_in_widget_constructors
 class ProfilePage extends StatefulWidget {

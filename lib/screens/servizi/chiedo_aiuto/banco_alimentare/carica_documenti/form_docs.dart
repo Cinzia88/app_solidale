@@ -35,7 +35,6 @@ class _FormDocsState extends State<FormDocs> {
 
   bool deletedImage = false;
 
- 
   List<String> extensionFile = ['pdf', 'jpeg', 'jpg', 'png'];
 
   Future _pickFile() async {
@@ -79,9 +78,9 @@ class _FormDocsState extends State<FormDocs> {
       return state is SendDocsLoadingState
           ? loadingWidget(context)
           : Stack(
-            children: [
-              SingleChildScrollView(
-                  child: Padding(
+              children: [
+                SingleChildScrollView(
+                    child: Padding(
                   padding: const EdgeInsets.all(
                     20.0,
                   ),
@@ -116,8 +115,18 @@ class _FormDocsState extends State<FormDocs> {
                       const Divider(
                         color: ColorConstants.orangeGradients3,
                       ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Flexible(
+                              child: Text('Seleziona il tipo di documento')),
+                        ],
+                      ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
+                        padding: const EdgeInsets.only(top: 30.0),
                         child: Form(
                           key: _formKey,
                           child: Column(
@@ -125,7 +134,7 @@ class _FormDocsState extends State<FormDocs> {
                               DropdownButtonHideUnderline(
                                 child: DropdownButton2<String>(
                                   hint: Text(
-                                    'N° Componenti',
+                                    '',
                                     style: TextStyle(
                                       fontSize: 15,
                                       color: ColorConstants.labelText,
@@ -191,7 +200,8 @@ class _FormDocsState extends State<FormDocs> {
                                   ),
                                   menuItemStyleData: const MenuItemStyleData(
                                     height: 40,
-                                    padding: EdgeInsets.only(left: 14, right: 14),
+                                    padding:
+                                        EdgeInsets.only(left: 14, right: 14),
                                   ),
                                 ),
                               ),
@@ -235,7 +245,6 @@ class _FormDocsState extends State<FormDocs> {
                                       ),
                                     );
                                   }),
-                          
                               ListView.builder(
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
@@ -245,26 +254,28 @@ class _FormDocsState extends State<FormDocs> {
                                     padding: const EdgeInsets.only(top: 20.0),
                                     child: Row(
                                       children: [
-                                        Text(
-                                            filePdf[index].path.split('/').last),
-                                            IconButton(
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      filePdf.removeAt(index);
-                                                    });
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.delete,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
+                                        Text(filePdf[index]
+                                            .path
+                                            .split('/')
+                                            .last),
+                                        IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              filePdf.removeAt(index);
+                                            });
+                                          },
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   );
                                 },
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 30,
                               ),
                               ElevatedButton.icon(
                                 onPressed: () async {
@@ -277,29 +288,6 @@ class _FormDocsState extends State<FormDocs> {
                                 label: const Text('Scegli File'),
                                 icon: const Icon(Icons.file_copy),
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              CommonStyleButton(
-                                title: 'Invia',
-                                iconWidget: Icon(Icons.send),
-                                onTap: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    Map<String, String> body = {
-                                      'nome': selectedValue,
-                                    };
-                                    bloc.add(SendDocsFormEvent(
-                                        body: body,
-                                        imagepath: imagesList,
-                                        pdfpath: filePdf));
-
-                                    FocusScope.of(context).unfocus();
-                                  }
-                                },
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
                             ],
                           ),
                         ),
@@ -307,34 +295,37 @@ class _FormDocsState extends State<FormDocs> {
                     ],
                   ),
                 )),
-                 Align(
+                Align(
                   alignment: Alignment.bottomRight,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 20.0, horizontal: 20.0),
                     child: Row(
-mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        FloatingActionButton(
-                      
-                      onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => DisabiliPage()));
-                    },
-                    child: Icon(Icons.arrow_back),),
-                        FloatingActionButton(
-                      
-                      onPressed: () {
-                      
-                    },
-                    child: Icon(Icons.arrow_forward),),
-                       
+                        CommonStyleButton(
+                          title: 'Invia e Continua',
+                          iconWidget: SizedBox(),
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              Map<String, String> body = {
+                                'nome': selectedValue,
+                              };
+                              bloc.add(SendDocsFormEvent(
+                                  body: body,
+                                  imagepath: imagesList,
+                                  pdfpath: filePdf));
+
+                              FocusScope.of(context).unfocus();
+                            }
+                          },
+                        ),
                       ],
                     ),
                   ),
                 ),
-                
-            ],
-          );
+              ],
+            );
     });
   }
 }

@@ -3,6 +3,7 @@ import 'package:app_solidale/const/text_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/banco_alimentare_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/intro.dart';
 import 'package:app_solidale/screens/servizi/page_service/page_service.dart';
 import 'package:flutter/material.dart';
 import '../../../../const/path_constants.dart';
@@ -23,8 +24,7 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                 flex: 2,
                 child: Text(
                   title,
-                                         style: Theme.of(context).textTheme.titleSmall,
-
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
               IconButton(
@@ -201,17 +201,14 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
             widget: Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  BancoAlimentarePage(
-                                      
-                                    )));
+                                builder: (context) => IntroBancoAlimentare()));
                       },
                       child: Text(
                         'Richiedi',
@@ -227,8 +224,7 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>  BancoAlimentarePage(
-                              )));
+                                  builder: (context) => IntroBancoAlimentare()));
                         },
                       );
                     },

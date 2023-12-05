@@ -3,7 +3,6 @@
 
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
-import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/menu/area_personale/cambio_password/bloc/change_password_bloc.dart';
 import 'package:app_solidale/screens/menu/area_personale/cambio_password/repository/change_password_repository.dart';
 
