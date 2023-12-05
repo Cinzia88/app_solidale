@@ -4,6 +4,7 @@ import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/menu/area_personale/profilo_page.dart';
 import 'package:app_solidale/screens/menu/logout/logout.dart';
 import 'package:app_solidale/screens/news/page/news_page.dart';
+import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto.dart';
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:app_solidale/screens/signin/page/signin_page.dart';
 import 'package:flutter/material.dart';
@@ -123,7 +124,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               onTap: () {
                 Navigator.pop(context);
                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeChiedoAiuto()));
+                    MaterialPageRoute(builder: (context) => OffroAiutoPage()));
               }),
           const SizedBox(
             height: 50,

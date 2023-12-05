@@ -304,7 +304,7 @@ class _FormDocsState extends State<FormDocs> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         CommonStyleButton(
-                          title: 'Invia e Continua',
+                          title: 'Invia',
                           iconWidget: SizedBox(),
                           onTap: () {
                             if (_formKey.currentState!.validate()) {

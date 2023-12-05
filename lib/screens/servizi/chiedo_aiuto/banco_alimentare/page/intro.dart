@@ -64,10 +64,13 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                 height: 20,
               ),
               Text(
-                  'Per accedere al Servizio Banco Alimentare, dovrai procurarti i seguenti documenti: '),
+                  'Per accedere al Servizio Banco Alimentare è facile, bastano pochi semplici passi: '),
               Text(
-                  '\n1.  Modello ISEE, per valutare e confrontare la situazione economica del nucleo familiare'),
-              Text('\n2.  Documento d\' identità'),
+                  '\n1.  Inserisci il numero dei componenti familiari ed i loro dati (nome, data di nascita e grado di parentela)'),
+              Text(
+                  '\n2.  Dichiara se nel nucleo familiare è presente una persona diversamente abile. Se sì, indica il numero'),
+              Text(
+                  '\n3.  Procurati i documenti necessari (ISEE, documento d\'identità) e caricali sull\'app'),
             ])),
       ),
       floatingActionButton: CommonStyleButton(
