@@ -172,7 +172,7 @@ Future sendDisabiliParents(
 
   
     Future sendDataParents(
-        BuildContext context, String nome, String anni, String grado) async {
+        BuildContext context, String nome, String data, String grado) async {
       try {
         var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/familiari';
         // Await the http get response, then decode the json-formatted response.
@@ -184,7 +184,7 @@ Future sendDisabiliParents(
             },
             body: jsonEncode({
               'nome': nome,
-              'anni': anni,
+              'data_di_nascita': data,
               'grado': grado,
             }));
         print('statuscodedata ${response.statusCode}');

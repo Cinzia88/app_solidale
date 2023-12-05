@@ -96,7 +96,13 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 2.5 * blockSizeVertical,
                   color: ColorConstants.titleText,
-                ),),
+                ),
+                
+                ),
+                floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: ColorConstants.secondaryColor,
+                shape:  RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100)
+     ),),
             dividerTheme: const DividerThemeData(color: Colors.transparent),
           ),
           localizationsDelegates: const [

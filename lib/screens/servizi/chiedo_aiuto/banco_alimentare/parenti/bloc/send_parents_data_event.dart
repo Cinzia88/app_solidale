@@ -33,15 +33,15 @@ class SendParentsDisabileFormEvent extends SendParentsDataEvent {
 class SendParentsFormEvent extends SendParentsDataEvent {
  
   String nomeParente;
-  String anniParente;
+  String dataDiNascitaParente;
   String gradoParente;
   SendParentsFormEvent({
 
     required this.nomeParente,
-    required this.anniParente,
+    required this.dataDiNascitaParente,
     required this.gradoParente,
   });
   @override
-  List<Object?> get props => [nomeParente, anniParente, gradoParente];
+  List<Object?> get props => [nomeParente, dataDiNascitaParente, gradoParente];
 }
  

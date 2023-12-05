@@ -37,7 +37,7 @@ class SendParentsDataBloc
           await sendDataParentsRepository.sendDataParents(
             context,
             event.nomeParente,
-            event.anniParente,
+            event.dataDiNascitaParente,
             event.gradoParente,
           );
           emit(SendParentsDataLoaded());

@@ -209,10 +209,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const BancoAlimentarePage(
-                                      image: PathConstants.bancoAlim,
-                                      title: TextConstants
-                                          .infoAlertTitleBancoAlim,
+                                builder: (context) =>  BancoAlimentarePage(
+                                      
                                     )));
                       },
                       child: Text(
@@ -229,12 +227,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const FormServizio(
-                                        image: PathConstants
-                                            .accompagnamOncolog,
-                                        title: TextConstants
-                                            .infoAlertTitleAccompagnOncol,
-                                      )));
+                                  builder: (context) =>  BancoAlimentarePage(
+                              )));
                         },
                       );
                     },

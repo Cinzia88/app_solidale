@@ -18,6 +18,8 @@ class TextFormFieldCustom extends StatelessWidget {
   final bool obscureText;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final bool? readOnly;
+  final void Function()? onTap;
 
   const TextFormFieldCustom({
     Key? key,
@@ -31,6 +33,8 @@ class TextFormFieldCustom extends StatelessWidget {
     this.errorText,
     this.keyboardType,
     this.inputFormatters,
+    this.readOnly,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -43,6 +47,7 @@ class TextFormFieldCustom extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
+        readOnly: readOnly ?? false,
         cursorColor: ColorConstants.cursor,
         enableInteractiveSelection: true,
         onChanged: onChanged,
@@ -52,6 +57,7 @@ class TextFormFieldCustom extends StatelessWidget {
         inputFormatters: inputFormatters,
         validator: validator,
         keyboardType: keyboardType,
+        onTap: onTap != null ? onTap : null,
         decoration: InputDecoration(
           errorBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: ColorConstants.orangeGradients3),

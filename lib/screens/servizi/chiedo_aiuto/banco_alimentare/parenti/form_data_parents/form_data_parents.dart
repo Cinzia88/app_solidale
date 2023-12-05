@@ -4,9 +4,12 @@ import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/disabili/carica_disabili_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:intl/intl.dart';
+
 
 class FormDataParents extends StatefulWidget {
   FormDataParents({Key? key}) : super(key: key);
@@ -17,10 +20,10 @@ class FormDataParents extends StatefulWidget {
 
 class _FormDataParentsState extends State<FormDataParents> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _countParentController = TextEditingController();
   var nomeComponente = <TextEditingController>[];
-  var anniComponente = <TextEditingController>[];
+  var dateinput= <TextEditingController>[];
   var gradoComponente = <TextEditingController>[];
+    String selectedValue = '1';
   List<Widget>? growableList;
   final List<String> items = [
     '1',
@@ -39,7 +42,11 @@ class _FormDataParentsState extends State<FormDataParents> {
     '14',
     '15',
   ];
-  String selectedValue = '1';
+
+  //text editing controller for text field
+  
+
+
 
   var cards = <Widget>[];
   bool yes = false;
@@ -47,10 +54,10 @@ class _FormDataParentsState extends State<FormDataParents> {
   String disabile = 'no';
   Widget createCard() {
     var nomeController = TextEditingController();
-    var anniController = TextEditingController();
+    var birthController = TextEditingController();
     var gradoController = TextEditingController();
     nomeComponente.add(nomeController);
-    anniComponente.add(anniController);
+    dateinput.add(birthController);
     gradoComponente.add(gradoController);
     return Column(
       children: <Widget>[
@@ -66,17 +73,46 @@ class _FormDataParentsState extends State<FormDataParents> {
           },
         ),
         TextFormFieldCustom(
-          textEditingController: anniController,
-          labelTextCustom: 'Età:',
-          keyboardType: TextInputType.number,
-          obscureText: false,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Campo Richiesto*';
-            }
-            return null;
-          },
-        ),
+                textEditingController: birthController, //editing controller of this TextField
+                labelTextCustom: 'Data di Nascita:',
+                readOnly: true, 
+                          obscureText: false,
+ //set it true, so that user will not able to edit text
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                      context: context, initialDate: DateTime.now(),
+                      firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2101), builder: (BuildContext context, Widget? child) {
+    return Theme(
+      data: ThemeData.light().copyWith(
+          colorScheme: ColorScheme.dark(
+                    primary: ColorConstants.secondaryColor,
+                    onPrimary: Colors.white,
+                    surface: Colors.white,
+                    onSurface: ColorConstants.orangeGradients3,
+                    ),
+                dialogBackgroundColor:Colors.white,
+      ),
+      child: child!,
+    );
+  },
+                  );
+                  
+                  if(pickedDate != null ){
+                      print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                      String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate); 
+                      print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                        //you can implement different kind of Date Format here according to your requirement
+
+                      setState(() {
+                         birthController.text = formattedDate; //set output date to TextField value. 
+                      });
+                  }else{
+                      print("Date is not selected");
+                  }
+                },
+             ),
+      
         TextFormFieldCustom(
           textEditingController: gradoController,
           labelTextCustom: 'Grado di parentela:',
@@ -273,6 +309,28 @@ print(growableList);
                                     return  growableList![index]; 
                                   },
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 30.0),
+                                  child: CommonStyleButton(
+                                                        title: 'Invia',
+                                                        onTap: () {
+                                                          if (_formKey.currentState!.validate()) {
+                                                            bloc.add(SendParentsNumberFormEvent(
+                                  numeroComponenti: selectedValue,
+                                  ));
+                                                            for (int i = 0; i < growableList!.length; i++) {
+                                                              var nome = nomeComponente[i].text;
+                                                              var anni = dateinput[i].text;
+                                                              var grado = gradoComponente[i].text;
+                                                              bloc.add(SendParentsFormEvent(
+                                    nomeParente: nome,
+                                    dataDiNascitaParente: anni,
+                                    gradoParente: grado));
+                                                            }
+                                                          }
+                                                        },
+                                                        iconWidget: Icon(Icons.send)),
+                                ),
                               ],
                             ),
                           ),
@@ -284,25 +342,12 @@ print(growableList);
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 20.0, horizontal: 20.0),
-                    child: CommonStyleButton(
-                        title: 'Avanti',
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            bloc.add(SendParentsNumberFormEvent(
-                                numeroComponenti: selectedValue,
-                                ));
-                            for (int i = 0; i < growableList!.length; i++) {
-                              var nome = nomeComponente[i].text;
-                              var anni = anniComponente[i].text;
-                              var grado = gradoComponente[i].text;
-                              bloc.add(SendParentsFormEvent(
-                                  nomeParente: nome,
-                                  anniParente: anni,
-                                  gradoParente: grado));
-                            }
-                          }
-                        },
-                        iconWidget: SizedBox()),
+                    child: FloatingActionButton(
+                      
+                      onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => DisabiliPage()));
+                    },
+                    child: Icon(Icons.arrow_forward),),
                   ),
                 ),
               ],

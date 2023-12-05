@@ -3,6 +3,8 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/banco_alimentare_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -223,6 +225,18 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                             ),
                           ),
                         ),
+                         CommonStyleButton(
+                            title: 'Invia',
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                bloc.add(SendParentsDisabileFormEvent(
+                                    numeroDisabili: selectedValue,
+                                    disabile: disabile
+                                    ));
+                               
+                              }
+                            },
+                            iconWidget: Icon(Icons.send)),
                       ])),
                 ),
                 Align(
@@ -230,18 +244,24 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 20.0, horizontal: 20.0),
-                    child: CommonStyleButton(
-                        title: 'Avanti',
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            bloc.add(SendParentsDisabileFormEvent(
-                                numeroDisabili: selectedValue,
-                                disabile: disabile
-                                ));
-                           
-                          }
-                        },
-                        iconWidget: SizedBox()),
+                    child: Row(
+mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        FloatingActionButton(
+                      
+                      onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => BancoAlimentarePage()));
+                    },
+                    child: Icon(Icons.arrow_back),),
+                        FloatingActionButton(
+                      
+                      onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CaricaDocsPage()));
+                    },
+                    child: Icon(Icons.arrow_forward),),
+                       
+                      ],
+                    ),
                   ),
                 ),
               ],

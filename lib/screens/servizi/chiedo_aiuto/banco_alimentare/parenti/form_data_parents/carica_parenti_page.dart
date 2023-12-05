@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/disabili/carica_disabili_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/form_data_parents.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
 import 'package:flutter/services.dart';
@@ -26,46 +27,46 @@ class ParentsPage extends StatefulWidget {
 }
 
 class _ParentsPageState extends State<ParentsPage> {
- 
-
-
   @override
   Widget build(BuildContext context) {
-   
-
     return BlocProvider<SendParentsDataBloc>(
       create: (context) => SendParentsDataBloc(
         context: context,
         sendDataParentsRepository: context.read<SendDataParentsRepository>(),
       ),
       child: Scaffold(
-          appBar: AppBar(
-            iconTheme: const IconThemeData(
-              color: Colors.white,
-            ),
-            toolbarHeight: 75.0,
-            automaticallyImplyLeading: true,
-            flexibleSpace: customAppBar(context: context),
-            actions: [
-              IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ))
-            ],
+        appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.white,
           ),
-          drawer: NavigationDrawerWidget(),
-          body: BlocConsumer<SendParentsDataBloc, SendParentsDataState>(
-              listener: (context, state) {
+          toolbarHeight: 75.0,
+          automaticallyImplyLeading: true,
+          flexibleSpace: customAppBar(context: context),
+          actions: [
+            IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ))
+          ],
+        ),
+        drawer: NavigationDrawerWidget(),
+        body: BlocConsumer<SendParentsDataBloc, SendParentsDataState>(
+          listener: (context, state) {
             if (state is SendParentsDataErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
             }
-          }, builder: (context, state) {
+          },
+          builder: (context, state) {
             return FormDataParents();
-  })));
+          },
+        ),
+        
+      ),
+    );
   }
 }
 
