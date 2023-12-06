@@ -82,9 +82,11 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            useMaterial3: true,
+                        useMaterial3: true,
+                            unselectedWidgetColor: Colors.red, // <-- your color
+
             colorScheme: ColorScheme.fromSwatch()
-                .copyWith(background: Colors.white, primary: Colors.white),
+                .copyWith(background: Colors.white, primary: Colors.white, ),
             switchTheme: SwitchThemeData(
                 trackOutlineColor:
                     MaterialStateProperty.all(ColorConstants.orangeGradients3)),
@@ -111,6 +113,12 @@ class MyApp extends StatelessWidget {
                 color: ColorConstants.titleText,
               ),
             ),
+            checkboxTheme: CheckboxThemeData(
+      side: AlwaysActiveBorderSide(),
+              checkColor: MaterialStateProperty.all(ColorConstants.orangeGradients3),
+             
+            ),
+            radioTheme: RadioThemeData(fillColor: MaterialStatePropertyAll(ColorConstants.orangeGradients3)),
             floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: ColorConstants.secondaryColor,
               shape: RoundedRectangleBorder(
@@ -134,4 +142,8 @@ class MyApp extends StatelessWidget {
       }),
     );
   }
+}
+class AlwaysActiveBorderSide extends MaterialStateBorderSide {
+  @override
+  BorderSide? resolve(_) => const BorderSide(color: Colors.black);
 }

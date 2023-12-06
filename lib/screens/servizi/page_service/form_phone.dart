@@ -1,86 +1,86 @@
 import 'package:app_solidale/const/color_constants.dart';
-import 'package:app_solidale/const/text_constants.dart';
+import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
-import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc/send_disabili_data_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
-class FormPhone extends StatefulWidget {
-  final String title;
-  final String image;
-  const FormPhone({required this.title, required this.image});
+class FormAccompagnamentoOncologico extends StatefulWidget {
+  const FormAccompagnamentoOncologico({super.key});
+
 
   @override
-  State<FormPhone> createState() => _FormPhoneState();
+  State<FormAccompagnamentoOncologico> createState() => _FormAccompagnamentoOncologicoState();
 }
 
-class _FormPhoneState extends State<FormPhone> {
+class _FormAccompagnamentoOncologicoState extends State<FormAccompagnamentoOncologico> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _telephoneUserController =
-      TextEditingController();
-
   final TextEditingController _nameAnotherController = TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
+int _value = 1;
 
-  bool forAnother = false;
+  
   @override
   Widget build(BuildContext context) {
-    //final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
-    //final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              SizedBox(
-                width: 70,
-                child: Image.asset(
-                  widget.image,
-                ),
-              ),
-              SizedBox(
-                height: 3 * blockSizeVertical,
-              ),
-              Text(
-                '${widget.title}',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              widget.title != TextConstants.infoAlertTitleBancoAlim
-                  ? _altriServizi()
-                  : SizedBox(),
-             const SizedBox(
-                height: 30,
-              ),
-              CommonStyleButton(
-                title: 'Clicca per essere contattato',
-                iconWidget: Icon(Icons.contact_phone),
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    // bloc.add(SendPhoneFormEvent(telefono: _telephoneUserController.text));
-                  }
-                  /*FocusScope.of(context).unfocus();
-                                              bloc.add(SignUpTappedEvent()); */
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
-  _altriServizi() {
+    return  SingleChildScrollView(
+            child: Padding(
+                padding: const EdgeInsets.all(
+                  20.0,
+                ),
+                child: Column(children: [
+                  SizedBox(
+                    width: 70,
+                    child: Image.asset(
+                      PathConstants.accompagnamOncolog,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 3 * blockSizeVertical,
+                  ),
+                  Text(
+                    'Accompagnamento Oncologico',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  
+                  
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          _formSelectService(),
+                        
+                              
+                        ],
+                      ),
+                    ),
+                  ),
+                    CommonStyleButton(
+            title: 'Clicca per essere contattato',
+            iconWidget: Icon(Icons.contact_phone),
+            onTap: () {
+            
+              /*FocusScope.of(context).unfocus();
+                                    bloc.add(SignUpTappedEvent()); */
+            },
+          ),
+                ])),
+          );
+    }
+  
+
+   _formSelectService() {
     return Column(
       children: [
         Padding(
@@ -89,34 +89,75 @@ class _FormPhoneState extends State<FormPhone> {
             children: [
               Flexible(
                   child: Text(
-                'Vorrei accedere al Servizio ${widget.title} per:',
+                'Vorrei accedere al Servizio Taxi Solidale per:',
               )),
             ],
           ),
         ),
-        ListTile(
-          title: forAnother == true
-              ? Text('Un Mio Familiare')
-              : Text(
-                  'Me',
-                ),
-          trailing: Switch(
-              inactiveThumbColor: ColorConstants.orangeGradients3,
-              activeColor: ColorConstants.orangeGradients3,
-              value: forAnother,
-              onChanged: (value) {
-                setState(() {
-                  forAnother = value;
-                });
-
-                //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
-                //tale value lo salvo nel provider
-              }),
-        ),
+       Row(
+        children: [
+         
+           Radio(
+          
+          value: 1, groupValue: _value, onChanged: (value){
+            setState(() {
+              _value = value!;
+            });
+          }),
+          SizedBox(
+            width: 10,
+          ),
+           Text('Me'),
+        ],
+       ),Row(
+        children: [
+           Radio(
+          
+          value: 2, groupValue: _value, onChanged: (value){
+            setState(() {
+              _value = value!;
+            });
+          }),
+           SizedBox(
+            width: 10,
+          ),
+           Text('Un Mio Familiare'),
+        ],
+       ),
+        /* Row(
+              children: [
+                
+                Checkbox(
+                    value: true,
+                    tristate: true,
+                    onChanged: (value) {
+                      setState(() {
+                        personale = value!;
+                        familiare = false;
+                      });
+                    }),
+                Text('Me'),
+              ],
+            ),
+            Row(
+              children: [
+                Checkbox(
+                    value: false,
+                    tristate: false,
+                    onChanged: (value) {
+                      setState(() {
+                        familiare = value!;
+                        personale = false;
+                      });
+                    }),
+                Text('Un Mio Familiare'),
+              ],
+            ), */
+       
         SizedBox(
           height: 20,
         ),
-        forAnother == true
+        _value == 2
             ? Padding(
                 padding: const EdgeInsets.only(bottom: 20.0),
                 child: Column(
@@ -156,17 +197,9 @@ class _FormPhoneState extends State<FormPhone> {
     );
   }
 
-  _servizioBancoAlimentare() {
-    //final screenWidth = MediaQuery.of(context).size.width;
-    final mediaQueryData = MediaQuery.of(context);
-    final screenHeight = mediaQueryData.size.height;
-    //final blockSizeHorizontal = screenWidth / 100;
-    final blockSizeVertical = screenHeight / 100;
-    return const Padding(
-      padding: EdgeInsets.only(top: 40.0),
-      child: Column(
-        children: [ParentsPage()],
-      ),
-    );
-  }
 }
+
+
+
+
+

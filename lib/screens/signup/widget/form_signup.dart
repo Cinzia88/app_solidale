@@ -1,4 +1,3 @@
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +10,6 @@ import '../bloc/signup_bloc.dart';
 
 // ignore: must_be_immutable
 class SignUpForm extends StatefulWidget {
-
   @override
   State<SignUpForm> createState() => _SignUpFormState();
 }
@@ -20,7 +18,8 @@ class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-    final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
@@ -42,9 +41,9 @@ class _SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<SignUpBloc>(context);
-     //final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
-    final screenHeight =mediaQueryData.size.height;
+    final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
 
@@ -66,8 +65,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     children: [
                       Text(
                         'Crea il Tuo Account',
-                                             style: Theme.of(context).textTheme.titleSmall,
-
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                       SizedBox(
                         height: 20,
@@ -96,7 +94,18 @@ class _SignUpFormState extends State<SignUpForm> {
                           return null;
                         },
                       ),
-                       TextFormFieldCustom(
+                      TextFormFieldCustom(
+                        textEditingController: _addressController,
+                        labelTextCustom: 'Indirizzo:',
+                        obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo Richiesto*';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormFieldCustom(
                         textEditingController: _phoneController,
                         labelTextCustom: 'Telefono:',
                         keyboardType: TextInputType.number,
@@ -104,7 +113,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Campo Richiesto*';
-                          } 
+                          }
                           return null;
                         },
                       ),
@@ -167,6 +176,7 @@ class _SignUpFormState extends State<SignUpForm> {
                             bloc.add(SignUpTappedEvent(
                               nome: _nameController.text,
                               email: _emailController.text,
+                              indirizzo: _addressController.text,
                               telefono: _phoneController.text,
                               password: _passwordController.text,
                               confirmPassword: _confirmPasswordController.text,
@@ -203,7 +213,7 @@ class _SignUpFormState extends State<SignUpForm> {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               bloc.add(SignInTappedEvent());
-                                                                 FocusScope.of(context).unfocus();
+                              FocusScope.of(context).unfocus();
                             },
                         ),
                       ],

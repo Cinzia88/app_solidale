@@ -1,31 +1,33 @@
-import 'package:app_solidale/const/color_constants.dart';
-import 'package:app_solidale/const/path_constants.dart';
-import 'package:app_solidale/const/text_constants.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/disabili/form_data_disabili.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
+
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
-import 'package:app_solidale/screens/common_widgets/custom_button.dart';
-import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
-import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
-import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
+
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc/send_disabili_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_disabili_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/form_taxi_solidale.dart';
 import 'package:app_solidale/screens/servizi/page_service/form_phone.dart';
-import 'package:app_solidale/screens/servizi/page_service/repository/send_phone_repository.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FormServizio extends StatefulWidget {
-  final String title;
-  final String image;
-  const FormServizio({required this.title, required this.image});
+class AccompagnamentoOncologicoPage extends StatefulWidget {
+  const AccompagnamentoOncologicoPage({super.key});
 
   @override
-  State<FormServizio> createState() => _FormServizioState();
+  State<AccompagnamentoOncologicoPage> createState() => _AccompagnamentoOncologicoPageState();
 }
 
-class _FormServizioState extends State<FormServizio> {
+class _AccompagnamentoOncologicoPageState extends State<AccompagnamentoOncologicoPage> {
+ 
+
+
   @override
   Widget build(BuildContext context) {
+   
+
     return Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(
@@ -44,6 +46,10 @@ class _FormServizioState extends State<FormServizio> {
           ],
         ),
         drawer: NavigationDrawerWidget(),
-        body: FormPhone(title: widget.title, image: widget.image));
+        body: FormAccompagnamentoOncologico());
+  
   }
 }
+
+
+

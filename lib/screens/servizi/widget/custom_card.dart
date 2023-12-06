@@ -61,7 +61,7 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                       Flexible(
                         child: ElevatedButton.icon(
                           onPressed: onPressed,
-                          icon: const Icon(Icons.taxi_alert),
+                          icon: const SizedBox(),
                           label: const Text('Richiedi'),
                         ),
                       ),
@@ -114,10 +114,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const FormServizio(
-                                          image: PathConstants.taxiSolidale,
-                                          title: TextConstants
-                                              .infoAlertTitleTaxiSolidale,
+                                    builder: (context) => const TaxiSolidalePage(
+                                        
                                         )));
                           });
                     },
@@ -150,10 +148,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const FormServizio(
-                                      image: PathConstants.accompagnamOncolog,
-                                      title: TextConstants
-                                          .infoAlertTitleAccompagnOncol,
+                                builder: (context) =>  AccompagnamentoOncologicoPage(
+                                    
                                     )));
                       },
                       child: Text(
@@ -170,10 +166,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const FormServizio(
-                                        image: PathConstants.accompagnamOncolog,
-                                        title: TextConstants
-                                            .infoAlertTitleAccompagnOncol,
+                                  builder: (context) =>  AccompagnamentoOncologicoPage(
+                                       
                                       )));
                         },
                       );
