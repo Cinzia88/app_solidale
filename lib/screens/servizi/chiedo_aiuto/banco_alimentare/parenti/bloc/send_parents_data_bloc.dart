@@ -47,24 +47,8 @@ class SendParentsDataBloc
               message: e.toString(),
             ),
           );
-        }  
-      } else  if (event is SendParentsDisabileFormEvent) {
-        emit(SendParentsDataLoadingState());
-        try {
-          await sendDataParentsRepository.sendDisabiliParents(
-            context,
-            event.numeroDisabili,
-            event.disabile,
-          );
-          emit(SendParentsDataLoaded());
-        } catch (e) {
-          emit(
-            SendParentsDataErrorState(
-              message: e.toString(),
-            ),
-          );
         }
-      } 
+      }
     });
   }
 }

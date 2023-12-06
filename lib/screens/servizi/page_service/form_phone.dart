@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/text_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
@@ -24,8 +20,9 @@ class FormPhone extends StatefulWidget {
 }
 
 class _FormPhoneState extends State<FormPhone> {
-   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _telephoneUserController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _telephoneUserController =
+      TextEditingController();
 
   final TextEditingController _nameAnotherController = TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
@@ -33,155 +30,142 @@ class _FormPhoneState extends State<FormPhone> {
   bool forAnother = false;
   @override
   Widget build(BuildContext context) {
-     //final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return    SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: 70,
-                        child: Image.asset(
-                          widget.image,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3 * blockSizeVertical,
-                      ),
-                      Text(
-                        '${widget.title}',
-                        textAlign: TextAlign.center,
-                                              style: Theme.of(context).textTheme.titleSmall,
-
-                      ),
-                      
-                   
-                        widget.title != TextConstants.infoAlertTitleBancoAlim
-                          ?  _altriServizi() : SizedBox(),
-                          SizedBox(
-                            height: 30,
-                          ),
-                            CommonStyleButton(
-                  title: 'Clicca per essere contattato',
-                  iconWidget: Icon(Icons.contact_phone),
-                  onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                     // bloc.add(SendPhoneFormEvent(telefono: _telephoneUserController.text));
-                    }
-                    /*FocusScope.of(context).unfocus();
-                                              bloc.add(SignUpTappedEvent()); */
-                  },
-                ),
-                    ],
-                  ),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              SizedBox(
+                width: 70,
+                child: Image.asset(
+                  widget.image,
                 ),
               ),
-  );
-  
+              SizedBox(
+                height: 3 * blockSizeVertical,
+              ),
+              Text(
+                '${widget.title}',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              widget.title != TextConstants.infoAlertTitleBancoAlim
+                  ? _altriServizi()
+                  : SizedBox(),
+             const SizedBox(
+                height: 30,
+              ),
+              CommonStyleButton(
+                title: 'Clicca per essere contattato',
+                iconWidget: Icon(Icons.contact_phone),
+                onTap: () {
+                  if (_formKey.currentState!.validate()) {
+                    // bloc.add(SendPhoneFormEvent(telefono: _telephoneUserController.text));
+                  }
+                  /*FocusScope.of(context).unfocus();
+                                              bloc.add(SignUpTappedEvent()); */
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
-
-  
-
 
   _altriServizi() {
     return Column(
       children: [
         Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                  child: Row(
-                    children: [
-                      Flexible(
-                          child: Text(
-                              'Richiedo il Servizio ${widget.title} per:')),
-                    ],
-                  ),
+          padding: EdgeInsets.symmetric(vertical: 20.0),
+          child: Row(
+            children: [
+              Flexible(
+                  child: Text(
+                'Vorrei accedere al Servizio ${widget.title} per:',
+              )),
+            ],
+          ),
+        ),
+        ListTile(
+          title: forAnother == true
+              ? Text('Un Mio Familiare')
+              : Text(
+                  'Me',
                 ),
-                ListTile(
-                  title: forAnother == true
-                      ? Text('Un Mio Familiare')
-                      : Text(
-                          'Me',
-                        ),
-                  trailing: Switch(
-                      inactiveThumbColor: ColorConstants.orangeGradients3,
-                      activeColor: ColorConstants.orangeGradients3,
-                      value: forAnother,
-                      onChanged: (value) {
-                        setState(() {
-                          forAnother = value;
-                        });
+          trailing: Switch(
+              inactiveThumbColor: ColorConstants.orangeGradients3,
+              activeColor: ColorConstants.orangeGradients3,
+              value: forAnother,
+              onChanged: (value) {
+                setState(() {
+                  forAnother = value;
+                });
 
-                        //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
-                        //tale value lo salvo nel provider
-                      }),
+                //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
+                //tale value lo salvo nel provider
+              }),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        forAnother == true
+            ? Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: Column(
+                  children: [
+                    const Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Text(
+                          '(Inserisci i dati del familiare per il quale richiedi il servizio)'),
+                    ),
+                    TextFormFieldCustom(
+                      textEditingController: _nameAnotherController,
+                      labelTextCustom: 'Nome e Cognome:',
+                      obscureText: false,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Richiesto*';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormFieldCustom(
+                      textEditingController: _telepAnotherController,
+                      labelTextCustom: 'Telefono:',
+                      obscureText: false,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Richiesto*';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                forAnother == true
-                    ? Padding(
-                        padding: const EdgeInsets.only(bottom: 20.0),
-                        child: Column(
-                          children: [
-                            const Padding(
-                              padding: const EdgeInsets.only(bottom: 20.0),
-                              child: Text(
-                                  '(Inserisci i dati del familiare per il quale richiedi il servizio)'),
-                            ),
-                            TextFormFieldCustom(
-                              textEditingController: _nameAnotherController,
-                              labelTextCustom: 'Nome e Cognome:',
-                              obscureText: false,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Campo Richiesto*';
-                                }
-                                return null;
-                              },
-                            ),
-                           
-                            TextFormFieldCustom(
-                              textEditingController: _telepAnotherController,
-                              labelTextCustom: 'Telefono:',
-                              obscureText: false,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Campo Richiesto*';
-                                }
-                                return null;
-                              },
-                            ),
-                          ],
-                        ),
-                      )
-                    : SizedBox(),
-                 
-             
-              
+              )
+            : SizedBox(),
       ],
     );
   }
 
-   _servizioBancoAlimentare() {
+  _servizioBancoAlimentare() {
     //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     return const Padding(
-      padding:  EdgeInsets.only(top: 40.0),
+      padding: EdgeInsets.only(top: 40.0),
       child: Column(
-        children: [
-        ParentsPage()
-        
-                        
-        ],
+        children: [ParentsPage()],
       ),
     );
   }

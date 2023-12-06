@@ -50,7 +50,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
     return BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
       return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
         child: Material(
           elevation: 10,
           color: Colors.white,

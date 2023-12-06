@@ -4,6 +4,7 @@ import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/banco_alimentare_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/intro.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/taxi_solidale.dart';
 import 'package:app_solidale/screens/servizi/page_service/page_service.dart';
 import 'package:flutter/material.dart';
 import '../../../../const/path_constants.dart';
@@ -95,10 +96,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const FormServizio(
-                                      image: PathConstants.taxiSolidale,
-                                      title: TextConstants
-                                          .infoAlertTitleTaxiSolidale,
+                                builder: (context) => const TaxiSolidalePage(
+                                    
                                     )));
                       },
                       child: Text(

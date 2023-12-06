@@ -28,6 +28,14 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
         toolbarHeight: 75.0,
         automaticallyImplyLeading: true,
         flexibleSpace: customAppBar(context: context),
+         actions: [
+              IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ))
+            ],
       ),
       drawer: NavigationDrawerWidget(),
       body: SingleChildScrollView(
@@ -64,7 +72,7 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                 height: 20,
               ),
               Text(
-                  'Per accedere al Servizio Banco Alimentare è facile, bastano pochi semplici passi: '),
+                  'Per accedere al Servizio Banco Alimentare bastano pochi semplici passi: '),
               Text(
                   '\n1.  Inserisci il numero dei componenti familiari ed i loro dati (nome, data di nascita e grado di parentela)'),
               Text(

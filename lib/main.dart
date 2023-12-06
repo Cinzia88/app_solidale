@@ -5,6 +5,7 @@ import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
 import 'package:app_solidale/screens/menu/area_personale/cambio_password/repository/change_password_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/repository/send_docs_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_disabili_repository.dart';
 import 'package:app_solidale/screens/servizi/page_service/repository/send_phone_repository.dart';
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
@@ -65,6 +66,9 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<SendDataParentsRepository>(
           create: (context) => SendDataParentsRepository(),
+        ),
+        RepositoryProvider<SendDisabiliDataRepository>(
+          create: (context) => SendDisabiliDataRepository(),
         ),
         RepositoryProvider<SendDocsRepository>(
           create: (context) => SendDocsRepository(),

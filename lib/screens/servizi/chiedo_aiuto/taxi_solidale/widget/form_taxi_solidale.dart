@@ -3,23 +3,26 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/banco_alimentare_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc/send_disabili_data_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
-class FormDataDisabili extends StatefulWidget {
-  FormDataDisabili({Key? key}) : super(key: key);
+class FormTaxiSolidale extends StatefulWidget {
+  const FormTaxiSolidale({super.key});
+
 
   @override
-  State<FormDataDisabili> createState() => _FormDataDisabiliState();
+  State<FormTaxiSolidale> createState() => _FormTaxiSolidaleState();
 }
 
-class _FormDataDisabiliState extends State<FormDataDisabili> {
+class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameAnotherController = TextEditingController();
+  final TextEditingController _telepAnotherController = TextEditingController();
+
+  bool forAnother = false;
 
   final List<String> items = [
     '1',
@@ -50,7 +53,7 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
     final screenHeight = mediaQueryData.size.height;
     final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    final bloc = BlocProvider.of<SendParentsDataBloc>(context);
+    final bloc = BlocProvider.of<SendDisabiliDataBloc>(context);
 
     return BlocBuilder<SendDisabiliDataBloc, SendDisabiliDataState>(
         builder: (context, state) {
@@ -81,24 +84,14 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                         SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Fase 2 di 3',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                          ],
-                        ),
-                        const Divider(
-                          color: ColorConstants.orangeGradients3,
-                        ),
+                        
                         Padding(
                           padding: const EdgeInsets.only(top: 20.0),
                           child: Form(
                             key: _formKey,
                             child: Column(
                               children: [
+                                _formSelectService(),
                                 Padding(
                                   padding: EdgeInsets.symmetric(vertical: 20.0),
                                   child: Row(
@@ -250,7 +243,7 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                             title: 'Invia e Continua',
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
-                                bloc.add(SendParentsDisabileFormEvent(
+                                bloc.add(SendDisabiliFormEvent(
                                     numeroDisabili: selectedValue,
                                     disabile: disabile));
                               }
@@ -264,48 +257,86 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
             );
     });
   }
+
+   _formSelectService() {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 20.0),
+          child: Row(
+            children: [
+              Flexible(
+                  child: Text(
+                'Vorrei accedere al Servizio Taxi Solidale per:',
+              )),
+            ],
+          ),
+        ),
+        ListTile(
+          title: forAnother == true
+              ? Text('Un Mio Familiare')
+              : Text(
+                  'Me',
+                ),
+          trailing: Switch(
+              inactiveThumbColor: ColorConstants.orangeGradients3,
+              activeColor: ColorConstants.orangeGradients3,
+              value: forAnother,
+              onChanged: (value) {
+                setState(() {
+                  forAnother = value;
+                });
+
+                //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
+                //tale value lo salvo nel provider
+              }),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        forAnother == true
+            ? Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: Column(
+                  children: [
+                    const Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Text(
+                          '(Inserisci i dati del familiare per il quale richiedi il servizio)'),
+                    ),
+                    TextFormFieldCustom(
+                      textEditingController: _nameAnotherController,
+                      labelTextCustom: 'Nome e Cognome:',
+                      obscureText: false,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Richiesto*';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormFieldCustom(
+                      textEditingController: _telepAnotherController,
+                      labelTextCustom: 'Telefono:',
+                      obscureText: false,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Richiesto*';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
+              )
+            : SizedBox(),
+      ],
+    );
+  }
+
 }
 
 
 
 
 
-/*const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Flexible(
-                                          child: Text(
-                                              'Nel nucleo familiare è presente una persona con invalidità?')),
-                                    ],
-                                  ),
-                                ),
-                                ListTile(
-                                  title: yes == true
-                                      ? Text('Sì')
-                                      : Text(
-                                          'No',
-                                        ),
-                                  trailing: Switch(
-                                      inactiveThumbColor:
-                                          ColorConstants.orangeGradients3,
-                                      activeColor:
-                                          ColorConstants.orangeGradients3,
-                                      value: yes,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          yes = value;
-                                        });
-                                        if (yes == true) {
-                                          setState(() {
-                                            disabile = 'sì';
-                                          });
-                                        } else {
-                                          disabile = 'no';
-                                        }
-
-                                        //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
-                                        //tale value lo salvo nel provider
-                                      }),
-                                ), */

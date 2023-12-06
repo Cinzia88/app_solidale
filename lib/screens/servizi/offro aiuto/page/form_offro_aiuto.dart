@@ -1,5 +1,6 @@
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
+import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _OffroAiutoPageState extends State<OffroAiutoPage> {
           color: Colors.white,
         ),
         toolbarHeight: 75.0,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         flexibleSpace: customAppBar(context: context),
         actions: [
           IconButton(
@@ -36,31 +37,42 @@ class _OffroAiutoPageState extends State<OffroAiutoPage> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              Column(
-                children: [
-                  Text(
-                    'Offro Aiuto',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  const Divider(
-                    color: ColorConstants.orangeGradients3,
-                  ),
-                  Text(
-                      'Desideri donare il tuo tempo e particolare attenzione a chi ha più bisogno?'),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'SEI IL BENVENUTO!',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                      'Puoi partecipare come volontario a tante iniziative di solidarietà attivate presso la nostra associazione. \nSarai contattato per fissare un colloquio'),
-                ],
+              Text(
+                'Offro Aiuto',
+                style: Theme.of(context).textTheme.titleSmall,
               ),
+              const Divider(
+                color: ColorConstants.orangeGradients3,
+              ),
+              SizedBox(
+                  height: 20,
+                 ),
+             const Text(
+                  'Desideri donare il tuo tempo e particolare attenzione a chi ha più bisogno?'),
+            const  SizedBox(
+                height: 20,
+              ),
+              Text(
+                'SEI IL BENVENUTO!',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+           const   SizedBox(
+                height: 20,
+              ),
+             const Text(
+                  'Puoi partecipare come volontario a tante iniziative di solidarietà attivate presso la nostra associazione, per garantire soluzioni concrete a persone in stato di vulnerabilità. \nSarai contattato per fissare un colloquio, nel corso del quale, possiamo concordare modi e tempi ideali per ognuno.'),
+             SizedBox(
+              height: 50,
+             ),
+             CommonStyleButton(
+            title: 'Clicca per essere contattato',
+            iconWidget: Icon(Icons.contact_phone),
+            onTap: () {
+            
+              /*FocusScope.of(context).unfocus();
+                                          bloc.add(SignUpTappedEvent()); */
+            },
+          ),
             ],
           ),
         ),

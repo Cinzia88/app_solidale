@@ -1,10 +1,12 @@
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
+import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto.dart';
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
 import 'package:app_solidale/screens/home/widgets/payment_form.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 // ignore: must_be_immutable
 class CustomCard extends StatelessWidget {
@@ -47,7 +49,10 @@ class CustomCard extends StatelessWidget {
             height: 30,
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => OffroAiutoPage()));
+            },
             child: CustomCardsCommon(
               child: CustomContainerService(
                 title: titleOffroAiuto,
@@ -66,8 +71,7 @@ class CustomCard extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () async {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => DonazioniPage()));
+              launchUrlString('https://www.anfam.net/come-sostenerci');
             },
          
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
