@@ -19,18 +19,18 @@ class SignupRepository {
   Future registerUserWithVerificationEmail(
     BuildContext context,
     String nome,
-    String email,
     String indirizzo,
     String telefono,
+    String email,
     String password,
     String confirmPassword,
   ) {
     return registerUser(
       context,
       nome,
-      email,
       indirizzo,
       telefono,
+      email,
       password,
       confirmPassword,
     ).then((value) {
@@ -41,9 +41,9 @@ class SignupRepository {
   Future registerUser(
     BuildContext context,
     String nome,
-    String email,
     String indirizzo,
     String telefono,
+    String email,
     String password,
     String confirmPassword,
   ) async {
@@ -57,9 +57,9 @@ class SignupRepository {
           },
           body: jsonEncode({
             'name': nome,
-            'email': email,
             'indirizzo': indirizzo,
             'telefono': telefono,
+            'email': email,
             'password': password,
             'confirm_password': confirmPassword,
           }));
@@ -73,7 +73,6 @@ class SignupRepository {
           bool profiloCompleto = false;
           await valueSharedPrefsViewSlide.setProfileComplete(profiloCompleto);
           await secureStorage.writeSecureData('token', token);
-          globals.profiloCompleto = false;
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: ColorConstants.orangeGradients3,

@@ -19,14 +19,14 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(SignupLoadingState());
         try {
           await signupRepository.registerUserWithVerificationEmail(
-              context,
-              event.nome,
-              event.email,
-              event.indirizzo,
-              event.telefono,
-              event.password,
-              event.confirmPassword,
-             );
+            context,
+            event.nome,
+            event.indirizzo,
+            event.telefono,
+            event.email,
+            event.password,
+            event.confirmPassword,
+          );
           emit(SignupLoaded());
           emit(SignUpSuccessState());
         } catch (e) {
@@ -37,8 +37,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           );
         }
       } else if (event is SignInTappedEvent) {
-          emit(NextSignInPageState());
-        }
+        emit(NextSignInPageState());
+      }
     });
   }
 }

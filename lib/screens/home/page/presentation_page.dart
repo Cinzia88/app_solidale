@@ -1,6 +1,10 @@
+import 'package:app_solidale/const/list_id_service.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
+import 'package:app_solidale/screens/signin/repository/signin_repository.dart';
 import 'package:flutter/material.dart';
 import '../widgets/custom_cards.dart';
 
@@ -13,31 +17,49 @@ class PresentationPage extends StatefulWidget {
 }
 
 class _PresentationPageState extends State<PresentationPage> {
-
-
-@override
+  
+  @override
   void initState() {
     super.initState();
-    ReadDataUserRepository().readUser(context);
+    readUser().then((value) {
+      getDataService();
+    });
+  }
+
+  Future readUser() async{
+var data = await ReadDataUserRepository().readUser(context);
+setState(() {
+  globals.userData = data;
+});
+  }
+
+  Future getDataService() async {
+    var dataService = await SignInRepository().getService(context);
+    setState(() {
+      globals.serviceOffroAiutoID = dataService[0].id.toString();
+      globals.serviceChiedoAiutoID = dataService[1].id.toString();
+    });
+
+    return dataService;
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-             appBar: AppBar(
-           iconTheme: const IconThemeData(
-            color: Colors.white,
-           ),
-            toolbarHeight: 75.0,
-            automaticallyImplyLeading: true,
-            flexibleSpace: customAppBar(context: context),
-          ),
-          drawer: NavigationDrawerWidget(),
-            body: Center(
-              child: SingleChildScrollView(
-                child: CustomCard(),
-              ),
-            ),
-          );
-        }
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        toolbarHeight: 75.0,
+        automaticallyImplyLeading: true,
+        flexibleSpace: customAppBar(context: context),
+      ),
+      drawer: NavigationDrawerWidget(),
+      body: Center(
+        child: SingleChildScrollView(
+          child: CustomCard(),
+        ),
+      ),
+    );
+  }
 }

@@ -8,5 +8,6 @@ dynamic tokenValue;
 String? userId;
 String? typeRichiesta;
 bool? viewSlide;
-bool profiloCompleto = false;
 UserData? userData;
+String? serviceChiedoAiutoID;
+String? serviceOffroAiutoID;

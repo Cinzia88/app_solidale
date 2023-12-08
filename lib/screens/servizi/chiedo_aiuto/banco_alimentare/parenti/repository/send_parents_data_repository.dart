@@ -13,72 +13,7 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 
 class SendDataParentsRepository {
-  Future sendNumberParents(
-      BuildContext context, String numeroComponenti, ) async {
-    try {
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/numero-componenti';
-      // Await the http get response, then decode the json-formatted response.
-      var response = await http.post(Uri.parse(url),
-          headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json',
-            'Authorization': 'Bearer ${globals.tokenValue}'
-          },
-          body: jsonEncode({
-            'numero_componenti': numeroComponenti,
-          }));
-      print('statuscodeNumber ${response.statusCode}');
-   
 
-      switch (response.statusCode) {
-        case 200:
-            // ignore: use_build_context_synchronously
-            
-          break;
-        case 401:
-          Navigator.of(context, rootNavigator: true).pushReplacement(
-              MaterialPageRoute(builder: (context) => PresentationPage()));
-
-          break;
-        case 400:
-          String message = 'Utente non trovato';
-          Navigator.of(context, rootNavigator: true).pushReplacement(
-              MaterialPageRoute(builder: (context) => PresentationPage()));
-          // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.red,
-              content: Text(
-                message,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              )));
-          break;
-        case 500:
-          String message =
-              'Errore Server: impossibile stabilire una connessione';
-          Navigator.of(context, rootNavigator: true).pushReplacement(
-              MaterialPageRoute(builder: (context) => PresentationPage()));
-          // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.red,
-              content: Text(
-                message,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              )));
-          break;
-        default:
-          print('errore generico');
-      }
-
-      return response;
-    } catch (e) {}
-
-  }
 
 
 

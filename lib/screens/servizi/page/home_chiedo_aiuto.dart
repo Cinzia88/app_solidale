@@ -2,7 +2,7 @@
 
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/servizi/widget/custom_card.dart';
+import 'package:app_solidale/screens/servizi/page/custom_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../../const/color_constants.dart';

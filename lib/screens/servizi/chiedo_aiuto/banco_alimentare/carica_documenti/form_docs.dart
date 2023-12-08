@@ -107,7 +107,7 @@ class _FormDocsState extends State<FormDocs> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            'Fase 2 di 2',
+                            'Fase 2 di 3',
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ],

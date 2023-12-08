@@ -5,7 +5,7 @@ import 'package:app_solidale/screens/home/widgets/custom_container_service.dart'
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/banco_alimentare_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/intro.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/taxi_solidale.dart';
-import 'package:app_solidale/screens/servizi/page_service/page_service.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/page_acc_onc.dart';
 import 'package:flutter/material.dart';
 import '../../../../const/path_constants.dart';
 

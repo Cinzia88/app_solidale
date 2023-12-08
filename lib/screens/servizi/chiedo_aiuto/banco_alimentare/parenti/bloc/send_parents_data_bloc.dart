@@ -15,23 +15,7 @@ class SendParentsDataBloc
     required this.context,
     required this.sendDataParentsRepository,
   }) : super(SendParentsDataInitial()) {
-    on<SendParentsDataEvent>((event, emit) async {
-      if (event is SendParentsNumberFormEvent) {
-        emit(SendParentsDataLoadingState());
-        try {
-          await sendDataParentsRepository.sendNumberParents(
-            context,
-            event.numeroComponenti,
-          );
-          emit(SendParentsDataLoaded());
-        } catch (e) {
-          emit(
-            SendParentsDataErrorState(
-              message: e.toString(),
-            ),
-          );
-        }
-      } else if (event is SendParentsFormEvent) {
+    on<SendParentsFormEvent>((event, emit) async {
         emit(SendParentsDataLoadingState());
         try {
           await sendDataParentsRepository.sendDataParents(
@@ -48,7 +32,7 @@ class SendParentsDataBloc
             ),
           );
         }
-      }
+      
     });
   }
 }

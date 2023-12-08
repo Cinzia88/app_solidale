@@ -31,52 +31,58 @@ int _value = 1;
     final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
 
-    return  SingleChildScrollView(
-            child: Padding(
-                padding: const EdgeInsets.all(
-                  20.0,
-                ),
-                child: Column(children: [
-                  SizedBox(
-                    width: 70,
-                    child: Image.asset(
-                      PathConstants.accompagnamOncolog,
+    return  Stack(
+      children: [
+        SingleChildScrollView(
+                child: Padding(
+                    padding: const EdgeInsets.all(
+                      20.0,
                     ),
-                  ),
-                  SizedBox(
-                    height: 3 * blockSizeVertical,
-                  ),
-                  Text(
-                    'Accompagnamento Oncologico',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  
-                  
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          _formSelectService(),
-                        
-                              
-                        ],
+                    child: Column(children: [
+                      SizedBox(
+                        width: 70,
+                        child: Image.asset(
+                          PathConstants.accompagnamOncolog,
+                        ),
                       ),
+                      SizedBox(
+                        height: 3 * blockSizeVertical,
+                      ),
+                      Text(
+                        'Accompagnamento Oncologico',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      
+                      
+                      Form(
+                        key: _formKey,
+                        child: _formSelectService(),
+                      ),
+                       
+            
+                    ])),
+              ),
+              Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20.0, horizontal: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CommonStyleButton(
+                            title: 'Invia',
+                            onTap: () {
+                              
+                            },
+                            iconWidget: Text('')),
+                      ],
                     ),
                   ),
-                    CommonStyleButton(
-            title: 'Clicca per essere contattato',
-            iconWidget: Icon(Icons.contact_phone),
-            onTap: () {
-            
-              /*FocusScope.of(context).unfocus();
-                                    bloc.add(SignUpTappedEvent()); */
-            },
-          ),
-                ])),
-          );
+                ),
+      ],
+    );
     }
   
 
@@ -89,7 +95,7 @@ int _value = 1;
             children: [
               Flexible(
                   child: Text(
-                'Vorrei accedere al Servizio Taxi Solidale per:',
+                'Vorrei accedere al Servizio Accompagnamento Oncologico per:',
               )),
             ],
           ),
@@ -159,7 +165,7 @@ int _value = 1;
         ),
         _value == 2
             ? Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
+                padding: const EdgeInsets.only(bottom: 80.0),
                 child: Column(
                   children: [
                     const Padding(
@@ -189,6 +195,7 @@ int _value = 1;
                         return null;
                       },
                     ),
+                    
                   ],
                 ),
               )

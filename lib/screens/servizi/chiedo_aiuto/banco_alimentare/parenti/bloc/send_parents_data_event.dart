@@ -7,16 +7,6 @@ abstract class SendParentsDataEvent extends Equatable {
 
 // ignore: must_be_immutable
 
-class SendParentsNumberFormEvent extends SendParentsDataEvent {
-   String numeroComponenti;
- 
-  SendParentsNumberFormEvent({
-    required this.numeroComponenti,
-   
-  });
-  @override
-  List<Object?> get props => [numeroComponenti, ];
-}
 class SendParentsDisabileFormEvent extends SendParentsDataEvent {
    String numeroDisabili;
   String disabile;

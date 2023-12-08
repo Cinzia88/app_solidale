@@ -6,7 +6,6 @@ import 'package:app_solidale/screens/menu/area_personale/cambio_password/reposit
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/repository/send_docs_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_disabili_repository.dart';
-import 'package:app_solidale/screens/servizi/page_service/repository/send_phone_repository.dart';
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
@@ -72,9 +71,6 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<SendDocsRepository>(
           create: (context) => SendDocsRepository(),
-        ),
-        RepositoryProvider<SendPhoneRepository>(
-          create: (context) => SendPhoneRepository(),
         ),
       ],
       child: OneNotification(builder: (_, __) {

@@ -11,14 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
-class FormDataDisabili extends StatefulWidget {
-  FormDataDisabili({Key? key}) : super(key: key);
+class FormDataDisabiliTaxi extends StatefulWidget {
+  FormDataDisabiliTaxi({Key? key}) : super(key: key);
 
   @override
-  State<FormDataDisabili> createState() => _FormDataDisabiliState();
+  State<FormDataDisabiliTaxi> createState() => _FormDataDisabiliTaxiState();
 }
 
-class _FormDataDisabiliState extends State<FormDataDisabili> {
+class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
   final _formKey = GlobalKey<FormState>();
 
   final List<String> items = [
@@ -85,7 +85,7 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              'Fase 2 di 3',
+                              'Fase 2 di 2',
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                           ],
@@ -247,7 +247,7 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         CommonStyleButton(
-                            title: 'Invia e Continua',
+                            title: 'Invia',
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 bloc.add(SendDisabiliFormEvent(

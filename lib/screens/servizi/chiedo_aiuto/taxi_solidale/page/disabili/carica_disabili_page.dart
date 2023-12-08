@@ -21,14 +21,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-class DisabiliPage extends StatefulWidget {
-  const DisabiliPage({super.key});
+class DisabiliTaxiPage extends StatefulWidget {
+  const DisabiliTaxiPage({super.key});
 
   @override
-  State<DisabiliPage> createState() => _DisabiliPageState();
+  State<DisabiliTaxiPage> createState() => _DisabiliTaxiPageState();
 }
 
-class _DisabiliPageState extends State<DisabiliPage> {
+class _DisabiliTaxiPageState extends State<DisabiliTaxiPage> {
  
 
 

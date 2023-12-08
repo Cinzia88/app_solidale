@@ -82,19 +82,6 @@ class _SignUpFormState extends State<SignUpForm> {
                         },
                       ),
                       TextFormFieldCustom(
-                        textEditingController: _emailController,
-                        labelTextCustom: 'Email:',
-                        obscureText: false,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Campo Richiesto*';
-                          } else if (!Validators.isValidEmail(value)) {
-                            return 'Inserisci un\' email valida';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormFieldCustom(
                         textEditingController: _addressController,
                         labelTextCustom: 'Indirizzo:',
                         obscureText: false,
@@ -113,6 +100,19 @@ class _SignUpFormState extends State<SignUpForm> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Campo Richiesto*';
+                          }
+                          return null;
+                        },
+                      ),
+                       TextFormFieldCustom(
+                        textEditingController: _emailController,
+                        labelTextCustom: 'Email:',
+                        obscureText: false,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo Richiesto*';
+                          } else if (!Validators.isValidEmail(value)) {
+                            return 'Inserisci un\' email valida';
                           }
                           return null;
                         },
@@ -175,9 +175,9 @@ class _SignUpFormState extends State<SignUpForm> {
                           if (_formKey.currentState!.validate()) {
                             bloc.add(SignUpTappedEvent(
                               nome: _nameController.text,
-                              email: _emailController.text,
                               indirizzo: _addressController.text,
                               telefono: _phoneController.text,
+                              email: _emailController.text,
                               password: _passwordController.text,
                               confirmPassword: _confirmPasswordController.text,
                             ));
