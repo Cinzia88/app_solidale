@@ -3,6 +3,7 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/disabili/carica_disabili_page.dart';
 import 'package:flutter/material.dart';
@@ -168,7 +169,6 @@ class _FormDataParentsState extends State<FormDataParents> {
         ],
       );
     });
-    print(growableList);
     return BlocBuilder<SendParentsDataBloc, SendParentsDataState>(
         builder: (context, state) {
       return state is SendParentsDataLoadingState
@@ -349,6 +349,7 @@ class _FormDataParentsState extends State<FormDataParents> {
                                                 dataDiNascitaParente: anni,
                                                 gradoParente: grado));
                                           }
+                                          Navigator.push(context, MaterialPageRoute(builder: (_) => DisabiliPage()));
                                         }
                                       },
                                       iconWidget: Text('')),

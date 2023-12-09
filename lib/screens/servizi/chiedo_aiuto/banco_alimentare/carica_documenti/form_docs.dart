@@ -8,6 +8,7 @@ import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/bloc/send_docs_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/disabili/carica_disabili_page.dart';
+import 'package:app_solidale/screens/servizi/page_success_send_data/success_send_data_page.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,8 @@ class FormDocs extends StatefulWidget {
 
 class _FormDocsState extends State<FormDocs> {
   final _formKey = GlobalKey<FormState>();
-  final List<File> imagesList = [];
-  final List<File> filePdf = [];
+  List<File> imagesList = [];
+  List<File> filePdf = [];
   final List<String> items = [
     'Carta d\'identità',
     'ISEE',
@@ -49,11 +50,11 @@ class _FormDocsState extends State<FormDocs> {
         for (int i = 0; i < files.length; i++) {
           if (files[i].path.split('.').last == 'pdf') {
             setState(() {
-              filePdf.addAll(files);
+              filePdf = files;
             });
           } else {
             setState(() {
-              imagesList.addAll(files);
+              imagesList = files;
             });
           }
         }
@@ -107,7 +108,7 @@ class _FormDocsState extends State<FormDocs> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            'Fase 2 di 3',
+                            'Fase 3 di 3',
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ],
@@ -218,9 +219,13 @@ class _FormDocsState extends State<FormDocs> {
                                       child: Stack(
                                         fit: StackFit.expand,
                                         children: [
-                                          Image.file(
-                                            File(imagesList[index].path),
-                                            fit: BoxFit.cover,
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 20.0),
+                                            child: Image.file(
+                                              File(imagesList[index].path),
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                           Positioned(
                                             right: -4,
@@ -315,6 +320,14 @@ class _FormDocsState extends State<FormDocs> {
                                   body: body,
                                   imagepath: imagesList,
                                   pdfpath: filePdf));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => SuccessSendDataPage(
+                                        titleService: 'Banco Alimentare',
+                                        image: PathConstants.bancoAlim,
+                                        message: 'stiamo elaborando i tuoi dati',
+                                      )));
 
                               FocusScope.of(context).unfocus();
                             }

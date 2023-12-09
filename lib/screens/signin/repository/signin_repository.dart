@@ -28,6 +28,7 @@ class SignInRepository {
             'email': email,
             'password': password,
           }));
+          print('error login ${response.statusCode}');
       switch (response.statusCode) {
         case 200:
           String token = jsonDecode(response.body)["token"];
@@ -38,6 +39,20 @@ class SignInRepository {
             MaterialPageRoute(builder: (_) => PresentationPage()),
           );
 
+          break;
+            case 400:
+          String message = 'Email non verificata';
+
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
           break;
         case 422:
           String message = 'Credenziali non corrette';

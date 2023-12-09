@@ -11,3 +11,4 @@ bool? viewSlide;
 UserData? userData;
 String? serviceChiedoAiutoID;
 String? serviceOffroAiutoID;
+int? statusCode;

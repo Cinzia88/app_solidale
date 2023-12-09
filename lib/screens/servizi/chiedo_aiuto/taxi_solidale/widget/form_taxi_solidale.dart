@@ -1,13 +1,17 @@
 import 'package:app_solidale/const/color_constants.dart';
+import 'package:app_solidale/const/list_id_service.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/disabili/carica_disabili_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc/send_disabili_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/carica_disabili_page_taxi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 class FormTaxiSolidale extends StatefulWidget {
   const FormTaxiSolidale({super.key});
@@ -57,11 +61,10 @@ int _valueDisable = 3;
     final screenHeight = mediaQueryData.size.height;
     final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    final bloc = BlocProvider.of<SendDisabiliDataBloc>(context);
+    final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
 
-    return BlocBuilder<SendDisabiliDataBloc, SendDisabiliDataState>(
-        builder: (context, state) {
-      return state is SendDisabiliDataLoadingState
+    return BlocBuilder<SendDataTypeServiceBloc, SendDataTypeServiceState>(builder: (context, state) {
+      return  state is SendDisabiliDataLoadingState
           ? loadingWidget(context)
           : Stack(
             children: [
@@ -119,8 +122,9 @@ int _valueDisable = 3;
                         CommonStyleButton(
                             title: 'Invia e Continua',
                             onTap: () {
-                              
-                              
+                                bloc.add(SendDataTypeServiceEvent(serviceId: globals.serviceChiedoAiutoID!, tipoRichiesta: ListChiedoAiuto.nameServiceChiedoAiuto[0], nome: _value == 1 ? globals.userData!.nome : _nameAnotherController.text, telefono: _value == 1 ? globals.userData!.telefono : _telepAnotherController.text));
+                            FocusScope.of(context).unfocus();
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => DisabiliTaxiPage()));
                             },
                             iconWidget: Text('')),
                       ],

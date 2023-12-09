@@ -41,7 +41,7 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
   String selectedValue = '1';
 
   bool yes = false;
-  String disabile = 'no';
+  int disabile = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -128,17 +128,17 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
                                         });
                                         if (yes == true) {
                                           setState(() {
-                                            disabile = 'sì';
+                                            disabile = 1;
                                           });
                                         } else {
-                                          disabile = 'no';
+                                          disabile = 0;
                                         }
 
                                         //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
                                         //tale value lo salvo nel provider
                                       }),
                                 ),
-                                disabile == 'no'
+                                disabile == 0
                                     ? SizedBox()
                                     : Padding(
                                         padding:

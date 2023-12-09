@@ -36,8 +36,8 @@ setState(() {
   Future getDataService() async {
     var dataService = await SignInRepository().getService(context);
     setState(() {
-      globals.serviceOffroAiutoID = dataService[0].id.toString();
-      globals.serviceChiedoAiutoID = dataService[1].id.toString();
+      globals.serviceOffroAiutoID = dataService.isNotEmpty ? dataService[0].id.toString() : '';
+      globals.serviceChiedoAiutoID = dataService.isNotEmpty ? dataService[1].id.toString() : '';
     });
 
     return dataService;

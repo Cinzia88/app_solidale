@@ -9,7 +9,7 @@ abstract class SendDisabiliDataEvent extends Equatable {
 
 class SendDisabiliFormEvent extends SendDisabiliDataEvent {
  String numeroDisabili;
-  String disabile; 
+  int disabile; 
   SendDisabiliFormEvent({
  required this.numeroDisabili,
     required this.disabile,   

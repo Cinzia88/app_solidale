@@ -3,21 +3,23 @@ import 'dart:io';
 
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/disabili/carica_disabili_page.dart';
-import 'package:app_solidale/secure_storage/secure_storage.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 
-class SendDisabiliDataRepository {
- 
-Future sendDisabiliData(
-      BuildContext context, String numeroDisabili, int disabile) async {
+class SendDataTypeServiceRepository {
+  Future sendDataTypeservice(
+    BuildContext context,
+    String serviceId,
+    String tipoRichiesta,
+    String nome,
+    String telefono,
+  ) async {
     try {
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/disabile';
+      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta';
       // Await the http get response, then decode the json-formatted response.
       var response = await http.post(Uri.parse(url),
           headers: {
@@ -26,16 +28,16 @@ Future sendDisabiliData(
             'Authorization': 'Bearer ${globals.tokenValue}'
           },
           body: jsonEncode({
-            'numero_disabili': numeroDisabili,
-            'disabile': disabile,
+            'id_service': serviceId,
+            'tipo_richiesta': tipoRichiesta,
+            'nome': nome,
+            'telefono': telefono,
           }));
-      print('statuscodeNumberDis ${response.statusCode}');
-      print('disabile ${disabile}');
+      print('statuscodedata ${response.statusCode}');
 
       switch (response.statusCode) {
         case 200:
-            // ignore: use_build_context_synchronously
-           
+         
           break;
         case 401:
           Navigator.of(context, rootNavigator: true).pushReplacement(
@@ -79,11 +81,5 @@ Future sendDisabiliData(
 
       return response;
     } catch (e) {}
-
   }
-
-
-
-  
-   
 }

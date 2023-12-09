@@ -1,12 +1,13 @@
 import 'package:app_solidale/const/color_constants.dart';
+import 'package:app_solidale/const/list_id_service.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc/send_disabili_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/bloc/send_data_type_service_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 class FormAccompagnamentoOncologico extends StatefulWidget {
   const FormAccompagnamentoOncologico({super.key});
@@ -30,8 +31,10 @@ int _value = 1;
     final screenHeight = mediaQueryData.size.height;
     final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
+final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
 
-    return  Stack(
+    return BlocBuilder<SendDataTypeServiceBloc, SendDataTypeServiceState>(builder: (context, state) {
+      return  Stack(
       children: [
         SingleChildScrollView(
                 child: Padding(
@@ -74,7 +77,9 @@ int _value = 1;
                         CommonStyleButton(
                             title: 'Invia',
                             onTap: () {
-                              
+                               
+                              bloc.add(SendDataTypeServiceEvent(serviceId: globals.serviceChiedoAiutoID!, tipoRichiesta: ListChiedoAiuto.nameServiceChiedoAiuto[1], nome: _value == 1 ? globals.userData!.nome : _nameAnotherController.text, telefono: _value == 1 ? globals.userData!.telefono : _telepAnotherController.text));
+                            FocusScope.of(context).unfocus();
                             },
                             iconWidget: Text('')),
                       ],
@@ -83,6 +88,7 @@ int _value = 1;
                 ),
       ],
     );
+    });
     }
   
 
@@ -203,7 +209,7 @@ int _value = 1;
       ],
     );
   }
-
+    
 }
 
 

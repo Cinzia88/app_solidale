@@ -5,6 +5,7 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/paren
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/form_data_parents.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc/send_disabili_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/form_data_disabili_taxi.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_disabili_repository.dart';
 import 'package:flutter/services.dart';
 
@@ -67,7 +68,7 @@ class _DisabiliTaxiPageState extends State<DisabiliTaxiPage> {
               );
             }
           }, builder: (context, state) {
-            return FormDataDisabili();
+            return FormDataDisabiliTaxi();
   })));
   }
 }

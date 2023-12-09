@@ -7,7 +7,7 @@ class DataServiceModel {
   });
  
 factory DataServiceModel.fromJson(Map<String, dynamic> data) => DataServiceModel(
-      dataService: List<GetServiceModel>.from(data['dataService'].map((x) => GetServiceModel.fromJson(x))),
+      dataService: data['dataService'] != null ? List<GetServiceModel>.from(data['dataService'].map((x) => GetServiceModel.fromJson(x))) : [],
       );
 
  

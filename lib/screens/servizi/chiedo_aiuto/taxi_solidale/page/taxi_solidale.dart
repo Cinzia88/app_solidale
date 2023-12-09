@@ -1,3 +1,5 @@
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/bloc/send_data_type_service_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/disabili/form_data_disabili.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
@@ -27,10 +29,11 @@ class _TaxiSolidalePageState extends State<TaxiSolidalePage> {
   Widget build(BuildContext context) {
    
 
-    return BlocProvider<SendDisabiliDataBloc>(
-      create: (context) => SendDisabiliDataBloc(
+    return BlocProvider<SendDataTypeServiceBloc>(
+      create: (context) => SendDataTypeServiceBloc(
         context: context,
-        sendDisabiliDataRepository: context.read<SendDisabiliDataRepository>(),
+        sendDataTypeServiceRepository:
+            context.read<SendDataTypeServiceRepository>(),
       ),
       child: Scaffold(
           appBar: AppBar(
@@ -50,14 +53,14 @@ class _TaxiSolidalePageState extends State<TaxiSolidalePage> {
             ],
           ),
           drawer: NavigationDrawerWidget(),
-          body: BlocConsumer<SendDisabiliDataBloc, SendDisabiliDataState>(
-              listener: (context, state) {
-            if (state is SendDisabiliDataErrorState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
-            }
-          }, builder: (context, state) {
+          body: BlocConsumer<SendDataTypeServiceBloc, SendDataTypeServiceState>(
+            listener: (context, state) {
+          if (state is SendDataTypeServiceErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
+          }
+        }, builder: (context, state) {
             return FormTaxiSolidale();
   })));
   }

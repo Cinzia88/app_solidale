@@ -23,7 +23,10 @@ class ModificaDatiPage extends StatefulWidget {
 
 class _ModificaDatiPageState extends State<ModificaDatiPage> {
     final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   
   @override
@@ -61,6 +64,8 @@ class _ModificaDatiPageState extends State<ModificaDatiPage> {
          if (state is ReadUserLoadedState) {
          _nameController.text = state.data.nome;
          _emailController.text = state.data.email;
+         _addressController.text = state.data.indirizzo;
+         _phoneController.text =  state.data.telefono;
         }
         return;
       }, builder: (context, state) {
@@ -103,6 +108,16 @@ class _ModificaDatiPageState extends State<ModificaDatiPage> {
                                       TextFormFieldCustom(
                                         textEditingController: _nameController,
                                         labelTextCustom: 'Nome e Cognome:',
+                                        obscureText: false,
+                                      ),
+                                      TextFormFieldCustom(
+                                        textEditingController: _addressController,
+                                        labelTextCustom: 'Indirizzo:',
+                                        obscureText: false,
+                                      ),
+                                      TextFormFieldCustom(
+                                        textEditingController: _phoneController,
+                                        labelTextCustom: 'Telefono:',
                                         obscureText: false,
                                       ),
                                      

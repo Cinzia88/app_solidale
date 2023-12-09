@@ -1,11 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/disabili/carica_disabili_page.dart';
-import 'package:app_solidale/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -14,12 +10,6 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
 
 class SendDataParentsRepository {
 
-
-
-
-
-
-  
     Future sendDataParents(
         BuildContext context, String nome, String data, String grado) async {
       try {
@@ -37,9 +27,7 @@ class SendDataParentsRepository {
               'grado': grado,
             }));
         print('statuscodedata ${response.statusCode}');
-        print('statuscodenome ${nome}');
-        print('statuscodeanni ${data}');
-        print('statuscodegrado${grado}');
+      
 
         switch (response.statusCode) {
           case 200:

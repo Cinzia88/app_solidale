@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:app_solidale/const/color_constants.dart';
+import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
+import 'package:app_solidale/screens/servizi/page_success_send_data/success_send_data_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -58,18 +60,16 @@ print('sendimage success ${request.files.length}');
 
         switch (response.statusCode) {
           case 200:
-              String message = 'Documenti inviati con successo';
-            Navigator.of(context).pop();
+              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => SuccessSendDataPage(
+                                        titleService: 'Banco Alimentare',
+                                        image: PathConstants.bancoAlim,
+                                        message: 'stiamo elaborando i tuoi dati',
+                                      )));
             // ignore: use_build_context_synchronously
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                backgroundColor: ColorConstants.orangeGradients3,
-                content: Text(
-                  message,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )));
+            
             break;
           case 401:
             Navigator.of(context, rootNavigator: true).pushReplacement(
@@ -94,9 +94,7 @@ print('sendimage success ${request.files.length}');
           case 500:
             String message =
                 'Errore Server: impossibile stabilire una connessione';
-            Navigator.of(context, rootNavigator: true).pushReplacement(
-                MaterialPageRoute(builder: (context) => PresentationPage()));
-            // ignore: use_build_context_synchronously
+           
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.red,
                 content: Text(

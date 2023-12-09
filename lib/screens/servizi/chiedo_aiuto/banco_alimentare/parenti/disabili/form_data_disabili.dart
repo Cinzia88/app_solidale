@@ -41,7 +41,7 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
   String selectedValue = '1';
 
   bool yes = false;
-  String disabile = 'no';
+  int disabile = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                           height: 3 * blockSizeVertical,
                         ),
                         Text(
-                          'Taxi Solidale',
+                          'Banco Alimentare',
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
@@ -128,17 +128,17 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                                         });
                                         if (yes == true) {
                                           setState(() {
-                                            disabile = 'sì';
+                                            disabile = 1;
                                           });
                                         } else {
-                                          disabile = 'no';
+                                          disabile = 0;
                                         }
 
                                         //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
                                         //tale value lo salvo nel provider
                                       }),
                                 ),
-                                disabile == 'no'
+                                disabile == 0
                                     ? SizedBox()
                                     : Padding(
                                         padding:
@@ -251,8 +251,10 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 bloc.add(SendDisabiliFormEvent(
-                                    numeroDisabili: selectedValue,
+                                    numeroDisabili: disabile == 0 ? '0' : selectedValue,
                                     disabile: disabile));
+                                                                              Navigator.push(context, MaterialPageRoute(builder: (_) => CaricaDocsPage()));
+
                               }
                             },
                             iconWidget: Text('')),
