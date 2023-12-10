@@ -7,6 +7,7 @@ abstract class SendDisabiliDataEvent extends Equatable {
 
 // ignore: must_be_immutable
 
+// ignore: must_be_immutable
 class SendDisabiliFormEvent extends SendDisabiliDataEvent {
  String numeroDisabili;
   int disabile; 

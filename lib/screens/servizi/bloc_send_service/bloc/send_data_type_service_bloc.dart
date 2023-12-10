@@ -1,7 +1,5 @@
-import 'dart:io';
 
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/repository/send_docs_repository.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/repository/send_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';

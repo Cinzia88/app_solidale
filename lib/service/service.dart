@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
@@ -9,7 +6,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
-import 'package:image_picker/image_picker.dart';
 
 class Service {
   SecureStorage secureStorage = SecureStorage();
@@ -18,91 +14,7 @@ class Service {
     return readToken().then((value) => sendVerifyMailUser(email, context));
   }
 
-  Future addImage(Map<String, String> body, List<File?> filepath, List<File?> imagePath) async {
-    try {
-      var url =
-          '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/upload-documents';
-      Map<String, String> headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'multipart/form-data',
-        'Authorization': 'Bearer ${globals.tokenValue}'
-      };
-
-      List<http.MultipartFile> newList = [];
-      http.MultipartRequest? request;
-
-      for (int i = 0; i < filepath.length; i++) {
-        var multipartFile =
-            await http.MultipartFile.fromPath('files[]', filepath[i]!.path);
-
-        newList.add(multipartFile);
-
-        request = http.MultipartRequest('POST', Uri.parse(url))
-          ..fields.addAll(body)
-          ..headers.addAll(headers)
-          ..files.addAll(newList);
-      }
-      http.Response response =
-          await http.Response.fromStream(await request!.send());
-      print('sendimage success ${request.files.length}');
-      print('sendimage successbody ${(json.decode(response.body))}');
-      return response;
-    } catch (e) {
-      print('sendimage error $e');
-    }
-  }
-
-
-  Future addImageFile(Map<String, String> body, List<File> imagepath,
-      List<File> pdfpath) async {
-    try {
-      var url =
-          '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/upload-documents';
-      Map<String, String> headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'multipart/form-data',
-        'Authorization': 'Bearer ${globals.tokenValue}'
-      };
-
-      List<http.MultipartFile> newList = [];
-      http.MultipartRequest? request;
-
-      if (imagepath.isNotEmpty) {
-        for (int i = 0; i < imagepath.length; i++) {
-          File file = File(imagepath[i].path);
-          var multipartFile = http.MultipartFile(
-              'files[]', file.readAsBytes().asStream(), file.lengthSync(),
-              filename: file.path.split('/').last);
-          newList.add(multipartFile);
-
-          request = http.MultipartRequest('POST', Uri.parse(url))
-            ..fields.addAll(body)
-            ..headers.addAll(headers)
-            ..files.addAll(newList);
-        }
-      } else {
-        for (int i = 0; i < pdfpath.length; i++) {
-          File file = File(pdfpath[i].path);
-          var multipartFile = http.MultipartFile(
-              'files[]', file.readAsBytes().asStream(), file.lengthSync(),
-              filename: file.path.split('/').last);
-          newList.add(multipartFile);
-
-          request = http.MultipartRequest('POST', Uri.parse(url))
-            ..fields.addAll(body)
-            ..headers.addAll(headers)
-            ..files.addAll(newList);
-        }
-      }
-      http.StreamedResponse response = await request!.send();
-      print('sendimage success ${request.files.length}');
-      print('sendimage successbody ${response.statusCode}');
-      return response;
-    } catch (e) {
-      print('sendimage error $e');
-    }
-  }
-
+ 
   Future sendVerifyMailUser(
     String email,
     BuildContext context,

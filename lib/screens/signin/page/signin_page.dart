@@ -1,6 +1,4 @@
-import 'package:app_solidale/const/color_constants.dart';
-import 'package:app_solidale/const/path_constants.dart';
-import 'package:app_solidale/screens/home/page/presentation_page.dart';
+
 import 'package:app_solidale/screens/signup/page/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

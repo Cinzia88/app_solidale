@@ -3,9 +3,7 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/disabili/carica_disabili_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -92,7 +90,6 @@ class _FormDataParentsState extends State<FormDataParents> {
                       onSurface: ColorConstants.orangeGradients3,
                     ),
                     dialogBackgroundColor: Colors.white,
-                    
                   ),
                   child: child!,
                 );
@@ -134,10 +131,10 @@ class _FormDataParentsState extends State<FormDataParents> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
+    //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     final bloc = BlocProvider.of<SendParentsDataBloc>(context);
 
@@ -155,13 +152,18 @@ class _FormDataParentsState extends State<FormDataParents> {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
-                  children: [Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text('Componente ${index + 1}',
-                      style: Theme.of(context).textTheme.titleMedium,),
-                    ],
-                  ), cards[index]],
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Componente ${index + 1}',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ],
+                    ),
+                    cards[index]
+                  ],
                 ),
               ),
             ),
@@ -174,8 +176,8 @@ class _FormDataParentsState extends State<FormDataParents> {
       return state is SendParentsDataLoadingState
           ? loadingWidget(context)
           : Stack(
-            children: [
-              SingleChildScrollView(
+              children: [
+                SingleChildScrollView(
                   child: Padding(
                       padding: const EdgeInsets.all(
                         20.0,
@@ -262,7 +264,8 @@ class _FormDataParentsState extends State<FormDataParents> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(14),
                                         border: Border.all(
-                                          color: ColorConstants.orangeGradients1,
+                                          color:
+                                              ColorConstants.orangeGradients1,
                                         ),
                                         color: Colors.white,
                                       ),
@@ -278,8 +281,8 @@ class _FormDataParentsState extends State<FormDataParents> {
                                     ),
                                     dropdownStyleData: DropdownStyleData(
                                       maxHeight: 200,
-                                      width:
-                                          MediaQuery.of(context).size.width - 150,
+                                      width: MediaQuery.of(context).size.width -
+                                          150,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(14),
                                         color: Colors.white,
@@ -287,14 +290,17 @@ class _FormDataParentsState extends State<FormDataParents> {
                                       scrollbarTheme: ScrollbarThemeData(
                                         radius: const Radius.circular(40),
                                         thickness:
-                                            MaterialStateProperty.all<double>(6),
+                                            MaterialStateProperty.all<double>(
+                                                6),
                                         thumbVisibility:
-                                            MaterialStateProperty.all<bool>(true),
+                                            MaterialStateProperty.all<bool>(
+                                                true),
                                       ),
                                     ),
                                     menuItemStyleData: const MenuItemStyleData(
                                       height: 40,
-                                      padding: EdgeInsets.only(left: 14, right: 14),
+                                      padding:
+                                          EdgeInsets.only(left: 14, right: 14),
                                     ),
                                   ),
                                 ),
@@ -304,7 +310,8 @@ class _FormDataParentsState extends State<FormDataParents> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text('Inserisci i dati di ciascun componente'),
+                                    Text(
+                                        'Inserisci i dati di ciascun componente'),
                                   ],
                                 ),
                                 SizedBox(
@@ -314,11 +321,11 @@ class _FormDataParentsState extends State<FormDataParents> {
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount: growableList!.length,
-                                  itemBuilder: (BuildContext context, int index) {
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
                                     return growableList![index];
                                   },
                                 ),
-                              
                               ],
                             ),
                           ),
@@ -333,32 +340,30 @@ class _FormDataParentsState extends State<FormDataParents> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                       CommonStyleButton(
-                                      title: 'Invia e Continua',
-                                      onTap: () {
-                                        if (_formKey.currentState!.validate()) {
-                                        
-                                          for (int i = 0;
-                                              i < growableList!.length;
-                                              i++) {
-                                            var nome = nomeComponente[i].text;
-                                            var anni = dateinput[i].text;
-                                            var grado = gradoComponente[i].text;
-                                            bloc.add(SendParentsFormEvent(
-                                                nomeParente: nome,
-                                                dataDiNascitaParente: anni,
-                                                gradoParente: grado));
-                                          }
-                                          Navigator.push(context, MaterialPageRoute(builder: (_) => DisabiliPage()));
-                                        }
-                                      },
-                                      iconWidget: Text('')),
+                        CommonStyleButton(
+                            title: 'Invia e Continua',
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                for (int i = 0; i < growableList!.length; i++) {
+                                  var nome = nomeComponente[i].text;
+                                  var anni = dateinput[i].text;
+                                  var grado = gradoComponente[i].text;
+                                  bloc.add(SendParentsFormEvent(
+                                      nomeParente: nome,
+                                      dataDiNascitaParente: anni,
+                                      gradoParente: grado));
+                                  
+                                  
+                                }
+                              }
+                            },
+                            iconWidget: Text('')),
                       ],
                     ),
                   ),
                 ),
-            ],
-          );
+              ],
+            );
     });
   }
 }

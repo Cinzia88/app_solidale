@@ -14,7 +14,7 @@ class SendParentsDataBloc
   SendParentsDataBloc({
     required this.context,
     required this.sendDataParentsRepository,
-  }) : super(SendParentsDataInitial()) {
+  }) : super(SendParentsDataInitialState()) {
     on<SendParentsFormEvent>((event, emit) async {
         emit(SendParentsDataLoadingState());
         try {
@@ -24,7 +24,7 @@ class SendParentsDataBloc
             event.dataDiNascitaParente,
             event.gradoParente,
           );
-          emit(SendParentsDataLoaded());
+          emit(SendParentsDataLoadedState());
         } catch (e) {
           emit(
             SendParentsDataErrorState(

@@ -1,11 +1,8 @@
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
-import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/banco_alimentare_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
+import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc/send_disabili_data_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,10 +42,10 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
+    //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     final bloc = BlocProvider.of<SendDisabiliDataBloc>(context);
 
@@ -251,8 +248,45 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 bloc.add(SendDisabiliFormEvent(
-                                    numeroDisabili: selectedValue,
+                                    numeroDisabili:
+                                        disabile == 0 ? '0' : selectedValue,
                                     disabile: disabile));
+                                showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                          'Stiamo elaborando i tuoi dati',
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
+                                        ),
+                                        content: const Text(
+                                            'Ti contatteremo al più presto!'),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        actions: [
+                                          InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            PresentationPage()));
+                                              },
+                                              child: Text(
+                                                'Torna alla home',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium,
+                                              ))
+                                        ],
+                                      );
+                                    });
                               }
                             },
                             iconWidget: Text('')),

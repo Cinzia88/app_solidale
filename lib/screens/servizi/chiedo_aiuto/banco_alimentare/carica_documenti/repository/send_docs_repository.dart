@@ -1,9 +1,5 @@
 import 'dart:io';
-
-import 'package:app_solidale/const/color_constants.dart';
-import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
-import 'package:app_solidale/screens/servizi/page_success_send_data/success_send_data_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -60,15 +56,39 @@ print('sendimage success ${request.files.length}');
 
         switch (response.statusCode) {
           case 200:
-              Navigator.push(
+             
+            if (context.mounted) {
+              showDialog(
+                barrierDismissible: false,
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(
+                        'Stiamo elaborando i tuoi dati',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      content: const Text('Ti contatteremo al più presto!'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      actions: [
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (_) => SuccessSendDataPage(
-                                        titleService: 'Banco Alimentare',
-                                        image: PathConstants.bancoAlim,
-                                        message: 'stiamo elaborando i tuoi dati',
-                                      )));
-            // ignore: use_build_context_synchronously
+                                      builder: (context) =>
+                                          PresentationPage()));
+                            },
+                            child: Text(
+                              'Torna alla home',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ))
+                      ],
+                    );
+                  });
+            }
             
             break;
           case 401:

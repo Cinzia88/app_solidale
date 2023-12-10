@@ -2,7 +2,6 @@ import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../common_widgets/background_style/custom_appbar.dart';
-import '../../home/page/presentation_page.dart';
 import '../../signin/page/signin_page.dart';
 import '../bloc/signup_bloc.dart';
 import '../repository/signup_repository.dart';

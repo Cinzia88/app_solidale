@@ -2,7 +2,6 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/text_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/banco_alimentare_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/intro.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/taxi_solidale.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/page_acc_onc.dart';
@@ -15,6 +14,7 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
       required String title,
       required String desc}) {
     return showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -96,9 +96,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const TaxiSolidalePage(
-                                    
-                                    )));
+                                builder: (context) =>
+                                    const TaxiSolidalePage()));
                       },
                       child: Text(
                         'Richiedi',
@@ -114,9 +113,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const TaxiSolidalePage(
-                                        
-                                        )));
+                                    builder: (context) =>
+                                        const TaxiSolidalePage()));
                           });
                     },
                     child: SizedBox(
@@ -148,9 +146,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  AccompagnamentoOncologicoPage(
-                                    
-                                    )));
+                                builder: (context) =>
+                                    AccompagnamentoOncologicoPage()));
                       },
                       child: Text(
                         'Richiedi',
@@ -166,9 +163,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>  AccompagnamentoOncologicoPage(
-                                       
-                                      )));
+                                  builder: (context) =>
+                                      AccompagnamentoOncologicoPage()));
                         },
                       );
                     },
@@ -217,7 +213,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => IntroBancoAlimentare()));
+                                  builder: (context) =>
+                                      IntroBancoAlimentare()));
                         },
                       );
                     },

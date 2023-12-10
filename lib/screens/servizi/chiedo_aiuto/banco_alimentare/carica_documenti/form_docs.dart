@@ -3,18 +3,13 @@ import 'dart:io';
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
-import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/bloc/send_docs_bloc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/disabili/carica_disabili_page.dart';
-import 'package:app_solidale/screens/servizi/page_success_send_data/success_send_data_page.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 
 class FormDocs extends StatefulWidget {
   const FormDocs({super.key});
@@ -68,10 +63,10 @@ class _FormDocsState extends State<FormDocs> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
+    //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     final bloc = BlocProvider.of<SendDocsBloc>(context);
 
@@ -320,14 +315,7 @@ class _FormDocsState extends State<FormDocs> {
                                   body: body,
                                   imagepath: imagesList,
                                   pdfpath: filePdf));
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => SuccessSendDataPage(
-                                        titleService: 'Banco Alimentare',
-                                        image: PathConstants.bancoAlim,
-                                        message: 'stiamo elaborando i tuoi dati',
-                                      )));
+                             
 
                               FocusScope.of(context).unfocus();
                             }

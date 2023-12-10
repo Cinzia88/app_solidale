@@ -7,8 +7,7 @@ import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart'
-    as globals;
+
 
 class SignupRepository {
   final SecureStorage secureStorage = SecureStorage();

@@ -18,11 +18,7 @@ class _BancoAlimentarePageState extends State<BancoAlimentarePage> {
 
   @override
   Widget build(BuildContext context) {
-    //final screenWidth = MediaQuery.of(context).size.width;
-    final mediaQueryData = MediaQuery.of(context);
-    final screenHeight = mediaQueryData.size.height;
-    //final blockSizeHorizontal = screenWidth / 100;
-    final blockSizeVertical = screenHeight / 100;
+   
     return BlocProvider<SendParentsDataBloc>(
         create: (context) => SendParentsDataBloc(
               context: context,

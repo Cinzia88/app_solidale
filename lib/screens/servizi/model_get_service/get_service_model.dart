@@ -1,5 +1,4 @@
 
-import 'package:equatable/equatable.dart';
 class DataServiceModel {
   final List<GetServiceModel> dataService;
   DataServiceModel({

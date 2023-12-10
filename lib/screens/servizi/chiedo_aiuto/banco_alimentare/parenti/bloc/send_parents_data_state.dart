@@ -5,10 +5,10 @@ abstract class SendParentsDataState extends Equatable{
   List<Object?> get props => [];
 }
 
-class SendParentsDataInitial extends SendParentsDataState {}
+class SendParentsDataInitialState extends SendParentsDataState {}
 
 
-class SendParentsDataLoaded extends SendParentsDataState {}
+class SendParentsDataLoadedState extends SendParentsDataState {}
 
 
 class SendParentsDataErrorState extends SendParentsDataState {

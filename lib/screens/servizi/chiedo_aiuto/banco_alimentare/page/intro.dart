@@ -3,8 +3,8 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/bloc/send_data_type_service_bloc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/repository/send_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
+import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
@@ -112,6 +112,7 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                    ListChiedoAiuto.nameServiceChiedoAiuto[2],
                    globals.userData!.nome,
                   globals.userData!.telefono);
+                  
             },
             iconWidget: Text('')),
       ),

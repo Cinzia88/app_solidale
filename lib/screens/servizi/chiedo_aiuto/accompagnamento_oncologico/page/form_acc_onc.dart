@@ -1,10 +1,8 @@
-import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/list_id_service.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
-import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/bloc/send_data_type_service_bloc.dart';
+import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
@@ -26,10 +24,10 @@ int _value = 1;
   
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
-    final blockSizeHorizontal = screenWidth / 100;
+    //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
 final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
 

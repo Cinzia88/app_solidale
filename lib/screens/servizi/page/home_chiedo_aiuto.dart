@@ -10,11 +10,7 @@ import '../../../const/color_constants.dart';
 class HomeChiedoAiuto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //final screenWidth = MediaQuery.of(context).size.width;
-    final mediaQueryData = MediaQuery.of(context);
-    final screenHeight = mediaQueryData.size.height;
-    //final blockSizeHorizontal = screenWidth / 100;
-    final blockSizeVertical = screenHeight / 100;
+    
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(

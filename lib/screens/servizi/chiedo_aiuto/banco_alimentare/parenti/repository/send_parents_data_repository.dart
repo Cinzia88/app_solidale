@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/disabili/carica_disabili_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disabili/carica_disabili_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -28,10 +28,16 @@ class SendDataParentsRepository {
             }));
         print('statuscodedata ${response.statusCode}');
       
-
+globals.statusCode = response.statusCode;
         switch (response.statusCode) {
           case 200:
-            Navigator.push(context, MaterialPageRoute(builder: (context) => DisabiliPage()));
+           if(context.mounted) {
+             Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DisabiliPage()));
+           }
             break;
           case 401:
             Navigator.of(context, rootNavigator: true).pushReplacement(
