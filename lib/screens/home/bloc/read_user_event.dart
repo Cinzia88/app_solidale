@@ -6,3 +6,23 @@ abstract class ReadUserEvent extends Equatable {
 }
 
 class FetchUserEvent extends ReadUserEvent {}
+
+class EditUserEvent extends ReadUserEvent {
+  String id;
+  String nome;
+  String indirizzo;
+  String telefono;
+  String email;
+
+  EditUserEvent({
+    required this.id,
+    required this.nome,
+    required this.indirizzo,
+    required this.telefono,
+    required this.email,
+  
+  });
+  @override
+  List<Object?> get props =>
+      [id, nome, indirizzo, telefono, email, ];
+}

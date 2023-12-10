@@ -19,7 +19,8 @@ class ReadUserBloc extends Bloc<ReadUserEvent, ReadUserState> {
     required this.readDataUserRepository,
     required this.context,
   }) : super(ReadUserLoadingState()) {
-    on<FetchUserEvent>((event, emit) async{
+    on<ReadUserEvent>((event, emit) async{
+      if(event is FetchUserEvent) {
       emit(ReadUserLoadingState());
       try {
         final userdata = await readDataUserRepository.readUser(context);
@@ -27,6 +28,20 @@ class ReadUserBloc extends Bloc<ReadUserEvent, ReadUserState> {
       } catch (e) {
         emit(ReadUserErrorState(errorMessage: e.toString()));
       }
+      } else if (event is EditUserEvent) {
+      emit(EditUserLoadingState());
+      try {
+        final userdata = await readDataUserRepository.editUser(context,
+        event.id,
+            event.nome,
+            event.indirizzo,
+            event.telefono,
+            event.email,);
+        emit(EditUserLoadedState());
+      } catch (e) {
+        emit(EditUserErrorState(errorMessage: e.toString()));
+      }
+      } 
     },);
   }
   

@@ -29,3 +29,22 @@ class ReadUserErrorState extends ReadUserState {
   List<Object?> get props => [errorMessage];
 }
 
+
+class EditUserLoadingState extends ReadUserState {}
+
+class EditUserLoadedState extends ReadUserState {
+  
+
+ 
+}
+
+class EditUserErrorState extends ReadUserState {
+  String errorMessage;
+  EditUserErrorState({
+    required this.errorMessage,
+  });
+
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
