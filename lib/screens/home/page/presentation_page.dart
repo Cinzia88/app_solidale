@@ -19,9 +19,7 @@ class _PresentationPageState extends State<PresentationPage> {
   @override
   void initState() {
     super.initState();
-    readUser().then((value) {
-      getDataService();
-    });
+    readUser();
   }
 
   Future readUser() async {
@@ -31,21 +29,7 @@ class _PresentationPageState extends State<PresentationPage> {
     });
   }
 
-  Future getDataService() async {
-    var dataService = await SignInRepository().getService(context);
-    setState(() {
-      globals.serviceOffroAiutoID =
-          dataService.isNotEmpty ? dataService[0].id.toString() : '';
-      globals.serviceTaxiSolidaleID =
-          dataService.isNotEmpty ? dataService[1].id.toString() : '';
-      globals.serviceAccOncID =
-          dataService.isNotEmpty ? dataService[2].id.toString() : '';
-      globals.serviceBancoAlimID =
-          dataService.isNotEmpty ? dataService[3].id.toString() : '';
-    });
-
-    return dataService;
-  }
+ 
 
   @override
   Widget build(BuildContext context) {

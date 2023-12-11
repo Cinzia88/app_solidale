@@ -86,9 +86,9 @@ class _OffroAiutoPageState extends State<OffroAiutoPage> {
                   title: 'Clicca per essere contattato',
                   iconWidget: Icon(Icons.contact_phone),
                   onTap: () {
-                  SendDataTypeServiceRepository().sendDataTypeservice(context, globals.serviceOffroAiutoID!,
-                   '',
+                  SendDataTypeServiceRepository().sendDataTypeservice(context, '1',
                    globals.userData!.nome,
+                   globals.userData!.telefono,
                  );
                     /*FocusScope.of(context).unfocus();
                                                 bloc.add(SignUpTappedEvent()); */

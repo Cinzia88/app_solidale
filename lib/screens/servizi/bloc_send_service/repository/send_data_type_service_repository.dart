@@ -34,7 +34,7 @@ class SendDataTypeServiceRepository {
 
       switch (response.statusCode) {
         case 200:
-          if (response.body.contains('service_id:1')) {
+          if (response.body.contains('"service_id:1"')) {
             if (context.mounted) {
               showDialog(
                   barrierDismissible: false,
@@ -67,12 +67,12 @@ class SendDataTypeServiceRepository {
                     );
                   });
             }
-          } else if (response.body.contains('service_id:2')) {
+          } else if (response.body.contains('"service_id:2"')) {
             if (context.mounted) {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => DisabiliTaxiPage()));
             }
-          } else if (response.body.contains('service_id:3')) {
+          } else if (response.body.contains('"service_id:3"')) {
             if (context.mounted) {
               showDialog(
                   barrierDismissible: false,
@@ -105,7 +105,7 @@ class SendDataTypeServiceRepository {
                     );
                   });
             }
-          } else if (response.body.contains('service_id:4')) {
+          } else if (response.body.contains('"service_id:4"')) {
             if (context.mounted) {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ParentsPage()));

@@ -107,7 +107,7 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
         floatingActionButton: CommonStyleButton(
             title: 'Inizia',
             onTap: () {
-              SendDataTypeServiceRepository().sendDataTypeservice(context, globals.serviceBancoAlimID!,
+              SendDataTypeServiceRepository().sendDataTypeservice(context, '4',
                    globals.userData!.nome,
                   globals.userData!.telefono);
                   

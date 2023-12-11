@@ -117,7 +117,7 @@ int _value = 1;
                             title: 'Invia e Continua',
                             onTap: () {
                                 bloc.add(SendDataTypeServiceEvent(
-                                  serviceId: globals.serviceTaxiSolidaleID!, 
+                                  serviceId: '3', 
                                   nome: _value == 1 ? globals.userData!.nome : _nameAnotherController.text, 
                                   telefono: _value == 1 ? globals.userData!.telefono : _telepAnotherController.text,),);
                             FocusScope.of(context).unfocus();

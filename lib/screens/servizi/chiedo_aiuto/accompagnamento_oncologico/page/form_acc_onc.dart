@@ -75,7 +75,7 @@ final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
                             title: 'Invia',
                             onTap: () {
                                
-                              bloc.add(SendDataTypeServiceEvent(serviceId: globals.serviceAccOncID!,  nome: _value == 1 ? globals.userData!.nome : _nameAnotherController.text, telefono: _value == 1 ? globals.userData!.telefono : _telepAnotherController.text));
+                              bloc.add(SendDataTypeServiceEvent(serviceId: '2',  nome: _value == 1 ? globals.userData!.nome : _nameAnotherController.text, telefono: _value == 1 ? globals.userData!.telefono : _telepAnotherController.text));
                             FocusScope.of(context).unfocus();
                             },
                             iconWidget: Text('')),
