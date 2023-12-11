@@ -96,16 +96,13 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                             key: _formKey,
                             child: Column(
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Flexible(
-                                          child: Text(
-                                              'Nel nucleo familiare è presente una persona con invalidità?')),
-                                    ],
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Flexible(
+                                        child: Text(
+                                            'Nel nucleo familiare è presente una persona con invalidità?')),
+                                  ],
                                 ),
                                 ListTile(
                                   title: yes == true

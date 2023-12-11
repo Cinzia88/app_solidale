@@ -6,6 +6,7 @@ class UserData extends Equatable {
   final String indirizzo;
   final String telefono;
   final String email;
+  final int verified;
 
   const UserData({
     required this.id,
@@ -13,6 +14,7 @@ class UserData extends Equatable {
     required this.indirizzo,
     required this.telefono,
     required this.email,
+    required this.verified,
   });
 
   factory UserData.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class UserData extends Equatable {
       indirizzo: json["indirizzo"].toString(),
       telefono: json["telefono"].toString(),
       email: json["email"].toString(),
+      verified: json["is_verified"] ?? 0,
     );
   }
 

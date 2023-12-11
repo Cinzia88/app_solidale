@@ -8,21 +8,19 @@ class ValueSharedPrefsViewSlide {
 
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance(); 
 
+ Future setIdTaxiSolidale(String value) async{
+    final instance = await prefs;
 
+    instance.setString('idTaxiSolidale', value);
+  }
+
+   Future<String> getIdTaxiSolidale() async{
+    final instance = await prefs;
+
+   final value = instance.getString('idTaxiSolidale');
+   return value ?? '';
+  }
   
-
-   Future setNewUser(bool value) async{
-    final instance = await prefs;
-
-    instance.setBool('newUser', value);
-  }
-
-   Future<bool> getNewUser() async{
-    final instance = await prefs;
-
-   final value = instance.getBool('newUser');
-   return value ?? true;
-  }
 
   Future setuserId(String value) async{
     final instance = await prefs;
@@ -63,16 +61,16 @@ class ValueSharedPrefsViewSlide {
   }
 
 
-   Future setProfileComplete(bool value) async{
+    Future setCreate(bool value) async{
     final instance = await prefs;
 
-    instance.setBool('profileComplete', value);
+    instance.setBool('createRequest', value);
   }
 
-   Future<bool> getProfileComplete() async{
+   Future<bool> getCreateReq() async{
     final instance = await prefs;
 
-   final value = instance.getBool('profileComplete');
+   final value = instance.getBool('createRequest');
    return value ?? true;
   }
 }

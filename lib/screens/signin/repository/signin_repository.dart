@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
-import 'package:app_solidale/screens/servizi/model_get_service/get_service_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 import '../../../secure_storage/secure_storage.dart';
 

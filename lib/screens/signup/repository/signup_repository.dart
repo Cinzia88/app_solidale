@@ -69,8 +69,6 @@ class SignupRepository {
         case 200:
           String token = jsonDecode(response.body)["token"];
           String message = jsonDecode(response.body)["message"];
-          bool profiloCompleto = false;
-          await valueSharedPrefsViewSlide.setProfileComplete(profiloCompleto);
           await secureStorage.writeSecureData('token', token);
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -14,3 +14,13 @@ String? serviceTaxiSolidaleID;
 String? serviceAccOncID;
 String? serviceBancoAlimID;
 int? statusCode;
+
+bool richiestaCreataTaxiSolidale = false;
+String? richiestaIdTaxiSolidale;
+
+bool richiestaCreataAccOnc = false;
+String? richiestaIdAccOnc;
+
+bool richiestaCreataBancoAlim = false;
+String? richiestaIdBamcoAlim;
+

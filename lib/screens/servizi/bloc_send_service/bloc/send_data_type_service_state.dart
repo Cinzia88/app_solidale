@@ -8,7 +8,9 @@ abstract class SendDataTypeServiceState extends Equatable{
 class SendDataTypeServiceInitial extends SendDataTypeServiceState {}
 
 
-class SendDataTypeServiceLoaded extends SendDataTypeServiceState {}
+class SendDataTypeServiceLoaded extends SendDataTypeServiceState {
+ 
+}
 
 
 class SendDataTypeServiceErrorState extends SendDataTypeServiceState {

@@ -5,6 +5,7 @@ import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc/send_disabili_data_bloc.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
@@ -22,8 +23,13 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
   final TextEditingController _nameAnotherController = TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
 int _value = 1;
+bool create = false;
+bool taxiSolidaleCreato = false;
 
   bool forAnother = false;
+
+
+
 
   final List<String> items = [
     '1',
@@ -113,15 +119,20 @@ int _value = 1;
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        CommonStyleButton(
+                     CommonStyleButton(
                             title: 'Invia e Continua',
-                            onTap: () {
+                            onTap: () async{
+                              
                                 bloc.add(SendDataTypeServiceEvent(
-                                  serviceId: '3', 
+                                  serviceId: '2', 
                                   nome: _value == 1 ? globals.userData!.nome : _nameAnotherController.text, 
                                   telefono: _value == 1 ? globals.userData!.telefono : _telepAnotherController.text,),);
                             FocusScope.of(context).unfocus();
-                             
+                             setState(() {
+                               taxiSolidaleCreato = true;
+                             });
+                              await ValueSharedPrefsViewSlide()
+                                  .setValueViewSlide(taxiSolidaleCreato);
                             },
                             iconWidget: Text('')),
                       ],

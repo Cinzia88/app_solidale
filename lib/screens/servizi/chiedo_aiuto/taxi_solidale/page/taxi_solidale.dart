@@ -3,8 +3,10 @@ import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_d
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/form_taxi_solidale.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 class TaxiSolidalePage extends StatefulWidget {
   const TaxiSolidalePage({super.key});
@@ -14,7 +16,6 @@ class TaxiSolidalePage extends StatefulWidget {
 }
 
 class _TaxiSolidalePageState extends State<TaxiSolidalePage> {
- 
 
 
   @override

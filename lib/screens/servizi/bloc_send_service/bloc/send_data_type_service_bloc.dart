@@ -18,7 +18,7 @@ class SendDataTypeServiceBloc extends Bloc<SendDataTypeServiceEvent, SendDataTyp
     on<SendDataTypeServiceEvent>((event, emit) async {
       emit(SendDataTypeServiceLoadingState());
       try {
-        await sendDataTypeServiceRepository.sendDataTypeservice(
+       await sendDataTypeServiceRepository.sendDataTypeservice(
           context,
           event.serviceId,
           event.nome,
