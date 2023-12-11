@@ -89,7 +89,7 @@ class _OffroAiutoPageState extends State<OffroAiutoPage> {
                   SendDataTypeServiceRepository().sendDataTypeservice(context, globals.serviceOffroAiutoID!,
                    '',
                    globals.userData!.nome,
-                  globals.userData!.telefono);
+                 );
                     /*FocusScope.of(context).unfocus();
                                                 bloc.add(SignUpTappedEvent()); */
                   },

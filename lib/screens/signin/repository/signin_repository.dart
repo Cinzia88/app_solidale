@@ -119,7 +119,8 @@ class SignInRepository {
      DataServiceModel  dataprint = DataServiceModel.fromJson(decodedResponse);
      dataService = dataprint.dataService;
      
-     
+               print('offro ${dataService[0].id}');
+
       switch (response.statusCode) {
         case 200:
 

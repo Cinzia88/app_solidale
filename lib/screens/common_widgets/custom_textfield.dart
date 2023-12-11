@@ -77,7 +77,7 @@ class TextFormFieldCustom extends StatelessWidget {
           labelText: labelTextCustom,
           errorText: errorText,
           prefixIcon: widgetIcon,
-          suffixIcon: IconButton(
+          suffixIcon: textEditingController.text.isNotEmpty ? IconButton(
             onPressed: () {
               textEditingController.clear();
             },
@@ -86,7 +86,7 @@ class TextFormFieldCustom extends StatelessWidget {
               color: ColorConstants.buttonClear,
               size: 18,
             ),
-          ),
+          ) : SizedBox(),
         ),
   obscureText: obscureText,
       ),

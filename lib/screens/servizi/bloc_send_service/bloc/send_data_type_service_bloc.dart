@@ -21,7 +21,6 @@ class SendDataTypeServiceBloc extends Bloc<SendDataTypeServiceEvent, SendDataTyp
         await sendDataTypeServiceRepository.sendDataTypeservice(
           context,
           event.serviceId,
-          event.tipoRichiesta,
           event.nome,
           event.telefono,
         );

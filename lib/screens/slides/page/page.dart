@@ -35,19 +35,14 @@ class _SlidesPageState extends State<SlidesPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  RichText(
-                    text: TextSpan(
-                      text: "",
-                      children: [
-                        TextSpan(
-                          text:  _curr == 3 ? "Chiudi" : " Salta",
+                  _curr == 3 ?  Text(
+                           "Chiudi" ,
                           style:  TextStyle(
                             color: ColorConstants.titleText,
                             fontSize: 2 * blockSizeVertical,
                             fontWeight: FontWeight.bold,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () async {
+                          )) : InkWell(
+                            onTap: () async {
                               setState(() {
                                 viewSlide = false;
                               });
@@ -56,10 +51,15 @@ class _SlidesPageState extends State<SlidesPage> {
                                   .setValueViewSlide(viewSlide);
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
                             },
-                        ),
-                      ],
-                    ),
-                  ),
+                            child: Text(
+                             "Salta" ,
+                            style:  TextStyle(
+                              color: ColorConstants.titleText,
+                              fontSize: 2 * blockSizeVertical,
+                              fontWeight: FontWeight.bold,
+                            )),
+                          ),
+            
                 ],
               ),
             ),

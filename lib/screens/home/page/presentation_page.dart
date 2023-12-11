@@ -1,4 +1,3 @@
-import 'package:app_solidale/const/list_id_service.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
@@ -17,7 +16,6 @@ class PresentationPage extends StatefulWidget {
 }
 
 class _PresentationPageState extends State<PresentationPage> {
-  
   @override
   void initState() {
     super.initState();
@@ -26,18 +24,24 @@ class _PresentationPageState extends State<PresentationPage> {
     });
   }
 
-  Future readUser() async{
-var data = await ReadDataUserRepository().readUser(context);
-setState(() {
-  globals.userData = data;
-});
+  Future readUser() async {
+    var data = await ReadDataUserRepository().readUser(context);
+    setState(() {
+      globals.userData = data;
+    });
   }
 
   Future getDataService() async {
     var dataService = await SignInRepository().getService(context);
     setState(() {
-      globals.serviceOffroAiutoID = dataService.isNotEmpty ? dataService[0].id.toString() : '';
-      globals.serviceChiedoAiutoID = dataService.isNotEmpty ? dataService[1].id.toString() : '';
+      globals.serviceOffroAiutoID =
+          dataService.isNotEmpty ? dataService[0].id.toString() : '';
+      globals.serviceTaxiSolidaleID =
+          dataService.isNotEmpty ? dataService[1].id.toString() : '';
+      globals.serviceAccOncID =
+          dataService.isNotEmpty ? dataService[2].id.toString() : '';
+      globals.serviceBancoAlimID =
+          dataService.isNotEmpty ? dataService[3].id.toString() : '';
     });
 
     return dataService;

@@ -1,5 +1,4 @@
 import 'package:app_solidale/const/color_constants.dart';
-import 'package:app_solidale/const/list_id_service.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
@@ -118,8 +117,7 @@ int _value = 1;
                             title: 'Invia e Continua',
                             onTap: () {
                                 bloc.add(SendDataTypeServiceEvent(
-                                  serviceId: globals.serviceChiedoAiutoID!, 
-                                  tipoRichiesta: ListChiedoAiuto.nameServiceChiedoAiuto[0], 
+                                  serviceId: globals.serviceTaxiSolidaleID!, 
                                   nome: _value == 1 ? globals.userData!.nome : _nameAnotherController.text, 
                                   telefono: _value == 1 ? globals.userData!.telefono : _telepAnotherController.text,),);
                             FocusScope.of(context).unfocus();

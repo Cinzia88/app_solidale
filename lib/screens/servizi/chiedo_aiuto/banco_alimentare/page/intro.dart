@@ -1,4 +1,3 @@
-import 'package:app_solidale/const/list_id_service.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
@@ -108,8 +107,7 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
         floatingActionButton: CommonStyleButton(
             title: 'Inizia',
             onTap: () {
-              SendDataTypeServiceRepository().sendDataTypeservice(context, globals.serviceChiedoAiutoID!,
-                   ListChiedoAiuto.nameServiceChiedoAiuto[2],
+              SendDataTypeServiceRepository().sendDataTypeservice(context, globals.serviceBancoAlimID!,
                    globals.userData!.nome,
                   globals.userData!.telefono);
                   
