@@ -25,40 +25,7 @@ class _TaxiSolidalePageState extends State<TaxiSolidalePage> {
   Widget build(BuildContext context) {
    
 
-    return globals.richiestaCreataTaxiSolidale ? BlocProvider<ShowDataTypeServiceBloc>(
-      create: (context) => ShowDataTypeServiceBloc(
-        context: context,
-        showDataTypeServiceRepository:
-            context.read<ShowDataTypeServiceRepository>(),
-      ),
-      child: Scaffold(
-          appBar: AppBar(
-            iconTheme: const IconThemeData(
-              color: Colors.white,
-            ),
-            toolbarHeight: 75.0,
-            automaticallyImplyLeading: true,
-            flexibleSpace: customAppBar(context: context),
-            actions: [
-              IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ))
-            ],
-          ),
-          drawer: NavigationDrawerWidget(),
-          body: BlocConsumer<ShowDataTypeServiceBloc, ShowDataTypeServiceState>(
-            listener: (context, state) {
-          if (state is ShowDataTypeServiceErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
-          }
-        }, builder: (context, state) {
-            return EditTaxiSolidale();
-  }))) : BlocProvider<SendDataTypeServiceBloc>(
+    return BlocProvider<SendDataTypeServiceBloc>(
       create: (context) => SendDataTypeServiceBloc(
         context: context,
         sendDataTypeServiceRepository:

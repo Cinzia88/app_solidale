@@ -94,45 +94,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(
                     height: 40,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ListDocsPage()));
-                    },
-                    child: CustomCardsCommon(
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Icon(
-                                Icons.document_scanner,
-                                color: ColorConstants.orangeGradients3,
-                              ),
-                              Text(' Documenti Inviati',
-                                                         style: Theme.of(context).textTheme.titleSmall,
-),
-                            ],
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  'Visulizza qui i tuoi documenti inviati',
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
+                 
+                 
                   GestureDetector(
                     onTap: () {
                       Navigator.push(

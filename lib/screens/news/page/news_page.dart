@@ -1,14 +1,14 @@
-
-
-
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
+import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:app_solidale/screens/news/bloc/news_bloc.dart';
+import 'package:app_solidale/screens/news/model/list_news_model.dart';
+import 'package:app_solidale/screens/news/repository/news_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../const/color_constants.dart';
-
 
 class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
@@ -18,65 +18,159 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
-
-List images = [
-"https://images.wsj.net/im-867581/social",
-"https://images.wsj.net/im-867681/social",
-"https://images.wsj.net/im-869571/social"
-];
-
+  List<ListNewsModel> newsAll = [];
 
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
-    final screenHeight =mediaQueryData.size.height;
+    final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return  Scaffold(
-      appBar: AppBar(
-           iconTheme: const IconThemeData(
+    return BlocProvider<NewsBloc>(
+      create: (context) => NewsBloc(
+          context: context, newsRepository: context.read<NewsRepository>())
+        ..add(FetchNewsEvent()),
+      child: Scaffold(
+        appBar: AppBar(
+          iconTheme: const IconThemeData(
             color: Colors.white,
-           ),
-            toolbarHeight: 75.0,
-            automaticallyImplyLeading: true,
-            flexibleSpace: customAppBar(context: context),
-           
           ),
-            drawer: NavigationDrawerWidget(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-               children: [
-                  Text(
-                      'News',
-                                             style: Theme.of(context).textTheme.titleSmall,
-
-                    ),
-               ],
-             ),
-                const Divider(
-                  color: ColorConstants.orangeGradients3,
-                ),
-            Container(
-              margin: const EdgeInsets.only(top: 30, bottom: 20),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF003b5b).withOpacity(0.1),
-                    blurRadius: 1.0,
+          toolbarHeight: 75.0,
+          automaticallyImplyLeading: true,
+          flexibleSpace: customAppBar(context: context),
+        ),
+        drawer: NavigationDrawerWidget(),
+        body: BlocConsumer<NewsBloc, NewsState>(
+          listener: (context, state) {
+            if (state is NewsLoadingState) {
+              loadingWidget(context);
+            } else if (state is NewsErrorState) {
+              Center(
+                child: Text(state.error.toString()),
+              );
+              context.read<NewsBloc>().isFetching = false;
+            } else if (state is NewsLoadedState && state.news.isEmpty) {
+              const Center(
+                child: Text('Nessun articolo'),
+              );
+            }
+            return;
+          },
+          builder: (context, state) {
+            if (state is NewsLoadingState && newsAll.isEmpty) {
+              return loadingWidget(context);
+            } else if (state is NewsLoadedState) {
+              newsAll.addAll(state.news);
+              context.read<NewsBloc>().isFetching = false;
+            } else if (state is NewsErrorState && newsAll.isEmpty) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      context.read<NewsBloc>()
+                        ..isFetching = true
+                        ..add(FetchNewsEvent());
+                    },
+                    icon: const Icon(Icons.refresh),
                   ),
+                  const SizedBox(height: 15),
+                  Text(state.error, textAlign: TextAlign.center),
+                ],
+              );
+            }
+            return Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+              child: ListView(
+                 shrinkWrap: true,
+                      controller: context.read<NewsBloc>().scrollController,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'News',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                  const Divider(
+                    color: ColorConstants.orangeGradients3,
+                  ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: newsAll.length +
+                          (context.read<NewsBloc>().isFetching ? 1 : 0),
+                      itemBuilder: (context, index) {
+                        if (index < newsAll.length) {
+                          return Container(
+                              margin:
+                                  const EdgeInsets.only(top: 30, bottom: 20),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 15),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFF003b5b)
+                                        .withOpacity(0.1),
+                                    blurRadius: 1.0,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        newsAll[index].titolo,
+                                        style: TextStyle(
+                                          fontSize: 2 * blockSizeVertical,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Text(
+                                      newsAll[index].testo,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      softWrap: false,
+                                      style: TextStyle(
+                                        fontSize: 2 * blockSizeVertical,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ));
+                        } else {
+                          return loadingWidget(context);
+                        }
+                      })
                 ],
               ),
-              child:Column(children: [
-                CachedNetworkImage(
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+/* CachedNetworkImage(
                   imageUrl: images[0],
                   placeholder: (context, url) => const Center(
                       child: SizedBox(
@@ -91,165 +185,4 @@ List images = [
                       'lib/resources/images/logo.png',
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Lorem Ipsum',
-                      style:  TextStyle(
-                        fontSize: 2 * blockSizeVertical,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    softWrap: false,
-                    style:  TextStyle(
-                      fontSize: 2 * blockSizeVertical,
-                    ),
-                  ),
-                ),
-                
-              ],)
-                  ),
-        
-          Container(
-              margin: const EdgeInsets.symmetric(vertical: 15),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF003b5b).withOpacity(0.1),
-                    blurRadius: 1.0,
-                  ),
-                ],
-              ),
-              child:Column(children: [
-                CachedNetworkImage(
-                  imageUrl: images[1],
-                  placeholder: (context, url) => const Center(
-                      child: SizedBox(
-                    height: 100,
-                    child: CupertinoActivityIndicator(
-                      color: Color(0xff003b5b),
-                    ),
-                  )),
-                  errorWidget: (context, url, error) => SizedBox(
-                    height: 60,
-                    child: Image.asset(
-                      'lib/resources/images/logo.png',
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Lorem Ipsum',
-                      style:  TextStyle(
-                        fontSize: 2 * blockSizeVertical,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    softWrap: false,
-                    style:  TextStyle(
-                      fontSize: 2 * blockSizeVertical,
-                    ),
-                  ),
-                ),
-                
-              ],)
-                ),
-    
-          Container(
-              margin: const EdgeInsets.symmetric(vertical: 15),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF003b5b).withOpacity(0.1),
-                    blurRadius: 1.0,
-                  ),
-                ],
-              ),
-              child:Column(children: [
-                CachedNetworkImage(
-                  imageUrl: images[2],
-                  placeholder: (context, url) => const Center(
-                      child: SizedBox(
-                    height: 100,
-                    child: CupertinoActivityIndicator(
-                      color: Color(0xff003b5b),
-                    ),
-                  )),
-                  errorWidget: (context, url, error) => SizedBox(
-                    height: 60,
-                    child: Image.asset(
-                      'lib/resources/images/logo.png',
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Lorem Ipsum',
-                      style:  TextStyle(
-                        fontSize: 2 * blockSizeVertical,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    softWrap: false,
-                    style:  TextStyle(
-                      fontSize: 2 * blockSizeVertical,
-                    ),
-                  ),
-                ),
-                
-              ],)
-                )
-        ],
-        ),
-      ),
-    );
-  }
-}
+                ), */

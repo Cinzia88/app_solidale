@@ -34,14 +34,7 @@ class _ParentsPageState extends State<ParentsPage> {
           toolbarHeight: 75.0,
           automaticallyImplyLeading: true,
           flexibleSpace: customAppBar(context: context),
-          actions: [
-            IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                ))
-          ],
+       
         ),
         drawer: NavigationDrawerWidget(),
         body: BlocConsumer<SendParentsDataBloc, SendParentsDataState>(
