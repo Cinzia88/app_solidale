@@ -3,6 +3,7 @@ import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/news/bloc/news_bloc.dart';
 import 'package:app_solidale/screens/news/model/list_news_model.dart';
+import 'package:app_solidale/screens/news/page/single_new_page.dart';
 import 'package:app_solidale/screens/news/repository/news_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -107,52 +108,60 @@ class _NewsPageState extends State<NewsPage> {
                           (context.read<NewsBloc>().isFetching ? 1 : 0),
                       itemBuilder: (context, index) {
                         if (index < newsAll.length) {
-                          return Container(
-                              margin:
-                                  const EdgeInsets.only(top: 30, bottom: 20),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 15),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF003b5b)
-                                        .withOpacity(0.1),
-                                    blurRadius: 1.0,
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        newsAll[index].titolo,
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (contex) => SingleNewPage(title: newsAll[index].titolo,
+                              desc: newsAll[index].testo,)));
+                            },
+                            child: Container(
+                                margin:
+                                    const EdgeInsets.only(top: 30, bottom: 20),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFF003b5b)
+                                          .withOpacity(0.1),
+                                      blurRadius: 1.0,
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            newsAll[index].titolo,
+                                            style: TextStyle(
+                                              fontSize: 2 * blockSizeVertical,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0),
+                                      child: Text(
+                                        newsAll[index].testo,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        softWrap: false,
                                         style: TextStyle(
                                           fontSize: 2 * blockSizeVertical,
-                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0),
-                                    child: Text(
-                                      newsAll[index].testo,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                      softWrap: false,
-                                      style: TextStyle(
-                                        fontSize: 2 * blockSizeVertical,
-                                      ),
                                     ),
-                                  ),
-                                ],
-                              ));
+                                  ],
+                                )),
+                          );
                         } else {
                           return loadingWidget(context);
                         }

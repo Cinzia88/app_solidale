@@ -35,13 +35,24 @@ class _SlidesPageState extends State<SlidesPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  _curr == 3 ?  Text(
-                           "Chiudi" ,
-                          style:  TextStyle(
-                            color: ColorConstants.titleText,
-                            fontSize: 2 * blockSizeVertical,
-                            fontWeight: FontWeight.bold,
-                          )) : InkWell(
+                  _curr == 3 ?  GestureDetector(
+                            onTap: () async {
+                              setState(() {
+                                viewSlide = false;
+                              });
+                           
+                              await valueSharedPrefsViewSlide
+                                  .setValueViewSlide(viewSlide);
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
+                            },
+                            child: Text(
+                             "Chiudi" ,
+                            style:  TextStyle(
+                              color: ColorConstants.titleText,
+                              fontSize: 2 * blockSizeVertical,
+                              fontWeight: FontWeight.bold,
+                            )),
+                  ) : GestureDetector(
                             onTap: () async {
                               setState(() {
                                 viewSlide = false;

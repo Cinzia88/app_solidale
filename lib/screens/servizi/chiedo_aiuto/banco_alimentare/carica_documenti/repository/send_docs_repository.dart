@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -63,10 +64,21 @@ print('sendimage success ${request.files.length}');
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text(
-                        'Stiamo elaborando i tuoi dati',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleSmall,
+                      title: Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                            child: Image.asset(PathConstants.bancoAlim),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Stiamo elaborando i tuoi dati',
+                            style: Theme.of(context).textTheme.titleMedium,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                       content: const Text('Ti contatteremo al più presto!'),
                       shape: RoundedRectangleBorder(

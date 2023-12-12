@@ -64,7 +64,7 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
                         SizedBox(
                           width: 70,
                           child: Image.asset(
-                            PathConstants.bancoAlim,
+                            PathConstants.taxiSolidale,
                           ),
                         ),
                         SizedBox(
@@ -253,13 +253,22 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
                                     context: context,
                                     builder: (context) {
                                       return AlertDialog(
-                                        title: Text(
-                                          'Stiamo elaborando i tuoi dati',
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
-                                        ),
+                                        title: Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                            child: Image.asset(PathConstants.taxiSolidale),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Stiamo elaborando i tuoi dati',
+                            style: Theme.of(context).textTheme.titleMedium,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                                         content: const Text(
                                             'Ti contatteremo al più presto!'),
                                         shape: RoundedRectangleBorder(

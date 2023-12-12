@@ -20,18 +20,28 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    //final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight = mediaQueryData.size.height;
+    //final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return Drawer(
       backgroundColor: ColorConstants.orangeGradients3,
-      child: Column(
+      child: ListView(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         children: [
           DrawerHeader(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 100,
-                  child: Image.asset(
-                    PathConstants.logoanfcompletovertic,
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: SizedBox(
+                    height: 100,
+                    child: Image.asset(
+                      PathConstants.logoanfcompletovertic,
+                    ),
                   ),
                 ),
               ],
@@ -43,10 +53,14 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               leading: Icon(
                 Icons.home,
                 color: Colors.white,
+                                size: 3.5 * blockSizeVertical,
+
               ),
               title: Text(
                 'Home',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,
+                fontSize: 2.5 * blockSizeVertical,
+                ),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -57,10 +71,13 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               leading: Icon(
                 Icons.newspaper,
                 color: Colors.white,
+                size: 3.5 * blockSizeVertical,
               ),
               title: Text(
                 'News',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,
+                                fontSize: 2.5 * blockSizeVertical,
+),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -71,10 +88,14 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               leading: Icon(
                 Icons.account_circle,
                 color: Colors.white,
+                                                size: 3.5 * blockSizeVertical,
+
               ),
               title: Text(
                 'Il Mio Account',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,
+                                fontSize: 2.5 * blockSizeVertical,
+),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -86,10 +107,14 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               leading: Icon(
                 Icons.logout,
                 color: Colors.white,
+                                                size: 3.5 * blockSizeVertical,
+
               ),
               title: Text(
                 'Esci',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,
+                                fontSize: 2.5 * blockSizeVertical,
+),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -102,10 +127,14 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               leading: Icon(
                 Icons.favorite,
                 color: Colors.white,
+                                                size: 3.5 * blockSizeVertical,
+
               ),
               title: Text(
                 'Chiedo Aiuto',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,
+                                fontSize: 2.5 * blockSizeVertical,
+),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -116,10 +145,14 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               leading: Icon(
                 Icons.favorite,
                 color: Colors.white,
+                                                size: 3.5 * blockSizeVertical,
+
               ),
               title: Text(
                 'Offro Aiuto',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,
+                                fontSize: 2.5 * blockSizeVertical,
+),
               ),
               onTap: () {
                 Navigator.pop(context);

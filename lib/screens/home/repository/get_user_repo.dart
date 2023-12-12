@@ -106,15 +106,8 @@ class ReadDataUserRepository {
         case 200:
           print('utente modificato');
           // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: ColorConstants.orangeGradients3,
-              content: Text(
-                '',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              )));
+           
+          
           break;
         case 422:
           

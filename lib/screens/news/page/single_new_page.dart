@@ -1,3 +1,4 @@
+import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +9,12 @@ import '../../common_widgets/background_style/custom_appbar.dart';
 
 // ignore: must_be_immutable
 class SingleNewPage extends StatefulWidget {
-  String image;
+  String title;
+  String desc;
   SingleNewPage({
     Key? key,
-    required this.image,
+    required this.title,
+    required this.desc,
   }) : super(key: key);
 
   @override
@@ -27,43 +30,38 @@ class _SingleNewPageState extends State<SingleNewPage> {
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     return Scaffold(
-        appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(150.0),
-            child: AppBar(
-                toolbarHeight: 75.0,
-                automaticallyImplyLeading: false,
-                flexibleSpace: customAppBar(context: context)),
+         appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.white,
           ),
+          toolbarHeight: 75.0,
+          automaticallyImplyLeading: true,
+          flexibleSpace: customAppBar(context: context),
+          actions: [
+            IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ))
+          ],
+        ),
+        drawer: NavigationDrawerWidget(),
         body: SingleChildScrollView(
           child: Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
             child: Column(
               children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: CachedNetworkImage(
-                    imageUrl: widget.image,
-                    placeholder: (context, url) => const Center(
-                        child: SizedBox(
-                      height: 100,
-                      child: CupertinoActivityIndicator(
-                        color: ColorConstants.orangeGradients3,
-                      ),
-                    )),
-                  ),
-                ),
+               
                  Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 10),
-                      child: Text(
-                        'Lorem ipsum',
-                        style:  TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 2 * blockSizeVertical,
-                        ),
+                    Text(
+                      widget.title,
+                      style:  TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 2 * blockSizeVertical,
                       ),
                     ),
                   ],
@@ -75,7 +73,7 @@ class _SingleNewPageState extends State<SingleNewPage> {
                  Padding(
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                    widget.desc,
                     style: TextStyle(
                       fontSize: 2 * blockSizeVertical,
                     ),

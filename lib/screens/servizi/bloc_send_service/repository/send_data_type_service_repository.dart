@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
@@ -32,7 +33,6 @@ class SendDataTypeServiceRepository {
             'telefono': telefono,
           }));
 
-
       switch (response.statusCode) {
         case 200:
           if (response.body.contains('"service_id":1')) {
@@ -42,12 +42,23 @@ class SendDataTypeServiceRepository {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: SizedBox(
-                        height: 50,
-                        child: Image.asset(PathConstants.offroAiuto),
+                      title: Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                            child: Image.asset(PathConstants.offroAiuto),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Grazie per il tuo prezioso contributo. ',
+                            style: Theme.of(context).textTheme.titleMedium,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
-                      content: const Text(
-                          'Grazie per il tuo prezioso contributo. \nTi contatteremo al più presto!'),
+                      content: const Text('Ti contatteremo al più presto!'),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
@@ -69,9 +80,7 @@ class SendDataTypeServiceRepository {
                   });
             }
           } else if (response.body.contains('"service_id":2')) {
-
             if (context.mounted) {
-
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => DisabiliTaxiPage()));
             }
@@ -82,10 +91,21 @@ class SendDataTypeServiceRepository {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text(
-                        'Stiamo elaborando i tuoi dati',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleSmall,
+                      title: Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                            child: Image.asset(PathConstants.accompagnamOncolog),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Stiamo elaborando i tuoi dati',
+                            style: Theme.of(context).textTheme.titleMedium,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                       content: const Text('Ti contatteremo al più presto!'),
                       shape: RoundedRectangleBorder(

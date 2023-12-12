@@ -79,7 +79,7 @@ bool taxiSolidaleCreato = false;
                       SizedBox(
                         width: 70,
                         child: Image.asset(
-                          PathConstants.bancoAlim,
+                          PathConstants.taxiSolidale,
                         ),
                       ),
                       SizedBox(
