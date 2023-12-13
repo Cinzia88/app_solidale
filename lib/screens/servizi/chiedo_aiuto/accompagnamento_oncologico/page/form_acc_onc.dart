@@ -32,44 +32,34 @@ int _value = 1;
 final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
 
     return BlocBuilder<SendDataTypeServiceBloc, SendDataTypeServiceState>(builder: (context, state) {
-      return  Stack(
-      children: [
-        SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.all(
-                      20.0,
+      return  SingleChildScrollView(
+              child: Padding(
+                  padding: const EdgeInsets.all(
+                    20.0,
+                  ),
+                  child: Column(children: [
+                    SizedBox(
+                      width: 70,
+                      child: Image.asset(
+                        PathConstants.accompagnamOncolog,
+                      ),
                     ),
-                    child: Column(children: [
-                      SizedBox(
-                        width: 70,
-                        child: Image.asset(
-                          PathConstants.accompagnamOncolog,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3 * blockSizeVertical,
-                      ),
-                      Text(
-                        'Accompagnamento Oncologico',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      
-                      
-                      Form(
-                        key: _formKey,
-                        child: _formSelectService(),
-                      ),
-                       
-            
-                    ])),
-              ),
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 20.0),
-                    child: Row(
+                    SizedBox(
+                      height: 3 * blockSizeVertical,
+                    ),
+                    Text(
+                      'Accompagnamento Oncologico',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    
+                    
+                    Form(
+                      key: _formKey,
+                      child: _formSelectService(),
+                    ),
+                     
+          Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         CommonStyleButton(
@@ -84,10 +74,8 @@ final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
                             iconWidget: Text('')),
                       ],
                     ),
-                  ),
-                ),
-      ],
-    );
+                  ])),
+            );
     });
     }
   
@@ -171,7 +159,7 @@ final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
         ),
         _value == 2
             ? Padding(
-                padding: const EdgeInsets.only(bottom: 80.0),
+                padding: const EdgeInsets.only(bottom: 20.0),
                 child: Column(
                   children: [
                     const Padding(

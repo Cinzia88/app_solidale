@@ -76,195 +76,163 @@ class _FormDocsState extends State<FormDocs> {
     return BlocBuilder<SendDocsBloc, SendDocsState>(builder: (context, state) {
       return state is SendDocsLoadingState
           ? loadingWidget(context)
-          : Stack(
+          : SingleChildScrollView(
+              child: Padding(
+            padding: const EdgeInsets.all(
+              20.0,
+            ),
+            child: Column(
               children: [
-                SingleChildScrollView(
-                    child: Padding(
-                  padding: const EdgeInsets.all(
-                    20.0,
+                SizedBox(
+                  width: 70,
+                  child: Image.asset(
+                    PathConstants.bancoAlim,
                   ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: 70,
-                        child: Image.asset(
-                          PathConstants.bancoAlim,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3 * blockSizeVertical,
-                      ),
-                      Text(
-                        'Banco Alimentare',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Fase 3 di 3',
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                        ],
-                      ),
-                      const Divider(
-                        color: ColorConstants.orangeGradients3,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Flexible(
-                              child: Text('Seleziona il tipo di documento')),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 30.0),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              DropdownButtonHideUnderline(
-                                child: DropdownButton2<String>(
-                                  hint: Text(
-                                    '',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: ColorConstants.labelText,
-                                    ),
-                                  ),
-                                  items: items
-                                      .map((String item) =>
-                                          DropdownMenuItem<String>(
-                                            value: item,
-                                            child: Text(
-                                              item,
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ))
-                                      .toList(),
-                                  value: selectedValue,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      selectedValue = value!;
-                                    });
-                                  },
-                                  buttonStyleData: ButtonStyleData(
-                                    height: 50,
-                                    width: 160,
-                                    padding: const EdgeInsets.only(
-                                        left: 14, right: 14),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(14),
-                                      border: Border.all(
-                                        color: ColorConstants.orangeGradients1,
-                                      ),
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  iconStyleData: const IconStyleData(
-                                    icon: Icon(
-                                      Icons.arrow_drop_down,
-                                    ),
-                                    iconSize: 20,
-                                    iconEnabledColor:
-                                        ColorConstants.orangeGradients3,
-                                    iconDisabledColor: Colors.grey,
-                                  ),
-                                  dropdownStyleData: DropdownStyleData(
-                                    maxHeight: 200,
-                                    width:
-                                        MediaQuery.of(context).size.width - 150,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(14),
-                                      color: Colors.white,
-                                    ),
-                                    scrollbarTheme: ScrollbarThemeData(
-                                      radius: const Radius.circular(40),
-                                      thickness:
-                                          MaterialStateProperty.all<double>(6),
-                                      thumbVisibility:
-                                          MaterialStateProperty.all<bool>(true),
-                                    ),
-                                  ),
-                                  menuItemStyleData: const MenuItemStyleData(
-                                    height: 40,
-                                    padding:
-                                        EdgeInsets.only(left: 14, right: 14),
-                                  ),
-                                ),
+                ),
+                SizedBox(
+                  height: 3 * blockSizeVertical,
+                ),
+                Text(
+                  'Banco Alimentare',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Fase 3 di 3',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ],
+                ),
+                const Divider(
+                  color: ColorConstants.orangeGradients3,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Flexible(
+                        child: Text('Seleziona il tipo di documento')),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        DropdownButtonHideUnderline(
+                          child: DropdownButton2<String>(
+                            hint: Text(
+                              '',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: ColorConstants.labelText,
                               ),
-                              GridView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 3),
-                                  itemCount: imagesList.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: Stack(
-                                        fit: StackFit.expand,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 20.0),
-                                            child: Image.file(
-                                              File(imagesList[index].path),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          Positioned(
-                                            right: -4,
-                                            top: -4,
-                                            child: Container(
-                                              color: const Color.fromRGBO(
-                                                  255, 255, 244, 0.7),
-                                              child: IconButton(
-                                                onPressed: () {
-                                                  setState(() {
-                                                    imagesList.removeAt(index);
-                                                  });
-                                                },
-                                                icon: const Icon(
-                                                  Icons.delete,
-                                                  color: Colors.red,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                            ),
+                            items: items
+                                .map((String item) =>
+                                    DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(
+                                        item,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                    );
-                                  }),
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: filePdf.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(top: 20.0),
-                                    child: Row(
-                                      children: [
-                                        Text(filePdf[index]
-                                            .path
-                                            .split('/')
-                                            .last),
-                                        IconButton(
+                                    ))
+                                .toList(),
+                            value: selectedValue,
+                            onChanged: (String? value) {
+                              setState(() {
+                                selectedValue = value!;
+                              });
+                            },
+                            buttonStyleData: ButtonStyleData(
+                              height: 50,
+                              width: 160,
+                              padding: const EdgeInsets.only(
+                                  left: 14, right: 14),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(
+                                  color: ColorConstants.orangeGradients1,
+                                ),
+                                color: Colors.white,
+                              ),
+                            ),
+                            iconStyleData: const IconStyleData(
+                              icon: Icon(
+                                Icons.arrow_drop_down,
+                              ),
+                              iconSize: 20,
+                              iconEnabledColor:
+                                  ColorConstants.orangeGradients3,
+                              iconDisabledColor: Colors.grey,
+                            ),
+                            dropdownStyleData: DropdownStyleData(
+                              maxHeight: 200,
+                              width:
+                                  MediaQuery.of(context).size.width - 150,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                color: Colors.white,
+                              ),
+                              scrollbarTheme: ScrollbarThemeData(
+                                radius: const Radius.circular(40),
+                                thickness:
+                                    MaterialStateProperty.all<double>(6),
+                                thumbVisibility:
+                                    MaterialStateProperty.all<bool>(true),
+                              ),
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              height: 40,
+                              padding:
+                                  EdgeInsets.only(left: 14, right: 14),
+                            ),
+                          ),
+                        ),
+                        GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3),
+                            itemCount: imagesList.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 20.0),
+                                      child: Image.file(
+                                        File(imagesList[index].path),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: -4,
+                                      top: -4,
+                                      child: Container(
+                                        color: const Color.fromRGBO(
+                                            255, 255, 244, 0.7),
+                                        child: IconButton(
                                           onPressed: () {
                                             setState(() {
-                                              filePdf.removeAt(index);
+                                              imagesList.removeAt(index);
                                             });
                                           },
                                           icon: const Icon(
@@ -272,38 +240,59 @@ class _FormDocsState extends State<FormDocs> {
                                             color: Colors.red,
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  );
-                                },
+                                  ],
+                                ),
+                              );
+                            }),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: filePdf.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: Row(
+                                children: [
+                                  Text(filePdf[index]
+                                      .path
+                                      .split('/')
+                                      .last),
+                                  IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        filePdf.removeAt(index);
+                                      });
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ElevatedButton.icon(
-                                onPressed: () async {
-                                  _pickFile();
-
-                                  setState(() {
-                                    deletedImage = false;
-                                  });
-                                },
-                                label: const Text('Scegli File'),
-                                icon: const Icon(Icons.file_copy),
-                              ),
-                            ],
-                          ),
+                            );
+                          },
                         ),
-                      ),
-                    ],
-                  ),
-                )),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 20.0),
-                    child: Row(
+                        SizedBox(
+                          height: 30,
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: () async {
+                            _pickFile();
+
+                            setState(() {
+                              deletedImage = false;
+                            });
+                          },
+                          label: const Text('Scegli File'),
+                          icon: const Icon(Icons.file_copy),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         CommonStyleButton(
@@ -329,10 +318,13 @@ class _FormDocsState extends State<FormDocs> {
                         ),
                       ],
                     ),
+                      ],
+                    ),
                   ),
                 ),
               ],
-            );
+            ),
+          ));
     });
   }
 }

@@ -101,10 +101,13 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                           '\n2.  Dichiara se nel nucleo familiare è presente una persona diversamente abile. Se sì, indica il numero'),
                       Text(
                           '\n3.  Procurati i documenti necessari (ISEE, documento d\'identità) e caricali sull\'app'),
-                    ])),
-          );
-        }),
-        floatingActionButton: CommonStyleButton(
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              CommonStyleButton(
             title: 'Inizia',
             onTap: () {
               SendDataTypeServiceRepository().sendDataTypeservice(context, '4',
@@ -113,6 +116,11 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                   
             },
             iconWidget: Text('')),
+                            ],
+                          )
+                    ])),
+          );
+        }),
       ),
     );
   }

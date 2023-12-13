@@ -1,9 +1,6 @@
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:app_solidale/const/color_constants.dart';
 
 import '../../common_widgets/background_style/custom_appbar.dart';
 

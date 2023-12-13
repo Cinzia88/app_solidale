@@ -66,57 +66,47 @@ bool taxiSolidaleCreato = false;
     return BlocBuilder<SendDataTypeServiceBloc, SendDataTypeServiceState>(builder: (context, state) {
       return  state is SendDisabiliDataLoadingState
           ? loadingWidget(context)
-          : Stack(
-            children: [
-              SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.all(
-                      20.0,
+          : SingleChildScrollView(
+            child: Padding(
+                padding: const EdgeInsets.all(
+                  20.0,
+                ),
+                child: Column(children: [
+                  SizedBox(
+                    width: 70,
+                    child: Image.asset(
+                      PathConstants.taxiSolidale,
                     ),
-                    child: Column(children: [
-                      SizedBox(
-                        width: 70,
-                        child: Image.asset(
-                          PathConstants.taxiSolidale,
+                  ),
+                  SizedBox(
+                    height: 3 * blockSizeVertical,
+                  ),
+                  Text(
+                    'Taxi Solidale',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                   SizedBox(
+                          height: 20,
                         ),
-                      ),
-                      SizedBox(
-                        height: 3 * blockSizeVertical,
-                      ),
-                      Text(
-                        'Taxi Solidale',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                       SizedBox(
-                              height: 20,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Fase 1 di 2',
+                              style: Theme.of(context).textTheme.titleSmall,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Fase 1 di 2',
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                              ],
-                            ),
-                            const Divider(
-                              color: ColorConstants.orangeGradients3,
-                            ),
-                      
-                      Form(
-                        key: _formKey,
-                        child: _formSelectService(),
-                      ),
-                        
-                    ])),
-              ),
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 20.0),
-                    child: Row(
+                          ],
+                        ),
+                        const Divider(
+                          color: ColorConstants.orangeGradients3,
+                        ),
+                  
+                  Form(
+                    key: _formKey,
+                    child: _formSelectService(),
+                  ),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                      CommonStyleButton(
@@ -137,9 +127,7 @@ bool taxiSolidaleCreato = false;
                             iconWidget: Text('')),
                       ],
                     ),
-                  ),
-                ),
-            ],
+                ])),
           );
     });
   }

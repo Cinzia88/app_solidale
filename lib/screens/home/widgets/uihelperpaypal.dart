@@ -6,7 +6,10 @@ class UiHelperPaypal {
   static showAlertDialog(BuildContext context, String message, {title = ''}) {
    
 
-      OneContext().showDialog(builder: (ctx) {
+      OneContext().showDialog(
+                        barrierColor: Colors.black87,
+
+        builder: (ctx) {
  
         return AlertDialog(
           title: Text(title),

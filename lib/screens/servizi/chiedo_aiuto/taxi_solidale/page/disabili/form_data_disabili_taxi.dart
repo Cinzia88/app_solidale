@@ -1,6 +1,7 @@
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
+import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
@@ -18,6 +19,8 @@ class FormDataDisabiliTaxi extends StatefulWidget {
 
 class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _numberController = TextEditingController();
+  int _value = 1;
 
   final List<String> items = [
     '1',
@@ -54,258 +57,243 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
         builder: (context, state) {
       return state is SendDisabiliDataLoadingState
           ? loadingWidget(context)
-          : Stack(
-              children: [
-                SingleChildScrollView(
-                  child: Padding(
-                      padding: const EdgeInsets.all(
-                        20.0,
+          : SingleChildScrollView(
+              child: Padding(
+                  padding: const EdgeInsets.all(
+                    20.0,
+                  ),
+                  child: Column(children: [
+                    SizedBox(
+                      width: 70,
+                      child: Image.asset(
+                        PathConstants.taxiSolidale,
                       ),
-                      child: Column(children: [
-                        SizedBox(
-                          width: 70,
-                          child: Image.asset(
-                            PathConstants.taxiSolidale,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 3 * blockSizeVertical,
-                        ),
+                    ),
+                    SizedBox(
+                      height: 3 * blockSizeVertical,
+                    ),
+                    Text(
+                      'Taxi Solidale',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                         Text(
-                          'Taxi Solidale',
-                          textAlign: TextAlign.center,
+                          'Fase 2 di 2',
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                      ],
+                    ),
+                    const Divider(
+                      color: ColorConstants.orangeGradients3,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
                           children: [
-                            Text(
-                              'Fase 2 di 2',
-                              style: Theme.of(context).textTheme.titleSmall,
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                    child: Text(
+                                        'Nel nucleo familiare sono presenti persone con invalidità?')),
+                              ],
+                            ),
+                            ListTile(
+                              title: yes == true
+                                  ? Text('Sì')
+                                  : Text(
+                                      'No',
+                                    ),
+                              trailing: Switch(
+                                  inactiveThumbColor:
+                                      ColorConstants.orangeGradients3,
+                                  activeColor: ColorConstants.orangeGradients3,
+                                  value: yes,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      yes = value;
+                                    });
+                                    if (yes == true) {
+                                      setState(() {
+                                        disabile = 1;
+                                      });
+                                    } else {
+                                      disabile = 0;
+                                    }
+
+                                    //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
+                                    //tale value lo salvo nel provider
+                                  }),
+                            ),
+                            disabile == 0
+                                ? SizedBox()
+                                : Padding(
+                                    padding: const EdgeInsets.only(top: 20.0),
+                                    child: TextFormFieldCustom(
+                                        keyboardType: TextInputType.number,
+                                        labelTextCustom:
+                                            'Inserisci numero di persone con invalidità',
+                                        textEditingController:
+                                            _numberController,
+                                        obscureText: false)),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                CommonStyleButton(
+                                    title: 'Invia',
+                                    onTap: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        bloc.add(SendDisabiliFormEvent(
+                                            numeroDisabili: disabile == 0
+                                                ? '0'
+                                                : _numberController.text,
+                                            disabile: disabile));
+                                        SendDataTypeServiceRepository()
+                                            .sendMailService(
+                                                context, 'Taxi Solidale');
+
+                                        showDialog(
+                                            barrierDismissible: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: Column(
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 50,
+                                                      child: Image.asset(
+                                                          PathConstants
+                                                              .taxiSolidale),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      'Stiamo elaborando i tuoi dati',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ],
+                                                ),
+                                                content: const Text(
+                                                    'Ti contatteremo al più presto!'),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                ),
+                                                actions: [
+                                                  InkWell(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        PresentationPage()));
+                                                      },
+                                                      child: Text(
+                                                        'Torna alla home',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleMedium,
+                                                      ))
+                                                ],
+                                              );
+                                            });
+                                      }
+                                    },
+                                    iconWidget: Text('')),
+                              ],
                             ),
                           ],
                         ),
-                        const Divider(
-                          color: ColorConstants.orangeGradients3,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Flexible(
-                                        child: Text(
-                                            'Nel nucleo familiare è presente una persona con invalidità?')),
-                                  ],
-                                ),
-                                ListTile(
-                                  title: yes == true
-                                      ? Text('Sì')
-                                      : Text(
-                                          'No',
-                                        ),
-                                  trailing: Switch(
-                                      inactiveThumbColor:
-                                          ColorConstants.orangeGradients3,
-                                      activeColor:
-                                          ColorConstants.orangeGradients3,
-                                      value: yes,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          yes = value;
-                                        });
-                                        if (yes == true) {
-                                          setState(() {
-                                            disabile = 1;
-                                          });
-                                        } else {
-                                          disabile = 0;
-                                        }
-
-                                        //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
-                                        //tale value lo salvo nel provider
-                                      }),
-                                ),
-                                disabile == 0
-                                    ? SizedBox()
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 20.0),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButton2<String>(
-                                            hint: Text(
-                                              '',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: ColorConstants.labelText,
-                                              ),
-                                            ),
-                                            items: items
-                                                .map((String item) =>
-                                                    DropdownMenuItem<String>(
-                                                      value: item,
-                                                      child: Text(
-                                                        item,
-                                                        style: const TextStyle(
-                                                          fontSize: 14,
-                                                          color: Colors.black,
-                                                        ),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                    ))
-                                                .toList(),
-                                            value: selectedValue,
-                                            onChanged: (String? value) {
-                                              setState(() {
-                                                selectedValue = value!;
-                                              });
-                                            },
-                                            buttonStyleData: ButtonStyleData(
-                                              height: 50,
-                                              width: 160,
-                                              padding: const EdgeInsets.only(
-                                                  left: 14, right: 14),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(14),
-                                                border: Border.all(
-                                                  color: ColorConstants
-                                                      .orangeGradients1,
-                                                ),
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            iconStyleData: const IconStyleData(
-                                              icon: Icon(
-                                                Icons.arrow_drop_down,
-                                              ),
-                                              iconSize: 20,
-                                              iconEnabledColor: ColorConstants
-                                                  .orangeGradients3,
-                                              iconDisabledColor: Colors.grey,
-                                            ),
-                                            dropdownStyleData:
-                                                DropdownStyleData(
-                                              maxHeight: 200,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width -
-                                                  150,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(14),
-                                                color: Colors.white,
-                                              ),
-                                              scrollbarTheme:
-                                                  ScrollbarThemeData(
-                                                radius:
-                                                    const Radius.circular(40),
-                                                thickness: MaterialStateProperty
-                                                    .all<double>(6),
-                                                thumbVisibility:
-                                                    MaterialStateProperty.all<
-                                                        bool>(true),
-                                              ),
-                                            ),
-                                            menuItemStyleData:
-                                                const MenuItemStyleData(
-                                              height: 40,
-                                              padding: EdgeInsets.only(
-                                                  left: 14, right: 14),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ])),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        CommonStyleButton(
-                            title: 'Invia',
-                            onTap: () {
-                              if (_formKey.currentState!.validate()) {
-                                bloc.add(SendDisabiliFormEvent(
-                                    numeroDisabili:
-                                        disabile == 0 ? '0' : selectedValue,
-                                    disabile: disabile));
-                                              SendDataTypeServiceRepository().sendMailService(context, 'Taxi Solidale');
-
-                                showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Column(
-                        children: [
-                          SizedBox(
-                            height: 50,
-                            child: Image.asset(PathConstants.taxiSolidale),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Stiamo elaborando i tuoi dati',
-                            style: Theme.of(context).textTheme.titleMedium,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
                       ),
-                                        content: const Text(
-                                            'Ti contatteremo al più presto!'),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        actions: [
-                                          InkWell(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            PresentationPage()));
-                                              },
-                                              child: Text(
-                                                'Torna alla home',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium,
-                                              ))
-                                        ],
-                                      );
-                                    });
-                              }
-                            },
-                            iconWidget: Text('')),
-                      ],
                     ),
-                  ),
-                ),
-              ],
+                  ])),
             );
     });
+  }
+
+  _formSelectService() {
+    return Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Flexible(
+                  child: Text(
+                      'Nel nucleo familiare sono presenti persone con invalidità?')),
+            ],
+          ),
+        ),
+        Row(
+          children: [
+            Radio(
+                value: 1,
+                groupValue: _value,
+                onChanged: (value) {
+                  setState(() {
+                    _value = value!;
+                  });
+                }),
+            SizedBox(
+              width: 10,
+            ),
+            Text('Me'),
+          ],
+        ),
+        Row(
+          children: [
+            Radio(
+                value: 2,
+                groupValue: _value,
+                onChanged: (value) {
+                  setState(() {
+                    _value = value!;
+                  });
+                }),
+            SizedBox(
+              width: 10,
+            ),
+            Text('Un Mio Familiare'),
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        _value == 2
+            ? Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: Column(
+                  children: [
+                    const Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Text(
+                          '(Inserisci i dati del familiare per il quale richiedi il servizio)'),
+                    ),
+                  ],
+                ),
+              )
+            : SizedBox(),
+      ],
+    );
   }
 }
 

@@ -15,6 +15,8 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
       required String desc}) {
    
     return showDialog(
+                      barrierColor: Colors.black87,
+
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {

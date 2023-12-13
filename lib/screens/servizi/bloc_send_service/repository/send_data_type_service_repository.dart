@@ -38,6 +38,7 @@ class SendDataTypeServiceRepository {
           if (response.body.contains('"service_id":1')) {
             if (context.mounted) {
               showDialog(
+                barrierColor: Colors.black87,
                   barrierDismissible: false,
                   context: context,
                   builder: (context) {
@@ -88,6 +89,8 @@ class SendDataTypeServiceRepository {
           } else if (response.body.contains('"service_id":3')) {
             if (context.mounted) {
               showDialog(
+                                barrierColor: Colors.black87,
+
                   barrierDismissible: false,
                   context: context,
                   builder: (context) {

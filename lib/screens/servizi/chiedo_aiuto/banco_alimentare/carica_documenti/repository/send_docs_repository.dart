@@ -60,6 +60,8 @@ print('sendimage success ${request.files.length}');
              
             if (context.mounted) {
               showDialog(
+                                barrierColor: Colors.black87,
+
                 barrierDismissible: false,
                   context: context,
                   builder: (context) {

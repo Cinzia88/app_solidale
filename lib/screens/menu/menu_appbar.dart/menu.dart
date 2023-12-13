@@ -16,7 +16,7 @@ class NavigationDrawerWidget extends StatefulWidget {
 }
 
 class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
-    ServiceLogout serviceLogout = ServiceLogout();
+  ServiceLogout serviceLogout = ServiceLogout();
 
   @override
   Widget build(BuildContext context) {
@@ -46,28 +46,28 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                 ),
               ],
             ),
-            
-        
           ),
-           ListTile(
+          ListTile(
               leading: Icon(
                 Icons.home,
                 color: Colors.white,
-                                size: 3.5 * blockSizeVertical,
-
+                size: 3.5 * blockSizeVertical,
               ),
               title: Text(
                 'Home',
-                style: TextStyle(color: Colors.white,
-                fontSize: 2.5 * blockSizeVertical,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 2.5 * blockSizeVertical,
                 ),
               ),
               onTap: () {
                 Navigator.pop(context);
-                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PresentationPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PresentationPage()));
               }),
-               ListTile(
+          ListTile(
               leading: Icon(
                 Icons.newspaper,
                 color: Colors.white,
@@ -75,88 +75,90 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               ),
               title: Text(
                 'News',
-                style: TextStyle(color: Colors.white,
-                                fontSize: 2.5 * blockSizeVertical,
-),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 2.5 * blockSizeVertical,
+                ),
               ),
               onTap: () {
                 Navigator.pop(context);
-                 Navigator.push(context,
+                Navigator.push(context,
                     MaterialPageRoute(builder: (context) => NewsPage()));
               }),
           ListTile(
               leading: Icon(
                 Icons.account_circle,
                 color: Colors.white,
-                                                size: 3.5 * blockSizeVertical,
-
+                size: 3.5 * blockSizeVertical,
               ),
               title: Text(
                 'Il Mio Account',
-                style: TextStyle(color: Colors.white,
-                                fontSize: 2.5 * blockSizeVertical,
-),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 2.5 * blockSizeVertical,
+                ),
               ),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ProfilePage()));
               }),
-         
           ListTile(
               leading: Icon(
                 Icons.logout,
                 color: Colors.white,
-                                                size: 3.5 * blockSizeVertical,
-
+                size: 3.5 * blockSizeVertical,
               ),
               title: Text(
                 'Esci',
-                style: TextStyle(color: Colors.white,
-                                fontSize: 2.5 * blockSizeVertical,
-),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 2.5 * blockSizeVertical,
+                ),
               ),
               onTap: () {
                 Navigator.pop(context);
-                 Navigator.of(context, rootNavigator: true).pushReplacement(
-                      MaterialPageRoute(builder: (context) => SignInPage()));
-                  serviceLogout.logoutUser(context);
+                Navigator.of(context, rootNavigator: true).pushReplacement(
+                    MaterialPageRoute(builder: (context) => SignInPage()));
+                serviceLogout.logoutUser(context);
               }),
-              Divider(color: ColorConstants.colorDoctNotActive,),
-               ListTile(
+          Divider(
+            color: ColorConstants.colorDoctNotActive,
+          ),
+          ListTile(
               leading: Icon(
                 Icons.favorite,
                 color: Colors.white,
-                                                size: 3.5 * blockSizeVertical,
-
+                size: 3.5 * blockSizeVertical,
               ),
               title: Text(
                 'Chiedo Aiuto',
-                style: TextStyle(color: Colors.white,
-                                fontSize: 2.5 * blockSizeVertical,
-),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 2.5 * blockSizeVertical,
+                ),
               ),
               onTap: () {
                 Navigator.pop(context);
-                 Navigator.push(context,
+                Navigator.push(context,
                     MaterialPageRoute(builder: (context) => HomeChiedoAiuto()));
               }),
-               ListTile(
+          ListTile(
               leading: Icon(
                 Icons.favorite,
                 color: Colors.white,
-                                                size: 3.5 * blockSizeVertical,
-
+                size: 3.5 * blockSizeVertical,
               ),
               title: Text(
                 'Offro Aiuto',
-                style: TextStyle(color: Colors.white,
-                                fontSize: 2.5 * blockSizeVertical,
-),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 2.5 * blockSizeVertical,
+                ),
               ),
               onTap: () {
                 Navigator.pop(context);
-                 Navigator.push(context,
+                Navigator.push(context,
                     MaterialPageRoute(builder: (context) => OffroAiutoPage()));
               }),
           const SizedBox(

@@ -53,188 +53,182 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
         builder: (context, state) {
       return state is SendDisabiliDataLoadingState
           ? loadingWidget(context)
-          : Stack(
-              children: [
-                SingleChildScrollView(
-                  child: Padding(
-                      padding: const EdgeInsets.all(
-                        20.0,
+          : SingleChildScrollView(
+            child: Padding(
+                padding: const EdgeInsets.all(
+                  20.0,
+                ),
+                child: Column(children: [
+                  SizedBox(
+                    width: 70,
+                    child: Image.asset(
+                      PathConstants.bancoAlim,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 3 * blockSizeVertical,
+                  ),
+                  Text(
+                    'Banco Alimentare',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Fase 2 di 3',
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
-                      child: Column(children: [
-                        SizedBox(
-                          width: 70,
-                          child: Image.asset(
-                            PathConstants.bancoAlim,
+                    ],
+                  ),
+                  const Divider(
+                    color: ColorConstants.orangeGradients3,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                  child: Text(
+                                      'Nel nucleo familiare è presente una persona con invalidità?')),
+                            ],
                           ),
-                        ),
-                        SizedBox(
-                          height: 3 * blockSizeVertical,
-                        ),
-                        Text(
-                          'Banco Alimentare',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Fase 2 di 3',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                          ],
-                        ),
-                        const Divider(
-                          color: ColorConstants.orangeGradients3,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Flexible(
-                                        child: Text(
-                                            'Nel nucleo familiare è presente una persona con invalidità?')),
-                                  ],
-                                ),
-                                ListTile(
-                                  title: yes == true
-                                      ? Text('Sì')
-                                      : Text(
-                                          'No',
-                                        ),
-                                  trailing: Switch(
-                                      inactiveThumbColor:
-                                          ColorConstants.orangeGradients3,
-                                      activeColor:
-                                          ColorConstants.orangeGradients3,
-                                      value: yes,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          yes = value;
-                                        });
-                                        if (yes == true) {
-                                          setState(() {
-                                            disabile = 1;
-                                          });
-                                        } else {
-                                          disabile = 0;
-                                        }
+                          ListTile(
+                            title: yes == true
+                                ? Text('Sì')
+                                : Text(
+                                    'No',
+                                  ),
+                            trailing: Switch(
+                                inactiveThumbColor:
+                                    ColorConstants.orangeGradients3,
+                                activeColor:
+                                    ColorConstants.orangeGradients3,
+                                value: yes,
+                                onChanged: (value) {
+                                  setState(() {
+                                    yes = value;
+                                  });
+                                  if (yes == true) {
+                                    setState(() {
+                                      disabile = 1;
+                                    });
+                                  } else {
+                                    disabile = 0;
+                                  }
 
-                                        //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
-                                        //tale value lo salvo nel provider
-                                      }),
-                                ),
-                                disabile == 0
-                                    ? SizedBox()
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 20.0),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButton2<String>(
-                                            hint: Text(
-                                              '',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: ColorConstants.labelText,
-                                              ),
-                                            ),
-                                            items: items
-                                                .map((String item) =>
-                                                    DropdownMenuItem<String>(
-                                                      value: item,
-                                                      child: Text(
-                                                        item,
-                                                        style: const TextStyle(
-                                                          fontSize: 14,
-                                                          color: Colors.black,
-                                                        ),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                    ))
-                                                .toList(),
-                                            value: selectedValue,
-                                            onChanged: (String? value) {
-                                              setState(() {
-                                                selectedValue = value!;
-                                              });
-                                            },
-                                            buttonStyleData: ButtonStyleData(
-                                              height: 50,
-                                              width: 160,
-                                              padding: const EdgeInsets.only(
-                                                  left: 14, right: 14),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(14),
-                                                border: Border.all(
-                                                  color: ColorConstants
-                                                      .orangeGradients1,
-                                                ),
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            iconStyleData: const IconStyleData(
-                                              icon: Icon(
-                                                Icons.arrow_drop_down,
-                                              ),
-                                              iconSize: 20,
-                                              iconEnabledColor: ColorConstants
-                                                  .orangeGradients3,
-                                              iconDisabledColor: Colors.grey,
-                                            ),
-                                            dropdownStyleData:
-                                                DropdownStyleData(
-                                              maxHeight: 200,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width -
-                                                  150,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(14),
-                                                color: Colors.white,
-                                              ),
-                                              scrollbarTheme:
-                                                  ScrollbarThemeData(
-                                                radius:
-                                                    const Radius.circular(40),
-                                                thickness: MaterialStateProperty
-                                                    .all<double>(6),
-                                                thumbVisibility:
-                                                    MaterialStateProperty.all<
-                                                        bool>(true),
-                                              ),
-                                            ),
-                                            menuItemStyleData:
-                                                const MenuItemStyleData(
-                                              height: 40,
-                                              padding: EdgeInsets.only(
-                                                  left: 14, right: 14),
-                                            ),
-                                          ),
+                                  //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
+                                  //tale value lo salvo nel provider
+                                }),
+                          ),
+                          disabile == 0
+                              ? SizedBox()
+                              : Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 20.0),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton2<String>(
+                                      hint: Text(
+                                        '',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: ColorConstants.labelText,
                                         ),
                                       ),
-                                SizedBox(
-                                  height: 20,
+                                      items: items
+                                          .map((String item) =>
+                                              DropdownMenuItem<String>(
+                                                value: item,
+                                                child: Text(
+                                                  item,
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.black,
+                                                  ),
+                                                  overflow: TextOverflow
+                                                      .ellipsis,
+                                                ),
+                                              ))
+                                          .toList(),
+                                      value: selectedValue,
+                                      onChanged: (String? value) {
+                                        setState(() {
+                                          selectedValue = value!;
+                                        });
+                                      },
+                                      buttonStyleData: ButtonStyleData(
+                                        height: 50,
+                                        width: 160,
+                                        padding: const EdgeInsets.only(
+                                            left: 14, right: 14),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(14),
+                                          border: Border.all(
+                                            color: ColorConstants
+                                                .orangeGradients1,
+                                          ),
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      iconStyleData: const IconStyleData(
+                                        icon: Icon(
+                                          Icons.arrow_drop_down,
+                                        ),
+                                        iconSize: 20,
+                                        iconEnabledColor: ColorConstants
+                                            .orangeGradients3,
+                                        iconDisabledColor: Colors.grey,
+                                      ),
+                                      dropdownStyleData:
+                                          DropdownStyleData(
+                                        maxHeight: 200,
+                                        width: MediaQuery.of(context)
+                                                .size
+                                                .width -
+                                            150,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(14),
+                                          color: Colors.white,
+                                        ),
+                                        scrollbarTheme:
+                                            ScrollbarThemeData(
+                                          radius:
+                                              const Radius.circular(40),
+                                          thickness: MaterialStateProperty
+                                              .all<double>(6),
+                                          thumbVisibility:
+                                              MaterialStateProperty.all<
+                                                  bool>(true),
+                                        ),
+                                      ),
+                                      menuItemStyleData:
+                                          const MenuItemStyleData(
+                                        height: 40,
+                                        padding: EdgeInsets.only(
+                                            left: 14, right: 14),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ],
-                            ),
+                          SizedBox(
+                            height: 20,
                           ),
-                        ),
-                      ])),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
+                        ],
+                      ),
+                    ),
+                  ),
+                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 20.0, horizontal: 20.0),
                     child: Row(
@@ -254,9 +248,8 @@ Navigator.push(context, MaterialPageRoute(builder: (_) => CaricaDocsPage()));
                       ],
                     ),
                   ),
-                ),
-              ],
-            );
+                ])),
+          );
     });
   }
 }

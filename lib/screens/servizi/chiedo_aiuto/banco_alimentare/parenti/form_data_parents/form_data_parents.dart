@@ -175,195 +175,184 @@ class _FormDataParentsState extends State<FormDataParents> {
         builder: (context, state) {
       return state is SendParentsDataLoadingState
           ? loadingWidget(context)
-          : Stack(
-              children: [
-                SingleChildScrollView(
-                  child: Padding(
-                      padding: const EdgeInsets.all(
-                        20.0,
-                      ),
-                      child: Column(children: [
-                        SizedBox(
-                          width: 70,
-                          child: Image.asset(
-                            PathConstants.bancoAlim,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 3 * blockSizeVertical,
-                        ),
-                        Text(
-                          'Banco Alimentare',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Fase 1 di 3',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                          ],
-                        ),
-                        const Divider(
-                          color: ColorConstants.orangeGradients3,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text('Seleziona il numero dei componenti '),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                DropdownButtonHideUnderline(
-                                  child: DropdownButton2<String>(
-                                    hint: Text(
-                                      '',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: ColorConstants.labelText,
-                                      ),
-                                    ),
-                                    items: items
-                                        .map((String item) =>
-                                            DropdownMenuItem<String>(
-                                              value: item,
-                                              child: Text(
-                                                item,
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ))
-                                        .toList(),
-                                    value: selectedValue,
-                                    onChanged: (String? value) {
-                                      setState(() {
-                                        selectedValue = value!;
-                                      });
-                                    },
-                                    buttonStyleData: ButtonStyleData(
-                                      height: 50,
-                                      width: 160,
-                                      padding: const EdgeInsets.only(
-                                          left: 14, right: 14),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(14),
-                                        border: Border.all(
-                                          color:
-                                              ColorConstants.orangeGradients1,
-                                        ),
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    iconStyleData: const IconStyleData(
-                                      icon: Icon(
-                                        Icons.arrow_drop_down,
-                                      ),
-                                      iconSize: 20,
-                                      iconEnabledColor:
-                                          ColorConstants.orangeGradients3,
-                                      iconDisabledColor: Colors.grey,
-                                    ),
-                                    dropdownStyleData: DropdownStyleData(
-                                      maxHeight: 200,
-                                      width: MediaQuery.of(context).size.width -
-                                          150,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(14),
-                                        color: Colors.white,
-                                      ),
-                                      scrollbarTheme: ScrollbarThemeData(
-                                        radius: const Radius.circular(40),
-                                        thickness:
-                                            MaterialStateProperty.all<double>(
-                                                6),
-                                        thumbVisibility:
-                                            MaterialStateProperty.all<bool>(
-                                                true),
-                                      ),
-                                    ),
-                                    menuItemStyleData: const MenuItemStyleData(
-                                      height: 40,
-                                      padding:
-                                          EdgeInsets.only(left: 14, right: 14),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        'Inserisci i dati di ciascun componente'),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemCount: growableList!.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return growableList![index];
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ])),
+          : SingleChildScrollView(
+            child: Padding(
+                padding: const EdgeInsets.all(
+                  20.0,
                 ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        CommonStyleButton(
-                            title: 'Invia e Continua',
-                            onTap: () {
-                              if (_formKey.currentState!.validate()) {
-                                for (int i = 0; i < growableList!.length; i++) {
-                                  var nome = nomeComponente[i].text;
-                                  var anni = dateinput[i].text;
-                                  var grado = gradoComponente[i].text;
-                                  bloc.add(SendParentsFormEvent(
-                                      nomeParente: nome,
-                                      dataDiNascitaParente: anni,
-                                      gradoParente: grado));
-                                  
-                                  
-                                }
-                              }
-                            },
-                            iconWidget: Text('')),
-                      ],
+                child: Column(children: [
+                  SizedBox(
+                    width: 70,
+                    child: Image.asset(
+                      PathConstants.bancoAlim,
                     ),
                   ),
-                ),
-              ],
-            );
+                  SizedBox(
+                    height: 3 * blockSizeVertical,
+                  ),
+                  Text(
+                    'Banco Alimentare',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Fase 1 di 3',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                  const Divider(
+                    color: ColorConstants.orangeGradients3,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('Seleziona il numero dei componenti '),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton2<String>(
+                              hint: Text(
+                                '',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: ColorConstants.labelText,
+                                ),
+                              ),
+                              items: items
+                                  .map((String item) =>
+                                      DropdownMenuItem<String>(
+                                        value: item,
+                                        child: Text(
+                                          item,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ))
+                                  .toList(),
+                              value: selectedValue,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  selectedValue = value!;
+                                });
+                              },
+                              buttonStyleData: ButtonStyleData(
+                                height: 50,
+                                width: 160,
+                                padding: const EdgeInsets.only(
+                                    left: 14, right: 14),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                  border: Border.all(
+                                    color:
+                                        ColorConstants.orangeGradients1,
+                                  ),
+                                  color: Colors.white,
+                                ),
+                              ),
+                              iconStyleData: const IconStyleData(
+                                icon: Icon(
+                                  Icons.arrow_drop_down,
+                                ),
+                                iconSize: 20,
+                                iconEnabledColor:
+                                    ColorConstants.orangeGradients3,
+                                iconDisabledColor: Colors.grey,
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                maxHeight: 200,
+                                width: MediaQuery.of(context).size.width -
+                                    150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                  color: Colors.white,
+                                ),
+                                scrollbarTheme: ScrollbarThemeData(
+                                  radius: const Radius.circular(40),
+                                  thickness:
+                                      MaterialStateProperty.all<double>(
+                                          6),
+                                  thumbVisibility:
+                                      MaterialStateProperty.all<bool>(
+                                          true),
+                                ),
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                height: 40,
+                                padding:
+                                    EdgeInsets.only(left: 14, right: 14),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                  'Inserisci i dati di ciascun componente'),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: growableList!.length,
+                            itemBuilder:
+                                (BuildContext context, int index) {
+                              return growableList![index];
+                            },
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              CommonStyleButton(
+                                  title: 'Invia e Continua',
+                                  onTap: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      for (int i = 0; i < growableList!.length; i++) {
+                                        var nome = nomeComponente[i].text;
+                                        var anni = dateinput[i].text;
+                                        var grado = gradoComponente[i].text;
+                                        bloc.add(SendParentsFormEvent(
+                                            nomeParente: nome,
+                                            dataDiNascitaParente: anni,
+                                            gradoParente: grado));
+                                        
+                                        
+                                      }
+                                    }
+                                  },
+                                  iconWidget: Text('')),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ])),
+          );
     });
   }
 }
