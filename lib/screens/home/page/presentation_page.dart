@@ -107,7 +107,7 @@ class _PresentationPageState extends State<PresentationPage>
                                                   context)
                                               .then((value) {
                                             ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
+                                                .showSnackBar( SnackBar(
                                                     backgroundColor:
                                                         ColorConstants
                                                             .orangeGradients3,
@@ -117,14 +117,17 @@ class _PresentationPageState extends State<PresentationPage>
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.bold,
+                                                            fontSize: 2 * blockSizeVertical,
                                                       ),
                                                     )));
                                           });},
-                                child: const Text(
+                                child:  Text(
                                          'clicca qui',
-                                        style: const TextStyle(
+                                        style:  TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: ColorConstants.orangeGradients3,
+                                                                                                      fontSize: 2.2 * blockSizeVertical,
+
                                         ),),
                               ),
                               ],)
