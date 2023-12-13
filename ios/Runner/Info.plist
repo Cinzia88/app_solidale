@@ -26,8 +26,6 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Used to demonstrate file picker plugin</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Used to demonstrate file picker plugin</string>
 	<key>UIBackgroundModes</key>

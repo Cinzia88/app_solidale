@@ -2,6 +2,7 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
+import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
@@ -76,6 +77,8 @@ final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
                             onTap: () {
                                
                               bloc.add(SendDataTypeServiceEvent(serviceId: '3',  nome: _value == 1 ? globals.userData!.nome : _nameAnotherController.text, telefono: _value == 1 ? globals.userData!.telefono : _telepAnotherController.text));
+                                             SendDataTypeServiceRepository().sendMailService(context, 'Accompagnamento Oncologico');
+
                             FocusScope.of(context).unfocus();
                             },
                             iconWidget: Text('')),

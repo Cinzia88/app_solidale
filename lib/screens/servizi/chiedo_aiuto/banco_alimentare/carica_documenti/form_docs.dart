@@ -4,12 +4,15 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/bloc/send_docs_bloc.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 
 class FormDocs extends StatefulWidget {
   const FormDocs({super.key});
@@ -315,7 +318,10 @@ class _FormDocsState extends State<FormDocs> {
                                   body: body,
                                   imagepath: imagesList,
                                   pdfpath: filePdf));
-                             
+                              SendDataTypeServiceRepository().sendMailService(
+                                  context,
+                                  'Banco Alimentare',
+                               );
 
                               FocusScope.of(context).unfocus();
                             }

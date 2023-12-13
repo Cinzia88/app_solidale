@@ -13,10 +13,12 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
       {required dynamic Function()? onPressed,
       required String title,
       required String desc}) {
+   
     return showDialog(
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
+        
         return AlertDialog(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,7 +77,11 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
       },
     );
   }
-
+     //final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight = mediaQueryData.size.height;
+    //final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 30.0),
     child: Column(
@@ -101,7 +107,7 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                       },
                       child: Text(
                         'Richiedi',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
                       )),
                   GestureDetector(
                     onTap: () {
@@ -151,7 +157,7 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                       },
                       child: Text(
                         'Richiedi',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
                       )),
                   GestureDetector(
                     onTap: () {
@@ -201,7 +207,7 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                       },
                       child: Text(
                         'Richiedi',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
                       )),
                   GestureDetector(
                     onTap: () {

@@ -66,10 +66,7 @@ class _SingleNewPageState extends State<SingleNewPage> {
                     ),
                   ],
                 ),
-                const Divider(
-                  color: ColorConstants.orangeGradients3,
-                  height: 15,
-                ),
+              
                  Padding(
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(

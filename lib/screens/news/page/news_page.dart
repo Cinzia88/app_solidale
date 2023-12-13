@@ -115,20 +115,9 @@ class _NewsPageState extends State<NewsPage> {
                             },
                             child: Container(
                                 margin:
-                                    const EdgeInsets.only(top: 30, bottom: 20),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 15),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color(0xFF003b5b)
-                                          .withOpacity(0.1),
-                                      blurRadius: 1.0,
-                                    ),
-                                  ],
-                                ),
+                                    const EdgeInsets.only( top: 20),
+                                
+                             
                                 child: Column(
                                   children: [
                                     Row(

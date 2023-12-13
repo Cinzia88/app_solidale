@@ -84,6 +84,7 @@ class SendDataTypeServiceRepository {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => DisabiliTaxiPage()));
             }
+            break;
           } else if (response.body.contains('"service_id":3')) {
             if (context.mounted) {
               showDialog(
@@ -95,7 +96,8 @@ class SendDataTypeServiceRepository {
                         children: [
                           SizedBox(
                             height: 50,
-                            child: Image.asset(PathConstants.accompagnamOncolog),
+                            child:
+                                Image.asset(PathConstants.accompagnamOncolog),
                           ),
                           SizedBox(
                             height: 10,
@@ -134,6 +136,73 @@ class SendDataTypeServiceRepository {
                   MaterialPageRoute(builder: (context) => ParentsPage()));
             }
           }
+          break;
+        case 401:
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(builder: (context) => PresentationPage()));
+
+          break;
+        case 400:
+          String message = 'Utente non trovato';
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(builder: (context) => PresentationPage()));
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        case 500:
+          String message =
+              'Errore Server: impossibile stabilire una connessione';
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(builder: (context) => PresentationPage()));
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        default:
+          print('errore generico');
+      }
+
+      return response;
+    } catch (e) {}
+  }
+
+  Future sendMailService(
+    BuildContext context,
+    String richiesta,
+
+  ) async {
+    try {
+      var url =
+          '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/request-service/$richiesta';
+      // Await the http get response, then decode the json-formatted response.
+      var response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer ${globals.tokenValue}'
+        },
+      );
+          print('errore servizio via mail ${response.statusCode}');
+
+      switch (response.statusCode) {
+        case 200:
+          print('richiesta servizio via mail');
           break;
         case 401:
           Navigator.of(context, rootNavigator: true).pushReplacement(
