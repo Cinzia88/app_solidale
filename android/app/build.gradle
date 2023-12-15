@@ -29,7 +29,7 @@ def keystoreProperties = new Properties()
    }
 
 android {
-    namespace "com.app.solidale"
+    namespace "com.project.anf"
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 

@@ -11,7 +11,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CaricaDocsPage extends StatefulWidget {
   const CaricaDocsPage({super.key});
@@ -21,47 +20,10 @@ class CaricaDocsPage extends StatefulWidget {
 }
 
 class _CaricaDocsPageState extends State<CaricaDocsPage> {
-  Service service = Service();
-  final List<File> imagesList = [];
-  final List<File> filePdf = [];
+  
 
-  bool deletedImage = false;
 
-  Future _pickImage(ImageSource imageSource) async {
-    try {
-      final List<XFile> selectedImage = await ImagePicker().pickMultiImage();
 
-      if (selectedImage.isNotEmpty) {
-        setState(() {
-          var selectedPostImages =
-              selectedImage.map<File>((xfile) => File(xfile.path)).toList();
-          imagesList.addAll(selectedPostImages);
-        });
-      }
-    } on PlatformException catch (e) {
-      print('errorImage $e');
-    }
-  }
-
-  Future _pickFile() async {
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        allowMultiple: true,
-        type: FileType.custom,
-        allowedExtensions: ['pdf', 'doc'],
-      );
-      if (result != null) {
-        List<File> files = result.paths.map((path) => File(path!)).toList();
-        setState(() {
-          filePdf.addAll(files);
-        });
-      } else {
-        return null;
-      }
-    } on PlatformException catch (e) {
-      print('errorImage $e');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
