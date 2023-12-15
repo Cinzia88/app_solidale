@@ -17,8 +17,11 @@ class OnboardingTile extends StatelessWidget {
       child: Column(
         children: [
           Flexible(
-            child: Image.asset(
-              imagePath,
+            child: SizedBox(
+              height: screenHeight,
+              child: Image.asset(
+                imagePath,
+              ),
             ),
           ),
           const SizedBox(height: 65),

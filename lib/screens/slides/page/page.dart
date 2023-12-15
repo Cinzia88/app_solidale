@@ -27,82 +27,83 @@ class _SlidesPageState extends State<SlidesPage> {
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 30.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  _curr == 3 ?  GestureDetector(
-                            onTap: () async {
-                              setState(() {
-                                viewSlide = false;
-                              });
-                           
-                              await valueSharedPrefsViewSlide
-                                  .setValueViewSlide(viewSlide);
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
-                            },
-                            child: Text(
-                             "Chiudi" ,
-                            style:  TextStyle(
-                              color: ColorConstants.titleText,
-                              fontSize: 2 * blockSizeVertical,
-                              fontWeight: FontWeight.bold,
-                            )),
-                  ) : GestureDetector(
-                            onTap: () async {
-                              setState(() {
-                                viewSlide = false;
-                              });
-                           
-                              await valueSharedPrefsViewSlide
-                                  .setValueViewSlide(viewSlide);
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
-                            },
-                            child: Text(
-                             "Salta" ,
-                            style:  TextStyle(
-                              color: ColorConstants.titleText,
-                              fontSize: 2 * blockSizeVertical,
-                              fontWeight: FontWeight.bold,
-                            )),
-                          ),
-            
-                ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    _curr == 3 ?  GestureDetector(
+                              onTap: () async {
+                                setState(() {
+                                  viewSlide = false;
+                                });
+                             
+                                await valueSharedPrefsViewSlide
+                                    .setValueViewSlide(viewSlide);
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
+                              },
+                              child: Text(
+                               "Chiudi" ,
+                              style:  TextStyle(
+                                color: ColorConstants.titleText,
+                                fontSize: 2 * blockSizeVertical,
+                                fontWeight: FontWeight.bold,
+                              )),
+                    ) : GestureDetector(
+                              onTap: () async {
+                                setState(() {
+                                  viewSlide = false;
+                                });
+                             
+                                await valueSharedPrefsViewSlide
+                                    .setValueViewSlide(viewSlide);
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
+                              },
+                              child: Text(
+                               "Salta" ,
+                              style:  TextStyle(
+                                color: ColorConstants.titleText,
+                                fontSize: 2 * blockSizeVertical,
+                                fontWeight: FontWeight.bold,
+                              )),
+                            ),
+              
+                  ],
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 3,
-            child: PageView(
-              allowImplicitScrolling: true,
-              scrollDirection: Axis.horizontal,
-              controller: controller,
-              children: DataConstants.onboardingTiles,
-              onPageChanged: (num) {
-                setState(() {
-                  _curr = num;
-                });
-              },
-            ),
-          ),
-          Expanded(
-            child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: DotsIndicator(
-              dotsCount: 4,
-              position: _curr,
-              decorator: const DotsDecorator(
-                color: ColorConstants.colorDoctNotActive,
-                activeColor: ColorConstants.primaryColor,
+            Expanded(
+              flex: 3,
+              child: PageView(
+                scrollDirection: Axis.horizontal,
+                controller: controller,
+                children: DataConstants.onboardingTiles,
+                onPageChanged: (num) {
+                  setState(() {
+                    _curr = num;
+                  });
+                },
               ),
             ),
-            ),
-          )
-        ],
+            Expanded(
+              child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: DotsIndicator(
+                dotsCount: 4,
+                position: _curr,
+                decorator: const DotsDecorator(
+                  color: ColorConstants.colorDoctNotActive,
+                  activeColor: ColorConstants.primaryColor,
+                ),
+              ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
