@@ -11,34 +11,126 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/reposito
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:one_context/one_context.dart';
 
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 
-final SecureStorage secureStorage = SecureStorage();
+
+
+
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  await setupFlutterNotifications();
+  showFlutterNotification(message);
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  print('Handling a background message ${message.messageId}');
+}
+
+/// Create a [AndroidNotificationChannel] for heads up notifications
+late AndroidNotificationChannel channel;
+
+bool isFlutterLocalNotificationsInitialized = false;
+
+Future<void> setupFlutterNotifications() async {
+  if (isFlutterLocalNotificationsInitialized) {
+    return;
+  }
+  channel = const AndroidNotificationChannel(
+    'high_importance_channel', // id
+    'High Importance Notifications', // title
+    description:
+        'This channel is used for important notifications.', // description
+    importance: Importance.high,
+  );
+
+  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+  /// Create an Android Notification Channel.
+  ///
+  /// We use this channel in the `AndroidManifest.xml` file to override the
+  /// default FCM channel to enable heads up notifications.
+  await flutterLocalNotificationsPlugin!
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
+
+  /// Update the iOS foreground notification presentation options to allow
+  /// heads up notifications.
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+  isFlutterLocalNotificationsInitialized = true;
+}
+
+void showFlutterNotification(RemoteMessage message) {
+  RemoteNotification? notification = message.notification;
+  AndroidNotification? android = message.notification?.android;
+  
+  if (notification != null && android != null && !kIsWeb) {
+    flutterLocalNotificationsPlugin!.show(
+      notification.hashCode,
+      notification.title,
+      notification.body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+          channelDescription: channel.description,
+          // TODO add a proper drawable resource to android, for now using
+          //      one that already exists in example app.
+          icon: '@mipmap/ic_launcher',
+        ),
+      ),
+    );
+  }
+}
+
+/// Initialize the [FlutterLocalNotificationsPlugin] package.
+FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env.example");
-  // await secureStorage.deleteSecureData('token');
-  OnePlatform.app = () => MyApp();
+  await Firebase.initializeApp();
+  // Set the background messaging handler early on, as a named top-level function
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  //...runapp
-}
+  if (!kIsWeb) {
+    await setupFlutterNotifications();
+  }  await dotenv.load(fileName: ".env.example");
+  // await secureStorage.deleteSecureData('token');
+  runApp(MyApp());
+  
+    }
+  
+
+
+
+
 
 Timer? timer;
 final messengerKey = GlobalKey<ScaffoldMessengerState>();
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key}) {
-    OneContext().key = GlobalKey<NavigatorState>();
-  }
+  const MyApp({super.key});
+
+  
 
   // This widget is the root of your application.
   @override
@@ -81,69 +173,65 @@ class MyApp extends StatelessWidget {
           create: (context) => NewsRepository(),
         ),
       ],
-      child: OneNotification(builder: (_, __) {
-        return MaterialApp(
-          title: 'Flutter Demo',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-                        useMaterial3: true,
-                            unselectedWidgetColor: Colors.red, // <-- your color
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+                      useMaterial3: true,
+                          unselectedWidgetColor: Colors.red, // <-- your color
 
-            colorScheme: ColorScheme.fromSwatch()
-                .copyWith(background: Colors.white, primary: Colors.white, ),
-            switchTheme: SwitchThemeData(
-                trackOutlineColor:
-                    MaterialStateProperty.all(ColorConstants.orangeGradients3)),
-            textSelectionTheme: const TextSelectionThemeData(
-              cursorColor: ColorConstants.orangeGradients3,
-              selectionHandleColor: ColorConstants.orangeGradients3,
-            ),
-            elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: ColorConstants.secondaryColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-              ),
-            ),
-            textTheme: TextTheme(
-              titleSmall: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 2.5 * blockSizeVertical,
-                color: ColorConstants.titleText,
-              ),
-              titleMedium: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 2 * blockSizeVertical,
-                color: ColorConstants.titleText,
-              ),
-            ),
-            checkboxTheme: CheckboxThemeData(
-      side: AlwaysActiveBorderSide(),
-              checkColor: MaterialStateProperty.all(ColorConstants.orangeGradients3),
-             
-            ),
-            radioTheme: RadioThemeData(fillColor: MaterialStatePropertyAll(ColorConstants.orangeGradients3)),
-            floatingActionButtonTheme: FloatingActionButtonThemeData(
+          colorScheme: ColorScheme.fromSwatch()
+              .copyWith(background: Colors.white, primary: Colors.white, ),
+          switchTheme: SwitchThemeData(
+              trackOutlineColor:
+                  MaterialStateProperty.all(ColorConstants.orangeGradients3)),
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: ColorConstants.orangeGradients3,
+            selectionHandleColor: ColorConstants.orangeGradients3,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
               backgroundColor: ColorConstants.secondaryColor,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100)),
+                  borderRadius: BorderRadius.circular(20.0)),
             ),
-            dividerTheme: const DividerThemeData(color: Colors.transparent),
           ),
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('it'),
-          ],
-          scaffoldMessengerKey: messengerKey,
-          builder: OneContext().builder,
-          navigatorKey: OneContext().key,
-          home: SplashScreen(),
-        );
-      }),
+          textTheme: TextTheme(
+            titleSmall: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 2.5 * blockSizeVertical,
+              color: ColorConstants.titleText,
+            ),
+            titleMedium: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 2 * blockSizeVertical,
+              color: ColorConstants.titleText,
+            ),
+          ),
+          checkboxTheme: CheckboxThemeData(
+      side: AlwaysActiveBorderSide(),
+            checkColor: MaterialStateProperty.all(ColorConstants.orangeGradients3),
+           
+          ),
+          radioTheme: RadioThemeData(fillColor: MaterialStatePropertyAll(ColorConstants.orangeGradients3)),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: ColorConstants.secondaryColor,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
+          ),
+          dividerTheme: const DividerThemeData(color: Colors.transparent),
+        ),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('it'),
+        ],
+        scaffoldMessengerKey: messengerKey,
+        home: SplashScreen(),
+      ),
     );
   }
 }

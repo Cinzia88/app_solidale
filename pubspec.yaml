@@ -52,6 +52,10 @@ dependencies:
   file_picker: ^6.1.1
   dropdown_button2: ^2.3.9
   url_launcher: ^6.2.1
+  device_preview: ^1.1.0
+  firebase_core: 
+  firebase_messaging: 
+  flutter_local_notifications: ^16.2.0
 
 
 dev_dependencies:
