@@ -5,7 +5,6 @@ import 'package:app_solidale/screens/signin/page/signin_page.dart';
 import 'package:app_solidale/screens/slides/page/page.dart';
 
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
-import 'package:app_solidale/service/firebase_push_notification.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -28,14 +27,15 @@ class _SplashScreenState extends State<SplashScreen>
   ValueSharedPrefsViewSlide valueSharedPrefsViewSlide =
       ValueSharedPrefsViewSlide();
   Service service = Service();
-  final _messagingService =
-      MessagingService(); 
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+  String? initialMessage;
+  bool _resolved = false;
 
   @override
   void initState() {
     super.initState();
- _messagingService
-        .init(context);
+
+initializeFirebase();
     getValueViewSlide();
     getTokenUser();
 
@@ -73,7 +73,31 @@ class _SplashScreenState extends State<SplashScreen>
     });
   }
 
- 
+  Future initializeFirebase() async {
+    firebaseMessaging.subscribeToTopic('all');
+    firebaseMessaging.getToken().then((token) => print('tokenFirebase $token'));
+FirebaseMessaging.instance.getInitialMessage().then(
+          (value) => setState(
+            () {
+              _resolved = true;
+              initialMessage = value?.data.toString();
+            },
+          ),
+        );
+    
+
+    FirebaseMessaging.onMessage.listen(showFlutterNotification);
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+      Navigator.pushNamed(
+        context,
+        '/message',
+        arguments: MessageArguments(message, true),
+      );
+    });
+  }
+
   
 
   @override

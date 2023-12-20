@@ -1,3 +1,4 @@
+import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +44,6 @@ class MessagingService {
         if (message.notification!.title != null &&
             message.notification!.body != null) {
           final notificationData = message.data;
-          final screen = notificationData['screen'];
 
           // Showing an alert dialog when a notification is received (Foreground state)
           showDialog(
@@ -56,11 +56,11 @@ class MessagingService {
                   title: Text(message.notification!.title!),
                   content: Text(message.notification!.body!),
                   actions: [
-                    if (notificationData.containsKey('screen'))
                       TextButton(
                         onPressed: () {
                           Navigator.pop(context);
-                          Navigator.of(context).pushNamed(screen);
+                         Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
+
                         },
                         child: const Text('Open Screen'),
                       ),
