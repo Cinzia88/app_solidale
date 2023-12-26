@@ -22,6 +22,7 @@ class NewsRepository {
     });
 print('page $page');
     List<dynamic> list = jsonDecode(response.body)['data'];
+    print('listnews ${response.body}');
     newsList =
         List<ListNewsModel>.from(list.map((x) => ListNewsModel.fromJson(x)));
 

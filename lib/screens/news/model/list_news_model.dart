@@ -1,7 +1,7 @@
 class ListNewsModel {
  final String id;
  final String titolo;
- final String immagine;
+ final String? immagine;
  final String testo;
  final String slug;
  
@@ -9,7 +9,7 @@ class ListNewsModel {
   ListNewsModel({
     required this.id,
     required this.titolo,
-    required this.immagine,
+     this.immagine,
     required this.testo,
     required this.slug,
   });

@@ -1,4 +1,7 @@
+import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -6,10 +9,12 @@ import '../../common_widgets/background_style/custom_appbar.dart';
 
 // ignore: must_be_immutable
 class SingleNewPage extends StatefulWidget {
+    String image;
   String title;
   String desc;
   SingleNewPage({
     Key? key,
+    required this.image,
     required this.title,
     required this.desc,
   }) : super(key: key);
@@ -50,7 +55,25 @@ class _SingleNewPageState extends State<SingleNewPage> {
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
             child: Column(
               children: [
-               
+                   Padding(
+                                    padding: const EdgeInsets.only(bottom: 8.0),
+                     child: CachedNetworkImage(
+                                   imageUrl: widget.image ,
+                                     placeholder: (context, url) => const Center(
+                        child: SizedBox(
+                      height: 100,
+                      child: CupertinoActivityIndicator(
+                        color: Color(0xff003b5b),
+                      ),
+                                     )),
+                                     errorWidget: (context, url, error) =>  SizedBox(
+                      height: 60,
+                      child: Image.asset(
+                        PathConstants.logoanfcompletovertic,
+                      ),
+                                     ),
+                                   ),
+                   ) ,
                  Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -64,15 +87,21 @@ class _SingleNewPageState extends State<SingleNewPage> {
                   ],
                 ),
               
-                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    widget.desc,
-                    style: TextStyle(
-                      fontSize: 2 * blockSizeVertical,
-                    ),
-                  ),
+                 Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+
+                   children: [
+                     Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        widget.desc,
+                        style: TextStyle(
+                          fontSize: 2 * blockSizeVertical,
+                        ),
+                      ),
                 ),
+                   ],
+                 ),
               ],
             ),
           ),
