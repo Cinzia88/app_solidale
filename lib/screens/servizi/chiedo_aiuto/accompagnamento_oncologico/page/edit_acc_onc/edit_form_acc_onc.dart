@@ -1,6 +1,7 @@
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
+import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/edit_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
@@ -9,16 +10,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 
-class FormAccompagnamentoOncologico extends StatefulWidget {
-  const FormAccompagnamentoOncologico({super.key});
+class FormEditAccompagnamentoOncologico extends StatefulWidget {
+  const FormEditAccompagnamentoOncologico({super.key});
 
   @override
-  State<FormAccompagnamentoOncologico> createState() =>
-      _FormAccompagnamentoOncologicoState();
+  State<FormEditAccompagnamentoOncologico> createState() =>
+      _FormEditAccompagnamentoOncologicoState();
 }
 
-class _FormAccompagnamentoOncologicoState
-    extends State<FormAccompagnamentoOncologico> {
+class _FormEditAccompagnamentoOncologicoState
+    extends State<FormEditAccompagnamentoOncologico> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameAnotherController = TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
@@ -32,9 +33,9 @@ class _FormAccompagnamentoOncologicoState
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
+    final bloc = BlocProvider.of<EditDataTypeServiceBloc>(context);
 
-    return BlocBuilder<SendDataTypeServiceBloc, SendDataTypeServiceState>(
+    return BlocBuilder<EditDataTypeServiceBloc, EditDataTypeServiceState>(
         builder: (context, state) {
       return SingleChildScrollView(
         child: Padding(
@@ -66,7 +67,7 @@ class _FormAccompagnamentoOncologicoState
                 globals.service3Completed == true ? CommonStyleButton(
                       title: 'Modifica',
                       onTap: () {
-                        bloc.add(SendDataTypeServiceEvent(
+                        bloc.add(EditDataTypeServiceEvent(
                             serviceId: '3',
                             nome: _value == 1
                                 ? globals.userData!.nome
@@ -82,7 +83,7 @@ class _FormAccompagnamentoOncologicoState
                       iconWidget: Text('')) :  CommonStyleButton(
                       title: 'Invia',
                       onTap: () {
-                        bloc.add(SendDataTypeServiceEvent(
+                        bloc.add(EditDataTypeServiceEvent(
                             serviceId: '3',
                             nome: _value == 1
                                 ? globals.userData!.nome

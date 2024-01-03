@@ -1,13 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:app_solidale/const/path_constants.dart';
-import 'package:app_solidale/screens/home/model/get_user_model.dart';
-import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/bloc_show_request_service/model_get_service/get_service_req.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/carica_disabili_page_taxi.dart';
 import 'package:app_solidale/screens/signin/page/signin_page.dart';
-import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;

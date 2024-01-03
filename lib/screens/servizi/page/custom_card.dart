@@ -2,11 +2,13 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/text_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_acc.onc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/intro.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/taxi_solidale.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/page_acc_onc.dart';
 import 'package:flutter/material.dart';
 import '../../../../const/path_constants.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart'as globals;
 
 Widget customCardsServiceChiedoAiuto(BuildContext context) {
   showAlertDialog(
@@ -56,21 +58,7 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
                   Text(
                     desc,
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        child: ElevatedButton.icon(
-                          onPressed: onPressed,
-                          icon: const SizedBox(),
-                          label: const Text('Richiedi'),
-                        ),
-                      ),
-                    ],
-                  ),
+                 
                 ],
               ),
             ),
@@ -99,7 +87,18 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton(
+            globals.service2Completed == true    ?  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const TaxiSolidalePage()));
+                      },
+                      child: Text(
+                        'Modifica',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
+                      )) : ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -149,7 +148,18 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton(
+                globals.service3Completed == true    ?    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AccompagnamentoOncologicoEditPage()));
+                      },
+                      child: Text(
+                        'Modifica',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
+                      )) : ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -200,7 +210,17 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton(
+               globals.service4Completed == true    ?     ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => IntroBancoAlimentare()));
+                      },
+                      child: Text(
+                        'Modifica',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
+                      )) :ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                             context,

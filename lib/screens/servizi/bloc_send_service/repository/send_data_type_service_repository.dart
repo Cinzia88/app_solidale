@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/carica_disabili_page_taxi.dart';
-import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -38,7 +36,7 @@ class SendDataTypeServiceRepository {
           if (response.body.contains('"service_id":1')) {
             if (context.mounted) {
               showDialog(
-                barrierColor: Colors.black87,
+                  barrierColor: Colors.black87,
                   barrierDismissible: false,
                   context: context,
                   builder: (context) {
@@ -82,6 +80,7 @@ class SendDataTypeServiceRepository {
             }
           } else if (response.body.contains('"service_id":2')) {
             if (context.mounted) {
+
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => DisabiliTaxiPage()));
             }
@@ -89,8 +88,7 @@ class SendDataTypeServiceRepository {
           } else if (response.body.contains('"service_id":3')) {
             if (context.mounted) {
               showDialog(
-                                barrierColor: Colors.black87,
-
+                  barrierColor: Colors.black87,
                   barrierDismissible: false,
                   context: context,
                   builder: (context) {
@@ -119,6 +117,7 @@ class SendDataTypeServiceRepository {
                       actions: [
                         InkWell(
                             onTap: () {
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -135,6 +134,7 @@ class SendDataTypeServiceRepository {
             }
           } else if (response.body.contains('"service_id":4')) {
             if (context.mounted) {
+
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ParentsPage()));
             }
@@ -187,7 +187,6 @@ class SendDataTypeServiceRepository {
   Future sendMailService(
     BuildContext context,
     String richiesta,
-
   ) async {
     try {
       var url =
@@ -201,7 +200,6 @@ class SendDataTypeServiceRepository {
           'Authorization': 'Bearer ${globals.tokenValue}'
         },
       );
-          print('errore servizio via mail ${response.statusCode}');
 
       switch (response.statusCode) {
         case 200:

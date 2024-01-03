@@ -8,6 +8,7 @@ abstract class ShowDataTypeServiceState extends Equatable{
 class ShowDataTypeServiceInitial extends ShowDataTypeServiceState {}
 
 
+// ignore: must_be_immutable
 class ShowDataTypeServiceLoaded extends ShowDataTypeServiceState {
   ServiceReqData data;
   ShowDataTypeServiceLoaded({

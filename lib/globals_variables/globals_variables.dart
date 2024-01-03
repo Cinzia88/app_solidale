@@ -13,6 +13,12 @@ String? serviceOffroAiutoID;
 String? serviceTaxiSolidaleID;
 String? serviceAccOncID;
 String? serviceBancoAlimID;
+bool service2Completed = false;
+bool service3Completed = false;
+bool service4Completed = false;
+
+
+
 int? statusCode;
 
 bool richiestaCreataTaxiSolidale = false;

@@ -1,5 +1,4 @@
 
-import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/bloc_show_request_service/model_get_service/get_service_req.dart';
 import 'package:app_solidale/screens/servizi/bloc_show_request_service/repository/show_data_type_service_repository.dart';
 import 'package:bloc/bloc.dart';

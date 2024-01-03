@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 
@@ -6,10 +5,8 @@ import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/bloc/send_docs_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/form_docs.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/repository/send_docs_repository.dart';
-import 'package:app_solidale/service/service.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CaricaDocsPage extends StatefulWidget {

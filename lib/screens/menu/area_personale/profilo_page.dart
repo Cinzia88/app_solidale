@@ -1,6 +1,5 @@
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/area_personale/cambio_password/page/cambio_password_page.dart';
-import 'package:app_solidale/screens/menu/area_personale/lista_docs_inviati/page/docs_list_page.dart';
 import 'package:app_solidale/screens/menu/area_personale/modifca_dati/page/modifica_dati_page.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/service/service.dart';
