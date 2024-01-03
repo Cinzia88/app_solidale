@@ -21,6 +21,11 @@ Future setRequest1Complete(bool value) async{
    return value ?? true;
   }
 
+ Future removeRequest1Complete() async{
+    final instance = await prefs;
+
+    instance.remove('request1');
+  }
 
    Future setRequest2Complete(bool value) async{
     final instance = await prefs;
