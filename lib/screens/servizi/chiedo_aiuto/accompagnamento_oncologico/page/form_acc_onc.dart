@@ -92,10 +92,7 @@ class _FormAccompagnamentoOncologicoState
                                 : _telepAnotherController.text));
                         SendDataTypeServiceRepository().sendMailService(
                             context, 'Accompagnamento Oncologico');
-setState(() {
-  service3Completed = true;
-});
-ValueSharedPrefsViewSlide().setRequest3Complete(service3Completed);
+
                         FocusScope.of(context).unfocus();
                       },
                       iconWidget: Text('')),

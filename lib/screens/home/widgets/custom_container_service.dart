@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 
 class CustomContainerService extends StatelessWidget {
+  final String? serviceId;
   final String title;
   final String subtitle;
   final String image;
@@ -9,6 +10,7 @@ class CustomContainerService extends StatelessWidget {
 
   const CustomContainerService({
     Key? key,
+     this.serviceId,
     required this.title,
     required this.subtitle,
     required this.image,

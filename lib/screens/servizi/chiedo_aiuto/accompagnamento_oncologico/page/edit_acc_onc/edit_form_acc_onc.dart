@@ -2,6 +2,7 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/edit_data_type_service_bloc.dart';
+import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
@@ -11,7 +12,8 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 
 class FormEditAccompagnamentoOncologico extends StatefulWidget {
-  const FormEditAccompagnamentoOncologico({super.key});
+  RequestData idRequest;
+   FormEditAccompagnamentoOncologico(this.idRequest);
 
   @override
   State<FormEditAccompagnamentoOncologico> createState() =>
@@ -24,7 +26,9 @@ class _FormEditAccompagnamentoOncologicoState
   final TextEditingController _nameAnotherController = TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
   int _value = 1;
-  bool service3Completed = false;
+
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -37,91 +41,88 @@ class _FormEditAccompagnamentoOncologicoState
 
     return BlocBuilder<EditDataTypeServiceBloc, EditDataTypeServiceState>(
         builder: (context, state) {
-      return SingleChildScrollView(
+      return  SingleChildScrollView(
         child: Padding(
-            padding: const EdgeInsets.all(
-              20.0,
-            ),
-            child: Column(children: [
-              SizedBox(
-                width: 70,
-                child: Image.asset(
-                  PathConstants.accompagnamOncolog,
-                ),
-              ),
-              SizedBox(
-                height: 3 * blockSizeVertical,
-              ),
-              Text(
-                'Accompagnamento Oncologico',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              Form(
-                key: _formKey,
-                child: _formSelectService(),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                globals.service3Completed == true ? CommonStyleButton(
-                      title: 'Modifica',
-                      onTap: () {
-                        bloc.add(EditDataTypeServiceEvent(
-                            serviceId: '3',
-                            nome: _value == 1
-                                ? globals.userData!.nome
-                                : _nameAnotherController.text,
-                            telefono: _value == 1
-                                ? globals.userData!.telefono
-                                : _telepAnotherController.text));
-                        SendDataTypeServiceRepository().sendMailService(
-                            context, 'Accompagnamento Oncologico');
-
-                        FocusScope.of(context).unfocus();
-                      },
-                      iconWidget: Text('')) :  CommonStyleButton(
-                      title: 'Invia',
-                      onTap: () {
-                        bloc.add(EditDataTypeServiceEvent(
-                            serviceId: '3',
-                            nome: _value == 1
-                                ? globals.userData!.nome
-                                : _nameAnotherController.text,
-                            telefono: _value == 1
-                                ? globals.userData!.telefono
-                                : _telepAnotherController.text));
-                        SendDataTypeServiceRepository().sendMailService(
-                            context, 'Accompagnamento Oncologico');
-setState(() {
-  service3Completed = true;
-});
-ValueSharedPrefsViewSlide().setRequest3Complete(service3Completed);
-                        FocusScope.of(context).unfocus();
-                      },
-                      iconWidget: Text('')),
-                ],
-              ),
-            ])),
+                  padding: const EdgeInsets.all(
+                    20.0,
+                  ),
+                  child: Column(children: [
+                  
+                    SizedBox(
+                      width: 70,
+                      child: Image.asset(
+                        PathConstants.accompagnamOncolog,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 3 * blockSizeVertical,
+                    ),
+                    Text(
+                      'Accompagnamento Oncologico',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: _formSelectService(widget.idRequest.nome, widget.idRequest.telefono,),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CommonStyleButton(
+                                title: 'Invia',
+                                onTap: () {
+                                  bloc.add(EditDataTypeServiceEvent(
+                                    idRequest: widget.idRequest.idRequest,
+                                      serviceId: '3',
+                                      nome: _value == 1
+                                          ? globals.userData!.nome
+                                          : _nameAnotherController.text,
+                                      telefono: _value == 1
+                                          ? globals.userData!.telefono
+                                          : _telepAnotherController.text));
+                                  SendDataTypeServiceRepository().sendMailService(
+                                      context, 'Accompagnamento Oncologico');
+      
+                                  FocusScope.of(context).unfocus();
+                                },
+                                iconWidget: Text('')),
+                      ],
+                    ),
+                  ])),
       );
-    });
+          });
+    
   }
 
-  _formSelectService() {
-    return Column(
+  _formSelectService(String nome, String telefono) {
+    if(nome != globals.userData!.nome && telefono != globals.userData!.telefono) {
+      _nameAnotherController.text = nome;
+      _telepAnotherController.text = telefono;
+      
+    }
+    return  Column(
       children: [
-        Padding(
+        const Padding(
           padding: EdgeInsets.symmetric(vertical: 20.0),
-          child: Row(
+          child: Column(
             children: [
-              Flexible(
-                  child: Text(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Text(
+                        '(Modifica i dati oppure invia un\'altra richiesta)'),
+                  ),
+                ],
+              ),
+              Text(
                 'Vorrei accedere al Servizio Accompagnamento Oncologico per:',
-              )),
+              ),
             ],
           ),
         ),
-        Row(
+     Row(
           children: [
             Radio(
                 value: 1,
@@ -139,7 +140,7 @@ ValueSharedPrefsViewSlide().setRequest3Complete(service3Completed);
         ),
         Row(
           children: [
-            Radio(
+           Radio(
                 value: 2,
                 groupValue: _value,
                 onChanged: (value) {

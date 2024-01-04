@@ -2,17 +2,23 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/text_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
-import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/edit_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_acc.onc.dart';
+
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/intro.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/taxi_solidale.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/page_acc_onc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../const/path_constants.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'as globals;
 
-Widget customCardsServiceChiedoAiuto(BuildContext context) {
+
+List<String> serviceId = [
+  '2',
+  '3',
+  '4'
+];
+
+Widget customEditCardsServiceChiedoAiuto(BuildContext context) {
   showAlertDialog(
       {required dynamic Function()? onPressed,
       required String title,
@@ -74,12 +80,17 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-return  Padding(
+ return Padding(
     padding: const EdgeInsets.symmetric(vertical: 30.0),
-    child: Column(
+    child: ListView.builder(
+      shrinkWrap: true,
+      itemCount: globals.listRequestData.length,
+      itemBuilder: (context, index) {
+        return Column(
       children: [
-        CustomCardsCommon(
+       CustomCardsCommon(
           child: CustomContainerService(
+            serviceId: serviceId[0],
             title: 'Taxi Solidale',
             subtitle:
                 'Ti aiutiamo a raggiungere strutture e servizi primari in città',
@@ -89,7 +100,18 @@ return  Padding(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-      ElevatedButton(
+        globals.listRequestData[index].serviceId == serviceId[0] ?   ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const TaxiSolidalePage()));
+                      },
+                      child: Text(
+                        'Modifica',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
+                      )) : ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -131,6 +153,7 @@ return  Padding(
         ),
         CustomCardsCommon(
           child: CustomContainerService(
+            serviceId: serviceId[1],
             title: 'Accompagnamento Oncologico',
             subtitle: 'Ti supportiamo per ricevere le cure necessarie',
             image: PathConstants.accompagnamOncolog,
@@ -139,7 +162,18 @@ return  Padding(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-               ElevatedButton(
+            globals.listRequestData[index].serviceId == serviceId[1] ?   ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AccompagnamentoOncologicoEditPage(idRequest: globals.listRequestData[index])));
+                      },
+                      child: Text(
+                        'Modifica',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
+                      )) : ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -182,6 +216,7 @@ return  Padding(
         ),
         CustomCardsCommon(
           child: CustomContainerService(
+            serviceId: serviceId[2],
             title: 'Banco Alimentare',
             subtitle: 'Prenota o conferma il ritiro del tuo pacco alimentare',
             image: PathConstants.bancoAlim,
@@ -190,7 +225,17 @@ return  Padding(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-              ElevatedButton(
+           globals.listRequestData[index].serviceId == serviceId[2] ?     ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => IntroBancoAlimentare()));
+                      },
+                      child: Text(
+                        'Modifica',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
+                      )) : ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -227,7 +272,9 @@ return  Padding(
             ),
           ),
         ),
-      ],
-    ));
-
+        ]);
+}));
+    
+      
+    
 }

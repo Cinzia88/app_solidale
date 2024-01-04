@@ -10,34 +10,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'edit_data_type_service_event.dart';
 part 'edit_data_type_service_state.dart';
 
-class EditDataTypeServiceBloc extends Bloc<EditServiceEvent, EditDataTypeServiceState> {
+class EditDataTypeServiceBloc extends Bloc<EditDataTypeServiceEvent, EditDataTypeServiceState> {
   final BuildContext context;
   final EditDataTypeServiceRepository editDataTypeServiceRepository;
   EditDataTypeServiceBloc({
     required this.context,
     required this.editDataTypeServiceRepository,
   }) : super(EditDataTypeServiceInitial()) {
-    on<EditServiceEvent>((event, emit) async {
-        if (event is FetchRequestEvent) {
-             emit(EditDataTypeServiceLoadingState());
-      try {
-          final userdata = await editDataTypeServiceRepository.editDataTypeservice(context);
+    on<EditDataTypeServiceEvent>((event, emit) async {
+         emit(EditDataTypeServiceLoadingState());
+          try {
+            final userdata = await editDataTypeServiceRepository.editDataTypeservice(
+              context,
+              event.idRequest,
+              event.serviceId,
+              event.nome,
+              event.telefono,
+            );
             emit(EditDataTypeServiceLoaded(data: userdata));
-       await editDataTypeServiceRepository.editDataTypeservice(
-          context,
-       
-        );
-        emit(EditDataTypeServiceLoaded(data: userdata));
-      } catch (e) {
-        emit(
-          EditDataTypeServiceErrorState(
-            message: e.toString(),
-          ),
-        );
-      }
-        
-  
-    }});
+          } catch (e) {
+            emit(EditDataTypeServiceErrorState(message: e.toString()));
+          }
+  });
   }
 } 
 

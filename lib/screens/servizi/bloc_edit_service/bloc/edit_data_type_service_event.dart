@@ -4,19 +4,20 @@ abstract class EditServiceEvent extends Equatable {
   @override
   List<Object?> get props => [];
 }
-class FetchRequestEvent extends EditServiceEvent {}
 
 // ignore: must_be_immutable
 class EditDataTypeServiceEvent extends EditServiceEvent {
+  String idRequest;
   String serviceId;
   String nome;
   String telefono;
  
   EditDataTypeServiceEvent({
+required this.idRequest,
     required this.serviceId,
     required this.nome,
     required this.telefono,
   });
   @override
-  List<Object?> get props => [serviceId, nome, telefono];
+  List<Object?> get props => [idRequest, serviceId, nome, telefono];
 }

@@ -1,6 +1,6 @@
 library my_prj.globals;
-
 import 'package:app_solidale/screens/home/model/get_user_model.dart';
+import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
 
 
 
@@ -16,7 +16,7 @@ String? serviceBancoAlimID;
 bool service2Completed = false;
 bool service3Completed = false;
 bool service4Completed = false;
-
+List<RequestData> listRequestData = [];
 
 
 int? statusCode;

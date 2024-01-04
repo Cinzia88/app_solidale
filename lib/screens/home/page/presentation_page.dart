@@ -148,6 +148,7 @@ class _PresentationPageState extends State<PresentationPage>
                   },
                   child: CustomCardsCommon(
                     child: CustomContainerService(
+                      serviceId: '0',
                       title: 'Chiedo Aiuto',
                       subtitle: 'Scopri i nostri principali servizi',
                       image: PathConstants.onboarding3,
@@ -166,6 +167,7 @@ class _PresentationPageState extends State<PresentationPage>
                   },
                   child: CustomCardsCommon(
                     child: CustomContainerService(
+                      serviceId: '1',
                       title: 'Offro Aiuto',
                       subtitle: 'Dona il tuo tempo a chi ne ha bisogno',
                       image: PathConstants.offroAiuto,

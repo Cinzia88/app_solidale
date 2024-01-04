@@ -1,4 +1,5 @@
 import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/edit_data_type_service_bloc.dart';
+import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/edit_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
@@ -9,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AccompagnamentoOncologicoEditPage extends StatefulWidget {
-  const AccompagnamentoOncologicoEditPage({super.key});
+  RequestData idRequest;
+   AccompagnamentoOncologicoEditPage({required this.idRequest});
 
   @override
   State<AccompagnamentoOncologicoEditPage> createState() => _AccompagnamentoOncologicoEditPageState();
@@ -28,9 +30,7 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
         context: context,
         editDataTypeServiceRepository:
             context.read<EditDataTypeServiceRepository>(),
-      )..add(
-                FetchRequestEvent(),
-              ),
+      ),
       child: Scaffold(
           appBar: AppBar(
             iconTheme: const IconThemeData(
@@ -57,7 +57,7 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
             );
           }
         }, builder: (context, state) {
-              return FormEditAccompagnamentoOncologico();
+              return FormEditAccompagnamentoOncologico(widget.idRequest);
             }
           )),
     );

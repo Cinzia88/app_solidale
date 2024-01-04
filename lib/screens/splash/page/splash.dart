@@ -38,7 +38,6 @@ class _SplashScreenState extends State<SplashScreen>
 initializeFirebase();
     getValueViewSlide();
     getTokenUser();
-    getValueRequest();
 
     timer = Timer(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
@@ -67,12 +66,7 @@ initializeFirebase();
     });
   }
 
-   Future getValueRequest() async {
-    final value = await valueSharedPrefsViewSlide.getRequest3Complete();
-    setState(() {
-      globals.service3Completed = value;
-    });
-  }
+ 
 
   Future getTokenUser() async {
     final value = await service.readToken();

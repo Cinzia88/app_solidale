@@ -37,6 +37,7 @@ class CustomCard extends StatelessWidget {
             },
             child: CustomCardsCommon(
               child: CustomContainerService(
+                serviceId: '0',
                 title: titleChiedoAiuto,
                 subtitle: 'Scopri i nostri principali servizi',
                 image: PathConstants.onboarding3,
@@ -53,6 +54,7 @@ class CustomCard extends StatelessWidget {
             },
             child: CustomCardsCommon(
               child: CustomContainerService(
+                serviceId: '1',
                 title: titleOffroAiuto,
                 subtitle: 'Dona il tuo tempo a chi ne ha bisogno',
                 image: PathConstants.offroAiuto,
