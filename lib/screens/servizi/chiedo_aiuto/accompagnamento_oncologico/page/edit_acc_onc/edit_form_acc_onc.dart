@@ -100,6 +100,9 @@ class _FormEditAccompagnamentoOncologicoState
       _nameAnotherController.text = nome;
       _telepAnotherController.text = telefono;
       
+    } else {
+      _nameAnotherController.text = '';
+      _telepAnotherController.text = '';
     }
     return  Column(
       children: [

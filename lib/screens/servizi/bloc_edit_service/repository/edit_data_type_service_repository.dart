@@ -12,14 +12,16 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 
 class EditDataTypeServiceRepository {
- Future editDataTypeservice(
+  Future editDataTypeservice(
     BuildContext context,
-   String idRequest,
-   String serviceId,
-   String nome,
-   String telefono,
+    String idRequest,
+    String serviceId,
+    String nome,
+    String telefono,
   ) async {
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta/update/${idRequest}';
+    try {
+      var url =
+          '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta/update/$idRequest}';
       // Await the http get response, then decode the json-formatted response.
       var response = await http.put(Uri.parse(url),
           headers: {
@@ -27,16 +29,18 @@ class EditDataTypeServiceRepository {
             'Content-type': 'application/json',
             'Authorization': 'Bearer ${globals.tokenValue}'
           },
-          body:    jsonEncode({
+          body: jsonEncode({
             'service_id': serviceId,
             'nome': nome,
             'telefono': telefono,
           }));
-          print('statusc ${response.body}');
+
+      print('statusc ${response.body}');
       switch (response.statusCode) {
         case 200:
-        Navigator.push(context, MaterialPageRoute(builder: (_) => PresentationPage()));
-         if (response.body.contains('"service_id":$serviceId')) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => PresentationPage()));
+          if (response.body.contains('"service_id":1')) {
             if (context.mounted) {
               showDialog(
                   barrierColor: Colors.black87,
@@ -83,7 +87,6 @@ class EditDataTypeServiceRepository {
             }
           } else if (response.body.contains('"service_id":2')) {
             if (context.mounted) {
-
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => DisabiliTaxiPage()));
             }
@@ -120,7 +123,6 @@ class EditDataTypeServiceRepository {
                       actions: [
                         InkWell(
                             onTap: () {
-
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -137,7 +139,6 @@ class EditDataTypeServiceRepository {
             }
           } else if (response.body.contains('"service_id":4')) {
             if (context.mounted) {
-
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ParentsPage()));
             }
@@ -182,8 +183,8 @@ class EditDataTypeServiceRepository {
         default:
           print('errore generico');
       }
-
-   
+    } catch (e) {
+      print('sendimage error $e');
+    }
   }
-
 }
