@@ -1,5 +1,4 @@
 
-import 'package:app_solidale/screens/servizi/page/custom_card.dart';
 import 'package:app_solidale/screens/servizi/page/edit_taxi_solidale/edit_taxi_solidale.dart';
 import 'package:flutter/material.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
@@ -8,7 +7,6 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
 
 
 Widget customEditCardsServiceChiedoAiuto(BuildContext context) {
-  List<String> serviceId = ['2', '3', '4'];
 
  
   return Padding(
@@ -18,16 +16,13 @@ Widget customEditCardsServiceChiedoAiuto(BuildContext context) {
       physics: NeverScrollableScrollPhysics(),
       itemCount: globals.listRequestData.length,
       itemBuilder: (context, index) {
-        return Column(
-          children: [
-            EditTaxiSolidale(globals.listRequestData[index],),
-            customCardsServiceChiedoAiuto(context)
-          ],
-        );
+        return EditTaxiSolidale(globals.listRequestData[index],);
       },
     ),
   );
 }
+
+
 
 
 

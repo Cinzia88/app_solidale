@@ -9,6 +9,7 @@ import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_reque
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/page/custom_card.dart';
 import 'package:app_solidale/screens/servizi/page/custom_edit_card.dart';
+import 'package:app_solidale/screens/servizi/page/edit_taxi_solidale/edit_taxi_solidale.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
@@ -112,25 +113,29 @@ print('reqdata ${globals.listRequestData}');
           ],
         ),
         drawer: NavigationDrawerWidget(),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      'Chiedo Aiuto',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    const Divider(
-                      color: ColorConstants.orangeGradients3,
-                    ),
-                   globals.listRequestData.isEmpty ? customCardsServiceChiedoAiuto(context) : customEditCardsServiceChiedoAiuto(context),
-                  ],
-                ),
-              ],
-            ),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  Text(
+                    'Chiedo Aiuto',
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  const Divider(
+                    color: ColorConstants.orangeGradients3,
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: globals.listRequestData.length,
+                    itemBuilder: (context, index) {
+                    return globals.listRequestData.isEmpty ? customCardsServiceChiedoAiuto(context) : 
+                    globals.listRequestData[index].serviceId == 2 ? Text('') : SizedBox();
+                  })
+                ],
+              ),
+            ],
           ),
         ));
   }
