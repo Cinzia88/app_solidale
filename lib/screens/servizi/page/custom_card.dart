@@ -2,7 +2,6 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/text_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
-import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/edit_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_acc.onc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/intro.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/taxi_solidale.dart';
@@ -75,7 +74,7 @@ Widget customCardsServiceChiedoAiuto(BuildContext context) {
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
 return  Padding(
-    padding: const EdgeInsets.symmetric(vertical: 30.0),
+    padding: const EdgeInsets.symmetric(vertical: 40.0),
     child: Column(
       children: [
         CustomCardsCommon(

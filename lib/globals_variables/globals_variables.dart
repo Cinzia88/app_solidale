@@ -17,6 +17,8 @@ bool service2Completed = false;
 bool service3Completed = false;
 bool service4Completed = false;
 List<RequestData> listRequestData = [];
+RequestData? editRequest;
+
 
 
 int? statusCode;

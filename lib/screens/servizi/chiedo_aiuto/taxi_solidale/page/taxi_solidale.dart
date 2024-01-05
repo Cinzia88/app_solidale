@@ -5,7 +5,7 @@ import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_show_request_service/bloc/show_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_show_request_service/repository/show_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/form_taxi_solidale.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/form_taxi_solidale.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

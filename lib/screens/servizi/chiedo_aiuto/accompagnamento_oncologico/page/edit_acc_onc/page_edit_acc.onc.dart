@@ -1,13 +1,16 @@
-import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/edit_data_type_service_bloc.dart';
+import 'package:app_solidale/const/path_constants.dart';
+import 'package:app_solidale/screens/common_widgets/custom_button.dart';
+import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
+import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/read_request_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
-import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/edit_data_type_service_repository.dart';
-import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
+import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/edit_form_acc_onc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/form_acc_onc.dart';
+import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 class AccompagnamentoOncologicoEditPage extends StatefulWidget {
   RequestData idRequest;
@@ -18,19 +21,27 @@ class AccompagnamentoOncologicoEditPage extends StatefulWidget {
 }
 
 class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncologicoEditPage> {
- 
+ final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameAnotherController = TextEditingController();
+  final TextEditingController _telepAnotherController = TextEditingController();
+  int _value = 1;
+  
 
 
   @override
   Widget build(BuildContext context) {
    
-
-    return BlocProvider<EditDataTypeServiceBloc>(
-      create: (context) => EditDataTypeServiceBloc(
+    //final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight = mediaQueryData.size.height;
+    //final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
+    return BlocProvider<ReadRequestBloc>(
+      create: (context) => ReadRequestBloc(
         context: context,
         editDataTypeServiceRepository:
             context.read<EditDataTypeServiceRepository>(),
-      ),
+      )..add(FetchRequestEvent()),
       child: Scaffold(
           appBar: AppBar(
             iconTheme: const IconThemeData(
@@ -49,21 +60,218 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
             ],
           ),
           drawer: NavigationDrawerWidget(),
-          body: BlocConsumer<EditDataTypeServiceBloc, EditDataTypeServiceState>(
+          body: BlocConsumer<ReadRequestBloc, ReadRequestState>(
             listener: (context, state) {
-          if (state is EditDataTypeServiceErrorState) {
+          if (state is ReadRequestErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
+              SnackBar(content: Text(state.errorMessage)),
             );
-          }
+          }else if (state is ReadRequestLoadedState) {
+            for(int i = 0; i< state.data.length; i++) {
+               if(state.data[i].nome != globals.userData!.nome && state.data[i].telefono != globals.userData!.telefono) {
+      _nameAnotherController.text = state.data[i].nome;
+      _telepAnotherController.text = state.data[i].telefono;
+      
+    }
+ 
+            }
+             
+            }
         }, builder: (context, state) {
-              return FormEditAccompagnamentoOncologico(widget.idRequest);
+              return state is ReadRequestLoadingState ||
+                    state is EditRequestLoadingState
+                ? loadingWidget(context)
+                :SingleChildScrollView(
+        child: Padding(
+                  padding: const EdgeInsets.all(
+                    20.0,
+                  ),
+                  child: Column(children: [
+                  
+                    SizedBox(
+                      width: 70,
+                      child: Image.asset(
+                        PathConstants.accompagnamOncolog,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 3 * blockSizeVertical,
+                    ),
+                    Text(
+                      'Accompagnamento Oncologico',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: _formSelectService(widget.idRequest.nome, widget.idRequest.telefono,),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CommonStyleButton(
+                                title: 'Invia',
+                                onTap: () {
+                                   EditDataTypeServiceRepository()
+                                                    .editRequest(
+                                                  context,
+                                                  widget.idRequest.idRequest,
+                                                  '3',
+                                                  _nameAnotherController.text,
+                                                  _telepAnotherController.text,
+                                                );
+                                 
+                                  SendDataTypeServiceRepository().sendMailService(
+                                      context, 'Accompagnamento Oncologico');
+      
+                                  FocusScope.of(context).unfocus();
+                                },
+                                iconWidget: Text('')),
+                      ],
+                    ),
+                  ])),
+      );
             }
           )),
     );
   
   }
+
+
+  _formSelectService(String nome, String telefono) {
+    if(nome != globals.userData!.nome && telefono != globals.userData!.telefono) {
+      _nameAnotherController.text = nome;
+      _telepAnotherController.text = telefono;
+      
+    }
+    return  Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 20.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Text(
+                        '(Modifica i dati oppure invia un\'altra richiesta)'),
+                  ),
+                ],
+              ),
+              Text(
+                'Vorrei accedere al Servizio Accompagnamento Oncologico per:',
+              ),
+            ],
+          ),
+        ),
+     Row(
+          children: [
+            Radio(
+                value: 1,
+                groupValue: _value,
+                onChanged: (value) {
+                  setState(() {
+                    _value = value!;
+                  });
+                }),
+            SizedBox(
+              width: 10,
+            ),
+            Text('Me'),
+          ],
+        ),
+        Row(
+          children: [
+           Radio(
+                value: 2,
+                groupValue: _value,
+                onChanged: (value) {
+                  setState(() {
+                    _value = value!;
+                  });
+                }),
+            SizedBox(
+              width: 10,
+            ),
+            Text('Un Mio Familiare'),
+          ],
+        ),
+        /* Row(
+              children: [
+                
+                Checkbox(
+                    value: true,
+                    tristate: true,
+                    onChanged: (value) {
+                      setState(() {
+                        personale = value!;
+                        familiare = false;
+                      });
+                    }),
+                Text('Me'),
+              ],
+            ),
+            Row(
+              children: [
+                Checkbox(
+                    value: false,
+                    tristate: false,
+                    onChanged: (value) {
+                      setState(() {
+                        familiare = value!;
+                        personale = false;
+                      });
+                    }),
+                Text('Un Mio Familiare'),
+              ],
+            ), */
+
+        SizedBox(
+          height: 20,
+        ),
+        _value == 2
+            ? Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: Column(
+                  children: [
+                    const Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Text(
+                          '(Inserisci i dati del familiare per il quale richiedi il servizio)'),
+                    ),
+                    TextFormFieldCustom(
+                      textEditingController: _nameAnotherController,
+                      labelTextCustom: 'Nome e Cognome:',
+                      obscureText: false,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Richiesto*';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormFieldCustom(
+                      textEditingController: _telepAnotherController,
+                      labelTextCustom: 'Telefono:',
+                      obscureText: false,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Richiesto*';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
+              )
+            : SizedBox(),
+      ],
+    );
+  }
 }
+
+
 
 
 

@@ -3,148 +3,156 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/read_request_bloc.dart';
+import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
+import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
+import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
+import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
+import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_show_request_service/bloc/show_data_type_service_bloc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc/send_disabili_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/bloc_show_request_service/repository/show_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/form_taxi_solidale.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
-class EditTaxiSolidale extends StatefulWidget {
-  const EditTaxiSolidale({super.key});
-
-
+class TaxiSolidaleEditPage extends StatefulWidget {
+  RequestData idRequest;
+   TaxiSolidaleEditPage({required this.idRequest});
   @override
-  State<EditTaxiSolidale> createState() => _EditTaxiSolidaleState();
+  State<TaxiSolidaleEditPage> createState() => _TaxiSolidaleEditPageState();
 }
 
-class _EditTaxiSolidaleState extends State<EditTaxiSolidale> {
-  final _formKey = GlobalKey<FormState>();
+class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
+   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameAnotherController = TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
 int _value = 1;
-bool create = false;
-bool taxiSolidaleCreato = false;
 
-  bool forAnother = false;
-
-
-
-
-  final List<String> items = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-  ];
-  String selectedValue = '1';
-
-  bool yes = false;
-  bool? familiare;
-  bool? personale;
 
   @override
   Widget build(BuildContext context) {
-    //final screenWidth = MediaQuery.of(context).size.width;
+       //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    final bloc = BlocProvider.of<ShowDataTypeServiceBloc>(context);
 
-    return BlocBuilder<ShowDataTypeServiceBloc, ShowDataTypeServiceState>(builder: (context, state) {
+    return BlocProvider<ReadRequestBloc>(
+      create: (context) => ReadRequestBloc(
+        context: context,
+        editDataTypeServiceRepository:
+            context.read<EditDataTypeServiceRepository>(),
+      )..add(FetchRequestEvent()),
+      child:  Scaffold(
+          appBar: AppBar(
+            iconTheme: const IconThemeData(
+              color: Colors.white,
+            ),
+            toolbarHeight: 75.0,
+            automaticallyImplyLeading: true,
+            flexibleSpace: customAppBar(context: context),
+            actions: [
+              IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ))
+            ],
+          ),
+          drawer: NavigationDrawerWidget(),
+          body: BlocConsumer<ReadRequestBloc, ReadRequestState>(
+            listener: (context, state) {
+          if (state is ReadRequestErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.errorMessage)),
+            );
+          }else if (state is ReadRequestLoadedState) {
+            for(int i = 0; i< state.data.length; i++) {
+               if(state.data[i].nome != globals.userData!.nome && state.data[i].telefono != globals.userData!.telefono) {
+      _nameAnotherController.text = state.data[i].nome;
+      _telepAnotherController.text = state.data[i].telefono;
       
-      return  state is ShowDataTypeServiceLoadingState
-          ? loadingWidget(context)
-          :  Stack(
-            children: [
-              SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.all(
-                      20.0,
-                    ),
-                    child: Column(children: [
-                      SizedBox(
-                        width: 70,
-                        child: Image.asset(
-                          PathConstants.taxiSolidale,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3 * blockSizeVertical,
-                      ),
-                      Text(
-                        'Taxi Solidale',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                       SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Fase 1 di 2',
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                              ],
-                            ),
-                            const Divider(
-                              color: ColorConstants.orangeGradients3,
-                            ),
-                      Form(
-                        key: _formKey,
-                        child: _formSelectService(),
-                      ),
-                        
-                    ])),
-              ),
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                     CommonStyleButton(
-                            title: 'Invia e Continua',
-                            onTap: () async{
-                              
-                               /* bloc.add(SendDataTypeServiceEvent(
-                                  serviceId: '2', 
-                                  nome: _value == 1 ? globals.userData!.nome : _nameAnotherController.text, 
-                                  telefono: _value == 1 ? globals.userData!.telefono : _telepAnotherController.text,),); */
-                            FocusScope.of(context).unfocus();
-                             setState(() {
-                               taxiSolidaleCreato = true;
-                             });
-                              await ValueSharedPrefsViewSlide()
-                                  .setValueViewSlide(taxiSolidaleCreato);
-                            },
-                            iconWidget: Text('')),
-                      ],
+    }
+ 
+            }
+             
+            }
+        }, builder: (context, state) {
+              return state is ReadRequestLoadingState ||
+                    state is EditRequestLoadingState
+                ? loadingWidget(context)
+                :SingleChildScrollView(
+            child: Padding(
+                padding: const EdgeInsets.all(
+                  20.0,
+                ),
+                child: Column(children: [
+                  SizedBox(
+                    width: 70,
+                    child: Image.asset(
+                      PathConstants.taxiSolidale,
                     ),
                   ),
-                ),
-            ],
+                  SizedBox(
+                    height: 3 * blockSizeVertical,
+                  ),
+                  Text(
+                    'Taxi Solidale',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                   SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Fase 1 di 2',
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                          ],
+                        ),
+                        const Divider(
+                          color: ColorConstants.orangeGradients3,
+                        ),
+                  
+                  Form(
+                    key: _formKey,
+                    child: _formSelectService(),
+                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                    CommonStyleButton(
+                                title: 'Invia',
+                                onTap: () {
+                                   EditDataTypeServiceRepository()
+                                                    .editRequest(
+                                                  context,
+                                                  widget.idRequest.idRequest,
+                                                  '3',
+                                                  _nameAnotherController.text,
+                                                  _telepAnotherController.text,
+                                                );
+                                 
+                                  SendDataTypeServiceRepository().sendMailService(
+                                      context, 'Accompagnamento Oncologico');
+      
+                                  FocusScope.of(context).unfocus();
+                                },
+                                iconWidget: Text('')),
+                      ],
+                    ),
+                ])),
           );
-    });
+  })));
   }
-
    _formSelectService() {
     return Column(
       children: [
@@ -261,10 +269,7 @@ bool taxiSolidaleCreato = false;
       ],
     );
   }
-
 }
-
-
 
 
 
