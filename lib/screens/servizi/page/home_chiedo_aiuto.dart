@@ -127,6 +127,12 @@ print('reqdata ${globals.listRequestData}');
                       color: ColorConstants.orangeGradients3,
                     ),
                    globals.listRequestData.isEmpty ? customCardsServiceChiedoAiuto(context) : customEditCardsServiceChiedoAiuto(context),
+                   for(int i = 0; i<globals.listRequestData.length; i++) 
+                    globals.listRequestData[i].serviceId == "2" && globals.listRequestData[i].serviceId == "3" ?
+                    Column(children: [
+                   Text('banco')],)
+                   :
+                   Text('${globals.listRequestData}')
                   ],
                 ),
               ],

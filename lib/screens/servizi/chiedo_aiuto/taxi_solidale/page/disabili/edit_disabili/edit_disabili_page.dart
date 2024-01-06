@@ -2,24 +2,16 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
-import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_disabili/send_disabili_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_edit_disabili/bloc/edit_disabili_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_edit_disabili/repo/edit_disabili_repo.dart';
+import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
+import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 
-class FormDataDisabiliTaxi extends StatefulWidget {
-  FormDataDisabiliTaxi({Key? key}) : super(key: key);
 
-  @override
-  State<FormDataDisabiliTaxi> createState() => _FormDataDisabiliTaxiState();
-}
-
-class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _numberController = TextEditingController();
   int _value = 1;
 
   final List<String> items = [
@@ -41,28 +33,66 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
   ];
   String selectedValue = '1';
 
+class DisabiliTaxiPageEdit extends StatefulWidget {
+  const DisabiliTaxiPageEdit({super.key});
+
+  @override
+  State<DisabiliTaxiPageEdit> createState() => _DisabiliTaxiPageState();
+}
+
+class _DisabiliTaxiPageState extends State<DisabiliTaxiPageEdit> {
+   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _numberController = TextEditingController();
+
   bool yes = false;
   int disabile = 0;
+String idDisabile = '1';
+
 
   @override
   Widget build(BuildContext context) {
-    //final screenWidth = MediaQuery.of(context).size.width;
+   
+   //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    final bloc = BlocProvider.of<SendDisabiliDataBloc>(context);
 
-    return BlocBuilder<SendDisabiliDataBloc, SendDisabiliDataState>(
-        builder: (context, state) {
-      return state is SendDisabiliDataLoadingState
-          ? loadingWidget(context)
-          : SingleChildScrollView(
+    return BlocProvider<ReadDisabiliBloc>(
+      create: (context) => ReadDisabiliBloc(
+        context: context,
+        editDataDisabiliRepository: context.read<EditDataDisabiliRepository>(),
+      )..add(FetchDisabiliEvent()),
+      child: Scaffold(
+          appBar: AppBar(
+            iconTheme: const IconThemeData(
+              color: Colors.white,
+            ),
+            toolbarHeight: 75.0,
+            automaticallyImplyLeading: true,
+            flexibleSpace: customAppBar(context: context),
+          
+          ),
+          drawer: NavigationDrawerWidget(),
+          body: BlocConsumer<ReadDisabiliBloc, ReadDisabiliState>(
+              listener: (context, state) {
+            if (state is ReadDisabiliErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.errorMessage)),
+              );
+            } else if (state is ReadDisabiliLoadedState) {
+              setState(() {
+                idDisabile = state.data.id;
+              });
+            }
+          }, builder: (context, state) {
+            return SingleChildScrollView(
               child: Padding(
                   padding: const EdgeInsets.all(
                     20.0,
                   ),
                   child: Column(children: [
+                    Text(idDisabile),
                     SizedBox(
                       width: 70,
                       child: Image.asset(
@@ -154,14 +184,21 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
                                     title: 'Invia',
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
-                                        bloc.add(SendDisabiliFormEvent(
-                                            numeroDisabili: disabile == 0
+                                         EditDataDisabiliRepository()
+                                                    .editDataDisabili(
+                                                  context,
+                                                  idDisabile,
+                                                  disabile == 0
                                                 ? '0'
                                                 : _numberController.text,
-                                            disabile: disabile));
-                                        SendDataTypeServiceRepository()
-                                            .sendMailService(
-                                                context, 'Taxi Solidale');
+                                                disabile
+                                                );
+                                 
+                                  SendDataTypeServiceRepository().sendMailService(
+                                      context, 'Taxi Solidale');
+      
+                                  FocusScope.of(context).unfocus();
+                                      
 
                                         showDialog(
                                             barrierDismissible: false,
@@ -226,10 +263,11 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
                     ),
                   ])),
             );
-    });
+  })));
   }
 
-  _formSelectService() {
+
+_formSelectService() {
     return Column(
       children: [
         const Padding(
@@ -299,44 +337,3 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
 
 
 
-
-
-/*const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Flexible(
-                                          child: Text(
-                                              'Nel nucleo familiare è presente una persona con invalidità?')),
-                                    ],
-                                  ),
-                                ),
-                                ListTile(
-                                  title: yes == true
-                                      ? Text('Sì')
-                                      : Text(
-                                          'No',
-                                        ),
-                                  trailing: Switch(
-                                      inactiveThumbColor:
-                                          ColorConstants.orangeGradients3,
-                                      activeColor:
-                                          ColorConstants.orangeGradients3,
-                                      value: yes,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          yes = value;
-                                        });
-                                        if (yes == true) {
-                                          setState(() {
-                                            disabile = 'sì';
-                                          });
-                                        } else {
-                                          disabile = 'no';
-                                        }
-
-                                        //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
-                                        //tale value lo salvo nel provider
-                                      }),
-                                ), */

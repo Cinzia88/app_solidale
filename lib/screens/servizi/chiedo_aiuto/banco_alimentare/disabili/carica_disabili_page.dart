@@ -1,5 +1,5 @@
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disabili/form_data_disabili.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc/send_disabili_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_disabili/send_disabili_data_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_disabili_repository.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
@@ -52,10 +52,3 @@ class _DisabiliPageState extends State<DisabiliPage> {
 
 
 
-/*     List<ParentsData> entries = [];
-    for (int i = 0; i < cards.length; i++) {
-      var nome = nomeComponente[i].text;
-      var anni = anniComponente[i].text;
-      var grado = gradoComponente[i].text;
-      service.sendDataParents(context, nome, anni, grado);
-    } */

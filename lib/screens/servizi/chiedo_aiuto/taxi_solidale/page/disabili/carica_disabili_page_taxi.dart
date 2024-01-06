@@ -1,4 +1,4 @@
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc/send_disabili_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_disabili/send_disabili_data_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/form_data_disabili_taxi.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_disabili_repository.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';

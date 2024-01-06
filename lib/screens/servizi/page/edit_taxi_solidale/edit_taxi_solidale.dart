@@ -10,6 +10,7 @@ import 'package:app_solidale/screens/home/widgets/custom_container_service.dart'
 import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_acc.onc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/page_acc_onc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/edit_banco_alim/edit_banco_alim.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/intro.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/taxi_solidale.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
@@ -202,7 +203,7 @@ class _EditTaxiSolidaleState extends State<EditTaxiSolidale> {
                                       ),
                                     ),
                                   ),
-                    )  :widget.listRequestData.serviceId != '4' ?  CustomCardsCommon(
+                    )  :widget.listRequestData.serviceId == serviceId[2] ?  CustomCardsCommon(
           child: CustomContainerService(
             title: 'Banco Alimentare',
             subtitle: 'Prenota o conferma il ritiro del tuo pacco alimentare',
@@ -217,10 +218,10 @@ class _EditTaxiSolidaleState extends State<EditTaxiSolidale> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => IntroBancoAlimentare()));
+                                builder: (context) => IntroBancoAlimentareEdit()));
                       },
                       child: Text(
-                        'Richiedi',
+                        'Modifica',
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
                       )),
                   GestureDetector(
@@ -234,7 +235,7 @@ class _EditTaxiSolidaleState extends State<EditTaxiSolidale> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      IntroBancoAlimentare()));
+                                      IntroBancoAlimentareEdit()));
                         },
                       );
                     },

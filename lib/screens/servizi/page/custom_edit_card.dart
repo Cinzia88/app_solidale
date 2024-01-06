@@ -21,7 +21,6 @@ Widget customEditCardsServiceChiedoAiuto(BuildContext context) {
         return Column(
           children: [
             EditTaxiSolidale(globals.listRequestData[index],),
-            customCardsServiceChiedoAiuto(context)
           ],
         );
       },
