@@ -91,6 +91,7 @@ flutter:
     - assets/images/logo_anf/
     - assets/images/icone_slides/
     - assets/images/icone_servizio_chiedo_aiuto/
+    - assets/files/pdf_privacy/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
