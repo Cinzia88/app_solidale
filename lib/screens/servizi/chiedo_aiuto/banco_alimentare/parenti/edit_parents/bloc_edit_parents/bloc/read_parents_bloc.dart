@@ -24,7 +24,7 @@ class ReadParentsBloc extends Bloc<ReadParentsEvent, ReadParentsState> {
           emit(ReadParentsLoadingState());
           try {
             final userdata = await editDataParentsRepository.getParentsData(context);
-            emit(ReadParentsLoadedState(data: [userdata]));
+            emit(ReadParentsLoadedState(data: userdata));
           } catch (e) {
             emit(ReadParentsErrorState(errorMessage: e.toString()));
           }

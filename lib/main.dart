@@ -7,6 +7,7 @@ import 'package:app_solidale/screens/news/repository/news_repository.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/repository/send_docs_repository.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/repo/edit_parents_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_edit_disabili/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_disabili_repository.dart';
@@ -181,6 +182,9 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<SendDataParentsRepository>(
           create: (context) => SendDataParentsRepository(),
+        ),
+         RepositoryProvider<EditDataParentsRepository>(
+          create: (context) => EditDataParentsRepository(),
         ),
         RepositoryProvider<SendDisabiliDataRepository>(
           create: (context) => SendDisabiliDataRepository(),

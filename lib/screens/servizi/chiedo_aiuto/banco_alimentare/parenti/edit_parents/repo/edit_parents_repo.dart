@@ -1,13 +1,7 @@
 import 'dart:convert';
-import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
-import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/model/edit_parents_model.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_edit_disabili/model/edit_disabili_model.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/carica_disabili_page_taxi.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/edit_disabili/edit_disabili_page.dart';
-import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -94,7 +88,7 @@ class EditDataParentsRepository {
 
 
 
-  Future<ParentsData> getParentsData(BuildContext context) async {
+  Future<List<ParentsData>> getParentsData(BuildContext context) async {
      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/familiari/show/${globals.userData!.id}';
     // Await the http get response, then decode the json-formatted response.
     var response = await http.get(
@@ -105,8 +99,12 @@ class EditDataParentsRepository {
         'Authorization': 'Bearer ${globals.tokenValue}'
       },
     );
-     var body = json.decode(response.body)[0];
-    var data = ParentsData.fromJson(body);
+     final List<dynamic> body = json.decode(response.body);
+    var data = body.map((e) => ParentsData.fromJson(e)).toList();
+      globals.listParentsData = data;
+    
+
+    print('parents ${globals.listParentsData}');
    
     switch (response.statusCode) {
       case 200:

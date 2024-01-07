@@ -12,12 +12,14 @@ import 'package:app_solidale/screens/common_widgets/background_style/custom_appb
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_show_request_service/bloc/show_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_show_request_service/repository/show_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/page/edit_parents_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/form_taxi_solidale.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
@@ -34,11 +36,12 @@ class IntroBancoAlimentareEdit extends StatefulWidget {
   const IntroBancoAlimentareEdit({super.key});
 
   @override
-  State<IntroBancoAlimentareEdit> createState() => _IntroBancoAlimentareEditState();
+  State<IntroBancoAlimentareEdit> createState() =>
+      _IntroBancoAlimentareEditState();
 }
 
 class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
- 
+  String idBancoEdit = '';
 
   @override
   Widget build(BuildContext context) {
@@ -78,77 +81,126 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.errorMessage)),
             );
+          } else if (state is ReadRequestLoadedState) {
+            for (int i = 0; i < state.data.length; i++) {
+              setState(() {
+                idBancoEdit = state.data[i].idRequest;
+              });
+            }
           }
         }, builder: (context, state) {
-              return state is ReadRequestLoadingState ||
-                    state is EditRequestLoadingState
-                ? loadingWidget(context)
-                : SingleChildScrollView(
-            child: Padding(
-                padding: const EdgeInsets.all(
-                  20.0,
-                ),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                child: Image.asset(
-                                  PathConstants.bancoAlim,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3 * blockSizeVertical,
-                              ),
-                              Text(
-                                'Banco Alimentare',
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.titleSmall,
-                              ),
-                            ],
-                          )
-                        ],
+          return state is ReadRequestLoadingState ||
+                  state is EditRequestLoadingState
+              ? loadingWidget(context)
+              : SingleChildScrollView(
+                  child: Padding(
+                      padding: const EdgeInsets.all(
+                        20.0,
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                          'Per accedere al Servizio Banco Alimentare bastano pochi semplici passi: '),
-                      Text(
-                          '\n1.  Inserisci il numero dei componenti familiari ed i loro dati (nome, data di nascita e grado di parentela)'),
-                      Text(
-                          '\n2.  Dichiara se nel nucleo familiare è presente una persona diversamente abile. Se sì, indica il numero'),
-                      Text(
-                          '\n3.  Procurati i documenti necessari (ISEE, documento d\'identità) e caricali sull\'app'),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              CommonStyleButton(
-            title: 'Inizia',
-            onTap: () {
-              SendDataTypeServiceRepository().sendDataTypeservice(context, '4',
-                   globals.userData!.nome,
-                  globals.userData!.telefono);
-                  
-            },
-            iconWidget: Text('')),
-                            ],
-                          )
-                    ])),
-          );
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(idBancoEdit),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 70,
+                                      child: Image.asset(
+                                        PathConstants.bancoAlim,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 3 * blockSizeVertical,
+                                    ),
+                                    Text(
+                                      'Banco Alimentare',
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                    'Modifica i dati dei tuoi componenti familiari'),
+                                     Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                       children: [
+                                         CommonStyleButton(
+                                    title: 'Modifica Componenti',
+                                    onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (_) => ParentsPageEdit()));
+                                    },
+                                    iconWidget: Text('')),
+                                       ],
+                                     ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                    'Modifica la presenza di disabilità nel nucleo familiare'),
+                                     CommonStyleButton(
+                                    title: 'Modifica Disabilità in Famiglia',
+                                    onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (_) => ParentsPageEdit()));
+                                    },
+                                    iconWidget: Text('')),
+                              ],
+                            ),
+                             SizedBox(
+                              height: 30,
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                    'Modifica documenti caricati'),
+                                     CommonStyleButton(
+                                    title: 'Modifica File',
+                                    onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (_) => ParentsPageEdit()));
+                                    },
+                                    iconWidget: Text('')),
+                              ],
+                            ),
+                           
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                CommonStyleButton(
+                                    title: 'Inizia',
+                                    onTap: () {
+                                      EditDataTypeServiceRepository()
+                                          .editRequest(
+                                              context,
+                                              idBancoEdit,
+                                              '4',
+                                              globals.userData!.nome,
+                                              globals.userData!.telefono);
+                                    },
+                                    iconWidget: Text('')),
+                              ],
+                            )
+                          ])),
+                );
         }),
       ),
     );
   }
 }
-
-
-

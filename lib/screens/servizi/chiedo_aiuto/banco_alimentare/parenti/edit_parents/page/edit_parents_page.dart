@@ -28,12 +28,20 @@ class ParentsPageEdit extends StatefulWidget {
 }
 
 class _ParentsPageEditState extends State<ParentsPageEdit> {
+  List<String> nomeParent = [];
   final _formKey = GlobalKey<FormState>();
   var nomeComponente = <TextEditingController>[];
   var dateinput = <TextEditingController>[];
   var gradoComponente = <TextEditingController>[];
+  var nomeEditController = TextEditingController();
+String fetchDataLength = '';
+  var nomeController = TextEditingController();
+    var birthController = TextEditingController();
+    var gradoController = TextEditingController();
   String selectedValue = '1';
   List<Widget>? growableList;
+    List<Widget>? card;
+
   final List<String> items = [
     '1',
     '2',
@@ -58,17 +66,24 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
   bool yes = false;
   bool remove = false;
   String disabile = 'no';
-  Widget createCard() {
-    var nomeController = TextEditingController();
-    var birthController = TextEditingController();
-    var gradoController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+     //final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight = mediaQueryData.size.height;
+    //final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
+  Widget createCard(TextEditingController? controller) {
+    
     nomeComponente.add(nomeController);
     dateinput.add(birthController);
     gradoComponente.add(gradoController);
     return Column(
       children: <Widget>[
+      
         TextFormFieldCustom(
-          textEditingController: nomeController,
+          textEditingController: controller!,
           labelTextCustom: 'Nome e Cognome:',
           obscureText: false,
           validator: (value) {
@@ -139,17 +154,8 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
       ],
     );
   }
-  @override
-  Widget build(BuildContext context) {
-     //final screenWidth = MediaQuery.of(context).size.width;
-    final mediaQueryData = MediaQuery.of(context);
-    final screenHeight = mediaQueryData.size.height;
-    //final blockSizeHorizontal = screenWidth / 100;
-    final blockSizeVertical = screenHeight / 100;
-    final bloc = BlocProvider.of<SendParentsDataBloc>(context);
-
     growableList = List<Widget>.generate(int.parse(selectedValue), (int index) {
-      cards.add(createCard());
+      cards.add(createCard(nomeController));
       return Column(
         children: [
           Padding(
@@ -185,7 +191,7 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
       create: (context) => ReadParentsBloc(
         context: context,
         editDataParentsRepository: context.read<EditDataParentsRepository>(),
-      ),
+      )..add(FetchParentsEvent()),
       child: Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(
@@ -203,6 +209,22 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.errorMessage)),
               );
+            } else if(state is ReadParentsLoadedState) {
+              setState(() {
+                selectedValue = state.data.length.toString();
+                fetchDataLength = selectedValue;
+              });
+
+
+              state.data.forEach((element) {
+                setState(() {
+                                 nomeComponente.add(TextEditingController(text: element.nome));
+
+                });
+                
+              });
+
+              
             }
           },
           builder: (context, state) {
@@ -229,6 +251,7 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
+       
                   SizedBox(
                     height: 20,
                   ),
@@ -349,7 +372,58 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
                           SizedBox(
                             height: 20,
                           ),
-                          ListView.builder(
+                           
+                         ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: nomeComponente.length,
+                            itemBuilder:
+                                (BuildContext context, int index) {
+                                                                      nomeController = nomeComponente[index];
+                                                                       
+                              return nomeController.text.isEmpty ? SizedBox() : Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40.0),
+            child: Material(
+              elevation: 10,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Componente ${index}',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ],
+                    ),
+                     TextFormFieldCustom(
+          textEditingController: nomeController,
+          labelTextCustom: 'Nome e Cognome:',
+          obscureText: false,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Campo Richiesto*';
+            }
+            return null;
+          },
+        ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      );
+                            },
+                          ),
+                    fetchDataLength != selectedValue ?    ListView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: growableList!.length,
@@ -357,7 +431,7 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
                                 (BuildContext context, int index) {
                               return growableList![index];
                             },
-                          ),
+                          ) : SizedBox(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -369,10 +443,10 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
                                         var nome = nomeComponente[i].text;
                                         var anni = dateinput[i].text;
                                         var grado = gradoComponente[i].text;
-                                        bloc.add(SendParentsFormEvent(
+                                      /*  bloc.add(SendParentsFormEvent(
                                             nomeParente: nome,
                                             dataDiNascitaParente: anni,
-                                            gradoParente: grado));
+                                            gradoParente: grado));*/
                                         
                                         
                                       }
