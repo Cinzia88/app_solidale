@@ -35,6 +35,7 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
   var gradoComponente = <TextEditingController>[];
   var nomeEditController = TextEditingController();
 String fetchDataLength = '';
+int indexFetch = 0;
   var nomeController = TextEditingController();
     var birthController = TextEditingController();
     var gradoController = TextEditingController();
@@ -380,9 +381,10 @@ String fetchDataLength = '';
                             itemBuilder:
                                 (BuildContext context, int index) {
                                                                       nomeController = nomeComponente[index];
-                                                                       
+                                                                       indexFetch = index;
                               return nomeController.text.isEmpty ? SizedBox() : Column(
         children: [
+          Text('$indexFetch'),
           Padding(
             padding: const EdgeInsets.only(bottom: 40.0),
             child: Material(
