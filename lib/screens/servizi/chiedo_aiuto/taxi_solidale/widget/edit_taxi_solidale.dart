@@ -21,8 +21,7 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 
 class TaxiSolidaleEditPage extends StatefulWidget {
-  RequestData idRequest;
-  TaxiSolidaleEditPage({required this.idRequest});
+  
   @override
   State<TaxiSolidaleEditPage> createState() => _TaxiSolidaleEditPageState();
 }
@@ -32,6 +31,7 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
   final TextEditingController _nameAnotherController = TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
   int _value = 1;
+  String idTaxiSolidaleEdit = '';
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,12 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                     _nameAnotherController.text = state.data[i].nome;
                     _telepAnotherController.text = state.data[i].telefono;
                   }
+                  setState(() {
+               idTaxiSolidaleEdit = state.data[i].idRequest;
+             });
                 }
+             
+            
               }
             }, builder: (context, state) {
               return state is ReadRequestLoadingState ||
@@ -132,7 +137,7 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                       EditDataTypeServiceRepository()
                                           .editRequest(
                                         context,
-                                        widget.idRequest.idRequest,
+                                       idTaxiSolidaleEdit,
                                         '2',
                                           _value == 1 ? globals.userData!.nome : _nameAnotherController.text, 
                                   _value == 1 ? globals.userData!.telefono : _telepAnotherController.text,

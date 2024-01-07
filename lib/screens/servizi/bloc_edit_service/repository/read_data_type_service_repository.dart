@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/page/edit_parents_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/carica_disabili_page_taxi.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/edit_disabili/edit_disabili_page.dart';
@@ -214,7 +215,7 @@ print('reqdata ${response.body}');
             if (context.mounted) {
 
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ParentsPage()));
+                  MaterialPageRoute(builder: (context) => ParentsPageEdit()));
             }
           }
           break;

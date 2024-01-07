@@ -13,8 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 class AccompagnamentoOncologicoEditPage extends StatefulWidget {
-  RequestData idRequest;
-   AccompagnamentoOncologicoEditPage({required this.idRequest});
+ 
 
   @override
   State<AccompagnamentoOncologicoEditPage> createState() => _AccompagnamentoOncologicoEditPageState();
@@ -104,7 +103,7 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
                     ),
                     Form(
                       key: _formKey,
-                      child: _formSelectService(widget.idRequest.nome, widget.idRequest.telefono,),
+                      child: _formSelectService(),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -115,7 +114,7 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
                                    EditDataTypeServiceRepository()
                                                     .editRequest(
                                                   context,
-                                                  widget.idRequest.idRequest,
+                                                  '4',
                                                   '3',
                                                   _nameAnotherController.text,
                                                   _telepAnotherController.text,
@@ -138,12 +137,8 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
   }
 
 
-  _formSelectService(String nome, String telefono) {
-    if(nome != globals.userData!.nome && telefono != globals.userData!.telefono) {
-      _nameAnotherController.text = nome;
-      _telepAnotherController.text = telefono;
-      
-    }
+  _formSelectService() {
+   
     return  Column(
       children: [
         const Padding(

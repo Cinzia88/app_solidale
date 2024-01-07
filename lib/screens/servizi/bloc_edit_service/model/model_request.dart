@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 
 class RequestData extends Equatable {
   final String idRequest;
-  final String serviceId;
+   String serviceId;
   final String nome;
   final String telefono;
 
-  const RequestData({
+   RequestData({
     required this.idRequest,
     required this.serviceId,
     required this.nome,

@@ -2,13 +2,22 @@
 
 import 'dart:convert';
 
+import 'package:app_solidale/const/path_constants.dart';
+import 'package:app_solidale/const/text_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
+import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
+import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_acc.onc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/page_acc_onc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/edit_banco_alim/edit_banco_alim.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/intro.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/taxi_solidale.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
 import 'package:app_solidale/screens/servizi/page/custom_card.dart';
-import 'package:app_solidale/screens/servizi/page/custom_edit_card.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
@@ -24,15 +33,44 @@ class HomeChiedoAiuto extends StatefulWidget {
 }
 
 class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
+  bool taxiSolidaleRichiedi = true;
+  bool accOncRichiedi = true;
+  bool bancoAlimRichiedi = true;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-     getRequestUser();
+    getRequestUser();
+    getDataRequest();
+  }
+
+  getDataRequest() {
+    for (int i = 0; i < globals.listRequestData.length; i++) {
+      switch (globals.listRequestData[i].serviceId) {
+        case '2':
+          setState(() {
+            taxiSolidaleRichiedi = false;
+          });
+          break;
+        case '3':
+          setState(() {
+            accOncRichiedi = false;
+          });
+          break;
+        case '4':
+          setState(() {
+            bancoAlimRichiedi = false;
+          });
+          break;
+        default:
+      }
+    }
   }
 
   Future<List<RequestData>> getRequestUser() async {
-    var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta/show/${globals.userData!.id}';
+    var url =
+        '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta/show/${globals.userData!.id}';
     // Await the http get response, then decode the json-formatted response.
     var response = await http.get(
       Uri.parse(url),
@@ -47,10 +85,10 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
     setState(() {
       globals.listRequestData = data;
     });
-print('reqdata ${globals.listRequestData}');
+    print('reqdata ${globals.listRequestData}');
     switch (response.statusCode) {
       case 200:
-      print('success data request');
+        print('success data request');
       case 401:
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => PresentationPage()));
@@ -89,11 +127,69 @@ print('reqdata ${globals.listRequestData}');
       default:
         print('errore generico');
     }
-    return data ;
+    return data;
   }
 
   @override
   Widget build(BuildContext context) {
+    showAlertDialog(
+        {required dynamic Function()? onPressed,
+        required String title,
+        required String desc}) {
+      return showDialog(
+        barrierColor: Colors.black87,
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.close,
+                      color: ColorConstants.orangeGradients3,
+                    ))
+              ],
+            ),
+            content: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 2.5,
+              decoration: const BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.all(Radius.circular(32.0)),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      desc,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    }
+
+    //final screenWidth = MediaQuery.of(context).size.width;
+    final mediaQueryData = MediaQuery.of(context);
+    final screenHeight = mediaQueryData.size.height;
+    //final blockSizeHorizontal = screenWidth / 100;
+    final blockSizeVertical = screenHeight / 100;
     return Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(
@@ -126,13 +222,331 @@ print('reqdata ${globals.listRequestData}');
                     const Divider(
                       color: ColorConstants.orangeGradients3,
                     ),
-                   globals.listRequestData.isEmpty ? customCardsServiceChiedoAiuto(context) : customEditCardsServiceChiedoAiuto(context),
-                   for(int i = 0; i<globals.listRequestData.length; i++) 
-                    globals.listRequestData[i].serviceId == "2" && globals.listRequestData[i].serviceId == "3" ?
-                    Column(children: [
-                   Text('banco')],)
-                   :
-                   Text('${globals.listRequestData}')
+                  
+                    taxiSolidaleRichiedi == false
+                        ? Padding(
+    padding: const EdgeInsets.symmetric(vertical: 40.0),
+                          child: CustomCardsCommon(
+                              child: CustomContainerService(
+                                title: 'Taxi Solidale',
+                                subtitle:
+                                    'Ti aiutiamo a raggiungere strutture e servizi primari in città',
+                                image: PathConstants.taxiSolidale,
+                                widget: Padding(
+                                  padding: const EdgeInsets.only(top: 15.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        TaxiSolidaleEditPage()));
+                                          },
+                                          child: Text(
+                                            'Modifica',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: blockSizeVertical * 2),
+                                          )),
+                                      GestureDetector(
+                                        onTap: () {
+                                          showAlertDialog(
+                                              title: TextConstants
+                                                  .infoAlertTitleTaxiSolidale,
+                                              desc: TextConstants
+                                                  .infoAlertTaxiSolidale,
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const TaxiSolidalePage()));
+                                              });
+                                        },
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: Image.asset(
+                                              PathConstants.infoService),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                        )
+                        : Padding(
+    padding: const EdgeInsets.symmetric(vertical: 30.0),
+                          child: CustomCardsCommon(
+                              child: CustomContainerService(
+                                title: 'Taxi Solidale',
+                                subtitle:
+                                    'Ti aiutiamo a raggiungere strutture e servizi primari in città',
+                                image: PathConstants.taxiSolidale,
+                                widget: Padding(
+                                  padding: const EdgeInsets.only(top: 15.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const TaxiSolidalePage()));
+                                          },
+                                          child: Text(
+                                            'Richiedi',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: blockSizeVertical * 2),
+                                          )),
+                                      GestureDetector(
+                                        onTap: () {
+                                          showAlertDialog(
+                                              title: TextConstants
+                                                  .infoAlertTitleTaxiSolidale,
+                                              desc: TextConstants
+                                                  .infoAlertTaxiSolidale,
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const TaxiSolidalePage()));
+                                              });
+                                        },
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: Image.asset(
+                                              PathConstants.infoService),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ),
+                    accOncRichiedi == false
+                        ? CustomCardsCommon(
+                            child: CustomContainerService(
+                              title: 'Accompagnamento Oncologico',
+                              subtitle:
+                                  'Ti supportiamo per ricevere le cure necessarie',
+                              image: PathConstants.accompagnamOncolog,
+                              widget: Padding(
+                                padding: const EdgeInsets.only(top: 15.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AccompagnamentoOncologicoEditPage()));
+                                        },
+                                        child: Text(
+                                          'Modifica',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: blockSizeVertical * 2),
+                                        )),
+                                    GestureDetector(
+                                      onTap: () {
+                                        showAlertDialog(
+                                          title: TextConstants
+                                              .infoAlertTitleAccompagnOncol,
+                                          desc: TextConstants
+                                              .infoAlertAccompagnOncol,
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AccompagnamentoOncologicoPage()));
+                                          },
+                                        );
+                                      },
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: Image.asset(
+                                            PathConstants.infoService),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        : Padding(
+    padding: const EdgeInsets.only(bottom: 40.0),
+                          child: CustomCardsCommon(
+                              child: CustomContainerService(
+                                title: 'Accompagnamento Oncologico',
+                                subtitle:
+                                    'Ti supportiamo per ricevere le cure necessarie',
+                                image: PathConstants.accompagnamOncolog,
+                                widget: Padding(
+                                  padding: const EdgeInsets.only(top: 15.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AccompagnamentoOncologicoPage()));
+                                          },
+                                          child: Text(
+                                            'Richiedi',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: blockSizeVertical * 2),
+                                          )),
+                                      GestureDetector(
+                                        onTap: () {
+                                          showAlertDialog(
+                                            title: TextConstants
+                                                .infoAlertTitleAccompagnOncol,
+                                            desc: TextConstants
+                                                .infoAlertAccompagnOncol,
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          AccompagnamentoOncologicoPage()));
+                                            },
+                                          );
+                                        },
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: Image.asset(
+                                              PathConstants.infoService),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ),
+                    bancoAlimRichiedi == false
+                        ?  CustomCardsCommon(
+          child: CustomContainerService(
+            title: 'Banco Alimentare',
+            subtitle: 'Prenota o conferma il ritiro del tuo pacco alimentare',
+            image: PathConstants.bancoAlim,
+            widget: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+              ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => IntroBancoAlimentareEdit()));
+                      },
+                      child: Text(
+                        'Modifica',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
+                      )),
+                  GestureDetector(
+                    onTap: () {
+                      showAlertDialog(
+                        title: TextConstants.infoAlertTitleBancoAlim,
+                        desc: TextConstants.infoAlertBancoAlim,
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      IntroBancoAlimentare()));
+                        },
+                      );
+                    },
+                    child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: Image.asset(PathConstants.infoService),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        )
+                        :  CustomCardsCommon(
+          child: CustomContainerService(
+            title: 'Banco Alimentare',
+            subtitle: 'Prenota o conferma il ritiro del tuo pacco alimentare',
+            image: PathConstants.bancoAlim,
+            widget: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+              ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => IntroBancoAlimentare()));
+                      },
+                      child: Text(
+                        'Richiedi',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
+                      )),
+                  GestureDetector(
+                    onTap: () {
+                      showAlertDialog(
+                        title: TextConstants.infoAlertTitleBancoAlim,
+                        desc: TextConstants.infoAlertBancoAlim,
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      IntroBancoAlimentare()));
+                        },
+                      );
+                    },
+                    child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: Image.asset(PathConstants.infoService),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
                   ],
                 ),
               ],
