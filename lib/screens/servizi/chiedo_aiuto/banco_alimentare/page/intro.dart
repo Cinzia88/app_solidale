@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
-import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
@@ -147,68 +146,8 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                           ),
                         ],
                       ),
-                     RichText(
-                              text: TextSpan(
-                                  text: 'Scarica ',
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          'Informativa sul Trattamento dei Dati Personali',
-                                      style: const TextStyle(
-                                        color: ColorConstants.orangeGradients3,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12,
-                                      ),
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () async{
-                                         
-                  Map<Permission, PermissionStatus> statuses = await [
-                    Permission.storage,
-                    //add more permission to request here.
-                  ].request();
-
-                  if(statuses[Permission.storage]!.isGranted){
-                    var dir = await DownloadsPathProvider.downloadsDirectory;
-                    if(dir != null){
-                      String savename = "file.pdf";
-                      String savePath = dir.path + "/$savename";
-                      print(savePath);
-                      //output:  /storage/emulated/0/Download/banner.png
-
-                      try {
-                        await Dio().download(
-                            'fileurl',
-                            savePath,
-                            onReceiveProgress: (received, total) {
-                              if (total != -1) {
-                                print((received / total * 100).toStringAsFixed(0) + "%");
-                                //you can build progressbar feature too
-                              }
-                            });
-                        print("File is saved to download folder.");
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("File Downloaded"),
-                        ));
-                      } on DioError catch (e) {
-                        print(e.message);
-                      }
-                    }
-                  }else{
-                    print("No permission to read and write.");
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("Permission Denied !"),
-                    ));
-                  }
-
-                                        },
-                                    ),
-                                  ],
-                                 ),
-                            ),
+                     
+                                   
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [

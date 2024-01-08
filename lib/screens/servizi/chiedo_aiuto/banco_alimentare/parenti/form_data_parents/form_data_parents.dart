@@ -339,7 +339,8 @@ class _FormDataParentsState extends State<FormDataParents> {
                                             nomeParente: nome,
                                             dataDiNascitaParente: anni,
                                             gradoParente: grado));
-                                        
+                                                                                print('nomeC ${nome}');
+
                                         
                                       }
                                     }

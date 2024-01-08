@@ -10,7 +10,7 @@ class CommonStyleButton extends StatelessWidget {
       {super.key,
       required this.title,
       this.isEnabled = true,
-      required this.onTap,
+       this.onTap,
       required this.iconWidget});
 
   @override

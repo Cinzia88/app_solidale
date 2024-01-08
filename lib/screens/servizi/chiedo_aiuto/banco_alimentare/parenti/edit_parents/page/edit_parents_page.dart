@@ -83,14 +83,16 @@ List<ParentsData>? listData;
     final blockSizeVertical = screenHeight / 100;
   Widget createCard(ParentsData data) {
     
-    nomeComponente.add(nomeController);
+  
+nomeController = TextEditingController(text: data.nome);
+  nomeComponente.add(nomeController);
     dateinput.add(birthController);
     gradoComponente.add(gradoController);
-nomeController = TextEditingController(text: data.nome);
+  
     return Column(
       children: <Widget>[
       
-        TextFormFieldCustom(
+      TextFormFieldCustom(
           textEditingController: nomeController,
           labelTextCustom: 'Nome e Cognome:',
           obscureText: false,
@@ -163,6 +165,7 @@ nomeController = TextEditingController(text: data.nome);
     );
   }
     growableList = List<Widget>.generate(int.parse(selectedValue), (int index) {
+      print('index $index');
       if(listData== null) {
         return SizedBox();
       } else {
@@ -171,7 +174,6 @@ nomeController = TextEditingController(text: data.nome);
 
       }
       }
-     
 
       
 print('listdataRq ${listData}');
@@ -239,8 +241,6 @@ print('listdataRq ${listData}');
               state.data.forEach((element) {
                 setState(() {
                                  listData = state.data;
-                                 nomeComponente.add(TextEditingController(text: element.nome));
-
                 });
                 
               });

@@ -59,7 +59,6 @@ dependencies:
   cached_network_image: ^3.3.0
   syncfusion_flutter_pdfviewer: ^24.1.44
   dio: ^5.4.0
-  downloads_path_provider_28: ^0.1.2
   permission_handler: ^11.0.1
 
 
