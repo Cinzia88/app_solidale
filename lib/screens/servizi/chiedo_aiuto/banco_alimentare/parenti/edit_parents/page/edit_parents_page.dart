@@ -6,6 +6,7 @@ import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/bloc_edit_parents/bloc/read_parents_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/model/edit_parents_model.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/repo/edit_parents_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/form_data_parents.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
@@ -14,8 +15,9 @@ import 'package:app_solidale/screens/common_widgets/background_style/custom_appb
 
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
@@ -68,6 +70,10 @@ int indexFetch = 0;
   bool remove = false;
   String disabile = 'no';
 
+List<ParentsData>? listData;
+
+ 
+
   @override
   Widget build(BuildContext context) {
      //final screenWidth = MediaQuery.of(context).size.width;
@@ -75,16 +81,17 @@ int indexFetch = 0;
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-  Widget createCard(TextEditingController? controller) {
+  Widget createCard(ParentsData data) {
     
     nomeComponente.add(nomeController);
     dateinput.add(birthController);
     gradoComponente.add(gradoController);
+nomeController = TextEditingController(text: data.nome);
     return Column(
       children: <Widget>[
       
         TextFormFieldCustom(
-          textEditingController: controller!,
+          textEditingController: nomeController,
           labelTextCustom: 'Nome e Cognome:',
           obscureText: false,
           validator: (value) {
@@ -156,7 +163,18 @@ int indexFetch = 0;
     );
   }
     growableList = List<Widget>.generate(int.parse(selectedValue), (int index) {
-      cards.add(createCard(nomeController));
+      if(listData== null) {
+        return SizedBox();
+      } else {
+ for(int i = 0; i<listData!.length; i++) {
+              cards.add(createCard(listData![i]));
+
+      }
+      }
+     
+
+      
+print('listdataRq ${listData}');
       return Column(
         children: [
           Padding(
@@ -187,6 +205,7 @@ int indexFetch = 0;
           )
         ],
       );
+    
     });
     return BlocProvider<ReadParentsBloc>(
       create: (context) => ReadParentsBloc(
@@ -219,7 +238,7 @@ int indexFetch = 0;
 
               state.data.forEach((element) {
                 setState(() {
-                                 nomeComponente.add(TextEditingController(text: element.nome));
+                                 listData = state.data;
 
                 });
                 
@@ -271,6 +290,42 @@ int indexFetch = 0;
                   SizedBox(
                     height: 10,
                   ),
+                           Text(
+                          'Dati inseriti:',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                   ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: globals.listParentsData.length,
+                                itemBuilder:
+                                    (BuildContext context, int index) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                             
+                                     Text(
+                          'Componente ${index + 1}',
+                         
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                         Text(
+                          'Nome: ${globals.listParentsData[index].nome}',
+                         
+                        ),
+                         Text(
+                          'Data di Nascita: ${globals.listParentsData[index].dataDiNascita}',
+                         
+                        ),
+                         Text(
+                          'Grado di Parentela: ${globals.listParentsData[index].grado}',
+                         
+                        ),
+                                      
+                                    ],
+                                  );
+                                },
+                          ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -373,74 +428,28 @@ int indexFetch = 0;
                           SizedBox(
                             height: 20,
                           ),
+                         
                            
-                         ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: nomeComponente.length,
-                            itemBuilder:
-                                (BuildContext context, int index) {
-                                                                      nomeController = nomeComponente[index];
-                                                                       indexFetch = index;
-                              return nomeController.text.isEmpty ? SizedBox() : Column(
-        children: [
-          Text('$indexFetch'),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 40.0),
-            child: Material(
-              elevation: 10,
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Componente ${index}',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ],
-                    ),
-                     TextFormFieldCustom(
-          textEditingController: nomeController,
-          labelTextCustom: 'Nome e Cognome:',
-          obscureText: false,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Campo Richiesto*';
-            }
-            return null;
-          },
-        ),
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      );
-                            },
-                          ),
-                    fetchDataLength != selectedValue ?    ListView.builder(
+                            ListView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: growableList!.length,
                             itemBuilder:
                                 (BuildContext context, int index) {
-                              return growableList![index];
+                              return Column(
+                                children: [
+                                
+                                  growableList![index],
+                                ],
+                              );
                             },
-                          ) : SizedBox(),
+                          ) ,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CommonStyleButton(
                                   title: 'Invia e Continua',
                                   onTap: () {
-                                    if (_formKey.currentState!.validate()) {
                                       for (int i = 0; i < growableList!.length; i++) {
                                         var nome = nomeComponente[i].text;
                                         var anni = dateinput[i].text;
@@ -449,9 +458,9 @@ int indexFetch = 0;
                                             nomeParente: nome,
                                             dataDiNascitaParente: anni,
                                             gradoParente: grado));*/
+                                        print('nomeC ${nome}');
                                         
-                                        
-                                      }
+                                      
                                     }
                                   },
                                   iconWidget: Text('')),

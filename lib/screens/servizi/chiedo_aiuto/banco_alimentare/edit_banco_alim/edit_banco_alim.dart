@@ -43,6 +43,8 @@ class IntroBancoAlimentareEdit extends StatefulWidget {
 class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
   String idBancoEdit = '';
 
+ 
+
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
