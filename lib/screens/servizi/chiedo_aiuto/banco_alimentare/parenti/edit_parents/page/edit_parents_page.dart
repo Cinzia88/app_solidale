@@ -239,6 +239,7 @@ print('listdataRq ${listData}');
               state.data.forEach((element) {
                 setState(() {
                                  listData = state.data;
+                                 nomeComponente.add(TextEditingController(text: element.nome));
 
                 });
                 
@@ -450,6 +451,7 @@ print('listdataRq ${listData}');
                               CommonStyleButton(
                                   title: 'Invia e Continua',
                                   onTap: () {
+                                    
                                       for (int i = 0; i < growableList!.length; i++) {
                                         var nome = nomeComponente[i].text;
                                         var anni = dateinput[i].text;

@@ -1,13 +1,16 @@
+import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class IntroBancoAlimentare extends StatefulWidget {
   const IntroBancoAlimentare({super.key});
@@ -17,8 +20,9 @@ class IntroBancoAlimentare extends StatefulWidget {
 }
 
 class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
+  bool isAccepted = false;
+    final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
  
-
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
@@ -59,7 +63,10 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
             );
           }
         }, builder: (context, state) {
-          return SingleChildScrollView(
+          return SfPdfViewer.asset(
+        'assets/files/pdf_privacy/All.16-Informativasultrattamentodeidatipersonali-daAFFIGGEREOPT.pdf',
+        key: _pdfViewerKey,
+      );SingleChildScrollView(
             child: Padding(
                 padding: const EdgeInsets.all(
                   20.0,
@@ -90,34 +97,88 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      Text(
+                      const Text(
                           'Per accedere al Servizio Banco Alimentare bastano pochi semplici passi: '),
-                      Text(
+                      const Text(
                           '\n1.  Inserisci il numero dei componenti familiari ed i loro dati (nome, data di nascita e grado di parentela)'),
-                      Text(
+                      const Text(
                           '\n2.  Dichiara se nel nucleo familiare è presente una persona diversamente abile. Se sì, indica il numero'),
-                      Text(
+                      const Text(
                           '\n3.  Procurati i documenti necessari (ISEE, documento d\'identità) e caricali sull\'app'),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              CommonStyleButton(
-            title: 'Inizia',
-            onTap: () {
-              SendDataTypeServiceRepository().sendDataTypeservice(context, '4',
-                   globals.userData!.nome,
-                  globals.userData!.telefono);
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                children: [
                   
-            },
-            iconWidget: Text('')),
-                            ],
-                          )
+                  Checkbox(
+                      activeColor: ColorConstants.orangeGradients3,
+                      value: isAccepted,
+                      onChanged: (value) {
+                        setState(() {
+                          isAccepted = value!;
+                        });
+                      }),
+                  Expanded(
+                    child: RichText(
+                      text: TextSpan(
+                          text: 'Confermo di aver letto l\' ',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                          ),
+                          children: [
+                            TextSpan(
+                              text:
+                                  'Informativa sul Trattamento dei Dati Personali',
+                              style: const TextStyle(
+                                color: ColorConstants.orangeGradients3,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                SfPdfViewer.asset(
+        'assets/files/pdf_privacy/All.16 - Informativa sul trattamento dei dati personali - da AFFIGGERE OPT.pdf',
+        key: _pdfViewerKey,
+      );
+                                },
+                            ),
+                          ],
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                                SfPdfViewer.asset(
+        'assets/files/pdf_privacy/All.16 - Informativa sul trattamento dei dati personali - da AFFIGGERE OPT.pdf',
+        key: _pdfViewerKey,
+      );
+                                },),
+                    ),
+                  ),
+                ],
+              ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                   
+                       Padding(
+                         padding: const EdgeInsets.only(top: 30.0),
+                         child: CommonStyleButton(
+                                title: 'Inizia',
+                                onTap: isAccepted  ?() {
+                                     SendDataTypeServiceRepository()
+                                      .sendDataTypeservice(
+                                          context,
+                                          '4',
+                                          globals.userData!.nome,
+                                          globals.userData!.telefono);
+                                } : null,
+                                iconWidget: Text('')),
+                       ),
+                        ],
+                      )
                     ])),
           );
         }),
