@@ -5,12 +5,16 @@ import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/page_informativa_pdf.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+
+import 'package:permission_handler/permission_handler.dart';
 
 class IntroBancoAlimentare extends StatefulWidget {
   const IntroBancoAlimentare({super.key});
@@ -21,8 +25,7 @@ class IntroBancoAlimentare extends StatefulWidget {
 
 class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
   bool isAccepted = false;
-    final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
- 
+
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
@@ -63,10 +66,7 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
             );
           }
         }, builder: (context, state) {
-          return SfPdfViewer.asset(
-        'assets/files/pdf_privacy/All.16-Informativasultrattamentodeidatipersonali-daAFFIGGEREOPT.pdf',
-        key: _pdfViewerKey,
-      );SingleChildScrollView(
+          return SingleChildScrollView(
             child: Padding(
                 padding: const EdgeInsets.all(
                   20.0,
@@ -112,71 +112,122 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                         height: 30,
                       ),
                       Row(
-                children: [
-                  
-                  Checkbox(
-                      activeColor: ColorConstants.orangeGradients3,
-                      value: isAccepted,
-                      onChanged: (value) {
-                        setState(() {
-                          isAccepted = value!;
-                        });
-                      }),
-                  Expanded(
-                    child: RichText(
-                      text: TextSpan(
-                          text: 'Confermo di aver letto l\' ',
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                          ),
-                          children: [
-                            TextSpan(
-                              text:
-                                  'Informativa sul Trattamento dei Dati Personali',
-                              style: const TextStyle(
-                                color: ColorConstants.orangeGradients3,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                SfPdfViewer.asset(
-        'assets/files/pdf_privacy/All.16 - Informativa sul trattamento dei dati personali - da AFFIGGERE OPT.pdf',
-        key: _pdfViewerKey,
-      );
-                                },
+                        children: [
+                          Checkbox(value: isAccepted, onChanged: (value) {
+                            setState(() {
+                              isAccepted = value!;
+                            });
+                          }),
+                        
+                          Expanded(
+                            child: RichText(
+                              text: TextSpan(
+                                  text: 'Confermo di aver letto l\' ',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          'Informativa sul Trattamento dei Dati Personali',
+                                      style: const TextStyle(
+                                        color: ColorConstants.orangeGradients3,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12,
+                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                         Navigator.push(context, MaterialPageRoute(builder: (_) => PageInformativaPdf()));
+                                        },
+                                    ),
+                                  ],
+                                 ),
                             ),
-                          ],
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                                SfPdfViewer.asset(
-        'assets/files/pdf_privacy/All.16 - Informativa sul trattamento dei dati personali - da AFFIGGERE OPT.pdf',
-        key: _pdfViewerKey,
-      );
-                                },),
-                    ),
-                  ),
-                ],
-              ),
+                          ),
+                        ],
+                      ),
+                     RichText(
+                              text: TextSpan(
+                                  text: 'Scarica ',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          'Informativa sul Trattamento dei Dati Personali',
+                                      style: const TextStyle(
+                                        color: ColorConstants.orangeGradients3,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12,
+                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () async{
+                                         
+                  Map<Permission, PermissionStatus> statuses = await [
+                    Permission.storage,
+                    //add more permission to request here.
+                  ].request();
+
+                  if(statuses[Permission.storage]!.isGranted){
+                    var dir = await DownloadsPathProvider.downloadsDirectory;
+                    if(dir != null){
+                      String savename = "file.pdf";
+                      String savePath = dir.path + "/$savename";
+                      print(savePath);
+                      //output:  /storage/emulated/0/Download/banner.png
+
+                      try {
+                        await Dio().download(
+                            'fileurl',
+                            savePath,
+                            onReceiveProgress: (received, total) {
+                              if (total != -1) {
+                                print((received / total * 100).toStringAsFixed(0) + "%");
+                                //you can build progressbar feature too
+                              }
+                            });
+                        print("File is saved to download folder.");
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("File Downloaded"),
+                        ));
+                      } on DioError catch (e) {
+                        print(e.message);
+                      }
+                    }
+                  }else{
+                    print("No permission to read and write.");
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("Permission Denied !"),
+                    ));
+                  }
+
+                                        },
+                                    ),
+                                  ],
+                                 ),
+                            ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                   
-                       Padding(
-                         padding: const EdgeInsets.only(top: 30.0),
-                         child: CommonStyleButton(
+                          Padding(
+                            padding: const EdgeInsets.only(top: 30.0),
+                            child: CommonStyleButton(
                                 title: 'Inizia',
-                                onTap: isAccepted  ?() {
-                                     SendDataTypeServiceRepository()
-                                      .sendDataTypeservice(
-                                          context,
-                                          '4',
-                                          globals.userData!.nome,
-                                          globals.userData!.telefono);
-                                } : null,
+                                onTap: isAccepted
+                                    ? () {
+                                        SendDataTypeServiceRepository()
+                                            .sendDataTypeservice(
+                                                context,
+                                                '4',
+                                                globals.userData!.nome,
+                                                globals.userData!.telefono);
+                                      }
+                                    : null,
                                 iconWidget: Text('')),
-                       ),
+                          ),
                         ],
                       )
                     ])),
