@@ -3,13 +3,13 @@ import 'package:equatable/equatable.dart';
 class ParentsData extends Equatable {
   final String id;
   final String nome;
-  final String dataDiNascita;
+   String? dataDiNascita;
   final String grado;
 
-  const ParentsData(
+   ParentsData(
       {required this.id,
       required this.nome,
-      required this.dataDiNascita,
+       this.dataDiNascita,
       required this.grado});
 
   factory ParentsData.fromJson(Map<String, dynamic> json) {

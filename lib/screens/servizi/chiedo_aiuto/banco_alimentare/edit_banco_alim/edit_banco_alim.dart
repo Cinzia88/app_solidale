@@ -102,7 +102,6 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(idBancoEdit),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
