@@ -9,18 +9,17 @@ class FetchDocsEvent extends ReadDocsEvent {}
 
 class EditDocsEvent extends ReadDocsEvent {
   String id;
-  String nome;
-  String path;
-  String mime;
-
+  Map<String, String> body;
+   List<File> imagepath;
+      List<File> pdfpath;
   EditDocsEvent({
     required this.id,
-    required this.nome,
-    required this.path,
-    required this.mime,
+    required this.body,
+    required this.imagepath,
+    required this.pdfpath,
   
   });
   @override
   List<Object?> get props =>
-      [id, nome, path, mime];
+      [id, body, imagepath, pdfpath];
 }

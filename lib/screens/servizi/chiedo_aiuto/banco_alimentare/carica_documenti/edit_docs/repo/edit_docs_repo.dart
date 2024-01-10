@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/model/edit_docs_model.dart';
 
@@ -9,82 +11,149 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 
 class EditDocsRepository {
- Future editDocs(
-    BuildContext context,
-   String id,
-   String nome,
-   String dataDiNascita,
-   String grado,
-  ) async {
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/familiari/update/$id';
-      // Await the http get response, then decode the json-formatted response.
-      var response = await http.put(Uri.parse(url),
-          headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json',
-            'Authorization': 'Bearer ${globals.tokenValue}'
-          },
-          body:    jsonEncode({
-            'nome': nome,
-            'data_di_nascita': dataDiNascita,
-            'grado': grado,
-          }));
-          print('statusc ${response.body}');
-      switch (response.statusCode) {
-        case 200:
-          print('parenti modificati');
 
-        case 401:
-          Navigator.of(context, rootNavigator: true).pushReplacement(
-              MaterialPageRoute(builder: (context) => PresentationPage()));
 
-          break;
-        case 400:
-          String message = 'Utente non trovato';
-          Navigator.of(context, rootNavigator: true).pushReplacement(
-              MaterialPageRoute(builder: (context) => PresentationPage()));
-          // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.red,
-              content: Text(
-                message,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              )));
-          break;
-        case 500:
-          String message =
-              'Errore Server: impossibile stabilire una connessione';
-          Navigator.of(context, rootNavigator: true).pushReplacement(
-              MaterialPageRoute(builder: (context) => PresentationPage()));
-          // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.red,
-              content: Text(
-                message,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              )));
-          break;
-        default:
-          print('errore generico');
+
+
+Future editDocs(BuildContext context, String id, Map<String, String> body, List<File> imagepath,
+      List<File> pdfpath) async {
+    try {
+      var url =
+          '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/document/edit/$id';
+      Map<String, String> headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
+        'Authorization': 'Bearer ${globals.tokenValue}'
+      };
+
+      List<http.MultipartFile> newList = [];
+      http.MultipartRequest? request;
+
+      if (imagepath.isNotEmpty) {
+        for (int i = 0; i < imagepath.length; i++) {
+          File file = File(imagepath[i].path);
+          var multipartFile = http.MultipartFile(
+              'files[]', file.readAsBytes().asStream(), file.lengthSync(),
+              filename: file.path.split('/').last);
+          newList.add(multipartFile);
+
+          request = http.MultipartRequest('POST', Uri.parse(url))
+            ..fields.addAll(body)
+            ..headers.addAll(headers)
+            ..files.addAll(newList);
+        }
+      } else {
+        for (int i = 0; i < pdfpath.length; i++) {
+          File file = File(pdfpath[i].path);
+          var multipartFile = http.MultipartFile(
+              'files[]', file.readAsBytes().asStream(), file.lengthSync(),
+              filename: file.path.split('/').last);
+          newList.add(multipartFile);
+
+          request = http.MultipartRequest('POST', Uri.parse(url))
+            ..fields.addAll(body)
+            ..headers.addAll(headers)
+            ..files.addAll(newList);
+        }
       }
+      http.StreamedResponse response = await request!.send();
+       print('statuscodedata ${response.statusCode}');
+print('sendimage success ${request.files.length}');
 
-   
+        switch (response.statusCode) {
+          case 200:
+             
+            if (context.mounted) {
+              showDialog(
+                                barrierColor: Colors.black87,
+
+                barrierDismissible: false,
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                            child: Image.asset(PathConstants.bancoAlim),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Stiamo elaborando i tuoi dati',
+                            style: Theme.of(context).textTheme.titleMedium,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                      content: const Text('Ti contatteremo al più presto!'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      actions: [
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          PresentationPage()));
+                            },
+                            child: Text(
+                              'Torna alla home',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ))
+                      ],
+                    );
+                  });
+            }
+            
+            break;
+          case 401:
+            Navigator.of(context, rootNavigator: true).pushReplacement(
+                MaterialPageRoute(builder: (context) => PresentationPage()));
+
+            break;
+          case 400:
+            String message = 'Utente non trovato';
+            Navigator.of(context, rootNavigator: true).pushReplacement(
+                MaterialPageRoute(builder: (context) => PresentationPage()));
+            // ignore: use_build_context_synchronously
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Colors.red,
+                content: Text(
+                  message,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )));
+            break;
+          case 500:
+            String message =
+                'Errore Server: impossibile stabilire una connessione';
+           
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Colors.red,
+                content: Text(
+                  message,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )));
+            break;
+          default:
+            print('errore generico');
+        }
+
+        return response;
+      
+    } catch (e) {
+      print('sendimage error $e');
+    }
   }
-
-
-
-
-
-
-
-
-
 
 
 

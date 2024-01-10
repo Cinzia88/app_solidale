@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/model/edit_docs_model.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
 
@@ -32,9 +34,9 @@ class ReadDocsBloc extends Bloc<ReadDocsEvent, ReadDocsState> {
             final userdata = await editDocsRepository.editDocs(
               context,
               event.id,
-              event.nome,
-              event.path,
-              event.mime,
+             event.body,
+          event.imagepath,
+          event.pdfpath,
             );
             emit(EditDocsLoadedState());
           } catch (e) {

@@ -7,16 +7,21 @@ import 'package:app_solidale/screens/common_widgets/background_style/custom_appb
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/bloc/send_docs_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/bloc_edit_docs/bloc/read_docs_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/model/edit_docs_model.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/repository/send_docs_repository.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class CaricaDocsEditPage extends StatefulWidget {
   const CaricaDocsEditPage({super.key});
@@ -27,6 +32,8 @@ class CaricaDocsEditPage extends StatefulWidget {
 
 class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
    final _formKey = GlobalKey<FormState>();
+   List<DocsData> path = [];
+   String idDocs = '';
   List<File> imagesList = [];
   List<File> filePdf = [];
   final List<String> items = [
@@ -82,7 +89,7 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
       create: (context) => ReadDocsBloc(
         context: context,
         editDocsRepository: context.read<EditDocsRepository>(),
-      ),
+      )..add(FetchDocsEvent()),
       child: Scaffold(
           appBar: AppBar(
             iconTheme: const IconThemeData(
@@ -91,7 +98,14 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
             toolbarHeight: 75.0,
             automaticallyImplyLeading: true,
             flexibleSpace: customAppBar(context: context),
-           
+            actions: [
+            IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ))
+          ],
           ),
           drawer: NavigationDrawerWidget(),
           body: BlocConsumer<ReadDocsBloc, ReadDocsState>(
@@ -104,6 +118,16 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.errorMessage)),
               );
+            } else if (state is ReadDocsLoadedState) {
+              
+              for(int i =0; i<state.data.length; i++) {
+                setState(() {
+                  selectedValue = state.data[i].nome;
+                  idDocs = state.data[i].id;
+                  path = state.data;
+                });
+              }
+              
             }
           }, builder: (context, state) {
             return SingleChildScrollView(
@@ -232,6 +256,96 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
                             ),
                           ),
                         ),
+                        path != [] && path.contains('jpg') ||
+                                 path.contains('png')  ||
+                                path.contains('jpeg')? GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3),
+                            itemCount: path.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                   Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 20.0),
+                                      child: CachedNetworkImage(
+                                        height: 200,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        fit: BoxFit.cover,
+                                        imageUrl:
+                                            '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/storage/files/${path[index].path}',
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                                child: SizedBox(
+                                          height: 100,
+                                          child: CupertinoActivityIndicator(
+                                            color: Color(0xff003b5b),
+                                          ),
+                                        )),
+                                        errorWidget: (context, url, error) =>
+                                            Image.asset(
+                                          PathConstants.logoanfcompletovertic,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: -4,
+                                      top: -4,
+                                      child: Container(
+                                        color: const Color.fromRGBO(
+                                            255, 255, 244, 0.7),
+                                        child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              path.removeAt(index);
+                                            });
+                                          },
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }):   ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: path.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: Row(
+                                children: [
+                                  Text(path[index]
+                                      .path
+                                      .split('/')
+                                      .last),
+                                  IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        path.removeAt(index);
+                                      });
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                         GridView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
@@ -276,6 +390,7 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
                                 ),
                               );
                             }),
+                            
                         ListView.builder(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
@@ -329,7 +444,21 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
                           title: 'Aggiorna',
                           iconWidget: SizedBox(),
                           onTap: () {
-                           
+                            if (_formKey.currentState!.validate()) {
+                              Map<String, String> body = {
+                                'nome': selectedValue,
+                              };
+                              EditDocsRepository().editDocs(context, idDocs,  body,
+                                   imagesList,
+                                   filePdf);
+                              
+                              SendDataTypeServiceRepository().sendMailService(
+                                  context,
+                                  'Banco Alimentare',
+                               );
+
+                              FocusScope.of(context).unfocus();
+                            }
                           },
                         ),
                       ],
