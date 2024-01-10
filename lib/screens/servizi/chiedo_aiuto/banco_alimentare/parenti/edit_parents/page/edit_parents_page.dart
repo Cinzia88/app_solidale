@@ -218,6 +218,14 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
           toolbarHeight: 75.0,
           automaticallyImplyLeading: true,
           flexibleSpace: customAppBar(context: context),
+           actions: [
+            IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ))
+          ],
         ),
         drawer: NavigationDrawerWidget(),
         body: BlocConsumer<ReadParentsBloc, ReadParentsState>(
@@ -421,6 +429,8 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
                                                       nome, anni, grado);
                                               print('nomeC ${nome}');
                                             }
+                                                                                           Navigator.pop(context);
+
                                           },
                                           iconWidget: Text('')),
                                     ],

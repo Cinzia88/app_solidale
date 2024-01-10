@@ -1,32 +1,18 @@
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
-import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
+import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/read_request_bloc.dart';
-import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
-import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
-import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
-import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
-import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/servizi/bloc_show_request_service/bloc/show_data_type_service_bloc.dart';
-import 'package:app_solidale/screens/servizi/bloc_show_request_service/repository/show_data_type_service_repository.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/page/edit_parents_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/form_taxi_solidale.dart';
-import 'package:app_solidale/secure_storage/shared_prefs.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart'
-    as globals;
 
-import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
-import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
-import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/page/edit_docs_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disabili/bloc_edit_disabili/page/edit_disabili.dart';
+
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/page/edit_parents_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
@@ -42,8 +28,6 @@ class IntroBancoAlimentareEdit extends StatefulWidget {
 
 class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
   String idBancoEdit = '';
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -123,81 +107,173 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                           .textTheme
                                           .titleSmall,
                                     ),
+                
                                   ],
                                 )
                               ],
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 40,
                             ),
                             Column(
                               children: [
-                                Text(
-                                    'Modifica i dati dei tuoi componenti familiari'),
-                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                       children: [
-                                         CommonStyleButton(
-                                    title: 'Modifica Componenti',
-                                    onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (_) => ParentsPageEdit()));
-                                    },
-                                    iconWidget: Text('')),
-                                       ],
-                                     ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ParentsPageEdit()));
+                                  },
+                                  child: CustomCardsCommon(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                  ' Modifica Dati Componenti Familiari',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        2.5 * blockSizeVertical,
+                                                    color: ColorConstants
+                                                        .orangeGradients3,
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                'Modifica i dati dei tuoi componenti familiari',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DisabiliBancoPageEdit()));
+                                  },
+                                  child: CustomCardsCommon(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                  ' Modifica Dati Disabilità Familiare',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        2.5 * blockSizeVertical,
+                                                    color: ColorConstants
+                                                        .orangeGradients3,
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                'Modifica i dati della presenza di disabilità nel nucleo familiare',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CaricaDocsEditPage()));
+                                  },
+                                  child: CustomCardsCommon(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                  ' Modifica Documenti Caricati',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        2.5 * blockSizeVertical,
+                                                    color: ColorConstants
+                                                        .orangeGradients3,
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                'Modifica i documenti che hai caricato',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 40,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    CommonStyleButton(
+                                        title: 'Invia',
+                                        onTap: () {
+                                          EditDataTypeServiceRepository()
+                                              .editRequest(
+                                                  context,
+                                                  idBancoEdit,
+                                                  '4',
+                                                  globals.userData!.nome,
+                                                  globals.userData!.telefono);
+                                        },
+                                        iconWidget: Text('')),
+                                  ],
+                                )
                               ],
                             ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                    'Modifica la presenza di disabilità nel nucleo familiare'),
-                                     CommonStyleButton(
-                                    title: 'Modifica Disabilità in Famiglia',
-                                    onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (_) => ParentsPageEdit()));
-                                    },
-                                    iconWidget: Text('')),
-                              ],
-                            ),
-                             SizedBox(
-                              height: 30,
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                    'Modifica documenti caricati'),
-                                     CommonStyleButton(
-                                    title: 'Modifica File',
-                                    onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (_) => ParentsPageEdit()));
-                                    },
-                                    iconWidget: Text('')),
-                              ],
-                            ),
-                           
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                CommonStyleButton(
-                                    title: 'Inizia',
-                                    onTap: () {
-                                      EditDataTypeServiceRepository()
-                                          .editRequest(
-                                              context,
-                                              idBancoEdit,
-                                              '4',
-                                              globals.userData!.nome,
-                                              globals.userData!.telefono);
-                                    },
-                                    iconWidget: Text('')),
-                              ],
-                            )
                           ])),
                 );
         }),

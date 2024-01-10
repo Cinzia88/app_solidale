@@ -156,7 +156,7 @@ class _PresentationPageState extends State<PresentationPage>
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 40,
                 ),
                 GestureDetector(
                   onTap: () {

@@ -282,7 +282,7 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
                             ),
                         )
                         : Padding(
-    padding: const EdgeInsets.symmetric(vertical: 30.0),
+    padding: const EdgeInsets.symmetric(vertical: 40.0),
                           child: CustomCardsCommon(
                               child: CustomContainerService(
                                 title: 'Taxi Solidale',
@@ -339,61 +339,64 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
                             ),
                         ),
                     accOncRichiedi == false
-                        ? CustomCardsCommon(
-                            child: CustomContainerService(
-                              title: 'Accompagnamento Oncologico',
-                              subtitle:
-                                  'Ti supportiamo per ricevere le cure necessarie',
-                              image: PathConstants.accompagnamOncolog,
-                              widget: Padding(
-                                padding: const EdgeInsets.only(top: 15.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      AccompagnamentoOncologicoEditPage()));
-                                        },
-                                        child: Text(
-                                          'Modifica',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: blockSizeVertical * 2),
-                                        )),
-                                    GestureDetector(
-                                      onTap: () {
-                                        showAlertDialog(
-                                          title: TextConstants
-                                              .infoAlertTitleAccompagnOncol,
-                                          desc: TextConstants
-                                              .infoAlertAccompagnOncol,
+                        ? Padding(
+    padding: const EdgeInsets.only(bottom: 40.0),
+                          child: CustomCardsCommon(
+                              child: CustomContainerService(
+                                title: 'Accompagnamento Oncologico',
+                                subtitle:
+                                    'Ti supportiamo per ricevere le cure necessarie',
+                                image: PathConstants.accompagnamOncolog,
+                                widget: Padding(
+                                  padding: const EdgeInsets.only(top: 15.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ElevatedButton(
                                           onPressed: () {
-                                            Navigator.pop(context);
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        AccompagnamentoOncologicoPage()));
+                                                        AccompagnamentoOncologicoEditPage()));
                                           },
-                                        );
-                                      },
-                                      child: SizedBox(
-                                        width: 50,
-                                        height: 50,
-                                        child: Image.asset(
-                                            PathConstants.infoService),
+                                          child: Text(
+                                            'Modifica',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: blockSizeVertical * 2),
+                                          )),
+                                      GestureDetector(
+                                        onTap: () {
+                                          showAlertDialog(
+                                            title: TextConstants
+                                                .infoAlertTitleAccompagnOncol,
+                                            desc: TextConstants
+                                                .infoAlertAccompagnOncol,
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          AccompagnamentoOncologicoPage()));
+                                            },
+                                          );
+                                        },
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: Image.asset(
+                                              PathConstants.infoService),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          )
+                        )
                         : Padding(
     padding: const EdgeInsets.only(bottom: 40.0),
                           child: CustomCardsCommon(

@@ -1,20 +1,18 @@
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
+import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/read_request_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
-import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/servizi/bloc_show_request_service/bloc/show_data_type_service_bloc.dart';
-import 'package:app_solidale/screens/servizi/bloc_show_request_service/repository/show_data_type_service_repository.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/form_taxi_solidale.dart';
-import 'package:app_solidale/secure_storage/shared_prefs.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/edit_disabili/edit_disabili_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_data_destinatario.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
@@ -90,70 +88,159 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                       state is EditRequestLoadingState
                   ? loadingWidget(context)
                   : SingleChildScrollView(
-                      child: Padding(
-                          padding: const EdgeInsets.all(
-                            20.0,
-                          ),
-                          child: Column(children: [
-                            SizedBox(
-                              width: 70,
-                              child: Image.asset(
-                                PathConstants.taxiSolidale,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 3 * blockSizeVertical,
-                            ),
-                            Text(
-                              'Taxi Solidale',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
+                  child: Padding(
+                      padding: const EdgeInsets.all(
+                        20.0,
+                      ),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  'Fase 1 di 2',
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 70,
+                                      child: Image.asset(
+                                        PathConstants.taxiSolidale,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 3 * blockSizeVertical,
+                                    ),
+                                    Text(
+                                      'Taxi Solidale',
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    ),
+                
+                                  ],
+                                )
                               ],
                             ),
-                            const Divider(
-                              color: ColorConstants.orangeGradients3,
+                            SizedBox(
+                              height: 30,
                             ),
-                            Form(
-                              key: _formKey,
-                              child: _formSelectService(),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                            Column(
                               children: [
-                                CommonStyleButton(
-                                    title: 'Invia e Continua',
-                                    onTap: () {
-                                      EditDataTypeServiceRepository()
-                                          .editRequest(
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
                                         context,
-                                       idTaxiSolidaleEdit,
-                                        '2',
-                                          _value == 1 ? globals.userData!.nome : _nameAnotherController.text, 
-                                  _value == 1 ? globals.userData!.telefono : _telepAnotherController.text,
-                                      );
-
-                                      SendDataTypeServiceRepository()
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TaxiSolidaleEditDataDestinatarioPage()));
+                                  },
+                                  child: CustomCardsCommon(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                  ' Modifica Dati Destinatario',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        2.5 * blockSizeVertical,
+                                                    color: ColorConstants
+                                                        .orangeGradients3,
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                'Modifica i dati del richiedente',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 60,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DisabiliTaxiPageEdit()));
+                                  },
+                                  child: CustomCardsCommon(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                  ' Modifica Dati Disabilità Familiare',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        2.5 * blockSizeVertical,
+                                                    color: ColorConstants
+                                                        .orangeGradients3,
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                'Modifica i dati della presenza di disabilità nel nucleo familiare',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 60,
+                                ),
+                              
+                                SizedBox(
+                                  height: 60,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    CommonStyleButton(
+                                        title: 'Invia',
+                                        onTap: () {
+                                          SendDataTypeServiceRepository()
                                           .sendMailService(context,
                                               'Taxi Solidale');
 
                                       FocusScope.of(context).unfocus();
-                                    },
-                                    iconWidget: Text('')),
+                                        },
+                                        iconWidget: Text('')),
+                                  ],
+                                )
                               ],
                             ),
                           ])),
-                    );
+                );
             })));
   }
 

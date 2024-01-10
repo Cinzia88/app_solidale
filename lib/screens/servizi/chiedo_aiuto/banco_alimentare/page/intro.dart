@@ -14,7 +14,6 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
 class IntroBancoAlimentare extends StatefulWidget {
   const IntroBancoAlimentare({super.key});
 
@@ -24,12 +23,13 @@ class IntroBancoAlimentare extends StatefulWidget {
 
 class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
   bool isAccepted = false;
-  String fileurl = "https://www.unimib.it/sites/default/files/curriculumvitae_0.pdf";
-   double? _progress;
+
+  String fileurl =
+      '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/storage/files/dichiarazione_sostitutiva_di_certificazione.pdf';
+  double? _progress;
   String _status = '';
   final SessionSettings settings = SessionSettings();
   final TextEditingController name = TextEditingController();
- 
 
   int? _downloadId;
 
@@ -120,16 +120,54 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                       ),
                       Row(
                         children: [
-                          Checkbox(value: isAccepted, onChanged: (value) {
-                            setState(() {
-                              isAccepted = value!;
-                            });
-                          }),
-                        
+                          Checkbox(
+                              value: isAccepted,
+                              onChanged: (value) {
+                                setState(() {
+                                  isAccepted = value!;
+                                });
+                              }),
                           Expanded(
                             child: RichText(
                               text: TextSpan(
-                                  text: 'Confermo di aver letto l\' ',
+                                text: 'Confermo di aver letto l\' ',
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        'Informativa sul Trattamento dei Dati Personali',
+                                    style: const TextStyle(
+                                      color: ColorConstants.orangeGradients3,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) =>
+                                                    PageInformativaPdf()));
+                                      },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: RichText(
+                                text: TextSpan(
+                                  text: ' ',
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,
@@ -137,7 +175,7 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                                   children: [
                                     TextSpan(
                                       text:
-                                          'Informativa sul Trattamento dei Dati Personali',
+                                          'Scarica la dichiarazione sostitutiva di certificazione',
                                       style: const TextStyle(
                                         color: ColorConstants.orangeGradients3,
                                         fontWeight: FontWeight.bold,
@@ -145,71 +183,95 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                                       ),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
-                                         Navigator.push(context, MaterialPageRoute(builder: (_) => PageInformativaPdf()));
+                                          FileDownloader.downloadFile(
+                                              url: fileurl,
+                                              name: 'fileapp',
+                                              headers: {'Header': 'Test'},
+                                              downloadDestination:
+                                                  settings.downloadDestination,
+                                              notificationType:
+                                                  settings.notificationType,
+                                              onDownloadRequestIdReceived:
+                                                  (id) {
+                                                setState(
+                                                    () => _downloadId = id);
+                                              },
+                                              onProgress: (name, progress) {
+                                                setState(() {
+                                                  _progress = progress;
+                                                  _status =
+                                                      'File in corso: $progress%';
+                                                });
+                                              },
+                                              onDownloadCompleted: (path) {
+                                                setState(() {
+                                                  _downloadId = null;
+                                                  _progress = null;
+                                                });
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                        const SnackBar(
+                                                            backgroundColor:
+                                                                ColorConstants
+                                                                    .orangeGradients3,
+                                                            content: Text(
+                                                              'File scaricato con successo',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            )));
+                                              },
+                                              onDownloadError: (error) {
+                                                setState(() {
+                                                  _progress = null;
+                                                  _status =
+                                                      'Download error: $error';
+                                                });
+                                              }).then((file) {
+                                            debugPrint(
+                                                'file path: ${file?.path}');
+                                          });
                                         },
                                     ),
                                   ],
-                                 ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                        
-                       if (_status.isNotEmpty) ...[
-              Text(_status, textAlign: TextAlign.center),
-              const SizedBox(height: 16),
-            ],
-            if (_progress != null) ...[
-              CircularProgressIndicator(
-                value: _progress! / 100,
-              ),
-              const SizedBox(height: 16),
-            ],
-           ElevatedButton(
-                    onPressed: () async {
-                      FileDownloader.downloadFile(
-                          url: fileurl,
-                          name: 'fileapp',
-                          headers: {'Header': 'Test'},
-                          downloadDestination: settings.downloadDestination,
-                          notificationType: settings.notificationType,
-                          onDownloadRequestIdReceived: (id) {
-                            setState(() => _downloadId = id);
-                          },
-                          onProgress: (name, progress) {
-                            setState(() {
-                              _progress = progress;
-                              _status = 'Progress: $progress%';
-                            });
-                          },
-                          onDownloadCompleted: (path) {
-                            setState(() {
-                              _downloadId = null;
-                              _progress = null;
-                              _status = 'File downloaded to: $path';
-                            });
-                          },
-                          onDownloadError: (error) {
-                            setState(() {
-                              _progress = null;
-                              _status = 'Download error: $error';
-                            });
-                          }).then((file) {
-                        debugPrint('file path: ${file?.path}');
-                      });
-                    },
-                    child: const Text('Download')),
+                      if (_status.isNotEmpty) ...[
+                        Text(_status, textAlign: TextAlign.center),
+                        const SizedBox(height: 16),
+                      ],
+                      if (_progress != null) ...[
+                        CircularProgressIndicator(
+                          value: _progress! / 100,
+                        ),
+                        const SizedBox(height: 16),
+                      ],
                       if (_downloadId != null) ...[
-                  const SizedBox(width: 10),
-                  ElevatedButton(
-                      onPressed: () async {
-                        final canceled =
-                            await FileDownloader.cancelDownload(_downloadId!);
-                        print('Canceled: $canceled');
-                      },
-                      child: const Text('Cancel')),
-                ],
-                           
+                        const SizedBox(width: 10),
+                        GestureDetector(
+                            onTap: () async {
+                              final canceled =
+                                  await FileDownloader.cancelDownload(
+                                      _downloadId!);
+                              print('Canceled: $canceled');
+                            },
+                            child: const Text(
+                              'Cancella',
+                              style: TextStyle(
+                                color: ColorConstants.orangeGradients3,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            )),
+                      ],
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -230,7 +292,7 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                                 iconWidget: Text('')),
                           ),
                         ],
-                      )
+                      ),
                     ])),
           );
         }),
@@ -238,10 +300,6 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
     );
   }
 }
-
-
-
-
 
 class SessionSettings {
   static SessionSettings? _instance;

@@ -1,22 +1,26 @@
 import 'dart:convert';
+import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/model/edit_docs_model.dart';
-
+import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_edit_disabili/model/edit_disabili_model.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/carica_disabili_page_taxi.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/edit_disabili/edit_disabili_page.dart';
+import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 
-class EditDocsRepository {
- Future editDocs(
+class EditDataDisabiliRepository {
+ Future editDataDisabili(
     BuildContext context,
    String id,
-   String nome,
-   String dataDiNascita,
-   String grado,
+   String numeroDisabili,
+   int disabile,
   ) async {
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/familiari/update/$id';
+      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/disabile/edit/$id';
       // Await the http get response, then decode the json-formatted response.
       var response = await http.put(Uri.parse(url),
           headers: {
@@ -25,14 +29,13 @@ class EditDocsRepository {
             'Authorization': 'Bearer ${globals.tokenValue}'
           },
           body:    jsonEncode({
-            'nome': nome,
-            'data_di_nascita': dataDiNascita,
-            'grado': grado,
+            'numero_disabili': numeroDisabili,
+            'disabile': disabile,
           }));
           print('statusc ${response.body}');
       switch (response.statusCode) {
         case 200:
-          print('parenti modificati');
+          print('disabili modificati');
 
         case 401:
           Navigator.of(context, rootNavigator: true).pushReplacement(
@@ -88,8 +91,8 @@ class EditDocsRepository {
 
 
 
-  Future<List<DocsData>> getDocsData(BuildContext context) async {
-     var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/list-documents/${globals.userData!.id}';
+  Future<DisabiliData> getDisabiliData(BuildContext context) async {
+     var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/disabile/show/${globals.userData!.id}';
     // Await the http get response, then decode the json-formatted response.
     var response = await http.get(
       Uri.parse(url),
@@ -99,13 +102,10 @@ class EditDocsRepository {
         'Authorization': 'Bearer ${globals.tokenValue}'
       },
     );
-     final List<dynamic> body = json.decode(response.body);
-    var data = body.map((e) => DocsData.fromJson(e)).toList();
-      globals.listDocsData = data;
-    
-
-    print('docs ${globals.listDocsData}');
-   
+     var body = json.decode(response.body)[0];
+    var data = DisabiliData.fromJson(body);
+      globals.dataDisabili = data;
+print('disabili ${globals.dataDisabili}');
     switch (response.statusCode) {
       case 200:
       print('success data request');
