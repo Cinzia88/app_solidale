@@ -6,14 +6,14 @@ import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/page_informativa_pdf.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'package:permission_handler/permission_handler.dart';
 
 class IntroBancoAlimentare extends StatefulWidget {
   const IntroBancoAlimentare({super.key});
@@ -24,6 +24,14 @@ class IntroBancoAlimentare extends StatefulWidget {
 
 class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
   bool isAccepted = false;
+  String fileurl = "https://www.unimib.it/sites/default/files/curriculumvitae_0.pdf";
+   double? _progress;
+  String _status = '';
+  final SessionSettings settings = SessionSettings();
+  final TextEditingController name = TextEditingController();
+ 
+
+  int? _downloadId;
 
   @override
   Widget build(BuildContext context) {
@@ -146,8 +154,62 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                           ),
                         ],
                       ),
-                     
-                                   
+                        
+                       if (_status.isNotEmpty) ...[
+              Text(_status, textAlign: TextAlign.center),
+              const SizedBox(height: 16),
+            ],
+            if (_progress != null) ...[
+              CircularProgressIndicator(
+                value: _progress! / 100,
+              ),
+              const SizedBox(height: 16),
+            ],
+           ElevatedButton(
+                    onPressed: () async {
+                      FileDownloader.downloadFile(
+                          url: fileurl,
+                          name: 'fileapp',
+                          headers: {'Header': 'Test'},
+                          downloadDestination: settings.downloadDestination,
+                          notificationType: settings.notificationType,
+                          onDownloadRequestIdReceived: (id) {
+                            setState(() => _downloadId = id);
+                          },
+                          onProgress: (name, progress) {
+                            setState(() {
+                              _progress = progress;
+                              _status = 'Progress: $progress%';
+                            });
+                          },
+                          onDownloadCompleted: (path) {
+                            setState(() {
+                              _downloadId = null;
+                              _progress = null;
+                              _status = 'File downloaded to: $path';
+                            });
+                          },
+                          onDownloadError: (error) {
+                            setState(() {
+                              _progress = null;
+                              _status = 'Download error: $error';
+                            });
+                          }).then((file) {
+                        debugPrint('file path: ${file?.path}');
+                      });
+                    },
+                    child: const Text('Download')),
+                      if (_downloadId != null) ...[
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                      onPressed: () async {
+                        final canceled =
+                            await FileDownloader.cancelDownload(_downloadId!);
+                        print('Canceled: $canceled');
+                      },
+                      child: const Text('Cancel')),
+                ],
+                           
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -175,4 +237,37 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
       ),
     );
   }
+}
+
+
+
+
+
+class SessionSettings {
+  static SessionSettings? _instance;
+  var _notificationType = NotificationType.progressOnly;
+  var _downloadDestination = DownloadDestinations.publicDownloads;
+  var _maximumParallelDownloads = FileDownloader().maximumParallelDownloads;
+
+  SessionSettings._();
+
+  factory SessionSettings() => _instance ??= SessionSettings._();
+
+  void setNotificationType(NotificationType notificationType) =>
+      _notificationType = notificationType;
+
+  void setDownloadDestination(DownloadDestinations downloadDestination) =>
+      _downloadDestination = downloadDestination;
+
+  void setMaximumParallelDownloads(int maximumParallelDownloads) {
+    if (maximumParallelDownloads <= 0) return;
+    _maximumParallelDownloads = maximumParallelDownloads;
+    FileDownloader.setMaximumParallelDownloads(maximumParallelDownloads);
+  }
+
+  NotificationType get notificationType => _notificationType;
+
+  DownloadDestinations get downloadDestination => _downloadDestination;
+
+  int get maximumParallelDownloads => _maximumParallelDownloads;
 }

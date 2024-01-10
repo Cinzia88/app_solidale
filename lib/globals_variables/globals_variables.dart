@@ -1,6 +1,7 @@
 library my_prj.globals;
 import 'package:app_solidale/screens/home/model/get_user_model.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/model/edit_docs_model.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/model/edit_parents_model.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_edit_disabili/model/edit_disabili_model.dart';
 
@@ -23,6 +24,7 @@ RequestData? editRequest;
 DisabiliData? dataDisabili;
 List<ParentsData> listParentsData = [];
 
+List<DocsData> listDocsData = [];
 
 
 
