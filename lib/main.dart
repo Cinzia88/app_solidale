@@ -26,17 +26,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:one_context/one_context.dart';
-
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
-
+int badge = 0;
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   await setupFlutterNotifications();
+
+FlutterAppBadger.updateBadgeCount(badge++);
 
   showFlutterNotification(message);
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -59,6 +60,7 @@ Future<void> setupFlutterNotifications() async {
     description:
         'This channel is used for important notifications.', // description
     importance: Importance.high,
+    showBadge: true,
   );
 
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -102,7 +104,9 @@ void showFlutterNotification(RemoteMessage message) {
           // TODO add a proper drawable resource to android, for now using
           //      one that already exists in example app.
           icon: '@mipmap/ic_launcher',
+          
         ),
+        
       ),
     );
     showDialog(

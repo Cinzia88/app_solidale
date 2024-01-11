@@ -310,7 +310,8 @@ class _FormDocsState extends State<FormDocs> {
                                   context,
                                   'Banco Alimentare',
                                );
-
+ print('imagesList $imagesList');
+                                    print('pdf $filePdf');
                               FocusScope.of(context).unfocus();
                             }
                           },

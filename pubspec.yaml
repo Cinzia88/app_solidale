@@ -59,6 +59,7 @@ dependencies:
   cached_network_image: ^3.3.0
   syncfusion_flutter_pdfviewer: ^24.1.44
   flutter_file_downloader: ^1.2.1
+  flutter_app_badger: ^1.5.0
 
 
 

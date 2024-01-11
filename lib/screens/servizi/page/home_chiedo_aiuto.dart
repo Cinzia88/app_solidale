@@ -6,6 +6,7 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/const/text_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
+import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
@@ -36,12 +37,12 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
   bool taxiSolidaleRichiedi = true;
   bool accOncRichiedi = true;
   bool bancoAlimRichiedi = true;
+  bool loading = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getRequestUser();
     getDataRequest();
   }
 
@@ -51,16 +52,19 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
         case '2':
           setState(() {
             taxiSolidaleRichiedi = false;
+            loading = false;
           });
           break;
         case '3':
           setState(() {
             accOncRichiedi = false;
+            loading = false;
           });
           break;
         case '4':
           setState(() {
             bancoAlimRichiedi = false;
+            loading = false;
           });
           break;
         default:
@@ -68,67 +72,7 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
     }
   }
 
-  Future<List<RequestData>> getRequestUser() async {
-    var url =
-        '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta/show/${globals.userData!.id}';
-    // Await the http get response, then decode the json-formatted response.
-    var response = await http.get(
-      Uri.parse(url),
-      headers: {
-        'Accept': 'application/json',
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer ${globals.tokenValue}'
-      },
-    );
-    final List<dynamic> body = json.decode(response.body);
-    var data = body.map((e) => RequestData.fromJson(e)).toList();
-    setState(() {
-      globals.listRequestData = data;
-    });
-    print('reqdata ${globals.listRequestData}');
-    switch (response.statusCode) {
-      case 200:
-        print('success data request');
-      case 401:
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => PresentationPage()));
-
-        break;
-      case 400:
-        String message = 'Utente non trovato';
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => PresentationPage()));
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(
-              message,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            )));
-        break;
-      case 500:
-        String message = 'Errore Server: impossibile stabilire una connessione';
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => PresentationPage()));
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(
-              message,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            )));
-        break;
-      default:
-        print('errore generico');
-    }
-    return data;
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +152,7 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
           ],
         ),
         drawer: NavigationDrawerWidget(),
-        body: SingleChildScrollView(
+        body: loading ? loadingWidget(context) : SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -222,11 +166,10 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
                     const Divider(
                       color: ColorConstants.orangeGradients3,
                     ),
-                  
                     taxiSolidaleRichiedi == false
                         ? Padding(
-    padding: const EdgeInsets.symmetric(vertical: 40.0),
-                          child: CustomCardsCommon(
+                            padding: const EdgeInsets.symmetric(vertical: 40.0),
+                            child: CustomCardsCommon(
                               child: CustomContainerService(
                                 title: 'Taxi Solidale',
                                 subtitle:
@@ -250,7 +193,8 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
                                             'Modifica',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: blockSizeVertical * 2),
+                                                fontSize:
+                                                    blockSizeVertical * 2),
                                           )),
                                       GestureDetector(
                                         onTap: () {
@@ -280,10 +224,10 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
                                 ),
                               ),
                             ),
-                        )
+                          )
                         : Padding(
-    padding: const EdgeInsets.symmetric(vertical: 40.0),
-                          child: CustomCardsCommon(
+                            padding: const EdgeInsets.symmetric(vertical: 40.0),
+                            child: CustomCardsCommon(
                               child: CustomContainerService(
                                 title: 'Taxi Solidale',
                                 subtitle:
@@ -307,7 +251,8 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
                                             'Richiedi',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: blockSizeVertical * 2),
+                                                fontSize:
+                                                    blockSizeVertical * 2),
                                           )),
                                       GestureDetector(
                                         onTap: () {
@@ -337,11 +282,11 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
                                 ),
                               ),
                             ),
-                        ),
+                          ),
                     accOncRichiedi == false
                         ? Padding(
-    padding: const EdgeInsets.only(bottom: 40.0),
-                          child: CustomCardsCommon(
+                            padding: const EdgeInsets.only(bottom: 40.0),
+                            child: CustomCardsCommon(
                               child: CustomContainerService(
                                 title: 'Accompagnamento Oncologico',
                                 subtitle:
@@ -365,7 +310,8 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
                                             'Modifica',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: blockSizeVertical * 2),
+                                                fontSize:
+                                                    blockSizeVertical * 2),
                                           )),
                                       GestureDetector(
                                         onTap: () {
@@ -396,10 +342,10 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
                                 ),
                               ),
                             ),
-                        )
+                          )
                         : Padding(
-    padding: const EdgeInsets.only(bottom: 40.0),
-                          child: CustomCardsCommon(
+                            padding: const EdgeInsets.only(bottom: 40.0),
+                            child: CustomCardsCommon(
                               child: CustomContainerService(
                                 title: 'Accompagnamento Oncologico',
                                 subtitle:
@@ -423,7 +369,8 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
                                             'Richiedi',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: blockSizeVertical * 2),
+                                                fontSize:
+                                                    blockSizeVertical * 2),
                                           )),
                                       GestureDetector(
                                         onTap: () {
@@ -454,102 +401,118 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
                                 ),
                               ),
                             ),
-                        ),
+                          ),
                     bancoAlimRichiedi == false
-                        ?  CustomCardsCommon(
-          child: CustomContainerService(
-            title: 'Banco Alimentare',
-            subtitle: 'Prenota o conferma il ritiro del tuo pacco alimentare',
-            image: PathConstants.bancoAlim,
-            widget: Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-              ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => IntroBancoAlimentareEdit()));
-                      },
-                      child: Text(
-                        'Modifica',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
-                      )),
-                  GestureDetector(
-                    onTap: () {
-                      showAlertDialog(
-                        title: TextConstants.infoAlertTitleBancoAlim,
-                        desc: TextConstants.infoAlertBancoAlim,
-                        onPressed: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      IntroBancoAlimentare()));
-                        },
-                      );
-                    },
-                    child: SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: Image.asset(PathConstants.infoService),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        )
-                        :  CustomCardsCommon(
-          child: CustomContainerService(
-            title: 'Banco Alimentare',
-            subtitle: 'Prenota o conferma il ritiro del tuo pacco alimentare',
-            image: PathConstants.bancoAlim,
-            widget: Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-              ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => IntroBancoAlimentare()));
-                      },
-                      child: Text(
-                        'Richiedi',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: blockSizeVertical * 2),
-                      )),
-                  GestureDetector(
-                    onTap: () {
-                      showAlertDialog(
-                        title: TextConstants.infoAlertTitleBancoAlim,
-                        desc: TextConstants.infoAlertBancoAlim,
-                        onPressed: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      IntroBancoAlimentare()));
-                        },
-                      );
-                    },
-                    child: SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: Image.asset(PathConstants.infoService),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+                        ? CustomCardsCommon(
+                            child: CustomContainerService(
+                              title: 'Banco Alimentare',
+                              subtitle:
+                                  'Prenota o conferma il ritiro del tuo pacco alimentare',
+                              image: PathConstants.bancoAlim,
+                              widget: Padding(
+                                padding: const EdgeInsets.only(top: 15.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      IntroBancoAlimentareEdit()));
+                                        },
+                                        child: Text(
+                                          'Modifica',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: blockSizeVertical * 2),
+                                        )),
+                                    GestureDetector(
+                                      onTap: () {
+                                        showAlertDialog(
+                                          title: TextConstants
+                                              .infoAlertTitleBancoAlim,
+                                          desc:
+                                              TextConstants.infoAlertBancoAlim,
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        IntroBancoAlimentare()));
+                                          },
+                                        );
+                                      },
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: Image.asset(
+                                            PathConstants.infoService),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        : CustomCardsCommon(
+                            child: CustomContainerService(
+                              title: 'Banco Alimentare',
+                              subtitle:
+                                  'Prenota o conferma il ritiro del tuo pacco alimentare',
+                              image: PathConstants.bancoAlim,
+                              widget: Padding(
+                                padding: const EdgeInsets.only(top: 15.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      IntroBancoAlimentare()));
+                                        },
+                                        child: Text(
+                                          'Richiedi',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: blockSizeVertical * 2),
+                                        )),
+                                    GestureDetector(
+                                      onTap: () {
+                                        showAlertDialog(
+                                          title: TextConstants
+                                              .infoAlertTitleBancoAlim,
+                                          desc:
+                                              TextConstants.infoAlertBancoAlim,
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        IntroBancoAlimentare()));
+                                          },
+                                        );
+                                      },
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: Image.asset(
+                                            PathConstants.infoService),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                   ],
                 ),
               ],

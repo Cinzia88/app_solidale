@@ -13,6 +13,7 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/paren
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
@@ -38,6 +39,9 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
   var nomeController = TextEditingController();
   var birthController = TextEditingController();
   var gradoController = TextEditingController();
+   var nomeEmptyController = TextEditingController();
+  var birthEmptyController = TextEditingController();
+  var gradoEmptyController = TextEditingController();
   String selectedValue = '1';
   List<Widget>? growableList;
   List<Widget>? card;
@@ -164,16 +168,101 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
       );
     }
 
+ Widget createCardEmpty() {
+     
+
+      nomeComponente.add(nomeEmptyController);
+      dateinput.add(birthEmptyController);
+      gradoComponente.add(gradoEmptyController);
+
+      return Column(
+        children: <Widget>[
+          TextFormFieldCustom(
+            textEditingController: nomeEmptyController,
+            labelTextCustom: 'Nome e Cognome:',
+            obscureText: false,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo Richiesto*';
+              }
+              return null;
+            },
+          ),
+          TextFormFieldCustom(
+            textEditingController:
+                birthEmptyController, //editing controller of this TextField
+            labelTextCustom: 'Data di Nascita:',
+            readOnly: true,
+            obscureText: false,
+            //set it true, so that user will not able to edit text
+            onTap: () async {
+              DateTime? pickedDate = await showDatePicker(
+                context: context, initialDate: DateTime.now(),
+                firstDate: DateTime(
+                    1900), //DateTime.now() - not to allow to choose before today.
+                lastDate: DateTime(2101),
+                builder: (BuildContext context, Widget? child) {
+                  return Theme(
+                    data: ThemeData.light().copyWith(
+                      colorScheme: const ColorScheme.dark(
+                        primary: ColorConstants.secondaryColor,
+                        onPrimary: Colors.white,
+                        surface: Colors.white,
+                        onSurface: ColorConstants.orangeGradients3,
+                      ),
+                      dialogBackgroundColor: Colors.white,
+                    ),
+                    child: child!,
+                  );
+                },
+              );
+
+              if (pickedDate != null) {
+                print(
+                    pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                String formattedDate =
+                    DateFormat('dd-MM-yyyy').format(pickedDate);
+                print(
+                    formattedDate); //formatted date output using intl package =>  2021-03-16
+                //you can implement different kind of Date Format here according to your requirement
+
+                setState(() {
+                  birthEmptyController.text = formattedDate;
+
+                });
+
+              } else {
+                print("Date is not selected ${birthController.text}");
+              }
+            },
+          ),
+          TextFormFieldCustom(
+            textEditingController: gradoEmptyController,
+            labelTextCustom: 'Grado di Parentela:',
+            obscureText: false,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo Richiesto*';
+              }
+              return null;
+            },
+          ),
+        ],
+      );
+    }
+
     growableList = List<Widget>.generate(int.parse(selectedValue), (int index) {
       print('index $index');
       if (listData == null) {
         return SizedBox();
-      } else {
+      } else if (int.parse(selectedValue) != listData!.length){
+        cards.add(createCardEmpty());
+      }else if (int.parse(selectedValue) == listData!.length) { 
         for (int i = 0; i < listData!.length; i++) {
           cards.add(createCard(listData![i]));
         }
-      }
-
+      } 
+print('selectedValue $selectedValue');
       return Column(
         children: [
           Padding(
@@ -402,6 +491,7 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
                                     itemCount: growableList!.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
+                                         
                                       return Column(
                                         children: [
                                           growableList![index],
@@ -428,6 +518,9 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
                                                   .editDataParents(context, id,
                                                       nome, anni, grado);
                                               print('nomeC ${nome}');
+                                                                                            print('anniC ${anni}');
+                                              print('gradoC ${grado}');
+
                                             }
                                                                                            Navigator.pop(context);
 

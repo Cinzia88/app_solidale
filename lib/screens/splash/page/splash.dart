@@ -10,6 +10,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
+import 'package:flutter/services.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 
 import '../../../const/color_constants.dart';
 import '../../../main.dart';
@@ -30,10 +32,13 @@ class _SplashScreenState extends State<SplashScreen>
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
   String? initialMessage;
   bool _resolved = false;
+    String _appBadgeSupported = 'Unknown';
+
 
   @override
   void initState() {
     super.initState();
+    initPlatformState();
 
 initializeFirebase();
     getValueViewSlide();
@@ -92,15 +97,32 @@ FirebaseMessaging.instance.getInitialMessage().then(
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
-      Navigator.pushNamed(
-        context,
-        '/message',
-        arguments: MessageArguments(message, true),
-      );
+      FlutterAppBadger.removeBadge;
     });
   }
 
-  
+  initPlatformState() async {
+    String appBadgeSupported;
+    try {
+      bool res = await FlutterAppBadger.isAppBadgeSupported();
+      if (res) {
+        appBadgeSupported = 'Supported';
+      } else {
+        appBadgeSupported = 'Not supported';
+      }
+    } on PlatformException {
+      appBadgeSupported = 'Failed to get badge support.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _appBadgeSupported = appBadgeSupported;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

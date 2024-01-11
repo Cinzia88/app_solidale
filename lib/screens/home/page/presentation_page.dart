@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
@@ -7,11 +9,15 @@ import 'package:app_solidale/screens/home/widgets/custom_container_service.dart'
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
+import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
 import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto.dart';
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:http/http.dart' as http;
+
 
 // ignore: must_be_immutable
 class PresentationPage extends StatefulWidget {
@@ -28,8 +34,73 @@ class _PresentationPageState extends State<PresentationPage>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    readUser();
+    readUser().then((value) => getRequestUser());
+
   }
+
+Future<List<RequestData>> getRequestUser() async {
+    var url =
+        '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta/show/${globals.userData!.id}';
+    // Await the http get response, then decode the json-formatted response.
+    var response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ${globals.tokenValue}'
+      },
+    );
+    final List<dynamic> body = json.decode(response.body);
+    var data = body.map((e) => RequestData.fromJson(e)).toList();
+    setState(() {
+      globals.listRequestData = data;
+    });
+    print('reqdata ${globals.listRequestData}');
+    switch (response.statusCode) {
+      case 200:
+        print('success data request');
+      case 401:
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => PresentationPage()));
+
+        break;
+      case 400:
+        String message = 'Utente non trovato';
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => PresentationPage()));
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              message,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            )));
+        break;
+      case 500:
+        String message = 'Errore Server: impossibile stabilire una connessione';
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => PresentationPage()));
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              message,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            )));
+        break;
+      default:
+        print('errore generico');
+    }
+    return data;
+  }
+
+
 
   Future readUser() async {
     var data = await ReadDataUserRepository().readUser(context);
