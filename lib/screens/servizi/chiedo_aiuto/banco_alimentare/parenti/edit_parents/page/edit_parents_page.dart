@@ -70,6 +70,7 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
 
   List<ParentsData>? listData;
 
+
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
@@ -77,10 +78,14 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    Widget createCard(ParentsData data) {
-      nomeController = TextEditingController(text: data.nome);
-      birthController = TextEditingController(text: data.dataDiNascita);
-      gradoController = TextEditingController(text: data.grado);
+
+
+
+
+    Widget createCard() {
+      nomeController = TextEditingController();
+      birthController = TextEditingController();
+      gradoController = TextEditingController();
 
       nomeComponente.add(nomeController);
       dateinput.add(birthController);
@@ -99,56 +104,18 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
               return null;
             },
           ),
-          TextFormFieldCustom(
-            textEditingController:
-                birthController, //editing controller of this TextField
-            labelTextCustom: 'Data di Nascita:',
-            readOnly: true,
+        TextFormFieldCustom(
+            textEditingController: birthController,
+            labelTextCustom: 'Data di Nascita',
             obscureText: false,
-            //set it true, so that user will not able to edit text
-            onTap: () async {
-              DateTime? pickedDate = await showDatePicker(
-                context: context, initialDate: DateTime.now(),
-                firstDate: DateTime(
-                    1900), //DateTime.now() - not to allow to choose before today.
-                lastDate: DateTime(2101),
-                builder: (BuildContext context, Widget? child) {
-                  return Theme(
-                    data: ThemeData.light().copyWith(
-                      colorScheme: const ColorScheme.dark(
-                        primary: ColorConstants.secondaryColor,
-                        onPrimary: Colors.white,
-                        surface: Colors.white,
-                        onSurface: ColorConstants.orangeGradients3,
-                      ),
-                      dialogBackgroundColor: Colors.white,
-                    ),
-                    child: child!,
-                  );
-                },
-              );
-
-              if (pickedDate != null) {
-                print(
-                    pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                String formattedDate =
-                    DateFormat('dd-MM-yyyy').format(pickedDate);
-                print(
-                    formattedDate); //formatted date output using intl package =>  2021-03-16
-                //you can implement different kind of Date Format here according to your requirement
-
-                setState(() {
-                  birthController.text = formattedDate;
-                  data.dataDiNascita = birthController.text;
-
-                });
-                                print("Date is  selected ${data.dataDiNascita}");
-
-              } else {
-                print("Date is not selected ${birthController.text}");
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo Richiesto*';
               }
+              return null;
             },
           ),
+          
           TextFormFieldCustom(
             textEditingController: gradoController,
             labelTextCustom: 'Grado di Parentela:',
@@ -165,15 +132,9 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
     }
 
     growableList = List<Widget>.generate(int.parse(selectedValue), (int index) {
-      print('index $index');
-      if (listData == null) {
-        return SizedBox();
-      } else {
-        for (int i = 0; i < listData!.length; i++) {
-          cards.add(createCard(listData![i]));
-        }
-      }
-
+     
+          cards.add(createCard());
+       
       return Column(
         children: [
           Padding(
@@ -243,6 +204,7 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
               for (int i = 0; i < state.data.length; i++) {
                 setState(() {
                   parentsEditId.add(state.data[i].id);
+                  nomeController = TextEditingController(text: state.data[i].nome);
                 });
               }
             }
@@ -396,6 +358,7 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
                                   SizedBox(
                                     height: 20,
                                   ),
+                                 
                                   ListView.builder(
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
@@ -409,6 +372,8 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
                                       );
                                     },
                                   ),
+                                   
+                                  
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
