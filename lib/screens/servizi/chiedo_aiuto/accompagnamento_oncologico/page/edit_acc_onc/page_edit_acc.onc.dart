@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
+import '../../../../../../const/color_constants.dart';
+
 class AccompagnamentoOncologicoEditPage extends StatefulWidget {
  
 
@@ -24,6 +26,7 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
   final TextEditingController _nameAnotherController = TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
   int _value = 1;
+  String idReq = '';
   
 
 
@@ -67,9 +70,14 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
             );
           }else if (state is ReadRequestLoadedState) {
             for(int i = 0; i< state.data.length; i++) {
+               setState(() {
+        idReq = state.data[i].idRequest;
+    });
                if(state.data[i].nome != globals.userData!.nome && state.data[i].telefono != globals.userData!.telefono) {
       _nameAnotherController.text = state.data[i].nome;
       _telepAnotherController.text = state.data[i].telefono;
+      _value = 2;
+   
       
     }
  
@@ -101,6 +109,21 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
+                     SizedBox(
+                    height: 20,
+                  ),
+                    Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Modifica Dati Destinatario',
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
+                              ],
+                            ),
+                            const Divider(
+                              color: ColorConstants.orangeGradients3,
+                            ),
                     Form(
                       key: _formKey,
                       child: _formSelectService(),
@@ -109,17 +132,17 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         CommonStyleButton(
-                                title: 'Invia',
+                                title: 'Aggiorna',
                                 onTap: () {
                                    EditDataTypeServiceRepository()
                                                     .editRequest(
                                                   context,
-                                                  '4',
+                                                  idReq,
                                                   '3',
-                                                  _nameAnotherController.text,
-                                                  _telepAnotherController.text,
+                                         _value == 1  ?globals.userData!.nome :       _nameAnotherController.text,
+                                               _value == 1  ?globals.userData!.telefono :    _telepAnotherController.text,
                                                 );
-                                 
+                                 print('idReq $idReq');
                                   SendDataTypeServiceRepository().sendMailService(
                                       context, 'Accompagnamento Oncologico');
       
@@ -145,15 +168,7 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
           padding: EdgeInsets.symmetric(vertical: 20.0),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Text(
-                        '(Modifica i dati oppure invia un\'altra richiesta)'),
-                  ),
-                ],
-              ),
+            
               Text(
                 'Vorrei accedere al Servizio Accompagnamento Oncologico per:',
               ),

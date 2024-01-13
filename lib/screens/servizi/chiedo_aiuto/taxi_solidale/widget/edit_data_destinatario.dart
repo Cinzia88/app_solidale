@@ -23,8 +23,8 @@ class TaxiSolidaleEditDataDestinatarioPage extends StatefulWidget {
 
 class _TaxiSolidaleEditDataDestinatarioPageState extends State<TaxiSolidaleEditDataDestinatarioPage> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameAnotherController = TextEditingController();
-  final TextEditingController _telepAnotherController = TextEditingController();
+  final TextEditingController _nameTaxiAnotherController = TextEditingController();
+  final TextEditingController _telepTaxiAnotherController = TextEditingController();
   int _value = 1;
   String idTaxiSolidaleEdit = '';
 
@@ -70,8 +70,8 @@ class _TaxiSolidaleEditDataDestinatarioPageState extends State<TaxiSolidaleEditD
                 for (int i = 0; i < state.data.length; i++) {
                   if (state.data[i].nome != globals.userData!.nome &&
                       state.data[i].telefono != globals.userData!.telefono) {
-                    _nameAnotherController.text = state.data[i].nome;
-                    _telepAnotherController.text = state.data[i].telefono;
+                    _nameTaxiAnotherController.text = state.data[i].nome;
+                    _telepTaxiAnotherController.text = state.data[i].telefono;
                   }
                   setState(() {
                idTaxiSolidaleEdit = state.data[i].idRequest;
@@ -134,14 +134,11 @@ class _TaxiSolidaleEditDataDestinatarioPageState extends State<TaxiSolidaleEditD
                                         context,
                                        idTaxiSolidaleEdit,
                                         '2',
-                                          _value == 1 ? globals.userData!.nome : _nameAnotherController.text, 
-                                  _value == 1 ? globals.userData!.telefono : _telepAnotherController.text,
+                                          _value == 1 ? globals.userData!.nome : _nameTaxiAnotherController.text, 
+                                  _value == 1 ? globals.userData!.telefono : _telepTaxiAnotherController.text,
                                       );
 
-                                      SendDataTypeServiceRepository()
-                                          .sendMailService(context,
-                                              'Taxi Solidale');
-
+                                    
                                       FocusScope.of(context).unfocus();
                                     },
                                     iconWidget: Text('')),
@@ -242,7 +239,7 @@ class _TaxiSolidaleEditDataDestinatarioPageState extends State<TaxiSolidaleEditD
                           '(Inserisci i dati del familiare per il quale richiedi il servizio)'),
                     ),
                     TextFormFieldCustom(
-                      textEditingController: _nameAnotherController,
+                      textEditingController: _nameTaxiAnotherController,
                       labelTextCustom: 'Nome e Cognome:',
                       obscureText: false,
                       validator: (value) {
@@ -253,7 +250,7 @@ class _TaxiSolidaleEditDataDestinatarioPageState extends State<TaxiSolidaleEditD
                       },
                     ),
                     TextFormFieldCustom(
-                      textEditingController: _telepAnotherController,
+                      textEditingController: _telepTaxiAnotherController,
                       labelTextCustom: 'Telefono:',
                       obscureText: false,
                       validator: (value) {

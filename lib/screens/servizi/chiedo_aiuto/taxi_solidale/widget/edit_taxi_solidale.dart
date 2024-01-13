@@ -4,6 +4,7 @@ import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/read_request_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
@@ -228,6 +229,64 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                     CommonStyleButton(
                                         title: 'Invia',
                                         onTap: () {
+                                          
+                                                showDialog(
+                                                    barrierDismissible: false,
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        title: Column(
+                                                          children: [
+                                                            SizedBox(
+                                                              height: 50,
+                                                              child: Image.asset(
+                                                                  PathConstants
+                                                                      .taxiSolidale),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Text(
+                                                              'Stiamo elaborando i tuoi dati',
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .titleMedium,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        content: const Text(
+                                                            'Ti contatteremo al più presto!'),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      20.0),
+                                                        ),
+                                                        actions: [
+                                                          InkWell(
+                                                              onTap: () {
+                                                                Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                PresentationPage()));
+                                                              },
+                                                              child: Text(
+                                                                'Torna alla home',
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .titleMedium,
+                                                              ))
+                                                        ],
+                                                      );
+                                                    });
                                           SendDataTypeServiceRepository()
                                           .sendMailService(context,
                                               'Taxi Solidale');

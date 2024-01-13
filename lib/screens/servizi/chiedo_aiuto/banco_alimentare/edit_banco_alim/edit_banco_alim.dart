@@ -8,6 +8,7 @@ import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_d
 
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/page/edit_docs_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disabili/bloc_edit_disabili/page/edit_disabili.dart';
 
@@ -268,6 +269,8 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                                   '4',
                                                   globals.userData!.nome,
                                                   globals.userData!.telefono);
+                                                   SendDataTypeServiceRepository().sendMailService(
+                                      context, 'Banco Alimentare');
                                         },
                                         iconWidget: Text('')),
                                   ],

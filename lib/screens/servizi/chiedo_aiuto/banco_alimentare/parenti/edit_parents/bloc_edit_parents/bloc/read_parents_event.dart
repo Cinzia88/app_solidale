@@ -24,3 +24,27 @@ class EditParentsEvent extends ReadParentsEvent {
   List<Object?> get props =>
       [id, nome, dataDiNascita, grado];
 }
+
+class SendParentsNewFormEvent extends ReadParentsEvent {
+ 
+  String nomeParente;
+  String dataDiNascitaParente;
+  String gradoParente;
+  SendParentsNewFormEvent({
+
+    required this.nomeParente,
+    required this.dataDiNascitaParente,
+    required this.gradoParente,
+  });
+  @override
+  List<Object?> get props => [nomeParente, dataDiNascitaParente, gradoParente];
+}
+class RemoveParentEvent extends ReadParentsEvent {
+    String id;
+  RemoveParentEvent({
+    required this.id,
+  });
+ @override
+  List<Object?> get props =>
+      [id, ];
+}

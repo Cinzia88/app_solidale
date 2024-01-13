@@ -48,3 +48,19 @@ class EditParentsErrorState extends ReadParentsState {
   List<Object?> get props => [errorMessage];
 }
 
+class SendNewParentsState extends ReadParentsState {
+  
+
+ 
+}
+
+class RemoveParentsState extends ReadParentsState {
+  String id;
+  RemoveParentsState({
+    required this.id,
+  });
+
+  @override
+  List<Object?> get props => [id];
+}
+

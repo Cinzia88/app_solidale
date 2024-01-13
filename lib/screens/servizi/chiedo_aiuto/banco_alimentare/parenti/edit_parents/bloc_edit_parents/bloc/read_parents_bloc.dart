@@ -42,6 +42,29 @@ class ReadParentsBloc extends Bloc<ReadParentsEvent, ReadParentsState> {
           } catch (e) {
             emit(EditParentsErrorState(errorMessage: e.toString()));
           }
+         } else if (event is SendParentsNewFormEvent){
+           try {
+          await editDataParentsRepository.sendDataNewParents(
+            context,
+            event.nomeParente,
+            event.dataDiNascitaParente,
+            event.gradoParente,
+          );
+          emit(EditParentsLoadedState());
+        } catch (e) {
+         print(e);
+        }
+         } else if (event is RemoveParentEvent) {
+          try {
+            final userdata = await editDataParentsRepository.deleteParentData(
+              context,
+              event.id,
+             
+            );
+            emit(EditParentsLoadedState());
+          } catch (e) {
+            emit(EditParentsErrorState(errorMessage: e.toString()));
+          }
         }
       },
     );

@@ -35,7 +35,7 @@ class EditDataDisabiliRepository {
           print('statusc ${response.body}');
       switch (response.statusCode) {
         case 200:
-          print('disabili modificati');
+          Navigator.pop(context);
 
         case 401:
           Navigator.of(context, rootNavigator: true).pushReplacement(

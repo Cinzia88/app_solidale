@@ -34,10 +34,16 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
   var nomeComponente = <TextEditingController>[];
   var dateinput = <TextEditingController>[];
   var gradoComponente = <TextEditingController>[];
-  var nomeEditController = TextEditingController();
   var nomeController = TextEditingController();
   var birthController = TextEditingController();
   var gradoController = TextEditingController();
+  var nomeComponenteNew = <TextEditingController>[];
+  var dateinputNew = <TextEditingController>[];
+  var gradoComponenteNew = <TextEditingController>[];
+  String nomeNew = '';
+String dateNew = '';
+
+String gradoNew = '';
   String selectedValue = '1';
   List<Widget>? growableList;
   List<Widget>? card;
@@ -67,9 +73,9 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
   bool yes = false;
   bool remove = false;
   String disabile = 'no';
+  int box = 1;
 
   List<ParentsData>? listData;
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,93 +85,6 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
 
-
-
-
-    Widget createCard() {
-      nomeController = TextEditingController();
-      birthController = TextEditingController();
-      gradoController = TextEditingController();
-
-      nomeComponente.add(nomeController);
-      dateinput.add(birthController);
-      gradoComponente.add(gradoController);
-
-      return Column(
-        children: <Widget>[
-          TextFormFieldCustom(
-            textEditingController: nomeController,
-            labelTextCustom: 'Nome e Cognome:',
-            obscureText: false,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Campo Richiesto*';
-              }
-              return null;
-            },
-          ),
-        TextFormFieldCustom(
-            textEditingController: birthController,
-            labelTextCustom: 'Data di Nascita',
-            obscureText: false,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Campo Richiesto*';
-              }
-              return null;
-            },
-          ),
-          
-          TextFormFieldCustom(
-            textEditingController: gradoController,
-            labelTextCustom: 'Grado di Parentela:',
-            obscureText: false,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Campo Richiesto*';
-              }
-              return null;
-            },
-          ),
-        ],
-      );
-    }
-
-    growableList = List<Widget>.generate(int.parse(selectedValue), (int index) {
-     
-          cards.add(createCard());
-       
-      return Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 40.0),
-            child: Material(
-              elevation: 10,
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Componente ${index + 1}',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ],
-                    ),
-                    cards[index]
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      );
-    });
     return BlocProvider<ReadParentsBloc>(
       create: (context) => ReadParentsBloc(
         context: context,
@@ -179,7 +98,7 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
           toolbarHeight: 75.0,
           automaticallyImplyLeading: true,
           flexibleSpace: customAppBar(context: context),
-           actions: [
+          actions: [
             IconButton(
                 onPressed: () => Navigator.pop(context),
                 icon: const Icon(
@@ -204,7 +123,12 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
               for (int i = 0; i < state.data.length; i++) {
                 setState(() {
                   parentsEditId.add(state.data[i].id);
-                  nomeController = TextEditingController(text: state.data[i].nome);
+                  nomeComponente
+                      .add(TextEditingController(text: state.data[i].nome));
+                  dateinput.add(
+                      TextEditingController(text: state.data[i].dataDiNascita));
+                  gradoComponente
+                      .add(TextEditingController(text: state.data[i].grado));
                 });
               }
             }
@@ -358,44 +282,200 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                 
                                   ListView.builder(
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
-                                    itemCount: growableList!.length,
+                                    itemCount: listData!.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
+                                      nomeController = nomeComponente[index];
+                                      birthController = dateinput[index];
+                                      gradoController = gradoComponente[index];
+
+                                      nomeComponente.add(nomeController);
+                                      dateinput.add(nomeController);
+                                      gradoComponente.add(nomeController);
+                                      box = index + 1;
                                       return Column(
                                         children: [
-                                          growableList![index],
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 40.0),
+                                            child: Material(
+                                              elevation: 10,
+                                              color: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15)),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(20.0),
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          'Componente ${index + 1}',
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .titleMedium,
+                                                        ),
+                                                        
+                                                        IconButton(
+                                                            onPressed: () {
+                                                            
+                                                                   
+                                                              EditDataParentsRepository()
+                                                                  .deleteParentData(
+                                                                context,
+                                                                listData![index]
+                                                                    .id,
+                                                              ).then((value){
+                                                              FetchParentsEvent();} 
+                                                                  );
+                                                            },
+                                                            icon: Icon(
+                                                                Icons.delete,
+                                                                color:
+                                                                    Colors.red))
+                                                      ],
+                                                    ),
+                                                    createCard(),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ],
                                       );
                                     },
                                   ),
-                                   
-                                  
+                                  int.parse(selectedValue) > listData!.length
+                                      ? SizedBox(
+                                          child: ListView.builder(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  NeverScrollableScrollPhysics(),
+                                              itemCount:
+                                                  int.parse(selectedValue) -
+                                                      listData!.length,
+                                              itemBuilder: (context, index) {
+                                                box = int.parse(selectedValue) -
+                                                    listData!.length;
+                                                nomeController =
+                                                    TextEditingController();
+                                                birthController =
+                                                    TextEditingController();
+                                                gradoController =
+                                                    TextEditingController();
+
+                                                nomeComponenteNew
+                                                    .add(nomeController);
+                                                dateinputNew
+                                                    .add(birthController);
+                                                gradoComponenteNew
+                                                    .add(gradoController);
+                                                return Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 40.0),
+                                                      child: Material(
+                                                        elevation: 10,
+                                                        color: Colors.white,
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15)),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(20.0),
+                                                          child: Column(
+                                                            children: [
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Text(
+                                                                    'Componente ${listData!.length + index + 1}',
+                                                                    style: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .titleMedium,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              createCard(),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                );
+                                              }),
+                                        )
+                                      : Text(''),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       CommonStyleButton(
                                           title: 'Aggiorna',
                                           onTap: () {
-                                            for (int i = 0;
-                                                i < growableList!.length;
-                                                i++) {
-                                              var id = parentsEditId[i];
-                                              var nome = nomeComponente[i].text;
-                                              var anni = dateinput[i].text;
-                                              var grado =
-                                                  gradoComponente[i].text;
-                                              print('parent $id');
-                                              EditDataParentsRepository()
-                                                  .editDataParents(context, id,
-                                                      nome, anni, grado);
-                                              print('nomeC ${nome}');
-                                            }
-                                                                                           Navigator.pop(context);
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              for (int i = 0;
+                                                  i < listData!.length;
+                                                  i++) {
+                                                var id = listData![i].id;
+                                                var nome =
+                                                    nomeComponente[i].text;
+                                                var anni = dateinput[i].text;
+                                                var grado =
+                                                    gradoComponente[i].text;
 
+                                                EditDataParentsRepository()
+                                                    .editDataParents(context,
+                                                        id, nome, anni, grado);
+                                                Navigator.pop(context);
+                                              }
+
+                                              for (int i = 0;
+                                                  i < nomeComponenteNew.length;
+                                                  i++) {
+                                              setState(() {
+                                                  nomeNew =
+                                                    nomeComponenteNew[i].text;
+                                              });
+                                              }
+                                              for (int i = 0;
+                                                  i < dateinputNew.length;
+                                                  i++) {
+                                                setState(() {
+                                                  dateNew = dateinputNew[i].text;
+                                                });
+                                              }
+                                              for (int i = 0;
+                                                  i < gradoComponenteNew.length;
+                                                  i++) {
+                                                setState(() {
+                                                  gradoNew =
+                                                    gradoComponenteNew[i].text;
+                                                });
+                                              }
+                                               EditDataParentsRepository()
+                                                    .sendDataNewParents(context,
+                                                         nomeNew, dateNew, gradoNew);
+                                            }
                                           },
                                           iconWidget: Text('')),
                                     ],
@@ -409,6 +489,46 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
           },
         ),
       ),
+    );
+  }
+
+  Widget createCard() {
+    return Column(
+      children: <Widget>[
+        TextFormFieldCustom(
+          textEditingController: nomeController,
+          labelTextCustom: 'Nome e Cognome:',
+          obscureText: false,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Campo Richiesto*';
+            }
+            return null;
+          },
+        ),
+        TextFormFieldCustom(
+          textEditingController: birthController,
+          labelTextCustom: 'Data di Nascita',
+          obscureText: false,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Campo Richiesto*';
+            }
+            return null;
+          },
+        ),
+        TextFormFieldCustom(
+          textEditingController: gradoController,
+          labelTextCustom: 'Grado di Parentela:',
+          obscureText: false,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Campo Richiesto*';
+            }
+            return null;
+          },
+        ),
+      ],
     );
   }
 }
