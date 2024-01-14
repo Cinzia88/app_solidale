@@ -88,6 +88,7 @@ void showFlutterNotification(RemoteMessage message) {
   RemoteNotification? notification = message.notification;
   AndroidNotification? android = message.notification?.android;
   print('remote message ${message.notification!.body}');
+      FlutterAppBadger.removeBadge;
 
   if (notification != null && android != null && !kIsWeb) {
     print('remote notification ${notification.body}');

@@ -41,9 +41,9 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
   var dateinputNew = <TextEditingController>[];
   var gradoComponenteNew = <TextEditingController>[];
   String nomeNew = '';
-String dateNew = '';
+  String dateNew = '';
 
-String gradoNew = '';
+  String gradoNew = '';
   String selectedValue = '1';
   List<Widget>? growableList;
   List<Widget>? card;
@@ -119,6 +119,12 @@ String gradoNew = '';
                 selectedValue = state.data.length.toString();
                 listData = state.data;
               });
+
+              if (listData!.isEmpty) {
+                setState(() {
+                  selectedValue = '1';
+                });
+              }
 
               for (int i = 0; i < state.data.length; i++) {
                 setState(() {
@@ -296,6 +302,7 @@ String gradoNew = '';
                                       dateinput.add(nomeController);
                                       gradoComponente.add(nomeController);
                                       box = index + 1;
+
                                       return Column(
                                         children: [
                                           Padding(
@@ -319,25 +326,40 @@ String gradoNew = '';
                                                               .spaceBetween,
                                                       children: [
                                                         Text(
-                                                          'Componente ${index + 1}',
+                                                          'Componente ${box}',
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
                                                                   .titleMedium,
                                                         ),
-                                                        
+                                                        Text('$box'),
                                                         IconButton(
                                                             onPressed: () {
-                                                            
-                                                                   
+                                                              print(
+                                                                  'idCompon ${listData![index].id}');
                                                               EditDataParentsRepository()
                                                                   .deleteParentData(
                                                                 context,
                                                                 listData![index]
                                                                     .id,
-                                                              ).then((value){
-                                                              FetchParentsEvent();} 
-                                                                  );
+                                                              )
+                                                                  .then(
+                                                                      (value) {
+                                                                listData!
+                                                                    .removeAt(
+                                                                        index);
+                                                                print(
+                                                                    'indexListREmove $index');
+                                                                setState(() {
+                                                                  nomeComponente[
+                                                                          index]
+                                                                      .text = '';
+                                                                  selectedValue =
+                                                                      listData!
+                                                                          .length
+                                                                          .toString();
+                                                                });
+                                                              });
                                                             },
                                                             icon: Icon(
                                                                 Icons.delete,
@@ -355,7 +377,7 @@ String gradoNew = '';
                                       );
                                     },
                                   ),
-                                  int.parse(selectedValue) > listData!.length
+                                listData!.isEmpty  ||    int.parse(selectedValue) > listData!.length
                                       ? SizedBox(
                                           child: ListView.builder(
                                               shrinkWrap: true,
@@ -452,16 +474,17 @@ String gradoNew = '';
                                               for (int i = 0;
                                                   i < nomeComponenteNew.length;
                                                   i++) {
-                                              setState(() {
+                                                setState(() {
                                                   nomeNew =
-                                                    nomeComponenteNew[i].text;
-                                              });
+                                                      nomeComponenteNew[i].text;
+                                                });
                                               }
                                               for (int i = 0;
                                                   i < dateinputNew.length;
                                                   i++) {
                                                 setState(() {
-                                                  dateNew = dateinputNew[i].text;
+                                                  dateNew =
+                                                      dateinputNew[i].text;
                                                 });
                                               }
                                               for (int i = 0;
@@ -469,12 +492,16 @@ String gradoNew = '';
                                                   i++) {
                                                 setState(() {
                                                   gradoNew =
-                                                    gradoComponenteNew[i].text;
+                                                      gradoComponenteNew[i]
+                                                          .text;
                                                 });
                                               }
-                                               EditDataParentsRepository()
-                                                    .sendDataNewParents(context,
-                                                         nomeNew, dateNew, gradoNew);
+                                              EditDataParentsRepository()
+                                                  .sendDataNewParents(
+                                                      context,
+                                                      nomeNew,
+                                                      dateNew,
+                                                      gradoNew);
                                             }
                                           },
                                           iconWidget: Text('')),
