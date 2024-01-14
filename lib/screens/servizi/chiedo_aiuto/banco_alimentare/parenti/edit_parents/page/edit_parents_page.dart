@@ -332,7 +332,6 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
                                                                   .textTheme
                                                                   .titleMedium,
                                                         ),
-                                                        Text('$box'),
                                                         IconButton(
                                                             onPressed: () {
                                                               print(
