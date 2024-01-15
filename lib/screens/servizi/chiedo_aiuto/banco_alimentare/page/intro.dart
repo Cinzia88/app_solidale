@@ -95,6 +95,7 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                               SizedBox(
                                 height: 3 * blockSizeVertical,
                               ),
+                              Text('test'),
                               Text(
                                 'Banco Alimentare',
                                 textAlign: TextAlign.center,

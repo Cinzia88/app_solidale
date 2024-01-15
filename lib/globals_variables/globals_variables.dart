@@ -25,6 +25,7 @@ DisabiliData? dataDisabili;
 List<ParentsData> listParentsData = [];
 
 List<DocsData> listDocsData = [];
+Map<String, dynamic> pdf = {};
 
 
 
