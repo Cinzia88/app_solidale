@@ -25,7 +25,7 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
   bool isAccepted = false;
 
   String fileurl =
-      '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/storage/files/dichiarazione_sostitutiva_di_certificazione.pdf';
+      'https://appsolidale.it/storage/file_pdf/dichiarazione_sostitutiva_di_certificazione.pdf';
   double? _progress;
   String _status = '';
   final SessionSettings settings = SessionSettings();
