@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
@@ -6,6 +8,7 @@ import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/page_informativa_pdf.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +16,9 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class IntroBancoAlimentare extends StatefulWidget {
   const IntroBancoAlimentare({super.key});
@@ -23,15 +29,79 @@ class IntroBancoAlimentare extends StatefulWidget {
 
 class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
   bool isAccepted = false;
-
+  String? _localPath;
+  bool? _permissionReady;
+  TargetPlatform? platform;
   String fileurl =
       'https://appsolidale.it/storage/file_pdf/dichiarazione_sostitutiva_di_certificazione.pdf';
-  double? _progress;
-  String _status = '';
-  final SessionSettings settings = SessionSettings();
+  String? _progress;
   final TextEditingController name = TextEditingController();
 
-  int? _downloadId;
+  var _progressList = <double>[];
+
+  // double count = 0.0;
+
+  double currentProgress(int index) {
+    //fetch the current progress,
+    //its in a list because we might want to download
+    // multiple files at the same time,
+    // so this makes sure the correct download progress
+    // is updated.
+
+    try {
+      return _progressList[index];
+    } catch (e) {
+      _progressList.add(0.0);
+      return 0;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) {
+      platform = TargetPlatform.android;
+    } else {
+      platform = TargetPlatform.iOS;
+    }
+  }
+
+  Future<bool> _checkPermission() async {
+    if (platform == TargetPlatform.android) {
+      final status = await Permission.storage.status;
+      if (status != PermissionStatus.granted) {
+        final result = await Permission.storage.request();
+        if (result == PermissionStatus.granted) {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    } else {
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> _prepareSaveDir() async {
+    _localPath = (await _findLocalPath())!;
+
+    print(_localPath);
+    final savedDir = Directory(_localPath!);
+    bool hasExisted = await savedDir.exists();
+    if (!hasExisted) {
+      savedDir.create();
+    }
+  }
+
+  Future<String?> _findLocalPath() async {
+    if (platform == TargetPlatform.android) {
+      return "/sdcard/download/";
+    } else {
+      var directory = await getApplicationDocumentsDirectory();
+      return directory.path + Platform.pathSeparator + 'Download';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +232,6 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                       Padding(
                         padding: const EdgeInsets.only(left: 50.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Expanded(
                               child: RichText(
@@ -182,59 +251,61 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                                         fontSize: 12,
                                       ),
                                       recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          FileDownloader.downloadFile(
-                                              url: fileurl,
-                                              name: 'fileapp',
-                                              headers: {'Header': 'Test'},
-                                              downloadDestination:
-                                                  settings.downloadDestination,
-                                              notificationType:
-                                                  settings.notificationType,
-                                              onDownloadRequestIdReceived:
-                                                  (id) {
-                                                setState(
-                                                    () => _downloadId = id);
-                                              },
-                                              onProgress: (name, progress) {
-                                                setState(() {
-                                                  _progress = progress;
-                                                  _status =
-                                                      'File in corso: $progress%';
-                                                });
-                                              },
-                                              onDownloadCompleted: (path) {
-                                                setState(() {
-                                                  _downloadId = null;
-                                                  _progress = null;
-                                                });
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                        const SnackBar(
-                                                            backgroundColor:
-                                                                ColorConstants
-                                                                    .orangeGradients3,
-                                                            content: Text(
-                                                              'File scaricato con successo',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            )));
-                                              },
-                                              onDownloadError: (error) {
-                                                setState(() {
-                                                  _progress = null;
-                                                  _status =
-                                                      'Download error: $error';
-                                                });
-                                              }).then((file) {
-                                            debugPrint(
-                                                'file path: ${file?.path}');
-                                          });
+                                        ..onTap = () async {
+                                          _permissionReady =
+                                              await _checkPermission();
+                                          if (_permissionReady!) {
+                                            await _prepareSaveDir();
+                                            print("Downloading");
+                                            try {
+                                              await Dio().download(fileurl,
+                                                  "$_localPath/dichiarazione_sostitutiva_di_certificazione.pdf",
+                                                  options: Options(headers: {
+                                                    HttpHeaders
+                                                        .acceptEncodingHeader: "*"
+                                                  }), // disable gzip
+                                                  onReceiveProgress:
+                                                      (received, total) {
+                                                if (total != -1) {
+                                                  setState(() {
+                                                    _progress = (received /
+                                                                total *
+                                                                100)
+                                                            .toStringAsFixed(
+                                                                0) +
+                                                        "%";
+                                                  });
+                                                  print((received / total * 100)
+                                                          .toStringAsFixed(0) +
+                                                      "%");
+                                                }
+                                              });
+
+                                              print("Download Completed.");
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                      backgroundColor:
+                                                          ColorConstants
+                                                              .orangeGradients3,
+                                                      content: GestureDetector(
+                                                        child: Text(
+                                                          'dichiarazione_sostitutiva_di_certificazione.pdf scaricato con successo',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      )));
+                                              setState(() {
+                                                _progress = '';
+                                              });
+                                            } catch (e) {
+                                              print("Download Failed.\n\n" +
+                                                  e.toString());
+                                            }
+                                          }
+                                         
                                         },
                                     ),
                                   ],
@@ -244,34 +315,14 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                           ],
                         ),
                       ),
-                      if (_status.isNotEmpty) ...[
-                        Text(_status, textAlign: TextAlign.center),
-                        const SizedBox(height: 16),
-                      ],
-                      if (_progress != null) ...[
-                        CircularProgressIndicator(
-                          value: _progress! / 100,
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                      if (_downloadId != null) ...[
-                        const SizedBox(width: 10),
-                        GestureDetector(
-                            onTap: () async {
-                              final canceled =
-                                  await FileDownloader.cancelDownload(
-                                      _downloadId!);
-                              print('Canceled: $canceled');
-                            },
-                            child: const Text(
-                              'Cancella',
-                              style: TextStyle(
-                                color: ColorConstants.orangeGradients3,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                            )),
-                      ],
+                      _progress != null
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(_progress!),
+                              ],
+                            )
+                          : Text(''),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -296,36 +347,8 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                     ])),
           );
         }),
-      ),
+          ),
     );
   }
-}
 
-class SessionSettings {
-  static SessionSettings? _instance;
-  var _notificationType = NotificationType.progressOnly;
-  var _downloadDestination = DownloadDestinations.publicDownloads;
-  var _maximumParallelDownloads = FileDownloader().maximumParallelDownloads;
-
-  SessionSettings._();
-
-  factory SessionSettings() => _instance ??= SessionSettings._();
-
-  void setNotificationType(NotificationType notificationType) =>
-      _notificationType = notificationType;
-
-  void setDownloadDestination(DownloadDestinations downloadDestination) =>
-      _downloadDestination = downloadDestination;
-
-  void setMaximumParallelDownloads(int maximumParallelDownloads) {
-    if (maximumParallelDownloads <= 0) return;
-    _maximumParallelDownloads = maximumParallelDownloads;
-    FileDownloader.setMaximumParallelDownloads(maximumParallelDownloads);
-  }
-
-  NotificationType get notificationType => _notificationType;
-
-  DownloadDestinations get downloadDestination => _downloadDestination;
-
-  int get maximumParallelDownloads => _maximumParallelDownloads;
 }
