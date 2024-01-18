@@ -1,8 +1,13 @@
+import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
+import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
+import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/destinazione_page.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +28,6 @@ class _FormAccompagnamentoOncologicoState
   final TextEditingController _nameAnotherController = TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
   int _value = 1;
-  bool service3Completed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +36,8 @@ class _FormAccompagnamentoOncologicoState
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
 
-    return BlocBuilder<SendDataTypeServiceBloc, SendDataTypeServiceState>(
-        builder: (context, state) {
+    
       return SingleChildScrollView(
         child: Padding(
             padding: const EdgeInsets.all(
@@ -56,6 +58,21 @@ class _FormAccompagnamentoOncologicoState
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleSmall,
               ),
+              SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Fase 1 di 2',
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                          ],
+                        ),
+                        const Divider(
+                          color: ColorConstants.orangeGradients3,
+                        ),
               Form(
                 key: _formKey,
                 child: _formSelectService(),
@@ -63,44 +80,24 @@ class _FormAccompagnamentoOncologicoState
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                globals.service3Completed == true ? CommonStyleButton(
-                      title: 'Modifica',
+                CommonStyleButton(
+                      title: 'Invia e Continua',
                       onTap: () {
-                        bloc.add(SendDataTypeServiceEvent(
-                            serviceId: '3',
-                            nome: _value == 1
+                       Navigator.push(context, MaterialPageRoute(builder: (_) => DestinationPage(
+                        nomeDestinatario: _value == 1
                                 ? globals.userData!.nome
                                 : _nameAnotherController.text,
-                            telefono: _value == 1
+                        telefonoDestinatario: _value == 1
                                 ? globals.userData!.telefono
-                                : _telepAnotherController.text));
-                        SendDataTypeServiceRepository().sendMailService(
-                            context, 'Accompagnamento Oncologico');
-
-                        FocusScope.of(context).unfocus();
-                      },
-                      iconWidget: Text('')) :  CommonStyleButton(
-                      title: 'Invia',
-                      onTap: () {
-                        bloc.add(SendDataTypeServiceEvent(
-                            serviceId: '3',
-                            nome: _value == 1
-                                ? globals.userData!.nome
-                                : _nameAnotherController.text,
-                            telefono: _value == 1
-                                ? globals.userData!.telefono
-                                : _telepAnotherController.text));
-                        SendDataTypeServiceRepository().sendMailService(
-                            context, 'Accompagnamento Oncologico');
-
-                        FocusScope.of(context).unfocus();
+                                : _telepAnotherController.text
+                       )));
                       },
                       iconWidget: Text('')),
                 ],
               ),
             ])),
       );
-    });
+    
   }
 
   _formSelectService() {
@@ -222,3 +219,7 @@ class _FormAccompagnamentoOncologicoState
     );
   }
 }
+
+
+
+

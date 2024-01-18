@@ -11,10 +11,12 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
 
 class SendDataTypeServiceRepository {
   Future sendDataTypeservice(
-    BuildContext context,
-    String serviceId,
-    String nome,
-    String telefono,
+   { required BuildContext context,
+    required String serviceId,
+    required String nome,
+    required String telefono,
+     String? partenza,
+     String? destinazione,}
   ) async {
     try {
       var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta';
@@ -29,8 +31,10 @@ class SendDataTypeServiceRepository {
             'service_id': serviceId,
             'nome': nome,
             'telefono': telefono,
+            'partenza': partenza ?? 'null',
+            'destinazione': destinazione ?? 'null',
           }));
-
+print('response.statusCode ${response.statusCode}');
       switch (response.statusCode) {
         case 200:
           if (response.body.contains('"service_id":1')) {

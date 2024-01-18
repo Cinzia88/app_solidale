@@ -116,7 +116,10 @@ bool taxiSolidaleCreato = false;
                                 bloc.add(SendDataTypeServiceEvent(
                                   serviceId: '2', 
                                   nome: _value == 1 ? globals.userData!.nome : _nameAnotherController.text, 
-                                  telefono: _value == 1 ? globals.userData!.telefono : _telepAnotherController.text,),);
+                                  telefono: _value == 1 ? globals.userData!.telefono : _telepAnotherController.text,
+                                  partenza: 'null',
+                                  destinazione: 'null',
+                                  ),);
                             FocusScope.of(context).unfocus();
                              setState(() {
                                taxiSolidaleCreato = true;

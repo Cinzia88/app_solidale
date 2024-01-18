@@ -21,44 +21,30 @@ class _AccompagnamentoOncologicoPageState extends State<AccompagnamentoOncologic
   Widget build(BuildContext context) {
    
 
-    return BlocProvider<SendDataTypeServiceBloc>(
-      create: (context) => SendDataTypeServiceBloc(
-        context: context,
-        sendDataTypeServiceRepository:
-            context.read<SendDataTypeServiceRepository>(),
-      ),
-      child: Scaffold(
-          appBar: AppBar(
-            iconTheme: const IconThemeData(
-              color: Colors.white,
-            ),
-            toolbarHeight: 75.0,
-            automaticallyImplyLeading: true,
-            flexibleSpace: customAppBar(context: context),
-            actions: [
-              IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ))
-            ],
+    return Scaffold(
+        appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.white,
           ),
-          drawer: NavigationDrawerWidget(),
-          body: BlocConsumer<SendDataTypeServiceBloc, SendDataTypeServiceState>(
-            listener: (context, state) {
-          if (state is SendDataTypeServiceErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
+          toolbarHeight: 75.0,
+          automaticallyImplyLeading: true,
+          flexibleSpace: customAppBar(context: context),
+          actions: [
+            IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ))
+          ],
+        ),
+        drawer: NavigationDrawerWidget(),
+        body: 
+             FormAccompagnamentoOncologico());
           }
-        }, builder: (context, state) {
-              return FormAccompagnamentoOncologico();
-            }
-          )),
-    );
+        
   
-  }
+  
 }
 
 

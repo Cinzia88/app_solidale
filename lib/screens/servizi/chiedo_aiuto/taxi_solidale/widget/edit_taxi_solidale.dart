@@ -216,9 +216,7 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 60,
-                                ),
+                               
                               
                                 SizedBox(
                                   height: 60,

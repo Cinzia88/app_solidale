@@ -1,3 +1,4 @@
+import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
@@ -55,6 +56,8 @@ class _TaxiSolidalePageState extends State<TaxiSolidalePage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.message)),
             );
+          } else if (state is SendDataTypeServiceLoadingState) {
+           loadingWidget(context);
           }
         }, builder: (context, state) {
             return FormTaxiSolidale();

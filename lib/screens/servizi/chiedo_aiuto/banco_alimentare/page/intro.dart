@@ -4,6 +4,7 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
+import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
@@ -141,9 +142,13 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.message)),
             );
+          } else if (state is SendDataTypeServiceLoadingState) {
+           loadingWidget(context);
           }
         }, builder: (context, state) {
-          return SingleChildScrollView(
+          return  state is SendDataTypeServiceLoadingState
+          ? loadingWidget(context)
+          : SingleChildScrollView(
             child: Padding(
                 padding: const EdgeInsets.all(
                   20.0,
@@ -334,10 +339,11 @@ class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
                                     ? () {
                                         SendDataTypeServiceRepository()
                                             .sendDataTypeservice(
-                                                context,
-                                                '4',
-                                                globals.userData!.nome,
-                                                globals.userData!.telefono);
+                                             context:   context,
+                                             serviceId:   '4',
+                                             nome:   globals.userData!.nome,
+                                             telefono:   globals.userData!.telefono,
+                                            );
                                       }
                                     : null,
                                 iconWidget: Text('')),

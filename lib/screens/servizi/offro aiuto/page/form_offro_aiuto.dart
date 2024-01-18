@@ -100,10 +100,12 @@ class _OffroAiutoPageState extends State<OffroAiutoPage> {
                     iconWidget: Icon(Icons.contact_phone),
                     onTap: () {
                       SendDataTypeServiceRepository().sendDataTypeservice(
-                        context,
-                        '1',
-                        globals.userData!.nome,
-                        globals.userData!.telefono,
+                      context:  context,
+                      serviceId:  '1',
+                     nome:   globals.userData!.nome,
+                     telefono:   globals.userData!.telefono,
+                     partenza:   '',
+                     destinazione:   '',
                       );
 
                       SendDataTypeServiceRepository()

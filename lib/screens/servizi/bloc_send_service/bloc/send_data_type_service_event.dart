@@ -10,11 +10,17 @@ class SendDataTypeServiceEvent extends SendServiceEvent {
   String serviceId;
   String nome;
   String telefono;
+    String? partenza;
+  String? destinazione;
+
+
  
   SendDataTypeServiceEvent({
     required this.serviceId,
     required this.nome,
     required this.telefono,
+     this.partenza,
+     this.destinazione,
   });
   @override
   List<Object?> get props => [serviceId, nome, telefono];
