@@ -34,6 +34,8 @@ class ReadRequestBloc extends Bloc<ReadRequestEvent, ReadRequestState> {
               event.serviceId,
               event.nome,
               event.telefono,
+              event.partenza!,
+              event.destinazione!,
             );
             emit(EditRequestLoadedState());
           } catch (e) {

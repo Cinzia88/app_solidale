@@ -12,15 +12,19 @@ class EditRequestEvent extends ReadRequestEvent {
   String serviceId;
   String nome;
   String telefono;
+    String? partenza;
+  String? destinazione;
+
 
   EditRequestEvent({
     required this.id,
     required this.serviceId,
     required this.nome,
     required this.telefono,
-  
+  this.partenza,
+  this.destinazione,
   });
   @override
   List<Object?> get props =>
-      [id, serviceId, nome, telefono];
+      [id, serviceId, nome, telefono, partenza, destinazione];
 }

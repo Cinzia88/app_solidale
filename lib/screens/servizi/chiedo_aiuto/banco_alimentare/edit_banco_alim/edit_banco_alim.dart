@@ -29,6 +29,7 @@ class IntroBancoAlimentareEdit extends StatefulWidget {
 
 class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
   String idBancoEdit = '';
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +73,7 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
             for (int i = 0; i < state.data.length; i++) {
               setState(() {
                 idBancoEdit = state.data[i].idRequest;
+              
               });
             }
           }
@@ -108,7 +110,6 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                           .textTheme
                                           .titleSmall,
                                     ),
-                
                                   ],
                                 )
                               ],
@@ -268,9 +269,12 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                                   idBancoEdit,
                                                   '4',
                                                   globals.userData!.nome,
-                                                  globals.userData!.telefono);
-                                                   SendDataTypeServiceRepository().sendMailService(
-                                      context, 'Banco Alimentare');
+                                                  globals.userData!.telefono,
+                                                  '',
+                                                  '');
+                                          SendDataTypeServiceRepository()
+                                              .sendMailService(
+                                                  context, 'Banco Alimentare');
                                         },
                                         iconWidget: Text('')),
                                   ],

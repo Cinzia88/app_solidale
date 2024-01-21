@@ -31,6 +31,9 @@ class _AccompagnamentoOncologicoEditDestinatarioState extends State<Accompagname
   final TextEditingController _telepAnotherController = TextEditingController();
   int _value = 1;
   String idReq = '';
+
+  String partenza = '';
+  String destinazione = '';
   
 
 
@@ -74,9 +77,16 @@ class _AccompagnamentoOncologicoEditDestinatarioState extends State<Accompagname
             );
           }else if (state is ReadRequestLoadedState) {
             for(int i = 0; i< state.data.length; i++) {
-               setState(() {
+              if(state.data[i].serviceId == '3') {
+                  setState(() {
         idReq = state.data[i].idRequest;
+                partenza = state.data[i].partenza!;
+        destinazione = state.data[i].destinazione!;
+
+        
     });
+              }
+             
                if(state.data[i].nome != globals.userData!.nome && state.data[i].telefono != globals.userData!.telefono) {
       _nameAnotherController.text = state.data[i].nome;
       _telepAnotherController.text = state.data[i].telefono;
@@ -98,7 +108,6 @@ class _AccompagnamentoOncologicoEditDestinatarioState extends State<Accompagname
                     20.0,
                   ),
                   child: Column(children: [
-                  
                     SizedBox(
                       width: 70,
                       child: Image.asset(
@@ -145,10 +154,10 @@ class _AccompagnamentoOncologicoEditDestinatarioState extends State<Accompagname
                                                   '3',
                                          _value == 1  ?globals.userData!.nome :       _nameAnotherController.text,
                                                _value == 1  ?globals.userData!.telefono :    _telepAnotherController.text,
+                                               partenza,
+                                               destinazione
                                                 );
-                                 print('idReq $idReq');
-                                  SendDataTypeServiceRepository().sendMailService(
-                                      context, 'Accompagnamento Oncologico');
+                               
       
                                   FocusScope.of(context).unfocus();
                                 },

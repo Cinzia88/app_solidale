@@ -31,8 +31,8 @@ class SendDataTypeServiceRepository {
             'service_id': serviceId,
             'nome': nome,
             'telefono': telefono,
-            'partenza': partenza ?? 'null',
-            'destinazione': destinazione ?? 'null',
+            'partenza': partenza,
+            'destinazione': destinazione,
           }));
 print('response.statusCode ${response.statusCode}');
       switch (response.statusCode) {

@@ -33,6 +33,7 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
   final TextEditingController _telepAnotherController = TextEditingController();
   int _value = 1;
   String idAccSolidaleEdit = '';
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +82,7 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
                   }
                   setState(() {
                idAccSolidaleEdit = state.data[i].idRequest;
+              
              });
                 }
              
@@ -241,7 +243,7 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
                                                               height: 50,
                                                               child: Image.asset(
                                                                   PathConstants
-                                                                      .taxiSolidale),
+                                                                      .accompagnamOncolog),
                                                             ),
                                                             SizedBox(
                                                               height: 10,
@@ -289,7 +291,7 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
                                                     });
                                           SendDataTypeServiceRepository()
                                           .sendMailService(context,
-                                              'Taxi Solidale');
+                                              'Accompagnamento Oncologico');
 
                                       FocusScope.of(context).unfocus();
                                         },

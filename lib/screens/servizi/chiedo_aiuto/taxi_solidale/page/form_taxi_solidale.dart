@@ -117,8 +117,8 @@ bool taxiSolidaleCreato = false;
                                   serviceId: '2', 
                                   nome: _value == 1 ? globals.userData!.nome : _nameAnotherController.text, 
                                   telefono: _value == 1 ? globals.userData!.telefono : _telepAnotherController.text,
-                                  partenza: 'null',
-                                  destinazione: 'null',
+                                  partenza: '',
+                                  destinazione: '',
                                   ),);
                             FocusScope.of(context).unfocus();
                              setState(() {

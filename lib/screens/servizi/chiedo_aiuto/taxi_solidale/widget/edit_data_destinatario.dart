@@ -136,6 +136,8 @@ class _TaxiSolidaleEditDataDestinatarioPageState extends State<TaxiSolidaleEditD
                                         '2',
                                           _value == 1 ? globals.userData!.nome : _nameTaxiAnotherController.text, 
                                   _value == 1 ? globals.userData!.telefono : _telepTaxiAnotherController.text,
+                                  '',
+                                  '',
                                       );
 
                                     

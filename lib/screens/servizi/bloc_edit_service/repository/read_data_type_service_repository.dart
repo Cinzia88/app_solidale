@@ -92,6 +92,8 @@ print('reqdata ${response.body}');
    String serviceId,
    String nome,
    String telefono,
+      String partenza,
+   String destinazione,
   ) async {
     try {
       var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta/update/$idRequest';
@@ -106,9 +108,11 @@ print('reqdata ${response.body}');
            'service_id': serviceId,
             'nome': nome,
             'telefono': telefono,
+            'partenza': partenza,
+            'destinazione': destinazione,
           }));
 
-print('reqdata ${response.body}');
+print('reqdata ${response.statusCode}');
 
       switch (response.statusCode) {
         case 200:
@@ -166,50 +170,7 @@ print('reqdata ${response.body}');
             break;
           } else if (response.body.contains('"service_id":"3"')) {
             if (context.mounted) {
-              showDialog(
-                  barrierColor: Colors.black87,
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Column(
-                        children: [
-                          SizedBox(
-                            height: 50,
-                            child:
-                                Image.asset(PathConstants.accompagnamOncolog),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Stiamo elaborando i tuoi dati',
-                            style: Theme.of(context).textTheme.titleMedium,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                      content: const Text('Ti contatteremo al più presto!'),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      actions: [
-                        InkWell(
-                            onTap: () {
-
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          PresentationPage()));
-                            },
-                            child: Text(
-                              'Torna alla home',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ))
-                      ],
-                    );
-                  });
+              Navigator.pop(context);
             }
           } else if (response.body.contains('"service_id":"4"')) {
             if (context.mounted) {
