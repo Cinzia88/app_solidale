@@ -3,12 +3,10 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
-import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_disabili/send_disabili_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_taxi_create/send_taxi_data_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 
 class FormDataDisabiliTaxi extends StatefulWidget {
   FormDataDisabiliTaxi({Key? key}) : super(key: key);
@@ -51,11 +49,11 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    final bloc = BlocProvider.of<SendDisabiliDataBloc>(context);
+    final bloc = BlocProvider.of<SendTaxiDataBloc>(context);
 
-    return BlocBuilder<SendDisabiliDataBloc, SendDisabiliDataState>(
+    return BlocBuilder<SendTaxiDataBloc, SendTaxiDataState>(
         builder: (context, state) {
-      return state is SendDisabiliDataLoadingState
+      return state is SendTaxiDataLoadingState
           ? loadingWidget(context)
           : SingleChildScrollView(
               child: Padding(
@@ -154,6 +152,9 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
                                     title: 'Invia',
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
+                                        
+                               
+                            FocusScope.of(context).unfocus();
                                         bloc.add(SendDisabiliFormEvent(
                                             numeroDisabili: disabile == 0
                                                 ? '0'
@@ -163,58 +164,7 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
                                             .sendMailService(
                                                 context, 'Taxi Solidale');
 
-                                        showDialog(
-                                            barrierDismissible: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title: Column(
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 50,
-                                                      child: Image.asset(
-                                                          PathConstants
-                                                              .taxiSolidale),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      'Stiamo elaborando i tuoi dati',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleMedium,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                                content: const Text(
-                                                    'Ti contatteremo al più presto!'),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                ),
-                                                actions: [
-                                                  InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        PresentationPage()));
-                                                      },
-                                                      child: Text(
-                                                        'Torna alla home',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleMedium,
-                                                      ))
-                                                ],
-                                              );
-                                            });
+                              
                                       }
                                     },
                                     iconWidget: Text('')),

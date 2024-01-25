@@ -26,13 +26,7 @@ class _TaxiSolidalePageState extends State<TaxiSolidalePage> {
   Widget build(BuildContext context) {
    
 
-    return BlocProvider<SendDataTypeServiceBloc>(
-      create: (context) => SendDataTypeServiceBloc(
-        context: context,
-        sendDataTypeServiceRepository:
-            context.read<SendDataTypeServiceRepository>(),
-      ),
-      child: Scaffold(
+    return Scaffold(
           appBar: AppBar(
             iconTheme: const IconThemeData(
               color: Colors.white,
@@ -61,7 +55,7 @@ class _TaxiSolidalePageState extends State<TaxiSolidalePage> {
           }
         }, builder: (context, state) {
             return FormTaxiSolidale();
-  })));
+  }));
   }
 }
 

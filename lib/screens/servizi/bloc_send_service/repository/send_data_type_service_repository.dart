@@ -85,8 +85,58 @@ print('response.statusCode ${response.statusCode}');
           } else if (response.body.contains('"service_id":2')) {
             if (context.mounted) {
 
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DisabiliTaxiPage()));
+                       showDialog(
+                                            barrierDismissible: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: Column(
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 50,
+                                                      child: Image.asset(
+                                                          PathConstants
+                                                              .taxiSolidale),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      'Stiamo elaborando i tuoi dati',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ],
+                                                ),
+                                                content: const Text(
+                                                    'Ti contatteremo al più presto!'),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                ),
+                                                actions: [
+                                                  InkWell(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        PresentationPage()));
+                                                      },
+                                                      child: Text(
+                                                        'Torna alla home',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleMedium,
+                                                      ))
+                                                ],
+                                              );
+                                            });
             }
             break;
           } else if (response.body.contains('"service_id":3')) {
