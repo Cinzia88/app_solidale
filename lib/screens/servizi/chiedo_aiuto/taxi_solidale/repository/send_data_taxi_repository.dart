@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 
-class SendDisabiliDataRepository {
+class SendTaxiDataRepository {
  
 Future sendDisabiliData(
       BuildContext context, String numeroDisabili, int disabile) async {

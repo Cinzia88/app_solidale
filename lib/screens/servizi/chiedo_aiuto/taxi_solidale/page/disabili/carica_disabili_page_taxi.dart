@@ -1,6 +1,6 @@
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_disabili/send_disabili_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_taxi_create/send_taxi_data_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/form_data_disabili_taxi.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_disabili_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_taxi_repository.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +21,10 @@ class _DisabiliTaxiPageState extends State<DisabiliTaxiPage> {
   Widget build(BuildContext context) {
    
 
-    return BlocProvider<SendDisabiliDataBloc>(
-      create: (context) => SendDisabiliDataBloc(
+    return BlocProvider<SendTaxiDataBloc>(
+      create: (context) => SendTaxiDataBloc(
         context: context,
-        sendDisabiliDataRepository: context.read<SendDisabiliDataRepository>(),
+        sendTaxiDataRepository: context.read<SendTaxiDataRepository>(),
       ),
       child: Scaffold(
           appBar: AppBar(
@@ -37,9 +37,9 @@ class _DisabiliTaxiPageState extends State<DisabiliTaxiPage> {
           
           ),
           drawer: NavigationDrawerWidget(),
-          body: BlocConsumer<SendDisabiliDataBloc, SendDisabiliDataState>(
+          body: BlocConsumer<SendTaxiDataBloc, SendTaxiDataState>(
               listener: (context, state) {
-            if (state is SendDisabiliDataErrorState) {
+            if (state is SendTaxiDataErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );

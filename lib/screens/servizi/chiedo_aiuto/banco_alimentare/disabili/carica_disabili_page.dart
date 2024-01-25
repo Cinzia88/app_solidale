@@ -1,6 +1,6 @@
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disabili/form_data_disabili.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_disabili/send_disabili_data_bloc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_disabili_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_taxi_repository.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:flutter/material.dart';
