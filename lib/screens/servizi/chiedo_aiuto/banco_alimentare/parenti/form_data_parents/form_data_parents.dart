@@ -28,15 +28,18 @@ class _FormDataParentsState extends State<FormDataParents> {
   bool? profiloIncompletoBancoAlim;
   bool? componentiIncompleti;
 
-  @override
+   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('componentiStato ${componentiIncompleti}');
-     getValueProfiloComponentiCompleto();
+    getValueProfiloComponentiCompleto();
     getValueProfiloDisabiliBanco();
+    getValueProfiloFilesCompleto();
   }
-Future getValueProfiloComponentiCompleto() async {
+
+ 
+
+  Future getValueProfiloComponentiCompleto() async {
     final value = await ValueSharedPrefsViewSlide()
         .getProfiloIncompletoUtenteComponenti();
     setState(() {
@@ -55,6 +58,17 @@ Future getValueProfiloComponentiCompleto() async {
 
     print('disabili ${globals.disabiliIncompleti}');
   }
+
+  Future getValueProfiloFilesCompleto() async {
+    final value =
+        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteFiles();
+    setState(() {
+      globals.filesIncompleti = value;
+    });
+
+    print('files ${globals.filesIncompleti}');
+  }
+
   String selectedValue = '1';
   List<Widget>? growableList;
   final List<String> items = [

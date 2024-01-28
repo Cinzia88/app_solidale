@@ -507,8 +507,8 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                                             globals.userData!
                                                                 .telefono,
                                                             '',
-                                                            '');
-                                                    SendDataTypeServiceRepository()
+                                                            '').then((value) async{
+                                                               SendDataTypeServiceRepository()
                                                         .sendMailService(
                                                             context,
                                                             'Banco Alimentare');
@@ -517,6 +517,8 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                                             });
                                                                                                           await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteBanco(profiloIncompletoBancoAlim!);
 
+                                                            });
+                                                   
                                                   },
                                         iconWidget: Text('')),
                                   ],

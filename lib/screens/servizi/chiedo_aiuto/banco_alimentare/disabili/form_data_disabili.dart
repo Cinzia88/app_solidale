@@ -17,7 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 
 class FormDataDisabili extends StatefulWidget {
   FormDataDisabili({Key? key}) : super(key: key);
@@ -52,17 +53,52 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
 
   bool yes = false;
   int disabile = 0;
-  
- @override
+
+   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getDisabiliData();
+    getValueProfiloComponentiCompleto();
+    getValueProfiloDisabiliBanco();
+    getValueProfiloFilesCompleto();
   }
 
+ 
 
-Future<DisabiliData> getDisabiliData() async {
-     var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/disabile/show/${globals.userData!.id}';
+  Future getValueProfiloComponentiCompleto() async {
+    final value = await ValueSharedPrefsViewSlide()
+        .getProfiloIncompletoUtenteComponenti();
+    setState(() {
+      globals.componentiIncompleti = value;
+    });
+
+    print('componenti ${globals.componentiIncompleti}');
+  }
+  bool? profiloIncompletoBancoAlim;
+
+  Future getValueProfiloDisabiliBanco() async {
+    final value =
+        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
+    setState(() {
+      globals.disabiliIncompleti = value;
+    });
+
+    print('disabili ${globals.disabiliIncompleti}');
+  }
+
+  Future getValueProfiloFilesCompleto() async {
+    final value =
+        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteFiles();
+    setState(() {
+      globals.filesIncompleti = value;
+    });
+
+    print('files ${globals.filesIncompleti}');
+  }
+
+  Future<DisabiliData> getDisabiliData() async {
+    var url =
+        '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/disabile/show/${globals.userData!.id}';
     // Await the http get response, then decode the json-formatted response.
     var response = await http.get(
       Uri.parse(url),
@@ -72,13 +108,13 @@ Future<DisabiliData> getDisabiliData() async {
         'Authorization': 'Bearer ${globals.tokenValue}'
       },
     );
-     var body = json.decode(response.body)[0];
+    var body = json.decode(response.body)[0];
     var data = DisabiliData.fromJson(body);
-      globals.dataDisabili = data;
-print('disabili ${globals.dataDisabili}');
+    globals.dataDisabili = data;
+    print('disabili ${globals.dataDisabili}');
     switch (response.statusCode) {
       case 200:
-      print('success data request');
+        print('success data request');
       case 401:
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => PresentationPage()));
@@ -117,7 +153,7 @@ print('disabili ${globals.dataDisabili}');
       default:
         print('errore generico');
     }
-    return data ;
+    return data;
   }
 
   @override
@@ -134,83 +170,82 @@ print('disabili ${globals.dataDisabili}');
       return state is SendDisabiliDataLoadingState
           ? loadingWidget(context)
           : SingleChildScrollView(
-            child: Padding(
-                padding: const EdgeInsets.all(
-                  20.0,
-                ),
-                child: Column(children: [
-                  SizedBox(
-                    width: 70,
-                    child: Image.asset(
-                      PathConstants.bancoAlim,
-                    ),
+              child: Padding(
+                  padding: const EdgeInsets.all(
+                    20.0,
                   ),
-                  SizedBox(
-                    height: 3 * blockSizeVertical,
-                  ),
-                  Text(
-                    'Banco Alimentare',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Fase 2 di 3',
-                        style: Theme.of(context).textTheme.titleSmall,
+                  child: Column(children: [
+                    SizedBox(
+                      width: 70,
+                      child: Image.asset(
+                        PathConstants.bancoAlim,
                       ),
-                    ],
-                  ),
-                  const Divider(
-                    color: ColorConstants.orangeGradients3,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                  child: Text(
-                                      'Nel nucleo familiare è presente una persona con invalidità?')),
-                            ],
-                          ),
-                          ListTile(
-                            title: yes == true
-                                ? Text('Sì')
-                                : Text(
-                                    'No',
-                                  ),
-                            trailing: Switch(
-                                inactiveThumbColor:
-                                    ColorConstants.orangeGradients3,
-                                activeColor:
-                                    ColorConstants.orangeGradients3,
-                                value: yes,
-                                onChanged: (value) {
-                                  setState(() {
-                                    yes = value;
-                                  });
-                                  if (yes == true) {
+                    ),
+                    SizedBox(
+                      height: 3 * blockSizeVertical,
+                    ),
+                    Text(
+                      'Banco Alimentare',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Fase 2 di 3',
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ],
+                    ),
+                    const Divider(
+                      color: ColorConstants.orangeGradients3,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                    child: Text(
+                                        'Nel nucleo familiare è presente una persona con invalidità?')),
+                              ],
+                            ),
+                            ListTile(
+                              title: yes == true
+                                  ? Text('Sì')
+                                  : Text(
+                                      'No',
+                                    ),
+                              trailing: Switch(
+                                  inactiveThumbColor:
+                                      ColorConstants.orangeGradients3,
+                                  activeColor: ColorConstants.orangeGradients3,
+                                  value: yes,
+                                  onChanged: (value) {
                                     setState(() {
-                                      disabile = 1;
+                                      yes = value;
                                     });
-                                  } else {
-                                    disabile = 0;
-                                  }
+                                    if (yes == true) {
+                                      setState(() {
+                                        disabile = 1;
+                                      });
+                                    } else {
+                                      disabile = 0;
+                                    }
 
-                                  //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
-                                  //tale value lo salvo nel provider
-                                }),
-                          ),
-                           disabile == 0
+                                    //a secoonda del value che può essere falso o vero e va ad aggiornare il valore _isSecured
+                                    //tale value lo salvo nel provider
+                                  }),
+                            ),
+                            disabile == 0
                                 ? SizedBox()
                                 : Padding(
                                     padding: const EdgeInsets.only(top: 20.0),
@@ -224,72 +259,55 @@ print('disabili ${globals.dataDisabili}');
                             SizedBox(
                               height: 20,
                             ),
-                          SizedBox(
-                            height: 20,
-                          ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          CommonStyleButton(
+                              title: 'Invia e Continua',
+                              onTap: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  bloc.add(SendDisabiliFormEvent(
+                                      numeroDisabili:
+                                          disabile == 0 ? '0' : selectedValue,
+                                      disabile: disabile));
+                                  setState(() {
+                                    disabiliIncompleti = false;
+                                  });
+                                  await ValueSharedPrefsViewSlide()
+                                      .setProfiloIncompletoUtenteDisabili(
+                                          disabiliIncompleti!);
+                                          print('globals.filesIncompleti ${globals.filesIncompleti}');
+                                  if (globals.filesIncompleti == true) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CaricaDocsPage()));
+                                  } else {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                IntroBancoAlimentareEdit()));
+                                  }
+                                }
+                              },
+                              iconWidget: Text('')),
                         ],
                       ),
                     ),
-                  ),
-                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                   globals.dataDisabili != null ?  CommonStyleButton(
-                            title: 'Invia e Continua',
-                            onTap: () async {
-                              if (_formKey.currentState!.validate())  {
-                                EditDataDisabiliRepository()
-                                                    .editDataDisabili(
-                                                        context,
-                                                        globals.dataDisabili!.id,
-                                                        disabile == 0
-                                                            ? '0'
-                                                            : _numberController.text,
-                                                        disabile);
-                                                         setState(() {
-                                                disabiliIncompleti = false;
-                                              
-                                              });
-                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteDisabili(disabiliIncompleti!);
-                                   Navigator.push(context, MaterialPageRoute(builder: (_) => IntroBancoAlimentareEdit()));
-                              }
-                            },
-                            iconWidget: Text('')) :    CommonStyleButton(
-                            title: 'Invia e Continua',
-                            onTap: () async{
-                              if (_formKey.currentState!.validate()) {
-                                bloc.add(SendDisabiliFormEvent(
-                                    numeroDisabili: disabile == 0 ? '0' : selectedValue,
-                                    disabile: disabile));
-                                      setState(() {
-                                                disabiliIncompleti = false;
-                                              
-                                              });
-                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteDisabili(disabiliIncompleti!);
- if(globals.filesIncompleti == true) {
-                                                         Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          CaricaDocsPage()));
-                                                      } else {
-                                                         Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          IntroBancoAlimentareEdit()));
-                                                      }
-                              }
-                            },
-                            iconWidget: Text('')),
-                      ],
-                    ),
-                  ),
-                ])),
-          );
+                  ])),
+            );
     });
   }
 }

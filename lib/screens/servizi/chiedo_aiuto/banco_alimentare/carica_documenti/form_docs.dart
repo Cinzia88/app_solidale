@@ -72,6 +72,47 @@ class _FormDocsState extends State<FormDocs> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getValueProfiloComponentiCompleto();
+    getValueProfiloDisabiliBanco();
+    getValueProfiloFilesCompleto();
+  }
+
+ 
+
+  Future getValueProfiloComponentiCompleto() async {
+    final value = await ValueSharedPrefsViewSlide()
+        .getProfiloIncompletoUtenteComponenti();
+    setState(() {
+      globals.componentiIncompleti = value;
+    });
+
+    print('componenti ${globals.componentiIncompleti}');
+  }
+
+  Future getValueProfiloDisabiliBanco() async {
+    final value =
+        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
+    setState(() {
+      globals.disabiliIncompleti = value;
+    });
+
+    print('disabili ${globals.disabiliIncompleti}');
+  }
+
+  Future getValueProfiloFilesCompleto() async {
+    final value =
+        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteFiles();
+    setState(() {
+      globals.filesIncompleti = value;
+    });
+
+    print('files ${globals.filesIncompleti}');
+  }
+
+  @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
@@ -304,7 +345,7 @@ class _FormDocsState extends State<FormDocs> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                           globals.filesIncompleti == true ?   CommonStyleButton(
+                       CommonStyleButton(
                                 title: 'Invia',
                                 iconWidget: SizedBox(),
                                 onTap:  () async{
@@ -327,77 +368,7 @@ class _FormDocsState extends State<FormDocs> {
                            }
                                 } 
                                 
-                              ) :  CommonStyleButton(
-                                title: 'Invia',
-                                iconWidget: SizedBox(),
-                                onTap: () async{
-                                  if (_formKey.currentState!.validate()) {
-                                    Map<String, String> body = {
-                                      'nome': selectedValue,
-                                    };
-                                    bloc.add(SendDocsFormEvent(
-                                        body: body,
-                                        imagepath: imagesList,
-                                        pdfpath: filePdf));
-                                        setState(() {
-                                              
-                                                filesIncompleti = false;
-                                              });
-                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteFiles(filesIncompleti!);
-                                    SendDataTypeServiceRepository()
-                                        .sendMailService(
-                                      context,
-                                      'Banco Alimentare',
-                                    );
-                                    if (context.mounted) {
-              showDialog(
-                                barrierColor: Colors.black87,
-
-                barrierDismissible: false,
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Column(
-                        children: [
-                          SizedBox(
-                            height: 50,
-                            child: Image.asset(PathConstants.bancoAlim),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Stiamo elaborando i tuoi dati',
-                            style: Theme.of(context).textTheme.titleMedium,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                      content: const Text('Ti contatteremo al più presto!'),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      actions: [
-                        InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          PresentationPage()));
-                            },
-                            child: Text(
-                              'Torna alla home',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ))
-                      ],
-                    );
-                  });
-            }
-                                    FocusScope.of(context).unfocus();
-                                  }
-                                },
-                              ),
+                              ) 
                             ],
                           ),
                         ],

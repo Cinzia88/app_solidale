@@ -197,28 +197,28 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                               .titleSmall,
                                         ),
                                         globals.profiloIncompletoTaxi == true
-                                            ? const Column(
-                                                children: [
-                                                  SizedBox(
-                                                    height: 20,
-                                                  ),
-                                                  Text(
-                                                    'Richiesta Incompleta',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
+                                            ? Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 40.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Richiesta Incompleta:',
+                                                      style: TextStyle(
+                                                          color: Colors.red,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      '- Dati Disabilità Familiare Mancanti',
+                                                      style: TextStyle(
                                                         color: Colors.red,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  Text(
-                                                    '(Completa Dati Disabilità)',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Colors.red,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
                                               )
                                             : SizedBox()
                                       ],
