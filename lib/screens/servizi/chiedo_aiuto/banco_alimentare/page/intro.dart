@@ -9,15 +9,14 @@ import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/page_informativa_pdf.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
-import 'package:flutter_file_downloader/flutter_file_downloader.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -29,6 +28,8 @@ class IntroBancoAlimentare extends StatefulWidget {
 }
 
 class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
+
+
   
   @override
   Widget build(BuildContext context) {
@@ -92,6 +93,10 @@ class _ContentPageBancoAlimentareState extends State<ContentPageBancoAlimentare>
       'https://appsolidale.it/storage/file_pdf/dichiarazione_sostitutiva_di_certificazione.pdf';
   String? _progress;
   final TextEditingController name = TextEditingController();
+  bool? profiloIncompletoBancoAlim;
+  bool? componentiIncompleti;
+  bool? disabiliIncompleti;
+  bool? filesIncompleti;
 
   var _progressList = <double>[];
 
@@ -120,6 +125,7 @@ class _ContentPageBancoAlimentareState extends State<ContentPageBancoAlimentare>
     } else {
       platform = TargetPlatform.iOS;
     }
+  
   }
 
   Future<bool> _checkPermission() async {
@@ -158,6 +164,10 @@ class _ContentPageBancoAlimentareState extends State<ContentPageBancoAlimentare>
       return directory.path + Platform.pathSeparator + 'Download';
     }
   }
+  
+ 
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -374,7 +384,7 @@ class _ContentPageBancoAlimentareState extends State<ContentPageBancoAlimentare>
                                   child: CommonStyleButton(
                                       title: 'Inizia',
                                       onTap: isAccepted
-                                          ? () {
+                                          ? () async {
                                               bloc.add(SendDataTypeServiceEvent(
                                                 serviceId: '4',
                                                 nome: globals.userData!.nome,
@@ -383,6 +393,16 @@ class _ContentPageBancoAlimentareState extends State<ContentPageBancoAlimentare>
                                                     partenza: '',
                                                     destinazione: ''
                                               ));
+                                              setState(() {
+                                                profiloIncompletoBancoAlim = true;
+                                                componentiIncompleti = true;
+                                                disabiliIncompleti = true;
+                                                filesIncompleti = true;
+                                              });
+                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteBanco(profiloIncompletoBancoAlim!);
+                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteComponenti(componentiIncompleti!);
+                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteDisabili(disabiliIncompleti!);
+                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteFiles(filesIncompleti!);
                                             }
                                           : null,
                                       iconWidget: Text('')),

@@ -10,10 +10,12 @@ import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_d
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/destinazione_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_destinatario.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_destinazione.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/edit_disabili/edit_disabili_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/disabili/edit_disabili/edit_disabili_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_data_destinatario.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
@@ -35,6 +37,19 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
   String idAccSolidaleEdit = '';
  
 
+   @override
+  void initState() {
+    super.initState();
+    getValueProfiloAccOncCompleto();
+  }
+Future getValueProfiloAccOncCompleto() async {
+    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteAccOnc();
+setState(() {
+  globals.profiloIncompletoAccOnc = value;
+});
+
+print('profiloIncompletoAccOnc ${globals.profiloIncompletoAccOnc}');
+  }
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
@@ -121,13 +136,39 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
                                           .textTheme
                                           .titleSmall,
                                     ),
-                
+                globals.profiloIncompletoAccOnc == true
+                                            ? const Column(
+                                                children: [
+                                                  SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                  Text(
+                                                    'Richiesta Incompleta',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.red,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Text(
+                                                    '(Completa Dati Partenza/Destinazione)',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.red,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              )
+                                            : SizedBox()
+                                      
+                                  
                                   ],
                                 )
                               ],
                             ),
                             SizedBox(
-                              height: 30,
+                              height: 40,
                             ),
                             Column(
                               children: [
@@ -178,7 +219,21 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
                                   height: 60,
                                 ),
                                 GestureDetector(
-                                  onTap: () {
+                                  onTap:  globals.profiloIncompletoAccOnc == true
+                                            ? () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DestinationPage(
+                                                   nomeDestinatario: _value == 1
+                                        ? globals.userData!.nome
+                                        : _nameAnotherController.text,
+                                    telefonoDestinatario: _value == 1
+                                        ? globals.userData!.telefono
+                                        : _telepAnotherController.text)
+                                                ));
+                                  }:() {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -194,7 +249,8 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                  'Modifica Dati Partenza/Destinazione',
+                                           globals.profiloIncompletoAccOnc == true
+                                            ?       'Aggiungi Dati Partenza/Destinazione' : 'Modifica Dati Partenza/Destinazione',
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize:
@@ -205,13 +261,14 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
                                             ),
                                           ],
                                         ),
-                                        const Row(
+                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
                                             Flexible(
                                               child: Text(
-                                                'Modifica i dati di indirizzo di partenza e/o destinazione',
+                                              globals.profiloIncompletoAccOnc == true
+                                            ? 'Aggiungi i dati di indirizzo di partenza e/o destinazione' : 'Modifica i dati di indirizzo di partenza e/o destinazione',
                                               ),
                                             ),
                                           ],
@@ -229,8 +286,9 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     CommonStyleButton(
-                                        title: 'Invia',
-                                        onTap: () {
+                                        title: 'Invia Richiesta',
+                                        onTap: globals.profiloIncompletoAccOnc == true
+                                            ?null : () {
                                           
                                                 showDialog(
                                                     barrierDismissible: false,

@@ -10,7 +10,8 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/caric
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/repo/edit_parents_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_edit_disabili/repo/edit_disabili_repo.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_send/repo/send_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_taxi_repository.dart';
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
@@ -192,7 +193,9 @@ class MyApp extends StatelessWidget {
          RepositoryProvider<EditDataParentsRepository>(
           create: (context) => EditDataParentsRepository(),
         ),
-        
+        RepositoryProvider<SendDisabiliDataRepository>(
+          create: (context) => SendDisabiliDataRepository(),
+        ),
          RepositoryProvider<EditDataDisabiliRepository>(
           create: (context) => EditDataDisabiliRepository(),
         ),

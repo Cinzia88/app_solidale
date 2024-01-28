@@ -3,11 +3,15 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disabili/carica_disabili_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/edit_banco_alim/edit_banco_alim.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:intl/intl.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
 
 class FormDataParents extends StatefulWidget {
   FormDataParents({Key? key}) : super(key: key);
@@ -21,6 +25,36 @@ class _FormDataParentsState extends State<FormDataParents> {
   var nomeComponente = <TextEditingController>[];
   var dateinput = <TextEditingController>[];
   var gradoComponente = <TextEditingController>[];
+  bool? profiloIncompletoBancoAlim;
+  bool? componentiIncompleti;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('componentiStato ${componentiIncompleti}');
+     getValueProfiloComponentiCompleto();
+    getValueProfiloDisabiliBanco();
+  }
+Future getValueProfiloComponentiCompleto() async {
+    final value = await ValueSharedPrefsViewSlide()
+        .getProfiloIncompletoUtenteComponenti();
+    setState(() {
+      globals.componentiIncompleti = value;
+    });
+
+    print('componenti ${globals.componentiIncompleti}');
+  }
+
+  Future getValueProfiloDisabiliBanco() async {
+    final value =
+        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
+    setState(() {
+      globals.disabiliIncompleti = value;
+    });
+
+    print('disabili ${globals.disabiliIncompleti}');
+  }
   String selectedValue = '1';
   List<Widget>? growableList;
   final List<String> items = [
@@ -176,184 +210,203 @@ class _FormDataParentsState extends State<FormDataParents> {
       return state is SendParentsDataLoadingState
           ? loadingWidget(context)
           : SingleChildScrollView(
-            child: Padding(
-                padding: const EdgeInsets.all(
-                  20.0,
-                ),
-                child: Column(children: [
-                  SizedBox(
-                    width: 70,
-                    child: Image.asset(
-                      PathConstants.bancoAlim,
-                    ),
+              child: Padding(
+                  padding: const EdgeInsets.all(
+                    20.0,
                   ),
-                  SizedBox(
-                    height: 3 * blockSizeVertical,
-                  ),
-                  Text(
-                    'Banco Alimentare',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Fase 1 di 3',
-                        style: Theme.of(context).textTheme.titleSmall,
+                  child: Column(children: [
+                    SizedBox(
+                      width: 70,
+                      child: Image.asset(
+                        PathConstants.bancoAlim,
                       ),
-                    ],
-                  ),
-                  const Divider(
-                    color: ColorConstants.orangeGradients3,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text('Seleziona il numero dei componenti '),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          DropdownButtonHideUnderline(
-                            child: DropdownButton2<String>(
-                              hint: Text(
-                                '',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: ColorConstants.labelText,
-                                ),
-                              ),
-                              items: items
-                                  .map((String item) =>
-                                      DropdownMenuItem<String>(
-                                        value: item,
-                                        child: Text(
-                                          item,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.black,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ))
-                                  .toList(),
-                              value: selectedValue,
-                              onChanged: (String? value) {
-                                setState(() {
-                                  selectedValue = value!;
-                                });
-                              },
-                              buttonStyleData: ButtonStyleData(
-                                height: 50,
-                                width: 160,
-                                padding: const EdgeInsets.only(
-                                    left: 14, right: 14),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  border: Border.all(
-                                    color:
-                                        ColorConstants.orangeGradients1,
+                    ),
+                    SizedBox(
+                      height: 3 * blockSizeVertical,
+                    ),
+                    Text(
+                      'Banco Alimentare',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Fase 1 di 3',
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ],
+                    ),
+                    const Divider(
+                      color: ColorConstants.orangeGradients3,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text('Seleziona il numero dei componenti '),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            DropdownButtonHideUnderline(
+                              child: DropdownButton2<String>(
+                                hint: Text(
+                                  '',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: ColorConstants.labelText,
                                   ),
-                                  color: Colors.white,
                                 ),
-                              ),
-                              iconStyleData: const IconStyleData(
-                                icon: Icon(
-                                  Icons.arrow_drop_down,
+                                items: items
+                                    .map((String item) =>
+                                        DropdownMenuItem<String>(
+                                          value: item,
+                                          child: Text(
+                                            item,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ))
+                                    .toList(),
+                                value: selectedValue,
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    selectedValue = value!;
+                                  });
+                                },
+                                buttonStyleData: ButtonStyleData(
+                                  height: 50,
+                                  width: 160,
+                                  padding: const EdgeInsets.only(
+                                      left: 14, right: 14),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    border: Border.all(
+                                      color: ColorConstants.orangeGradients1,
+                                    ),
+                                    color: Colors.white,
+                                  ),
                                 ),
-                                iconSize: 20,
-                                iconEnabledColor:
-                                    ColorConstants.orangeGradients3,
-                                iconDisabledColor: Colors.grey,
-                              ),
-                              dropdownStyleData: DropdownStyleData(
-                                maxHeight: 200,
-                                width: MediaQuery.of(context).size.width -
-                                    150,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  color: Colors.white,
+                                iconStyleData: const IconStyleData(
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
+                                  ),
+                                  iconSize: 20,
+                                  iconEnabledColor:
+                                      ColorConstants.orangeGradients3,
+                                  iconDisabledColor: Colors.grey,
                                 ),
-                                scrollbarTheme: ScrollbarThemeData(
-                                  radius: const Radius.circular(40),
-                                  thickness:
-                                      MaterialStateProperty.all<double>(
-                                          6),
-                                  thumbVisibility:
-                                      MaterialStateProperty.all<bool>(
-                                          true),
+                                dropdownStyleData: DropdownStyleData(
+                                  maxHeight: 200,
+                                  width:
+                                      MediaQuery.of(context).size.width - 150,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    color: Colors.white,
+                                  ),
+                                  scrollbarTheme: ScrollbarThemeData(
+                                    radius: const Radius.circular(40),
+                                    thickness:
+                                        MaterialStateProperty.all<double>(6),
+                                    thumbVisibility:
+                                        MaterialStateProperty.all<bool>(true),
+                                  ),
                                 ),
-                              ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                height: 40,
-                                padding:
-                                    EdgeInsets.only(left: 14, right: 14),
+                                menuItemStyleData: const MenuItemStyleData(
+                                  height: 40,
+                                  padding: EdgeInsets.only(left: 14, right: 14),
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                  'Inserisci i dati di ciascun componente'),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: growableList!.length,
-                            itemBuilder:
-                                (BuildContext context, int index) {
-                              return growableList![index];
-                            },
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              CommonStyleButton(
-                                  title: 'Invia e Continua',
-                                  onTap: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      for (int i = 0; i < growableList!.length; i++) {
-                                        var nome = nomeComponente[i].text;
-                                        var anni = dateinput[i].text;
-                                        var grado = gradoComponente[i].text;
-                                        bloc.add(SendParentsFormEvent(
-                                            nomeParente: nome,
-                                            dataDiNascitaParente: anni,
-                                            gradoParente: grado));
-                                                                                print('nomeC ${nome}');
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text('Inserisci i dati di ciascun componente'),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: growableList!.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return growableList![index];
+                              },
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                               CommonStyleButton(
+                                        title: 'Invia e Continua',
+                                        onTap: () async {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            for (int i = 0;
+                                                i < growableList!.length;
+                                                i++) {
+                                              var nome = nomeComponente[i].text;
+                                              var anni = dateinput[i].text;
+                                              var grado =
+                                                  gradoComponente[i].text;
+                                              bloc.add(SendParentsFormEvent(
+                                                  nomeParente: nome,
+                                                  dataDiNascitaParente: anni,
+                                                  gradoParente: grado));
+                                              print('nomeC ${nome}');
 
-                                        
-                                      }
-                                    }
-                                  },
-                                  iconWidget: Text('')),
-                            ],
-                          ),
-                        ],
+                                             
+                                                           setState(() {
+                                               
+                                                componentiIncompleti = false;
+                                              });
+                                      
+                                              await ValueSharedPrefsViewSlide()
+                                                  .setProfiloIncompletoUtenteComponenti(
+                                                      componentiIncompleti!);
+                                                      if(globals.disabiliIncompleti == true) {
+                                                         Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DisabiliPage()));
+                                                      } else {
+                                                         Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          IntroBancoAlimentareEdit()));
+                                                      }
+                                            }
+                                          }
+                                        },
+                                        iconWidget: Text('')),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ])),
-          );
+                  ])),
+            );
     });
   }
 }

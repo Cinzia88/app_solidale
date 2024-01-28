@@ -60,50 +60,7 @@ class EditDocsRepository {
 
       switch (response.statusCode) {
         case 200:
-          if (context.mounted) {
-            showDialog(
-                barrierColor: Colors.black87,
-                barrierDismissible: false,
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Column(
-                      children: [
-                        SizedBox(
-                          height: 50,
-                          child: Image.asset(PathConstants.bancoAlim),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Stiamo elaborando i tuoi dati',
-                          style: Theme.of(context).textTheme.titleMedium,
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    content: const Text('Ti contatteremo al più presto!'),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    actions: [
-                      InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PresentationPage()));
-                          },
-                          child: Text(
-                            'Torna alla home',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ))
-                    ],
-                  );
-                });
-          }
-
+        Navigator.pop(context);
           break;
         case 401:
           Navigator.of(context, rootNavigator: true).pushReplacement(

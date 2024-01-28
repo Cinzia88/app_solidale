@@ -2,10 +2,13 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
-
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/carica_disabili_page_taxi.dart';
+import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 
 class FormTaxiSolidale extends StatefulWidget {
   const FormTaxiSolidale({super.key});
@@ -20,6 +23,7 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
   final TextEditingController _telepAnotherController = TextEditingController();
   int _value = 1;
   bool create = false;
+  bool taxiSolidaleIncompleto = false;
 
   bool forAnother = false;
 
@@ -53,8 +57,13 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
+    final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
 
-    return  SingleChildScrollView(
+    return BlocBuilder<SendDataTypeServiceBloc, SendDataTypeServiceState>(
+        builder: (context, state) {
+      return state is SendDataTypeServiceLoadingState
+          ? loadingWidget(context)
+          : SingleChildScrollView(
               child: Padding(
                   padding: const EdgeInsets.all(
                     20.0,
@@ -100,16 +109,34 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
                             title: 'Invia e Continua',
                             onTap: () async {
                               if (_formKey.currentState!.validate()) {
-                                  Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DisabiliTaxiPage()));
+                                bloc.add(
+                                  SendDataTypeServiceEvent(
+                                    serviceId: '2',
+                                    nome: _value == 1
+                                        ? globals.userData!.nome
+                                        : _nameAnotherController.text,
+                                    telefono: _value == 1
+                                        ? globals.userData!.telefono
+                                        : _telepAnotherController.text,
+                                    partenza: '',
+                                    destinazione: '',
+                                  ),
+                                );
                               }
+                              FocusScope.of(context).unfocus();
+                              setState(() {
+                                taxiSolidaleIncompleto = true;
+                              });
+                              await ValueSharedPrefsViewSlide()
+                                  .setProfiloIncompletoUtenteTaxi(
+                                      taxiSolidaleIncompleto);
                             },
                             iconWidget: Text('')),
                       ],
                     ),
                   ])),
             );
-    
+    });
   }
 
   _formSelectService() {
@@ -231,3 +258,16 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+/* setState(() {
+                                  globals.profiloCompleto = false;
+                                });
+                                ValueSharedPrefsViewSlide().setProfiloCompleto(globals.profiloCompleto!); */

@@ -1,55 +1,51 @@
-
-
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
+import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/destinazione_page.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_acc.onc.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-
-
-
-
-
-
 class DestinationPage extends StatefulWidget {
   String nomeDestinatario;
   String telefonoDestinatario;
-   DestinationPage({required this.nomeDestinatario, required this.telefonoDestinatario});
+  DestinationPage(
+      {required this.nomeDestinatario, required this.telefonoDestinatario});
 
   @override
   State<DestinationPage> createState() => _DestinationPageState();
 }
 
 class _DestinationPageState extends State<DestinationPage> {
-    final _formKey = GlobalKey<FormState>();
-      final TextEditingController _partenzaController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _partenzaController = TextEditingController();
   final TextEditingController _destinazioneController = TextEditingController();
+  bool accIncompleto = true;
 
   @override
   Widget build(BuildContext context) {
- //final screenWidth = MediaQuery.of(context).size.width;
+    //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return  BlocProvider<SendDataTypeServiceBloc>(
+    return BlocProvider<SendDataTypeServiceBloc>(
       create: (context) => SendDataTypeServiceBloc(
         context: context,
         sendDataTypeServiceRepository:
             context.read<SendDataTypeServiceRepository>(),
       ),
-        child: Scaffold(
-           appBar: AppBar(
+      child: Scaffold(
+        appBar: AppBar(
           iconTheme: const IconThemeData(
             color: Colors.white,
           ),
@@ -66,127 +62,223 @@ class _DestinationPageState extends State<DestinationPage> {
           ],
         ),
         drawer: NavigationDrawerWidget(),
-          body: BlocConsumer<SendDataTypeServiceBloc, SendDataTypeServiceState>(
-          listener: (context, state) {
-        if (state is SendDataTypeServiceErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
-        } else if (state is SendDataTypeServiceLoadingState) {
-           loadingWidget(context);
+        body: BlocConsumer<SendDataTypeServiceBloc, SendDataTypeServiceState>(
+            listener: (context, state) {
+          if (state is SendDataTypeServiceErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
+          } else if (state is SendDataTypeServiceLoadingState) {
+            loadingWidget(context);
           }
-      }, builder: (context, state) {
-              return state is SendDataTypeServiceLoadingState 
-                ? loadingWidget(context)
-                :SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.all(
-                      20.0,
-                    ),
-                    child: Column(children: [
-                      SizedBox(
-                        width: 70,
-                        child: Image.asset(
-                          PathConstants.accompagnamOncolog,
+        }, builder: (context, state) {
+          return state is SendDataTypeServiceLoadingState
+              ? loadingWidget(context)
+              : SingleChildScrollView(
+                  child: Padding(
+                      padding: const EdgeInsets.all(
+                        20.0,
+                      ),
+                      child: Column(children: [
+                        SizedBox(
+                          width: 70,
+                          child: Image.asset(
+                            PathConstants.accompagnamOncolog,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 3 * blockSizeVertical,
-                      ),
-                      Text(
-                        'Accompagnamento Oncologico',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Fase 2 di 2',
-                                      style: Theme.of(context).textTheme.titleSmall,
-                                    ),
-                                  ],
-                                ),
-                                const Divider(
-                                  color: ColorConstants.orangeGradients3,
-                                ),
-                                 SizedBox(
-                            height: 20,
-                          ),
-                      Form(
-                        key: _formKey,
-                        child:  Column(
+                        SizedBox(
+                          height: 3 * blockSizeVertical,
+                        ),
+                        Text(
+                          'Accompagnamento Oncologico',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                           
-                          Text('Inserisci indirizzo di partenza (indirizzo di residenza):'),
-                          SizedBox(
-                            height: 20,
-                          ),
-                           TextFormFieldCustom(
-                                   textEditingController: _partenzaController,
-                                   labelTextCustom: 'Indirizzo di partenza:',
-                                   obscureText: false,
-                                   validator: (value) {
-                                     if (value == null || value.isEmpty) {
-                                       return 'Campo Richiesto*';
-                                     }
-                                     return null;
-                                   },
-                                 ),
-                                 SizedBox(
-                            height: 20,
-                          ),
-                                 Text('Inserisci destinazione (struttura sanitaria):'),
-                          SizedBox(
-                            height: 20,
-                          ),
-                           TextFormFieldCustom(
-                                   textEditingController: _destinazioneController,
-                                   labelTextCustom: 'Destinazione:',
-                                   obscureText: false,
-                                   validator: (value) {
-                                     if (value == null || value.isEmpty) {
-                                       return 'Campo Richiesto*';
-                                     }
-                                     return null;
-                                   },
-                                 ),
-                                 SizedBox(
-                            height: 20,
-                          ),
+                            Text(
+                              'Fase 2 di 2',
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
                           ],
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                       CommonStyleButton(
-                              title: 'Invia',
-                              onTap: () {
-                                SendDataTypeServiceRepository().sendDataTypeservice(context: context, serviceId:  '3',
-                                  nome:   widget.nomeDestinatario,
-                                  telefono:   widget.telefonoDestinatario,
-                                  partenza:   _partenzaController.text,
-                                  destinazione:  _destinazioneController.text);
-                             
-                                SendDataTypeServiceRepository().sendMailService(
-                                    context, 'Accompagnamento Oncologico');
-                  
-                                FocusScope.of(context).unfocus();
-                              },
-                              iconWidget: Text('')),
-                        ],
-                      ),
-                    ])),
-              );
-            }
-          ),
-        ),
-      );
-    
+                        const Divider(
+                          color: ColorConstants.orangeGradients3,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              Text(
+                                  'Inserisci indirizzo di partenza (indirizzo di residenza):'),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              TextFormFieldCustom(
+                                textEditingController: _partenzaController,
+                                labelTextCustom: 'Indirizzo di partenza:',
+                                obscureText: false,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Campo Richiesto*';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                  'Inserisci destinazione (struttura sanitaria):'),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              TextFormFieldCustom(
+                                textEditingController: _destinazioneController,
+                                labelTextCustom: 'Destinazione:',
+                                obscureText: false,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Campo Richiesto*';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            CommonStyleButton(
+                                title: 'Invia',
+                                onTap: globals.profiloIncompletoAccOnc == true
+                                    ? () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          SendDataTypeServiceRepository()
+                                              .sendDataTypeservice(
+                                                  context: context,
+                                                  serviceId: '3',
+                                                  nome: widget.nomeDestinatario,
+                                                  telefono: widget
+                                                      .telefonoDestinatario,
+                                                  partenza:
+                                                      _partenzaController.text,
+                                                  destinazione:
+                                                      _destinazioneController
+                                                          .text);
+
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      AccompagnamentoOncologicoEditPage()));
+
+                                          FocusScope.of(context).unfocus();
+                                          setState(() {
+                                            accIncompleto = false;
+                                          });
+                                          await ValueSharedPrefsViewSlide()
+                                              .setProfiloIncompletoUtenteAccOnc(
+                                                  accIncompleto);
+                                        }
+                                      }
+                                    : () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          SendDataTypeServiceRepository()
+                                              .sendDataTypeservice(
+                                                  context: context,
+                                                  serviceId: '3',
+                                                  nome: widget.nomeDestinatario,
+                                                  telefono: widget
+                                                      .telefonoDestinatario,
+                                                  partenza:
+                                                      _partenzaController.text,
+                                                  destinazione:
+                                                      _destinazioneController
+                                                          .text);
+
+                                      
+
+                                          FocusScope.of(context).unfocus();
+                                          setState(() {
+                                            accIncompleto = false;
+                                          });
+                                          await ValueSharedPrefsViewSlide()
+                                              .setProfiloIncompletoUtenteAccOnc(
+                                                  accIncompleto);
+                                        }
+
+                                        showDialog(
+                                            barrierDismissible: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: Column(
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 50,
+                                                      child: Image.asset(
+                                                          PathConstants
+                                                              .accompagnamOncolog),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      'Stiamo elaborando i tuoi dati',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ],
+                                                ),
+                                                content: const Text(
+                                                    'Ti contatteremo al più presto!'),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                ),
+                                                actions: [
+                                                  InkWell(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        PresentationPage()));
+                                                      },
+                                                      child: Text(
+                                                        'Torna alla home',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleMedium,
+                                                      ))
+                                                ],
+                                              );
+                                            });
+                                      },
+                                iconWidget: Text('')),
+                          ],
+                        ),
+                      ])),
+                );
+        }),
+      ),
+    );
   }
 }
-

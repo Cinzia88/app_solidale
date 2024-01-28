@@ -1,6 +1,6 @@
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_taxi_create/send_taxi_data_bloc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/form_data_disabili_taxi.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_taxi_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_send/repo/send_disabili_repo.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_send/send_disabili_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/disabili/form_data_disabili_taxi.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +21,10 @@ class _DisabiliTaxiPageState extends State<DisabiliTaxiPage> {
   Widget build(BuildContext context) {
    
 
-    return BlocProvider<SendTaxiDataBloc>(
-      create: (context) => SendTaxiDataBloc(
+    return BlocProvider<SendDisabiliDataBloc>(
+      create: (context) => SendDisabiliDataBloc(
         context: context,
-        sendTaxiDataRepository: context.read<SendTaxiDataRepository>(),
+        sendDisabiliDataRepository: context.read<SendDisabiliDataRepository>(),
       ),
       child: Scaffold(
           appBar: AppBar(
@@ -37,9 +37,9 @@ class _DisabiliTaxiPageState extends State<DisabiliTaxiPage> {
           
           ),
           drawer: NavigationDrawerWidget(),
-          body: BlocConsumer<SendTaxiDataBloc, SendTaxiDataState>(
+          body: BlocConsumer<SendDisabiliDataBloc, SendDisabiliDataState>(
               listener: (context, state) {
-            if (state is SendTaxiDataErrorState) {
+            if (state is SendDisabiliDataErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );

@@ -1,17 +1,13 @@
 import 'dart:convert';
-import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
-import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_edit_disabili/model/edit_disabili_model.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/carica_disabili_page_taxi.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/disabili/edit_disabili/edit_disabili_page.dart';
-import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
+
+import '../model/model_disabili.dart';
 
 class EditDataDisabiliRepository {
  Future editDataDisabili(
@@ -32,10 +28,10 @@ class EditDataDisabiliRepository {
             'numero_disabili': numeroDisabili,
             'disabile': disabile,
           }));
-          print('statusc ${response.body}');
+          print('statusc ${response.statusCode}');
       switch (response.statusCode) {
         case 200:
-          Navigator.pop(context);
+          print('disabili modificati');
 
         case 401:
           Navigator.of(context, rootNavigator: true).pushReplacement(

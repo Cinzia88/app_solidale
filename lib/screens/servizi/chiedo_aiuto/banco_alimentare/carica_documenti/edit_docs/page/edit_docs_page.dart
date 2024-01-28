@@ -31,7 +31,7 @@ class CaricaDocsEditPage extends StatefulWidget {
 
 class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
   final _formKey = GlobalKey<FormState>();
-  List<DocsData> dataList = [];
+  List<String> dataList = [];
   String path = '';
 
   String idDocs = '';
@@ -122,8 +122,10 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
                   selectedValue = state.data[i].nome;
                   idDocs = state.data[i].id;
                   path = state.data[i].path;
-                  dataList = state.data;
+                    dataList =   state.data[i].path.split(",");
+                  print('clist ${dataList}');
                 });
+                print('dataDocs ${state.data}');
               }
             }
           }, builder: (context, state) {
@@ -276,7 +278,7 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
                                                   .width,
                                               fit: BoxFit.cover,
                                               imageUrl:
-                                                  '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/storage/files/${dataList[index].path}',
+                                                  '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/storage/files/${dataList[index]}',
                                               placeholder: (context, url) =>
                                                   const Center(
                                                       child: SizedBox(
@@ -326,10 +328,19 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
                                       padding: const EdgeInsets.only(top: 20.0),
                                       child: Row(
                                         children: [
-                                          Text(dataList[index]
-                                              .path
+                                           Icon(Icons.picture_as_pdf),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(dataList[index]
+                                              
                                               .split('/')
-                                              .last),
+                                              .last,
+                                                                       overflow: TextOverflow.ellipsis,
+                                                softWrap: false,),
+                                    ),
+                                         
                                           IconButton(
                                             onPressed: () {
                                               setState(() {
@@ -399,7 +410,15 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
                                 padding: const EdgeInsets.only(top: 20.0),
                                 child: Row(
                                   children: [
-                                    Text(filePdf[index].path.split('/').last),
+                                     Icon(Icons.picture_as_pdf),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(filePdf[index].path.split('/').last,
+                                                                       overflow: TextOverflow.ellipsis,
+                                                softWrap: false,),
+                                    ),
                                     IconButton(
                                       onPressed: () {
                                         setState(() {
@@ -450,12 +469,8 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
                                     print('imagesList $imagesList');
                                     print('pdf $filePdf');
 
-                                    SendDataTypeServiceRepository()
-                                        .sendMailService(
-                                      context,
-                                      'Banco Alimentare',
-                                    );
-
+                                   
+Navigator.pop(context);
                                     FocusScope.of(context).unfocus();
                                   }
                                 },

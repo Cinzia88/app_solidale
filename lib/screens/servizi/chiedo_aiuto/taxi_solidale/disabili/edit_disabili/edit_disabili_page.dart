@@ -5,10 +5,13 @@ import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_edit_disabili/bloc/edit_disabili_bloc.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_edit_disabili/repo/edit_disabili_repo.dart';
+
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/bloc/edit_disabili_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,10 +46,10 @@ class DisabiliTaxiPageEdit extends StatefulWidget {
 class _DisabiliTaxiPageState extends State<DisabiliTaxiPageEdit> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _numberController = TextEditingController();
-
+bool? taxiSolidaleIncompleto;
   bool yes = false;
   int disabile = 0;
-  String idDisabile = '1';
+  String idDisabile = '';
 
   @override
   Widget build(BuildContext context) {
@@ -70,14 +73,14 @@ class _DisabiliTaxiPageState extends State<DisabiliTaxiPageEdit> {
               toolbarHeight: 75.0,
               automaticallyImplyLeading: true,
               flexibleSpace: customAppBar(context: context),
-                actions: [
-            IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                ))
-          ],
+              actions: [
+                IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ))
+              ],
             ),
             drawer: NavigationDrawerWidget(),
             body: BlocConsumer<ReadDisabiliBloc, ReadDisabiliState>(
@@ -93,9 +96,11 @@ class _DisabiliTaxiPageState extends State<DisabiliTaxiPageEdit> {
                   setState(() {
                     yes = true;
                     disabile = int.parse(state.data.disabile);
-                    idDisabile = state.data.id;
                   });
                 }
+                setState(() {
+                  idDisabile = state.data.id;
+                });
               }
             }, builder: (context, state) {
               return state is ReadDisabiliLoadingState ||
@@ -200,7 +205,7 @@ class _DisabiliTaxiPageState extends State<DisabiliTaxiPageEdit> {
                                       children: [
                                         CommonStyleButton(
                                             title: 'Aggiorna',
-                                            onTap: () {
+                                            onTap: () async{
                                               if (_formKey.currentState!
                                                   .validate()) {
                                                 EditDataDisabiliRepository()
@@ -212,11 +217,15 @@ class _DisabiliTaxiPageState extends State<DisabiliTaxiPageEdit> {
                                                             : _numberController
                                                                 .text,
                                                         disabile);
+                                                         setState(() {
+                               taxiSolidaleIncompleto = false;
+                             });
+                              await ValueSharedPrefsViewSlide()
+                                  .setProfiloIncompletoUtenteTaxi(taxiSolidaleIncompleto!);
+                                               Navigator.push(context, MaterialPageRoute(builder: (_) => TaxiSolidaleEditPage()));
 
-                                              
                                                 FocusScope.of(context)
                                                     .unfocus();
-
                                               }
                                             },
                                             iconWidget: Text('')),

@@ -12,6 +12,7 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
 import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
 import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto.dart';
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -33,11 +34,79 @@ class _PresentationPageState extends State<PresentationPage>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-
+    getValueProfiloTaxiCompleto();
+        getValueProfiloAccOncCompleto();
+getValueProfiloBancoCompleto();
+  getValueProfiloComponentiCompleto();
+    getValueProfiloDisabiliBanco();
+    getValueProfiloFilesCompleto();
     readUser().then((value) => getRequestUser());
 
   }
 
+
+Future getValueProfiloTaxiCompleto() async {
+    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteTaxi();
+setState(() {
+  globals.profiloIncompletoTaxi = value;
+});
+
+print('profiloIncompletoTaxi ${globals.profiloIncompletoTaxi}');
+  }
+
+  Future getValueProfiloAccOncCompleto() async {
+    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteAccOnc();
+setState(() {
+  globals.profiloIncompletoAccOnc = value;
+});
+
+print('profiloIncompletoAccOnc ${globals.profiloIncompletoAccOnc}');
+  }
+
+   Future getValueProfiloBancoCompleto() async {
+    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteBanco();
+setState(() {
+  globals.profiloIncompletoBancoAlim = value;
+});
+
+print('profiloIncompletoBanco ${globals.profiloIncompletoBancoAlim}');
+  }
+
+ 
+
+
+
+  Future getValueProfiloComponentiCompleto() async {
+    final value = await ValueSharedPrefsViewSlide()
+        .getProfiloIncompletoUtenteComponenti();
+    setState(() {
+      globals.componentiIncompleti = value;
+    });
+
+    print('compo ${globals.componentiIncompleti}');
+  }
+
+  Future getValueProfiloDisabiliBanco() async {
+    final value =
+        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
+    setState(() {
+      globals.disabiliIncompleti = value;
+    });
+
+    print('disabili ${globals.disabiliIncompleti}');
+  }
+
+  Future getValueProfiloFilesCompleto() async {
+    final value =
+        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteFiles();
+    setState(() {
+      globals.filesIncompleti = value;
+    });
+
+    print('files ${globals.filesIncompleti}');
+  }
+
+  
 Future<List<RequestData>> getRequestUser() async {
     var url =
         '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta/show/${globals.userData!.id}';

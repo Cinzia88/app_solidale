@@ -3,7 +3,7 @@ import 'package:app_solidale/screens/home/model/get_user_model.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/model/edit_docs_model.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/model/edit_parents_model.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/bloc_edit_disabili/model/edit_disabili_model.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/model/model_disabili.dart';
 
 
 
@@ -27,6 +27,13 @@ List<ParentsData> listParentsData = [];
 List<DocsData> listDocsData = [];
 Map<String, dynamic> pdf = {};
 
+
+bool? profiloIncompletoTaxi;
+bool? profiloIncompletoAccOnc;
+bool? profiloIncompletoBancoAlim;
+bool? componentiIncompleti;
+bool? disabiliIncompleti;
+bool? filesIncompleti;
 
 
 int? statusCode;

@@ -28,6 +28,7 @@ class _FormAccompagnamentoOncologicoState
   final TextEditingController _nameAnotherController = TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
   int _value = 1;
+  bool accIncompleto = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,67 +38,74 @@ class _FormAccompagnamentoOncologicoState
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
 
-    
-      return SingleChildScrollView(
-        child: Padding(
-            padding: const EdgeInsets.all(
-              20.0,
+    return SingleChildScrollView(
+      child: Padding(
+          padding: const EdgeInsets.all(
+            20.0,
+          ),
+          child: Column(children: [
+            SizedBox(
+              width: 70,
+              child: Image.asset(
+                PathConstants.accompagnamOncolog,
+              ),
             ),
-            child: Column(children: [
-              SizedBox(
-                width: 70,
-                child: Image.asset(
-                  PathConstants.accompagnamOncolog,
+            SizedBox(
+              height: 3 * blockSizeVertical,
+            ),
+            Text(
+              'Accompagnamento Oncologico',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Fase 1 di 2',
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
-              ),
-              SizedBox(
-                height: 3 * blockSizeVertical,
-              ),
-              Text(
-                'Accompagnamento Oncologico',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Fase 1 di 2',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                          ],
-                        ),
-                        const Divider(
-                          color: ColorConstants.orangeGradients3,
-                        ),
-              Form(
-                key: _formKey,
-                child: _formSelectService(),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
+              ],
+            ),
+            const Divider(
+              color: ColorConstants.orangeGradients3,
+            ),
+            Form(
+              key: _formKey,
+              child: _formSelectService(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
                 CommonStyleButton(
-                      title: 'Invia e Continua',
-                      onTap: () {
-                       Navigator.push(context, MaterialPageRoute(builder: (_) => DestinationPage(
-                        nomeDestinatario: _value == 1
-                                ? globals.userData!.nome
-                                : _nameAnotherController.text,
-                        telefonoDestinatario: _value == 1
-                                ? globals.userData!.telefono
-                                : _telepAnotherController.text
-                       )));
-                      },
-                      iconWidget: Text('')),
-                ],
-              ),
-            ])),
-      );
-    
+                    title: 'Invia e Continua',
+                    onTap: () async {
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => DestinationPage(
+                                    nomeDestinatario: _value == 1
+                                        ? globals.userData!.nome
+                                        : _nameAnotherController.text,
+                                    telefonoDestinatario: _value == 1
+                                        ? globals.userData!.telefono
+                                        : _telepAnotherController.text)));
+                        setState(() {
+                          accIncompleto = true;
+                        });
+                        await ValueSharedPrefsViewSlide()
+                            .setProfiloIncompletoUtenteAccOnc(accIncompleto);
+                      }
+                    },
+                    iconWidget: Text('')),
+              ],
+            ),
+          ])),
+    );
   }
 
   _formSelectService() {
@@ -219,7 +227,3 @@ class _FormAccompagnamentoOncologicoState
     );
   }
 }
-
-
-
-
