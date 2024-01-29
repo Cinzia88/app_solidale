@@ -1,4 +1,4 @@
-package com.app.solidale  
+package com.project.anf  
 
 import io.flutter.embedding.android.FlutterActivity
 
