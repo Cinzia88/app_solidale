@@ -125,14 +125,17 @@ class _ContentPageBancoAlimentareState extends State<ContentPageBancoAlimentare>
     } else {
       platform = TargetPlatform.iOS;
     }
-  
+  _findLocalPath();
   }
 
   Future<bool> _checkPermission() async {
     if (platform == TargetPlatform.android) {
       final status = await Permission.storage.status;
+      print('statusStorage $status');
       if (status != PermissionStatus.granted) {
         final result = await Permission.storage.request();
+              print('resultStorage $result');
+
         if (result == PermissionStatus.granted) {
           return true;
         }
@@ -158,7 +161,8 @@ class _ContentPageBancoAlimentareState extends State<ContentPageBancoAlimentare>
 
   Future<String?> _findLocalPath() async {
     if (platform == TargetPlatform.android) {
-      return "/sdcard/download/";
+           
+      return "/storage/emulated/0/Download/";
     } else {
       var directory = await getApplicationDocumentsDirectory();
       return directory.path + Platform.pathSeparator + 'Download';

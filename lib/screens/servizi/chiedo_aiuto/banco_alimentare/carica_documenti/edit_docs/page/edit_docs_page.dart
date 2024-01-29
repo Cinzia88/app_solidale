@@ -180,75 +180,79 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
                       key: _formKey,
                       child: Column(
                         children: [
-                          DropdownButtonHideUnderline(
-                            child: DropdownButton2<String>(
-                              hint: Text(
-                                '',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: ColorConstants.labelText,
-                                ),
-                              ),
-                              items: items
-                                  .map(
-                                      (String item) => DropdownMenuItem<String>(
-                                            value: item,
-                                            child: Text(
-                                              item,
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ))
-                                  .toList(),
-                              value: selectedValue,
-                              onChanged: (String? value) {
-                                setState(() {
-                                  selectedValue = value!;
-                                });
-                              },
-                              buttonStyleData: ButtonStyleData(
-                                height: 50,
-                                width: 160,
-                                padding:
-                                    const EdgeInsets.only(left: 14, right: 14),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  border: Border.all(
-                                    color: ColorConstants.orangeGradients1,
+                          Container(
+                                                        width: MediaQuery.of(context).size.width,
+
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton2<String>(
+                                hint: Text(
+                                  '',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: ColorConstants.labelText,
                                   ),
-                                  color: Colors.white,
                                 ),
-                              ),
-                              iconStyleData: const IconStyleData(
-                                icon: Icon(
-                                  Icons.arrow_drop_down,
+                                items: items
+                                    .map(
+                                        (String item) => DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Text(
+                                                item,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ))
+                                    .toList(),
+                                value: selectedValue,
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    selectedValue = value!;
+                                  });
+                                },
+                                buttonStyleData: ButtonStyleData(
+                                  height: 50,
+                                  width: 160,
+                                  padding:
+                                      const EdgeInsets.only(left: 14, right: 14),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    border: Border.all(
+                                      color: ColorConstants.orangeGradients1,
+                                    ),
+                                    color: Colors.white,
+                                  ),
                                 ),
-                                iconSize: 20,
-                                iconEnabledColor:
-                                    ColorConstants.orangeGradients3,
-                                iconDisabledColor: Colors.grey,
-                              ),
-                              dropdownStyleData: DropdownStyleData(
-                                maxHeight: 200,
-                                width: MediaQuery.of(context).size.width - 150,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  color: Colors.white,
+                                iconStyleData: const IconStyleData(
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
+                                  ),
+                                  iconSize: 20,
+                                  iconEnabledColor:
+                                      ColorConstants.orangeGradients3,
+                                  iconDisabledColor: Colors.grey,
                                 ),
-                                scrollbarTheme: ScrollbarThemeData(
-                                  radius: const Radius.circular(40),
-                                  thickness:
-                                      MaterialStateProperty.all<double>(6),
-                                  thumbVisibility:
-                                      MaterialStateProperty.all<bool>(true),
+                                dropdownStyleData: DropdownStyleData(
+                                  maxHeight: 200,
+                                  width: MediaQuery.of(context).size.width - 150,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    color: Colors.white,
+                                  ),
+                                  scrollbarTheme: ScrollbarThemeData(
+                                    radius: const Radius.circular(40),
+                                    thickness:
+                                        MaterialStateProperty.all<double>(6),
+                                    thumbVisibility:
+                                        MaterialStateProperty.all<bool>(true),
+                                  ),
                                 ),
-                              ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                height: 40,
-                                padding: EdgeInsets.only(left: 14, right: 14),
+                                menuItemStyleData: const MenuItemStyleData(
+                                  height: 40,
+                                  padding: EdgeInsets.only(left: 14, right: 14),
+                                ),
                               ),
                             ),
                           ),
