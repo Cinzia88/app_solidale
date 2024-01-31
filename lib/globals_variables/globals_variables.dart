@@ -35,6 +35,10 @@ bool? componentiIncompleti;
 bool? disabiliIncompleti;
 bool? filesIncompleti;
 
+bool? destinazioneTaxi;
+bool? filesTaxiIncompleti;
+
+
 
 int? statusCode;
 

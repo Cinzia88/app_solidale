@@ -55,10 +55,47 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
 
 
 
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+     getValueProfiloDestinazioneCompleto();
+    getValueProfiloDisabiliTaxi();
+    getValueProfiloFilesCompleto();
+  }
 
 
 
+  Future getValueProfiloDestinazioneCompleto() async {
+    final value = await ValueSharedPrefsViewSlide()
+        .getProfiloIncompletoUtenteComponenti();
+    setState(() {
+      globals.destinazioneTaxi = value;
+    });
 
+    print('componenti ${globals.destinazioneTaxi}');
+  }
+  bool? profiloIncompletoBancoAlim;
+
+  Future getValueProfiloDisabiliTaxi() async {
+    final value =
+        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
+    setState(() {
+      globals.disabiliIncompleti = value;
+    });
+
+    print('disabili ${globals.disabiliIncompleti}');
+  }
+
+  Future getValueProfiloFilesCompleto() async {
+    final value =
+        await ValueSharedPrefsViewSlide().getsetProfiloIncompletoUtenteFilesTaxi();
+    setState(() {
+      globals.filesTaxiIncompleti = value;
+    });
+
+    print('files ${globals.filesTaxiIncompleti}');
+  }
 
 
   @override

@@ -226,7 +226,7 @@ class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
                                     SendDataTypeServiceRepository()
                                         .sendDataTypeservice(
                                       context: context,
-                                      serviceId: '3',
+                                      serviceId: '2',
                                       nome: widget.nomeDestinatario,
                                       telefono: widget.telefonoDestinatario,
                                       partenza: _partenzaController.text,

@@ -27,6 +27,20 @@ class ValueSharedPrefsViewSlide {
     instance.setBool('profiloCompletoUtenteTaxi', value);
   }
 
+Future setProfiloIncompletoUtenteFilesTaxi(bool value) async{
+    final instance = await prefs;
+
+    instance.setBool('profiloCompletoUtenteFilesTaxi', value);
+  }
+
+   Future<bool> getsetProfiloIncompletoUtenteFilesTaxi() async{
+    final instance = await prefs;
+
+   final value = instance.getBool('profiloCompletoUtenteFilesTaxi');
+   return value ?? false;
+  }
+
+
    Future<bool> getProfiloIncompletoUtenteTaxi() async{
     final instance = await prefs;
 
