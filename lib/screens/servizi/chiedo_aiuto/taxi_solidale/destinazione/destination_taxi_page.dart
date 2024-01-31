@@ -11,22 +11,23 @@ import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_d
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_acc.onc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/disabili/carica_disabili_page_taxi.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-class DestinationPage extends StatefulWidget {
+class DestinationTaxiPage extends StatefulWidget {
   String nomeDestinatario;
   String telefonoDestinatario;
-  DestinationPage(
+  DestinationTaxiPage(
       {required this.nomeDestinatario, required this.telefonoDestinatario});
 
   @override
-  State<DestinationPage> createState() => _DestinationPageState();
+  State<DestinationTaxiPage> createState() => _DestinationTaxiPageState();
 }
 
-class _DestinationPageState extends State<DestinationPage> {
+class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _partenzaController = TextEditingController();
   final TextEditingController _destinazioneController = TextEditingController();
@@ -93,7 +94,7 @@ class _DestinationPageState extends State<DestinationPage> {
                           height: 3 * blockSizeVertical,
                         ),
                         Text(
-                          'Accompagnamento Oncologico',
+                          'Taxi Solidale',
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
@@ -104,7 +105,7 @@ class _DestinationPageState extends State<DestinationPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              'Fase 2 di 2',
+                              'Fase 2 di 3',
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                           ],
@@ -121,9 +122,7 @@ class _DestinationPageState extends State<DestinationPage> {
                             children: [
                               Text(
                                   'Inserisci indirizzo di partenza (indirizzo di residenza):'),
-                              SizedBox(
-                                height: 20,
-                              ),
+                            
                               TextFormFieldCustom(
                                 textEditingController: _partenzaController,
                                 labelTextCustom: 'Indirizzo di partenza:',
@@ -140,9 +139,7 @@ class _DestinationPageState extends State<DestinationPage> {
                               ),
                               Text(
                                   'Inserisci destinazione (struttura sanitaria):'),
-                              SizedBox(
-                                height: 20,
-                              ),
+                             
                               TextFormFieldCustom(
                                 textEditingController: _destinazioneController,
                                 labelTextCustom: 'Destinazione:',
@@ -157,9 +154,14 @@ class _DestinationPageState extends State<DestinationPage> {
                               SizedBox(
                                 height: 20,
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
+                               Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                 children: [
+                                   Text(
+                                      'Inserisci la data:'),
+                                 ],
+                               ),
+                            
                               TextFormFieldCustom(
                                 textEditingController:
                                     _dateController, //editing controller of this TextField
@@ -212,6 +214,9 @@ class _DestinationPageState extends State<DestinationPage> {
                                   }
                                 },
                               ),
+                               SizedBox(
+                                height: 20,
+                              ),
                             ],
                           ),
                         ),
@@ -219,116 +224,32 @@ class _DestinationPageState extends State<DestinationPage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             CommonStyleButton(
-                                title: 'Invia',
-                                onTap: globals.profiloIncompletoAccOnc == true
-                                    ? () async {
+                                title: 'Invia e Continua',
+                                onTap: () async {
                                         if (_formKey.currentState!.validate()) {
                                           SendDataTypeServiceRepository()
                                               .sendDataTypeservice(
-                                                  context: context,
-                                                  serviceId: '3',
-                                                  nome: widget.nomeDestinatario,
-                                                  telefono: widget
-                                                      .telefonoDestinatario,
-                                                  partenza:
-                                                      _partenzaController.text,
-                                                  destinazione:
-                                                      _destinazioneController
-                                                          .text,
-                                                          data: _dateController.text);
+                                            context: context,
+                                            serviceId: '3',
+                                            nome: widget.nomeDestinatario,
+                                            telefono:
+                                                widget.telefonoDestinatario,
+                                            partenza: _partenzaController.text,
+                                            destinazione:
+                                                _destinazioneController.text,
+                                            data: _dateController.text,
+                                          );
 
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (_) =>
-                                                      AccompagnamentoOncologicoEditPage()));
+                                                      DisabiliTaxiPage()));
 
-                                          FocusScope.of(context).unfocus();
-                                          setState(() {
-                                            accIncompleto = false;
-                                          });
-                                          await ValueSharedPrefsViewSlide()
-                                              .setProfiloIncompletoUtenteAccOnc(
-                                                  accIncompleto);
+                                        
                                         }
-                                      }
-                                    : () async {
-                                        if (_formKey.currentState!.validate()) {
-                                          SendDataTypeServiceRepository()
-                                              .sendDataTypeservice(
-                                                  context: context,
-                                                  serviceId: '3',
-                                                  nome: widget.nomeDestinatario,
-                                                  telefono: widget
-                                                      .telefonoDestinatario,
-                                                  partenza:
-                                                      _partenzaController.text,
-                                                  destinazione:
-                                                      _destinazioneController
-                                                          .text);
-
-                                          FocusScope.of(context).unfocus();
-                                          setState(() {
-                                            accIncompleto = false;
-                                          });
-                                          await ValueSharedPrefsViewSlide()
-                                              .setProfiloIncompletoUtenteAccOnc(
-                                                  accIncompleto);
-                                        }
-
-                                        showDialog(
-                                            barrierDismissible: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title: Column(
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 50,
-                                                      child: Image.asset(
-                                                          PathConstants
-                                                              .accompagnamOncolog),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      'Stiamo elaborando i tuoi dati',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleMedium,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                                content: const Text(
-                                                    'Ti contatteremo al più presto!'),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                ),
-                                                actions: [
-                                                  InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        PresentationPage()));
-                                                      },
-                                                      child: Text(
-                                                        'Torna alla home',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleMedium,
-                                                      ))
-                                                ],
-                                              );
-                                            });
                                       },
+                                    
                                 iconWidget: Text('')),
                           ],
                         ),

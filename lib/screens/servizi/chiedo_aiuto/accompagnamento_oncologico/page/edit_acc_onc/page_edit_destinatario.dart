@@ -14,19 +14,20 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/disabili
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_data_destinatario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 
 import '../../../../../../const/color_constants.dart';
 
 class AccompagnamentoOncologicoEditDestinatario extends StatefulWidget {
- 
-
   @override
-  State<AccompagnamentoOncologicoEditDestinatario> createState() => _AccompagnamentoOncologicoEditDestinatarioState();
+  State<AccompagnamentoOncologicoEditDestinatario> createState() =>
+      _AccompagnamentoOncologicoEditDestinatarioState();
 }
 
-class _AccompagnamentoOncologicoEditDestinatarioState extends State<AccompagnamentoOncologicoEditDestinatario> {
- final _formKey = GlobalKey<FormState>();
+class _AccompagnamentoOncologicoEditDestinatarioState
+    extends State<AccompagnamentoOncologicoEditDestinatario> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameAnotherController = TextEditingController();
   final TextEditingController _telepAnotherController = TextEditingController();
   int _value = 1;
@@ -34,12 +35,10 @@ class _AccompagnamentoOncologicoEditDestinatarioState extends State<Accompagname
 
   String partenza = '';
   String destinazione = '';
-  
-
+  String data = '';
 
   @override
   Widget build(BuildContext context) {
-   
     //final screenWidth = MediaQuery.of(context).size.width;
     final mediaQueryData = MediaQuery.of(context);
     final screenHeight = mediaQueryData.size.height;
@@ -70,125 +69,118 @@ class _AccompagnamentoOncologicoEditDestinatarioState extends State<Accompagname
           ),
           drawer: NavigationDrawerWidget(),
           body: BlocConsumer<ReadRequestBloc, ReadRequestState>(
-            listener: (context, state) {
-          if (state is ReadRequestErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.errorMessage)),
-            );
-          }else if (state is ReadRequestLoadedState) {
-            for(int i = 0; i< state.data.length; i++) {
-              if(state.data[i].serviceId == '3') {
+              listener: (context, state) {
+            if (state is ReadRequestErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.errorMessage)),
+              );
+            } else if (state is ReadRequestLoadedState) {
+              for (int i = 0; i < state.data.length; i++) {
+                if (state.data[i].serviceId == '3') {
                   setState(() {
-        idReq = state.data[i].idRequest;
-                partenza = state.data[i].partenza!;
-        destinazione = state.data[i].destinazione!;
+                    idReq = state.data[i].idRequest;
+                    partenza = state.data[i].partenza!;
+                    destinazione = state.data[i].destinazione!;
+                    data = state.data[i].data!;
+                  });
+                }
 
-        
-    });
+                if (state.data[i].nome != globals.userData!.nome &&
+                    state.data[i].telefono != globals.userData!.telefono) {
+                  _nameAnotherController.text = state.data[i].nome;
+                  _telepAnotherController.text = state.data[i].telefono;
+                  _value = 2;
+                }
               }
-             
-               if(state.data[i].nome != globals.userData!.nome && state.data[i].telefono != globals.userData!.telefono) {
-      _nameAnotherController.text = state.data[i].nome;
-      _telepAnotherController.text = state.data[i].telefono;
-      _value = 2;
-   
-      
-    }
- 
             }
-             
-            }
-        }, builder: (context, state) {
-              return state is ReadRequestLoadingState ||
+          }, builder: (context, state) {
+            return state is ReadRequestLoadingState ||
                     state is EditRequestLoadingState
                 ? loadingWidget(context)
-                :SingleChildScrollView(
-        child: Padding(
-                  padding: const EdgeInsets.all(
-                    20.0,
-                  ),
-                  child: Column(children: [
-                    SizedBox(
-                      width: 70,
-                      child: Image.asset(
-                        PathConstants.accompagnamOncolog,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 3 * blockSizeVertical,
-                    ),
-                    Text(
-                      'Accompagnamento Oncologico',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                     SizedBox(
-                    height: 20,
-                  ),
-                    Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Modifica Dati Destinatario',
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                              ],
+                : SingleChildScrollView(
+                    child: Padding(
+                        padding: const EdgeInsets.all(
+                          20.0,
+                        ),
+                        child: Column(children: [
+                          SizedBox(
+                            width: 70,
+                            child: Image.asset(
+                              PathConstants.accompagnamOncolog,
                             ),
-                            const Divider(
-                              color: ColorConstants.orangeGradients3,
-                            ),
-                    Form(
-                      key: _formKey,
-                      child: _formSelectService(),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        CommonStyleButton(
-                                title: 'Aggiorna',
-                                onTap: () {
-                                   EditDataTypeServiceRepository()
-                                                    .editRequest(
-                                                  context,
-                                                  idReq,
-                                                  '3',
-                                         _value == 1  ?globals.userData!.nome :       _nameAnotherController.text,
-                                               _value == 1  ?globals.userData!.telefono :    _telepAnotherController.text,
-                                               partenza,
-                                               destinazione
-                                                );
-                               
-      
-                                  FocusScope.of(context).unfocus();
-                                },
-                                iconWidget: Text('')),
-                      ],
-                    ),
-                  ])),
-      );
-            }
-          )),
+                          ),
+                          SizedBox(
+                            height: 3 * blockSizeVertical,
+                          ),
+                          Text(
+                            'Accompagnamento Oncologico',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Modifica Dati Destinatario',
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                            ],
+                          ),
+                          const Divider(
+                            color: ColorConstants.orangeGradients3,
+                          ),
+                          Form(
+                            key: _formKey,
+                            child: _formSelectService(),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              CommonStyleButton(
+                                  title: 'Aggiorna',
+                                  onTap: () {
+                                    EditDataTypeServiceRepository().editRequest(
+                                        context,
+                                        idReq,
+                                        '3',
+                                        _value == 1
+                                            ? globals.userData!.nome
+                                            : _nameAnotherController.text,
+                                        _value == 1
+                                            ? globals.userData!.telefono
+                                            : _telepAnotherController.text,
+                                        partenza,
+                                        destinazione,
+                                        data);
+
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                  iconWidget: Text('')),
+                            ],
+                          ),
+                        ])),
+                  );
+          })),
     );
-  
   }
 
-
   _formSelectService() {
-   
-    return  Column(
+    return Column(
       children: [
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 20.0),
           child: Column(
             children: [
-            
               Text(
                 'Vorrei accedere al Servizio Accompagnamento Oncologico per:',
               ),
             ],
           ),
         ),
-     Row(
+        Row(
           children: [
             Radio(
                 value: 1,
@@ -206,7 +198,7 @@ class _AccompagnamentoOncologicoEditDestinatarioState extends State<Accompagname
         ),
         Row(
           children: [
-           Radio(
+            Radio(
                 value: 2,
                 groupValue: _value,
                 onChanged: (value) {

@@ -7,6 +7,7 @@ class RequestData extends Equatable {
   final String telefono;
   String? partenza;
   String? destinazione;
+  String? data;
 
   RequestData({
     required this.idRequest,
@@ -15,6 +16,7 @@ class RequestData extends Equatable {
     required this.telefono,
     this.partenza,
     this.destinazione,
+    this.data,
   });
 
   factory RequestData.fromJson(Map<String, dynamic> json) {
@@ -25,6 +27,7 @@ class RequestData extends Equatable {
       telefono: json["telefono"].toString(),
       partenza: json["partenza"].toString(),
       destinazione: json["destinazione"].toString(),
+      data: json['data'].toString(),
     );
   }
 
@@ -35,5 +38,6 @@ class RequestData extends Equatable {
         telefono,
         partenza,
         destinazione,
+        data,
       ];
 }

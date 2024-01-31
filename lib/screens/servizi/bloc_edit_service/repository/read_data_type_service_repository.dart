@@ -94,6 +94,7 @@ print('reqdata ${response.body}');
    String telefono,
       String partenza,
    String destinazione,
+   String data,
   ) async {
     try {
       var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta/update/$idRequest';
@@ -110,6 +111,7 @@ print('reqdata ${response.body}');
             'telefono': telefono,
             'partenza': partenza,
             'destinazione': destinazione,
+            'data': data,
           }));
 
 print('reqdata ${response.statusCode}');

@@ -13,6 +13,7 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncolo
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class DestinationEditPage extends StatefulWidget {
   @override
@@ -23,6 +24,8 @@ class _DestinationEditPageState extends State<DestinationEditPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _partenzaController = TextEditingController();
   final TextEditingController _destinazioneController = TextEditingController();
+    final TextEditingController _dateController = TextEditingController();
+
   String idReq = '';
   String nome = '';
   String telefono = '';
@@ -164,6 +167,59 @@ class _DestinationEditPageState extends State<DestinationEditPage> {
                               SizedBox(
                                 height: 20,
                               ),
+                             
+                              TextFormFieldCustom(
+                                textEditingController:
+                                    _dateController, //editing controller of this TextField
+                                labelTextCustom: 'Data:',
+                                readOnly: true,
+                                obscureText: false,
+                                //set it true, so that user will not able to edit text
+                                onTap: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(
+                                        1900), //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2101),
+                                    builder:
+                                        (BuildContext context, Widget? child) {
+                                      return Theme(
+                                        data: ThemeData.light().copyWith(
+                                          colorScheme: const ColorScheme.dark(
+                                            primary:
+                                                ColorConstants.secondaryColor,
+                                            onPrimary: Colors.white,
+                                            surface: Colors.white,
+                                            onSurface:
+                                                ColorConstants.orangeGradients3,
+                                          ),
+                                          dialogBackgroundColor: Colors.white,
+                                        ),
+                                        child: child!,
+                                      );
+                                    },
+                                  );
+
+                                  if (pickedDate != null) {
+                                    print(
+                                        pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                                    String formattedDate =
+                                        DateFormat('dd-MM-yyyy')
+                                            .format(pickedDate);
+                                    print(
+                                        formattedDate); //formatted date output using intl package =>  2021-03-16
+                                    //you can implement different kind of Date Format here according to your requirement
+
+                                    setState(() {
+                                      _dateController.text =
+                                          formattedDate; //set output date to TextField value.
+                                    });
+                                  } else {
+                                    print("Date is not selected");
+                                  }
+                                },
+                              ),
                             ],
                           ),
                         ),
@@ -180,7 +236,8 @@ class _DestinationEditPageState extends State<DestinationEditPage> {
                                       nome,
                                       telefono,
                                       _partenzaController.text,
-                                      _destinazioneController.text);
+                                      _destinazioneController.text,
+                                      _dateController.text);
 
 
                                   

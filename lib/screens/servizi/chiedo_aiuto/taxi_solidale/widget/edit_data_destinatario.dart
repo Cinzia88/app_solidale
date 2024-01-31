@@ -16,15 +16,18 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 
 class TaxiSolidaleEditDataDestinatarioPage extends StatefulWidget {
-  
   @override
-  State<TaxiSolidaleEditDataDestinatarioPage> createState() => _TaxiSolidaleEditDataDestinatarioPageState();
+  State<TaxiSolidaleEditDataDestinatarioPage> createState() =>
+      _TaxiSolidaleEditDataDestinatarioPageState();
 }
 
-class _TaxiSolidaleEditDataDestinatarioPageState extends State<TaxiSolidaleEditDataDestinatarioPage> {
+class _TaxiSolidaleEditDataDestinatarioPageState
+    extends State<TaxiSolidaleEditDataDestinatarioPage> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameTaxiAnotherController = TextEditingController();
-  final TextEditingController _telepTaxiAnotherController = TextEditingController();
+  final TextEditingController _nameTaxiAnotherController =
+      TextEditingController();
+  final TextEditingController _telepTaxiAnotherController =
+      TextEditingController();
   int _value = 1;
   String idTaxiSolidaleEdit = '';
 
@@ -74,11 +77,9 @@ class _TaxiSolidaleEditDataDestinatarioPageState extends State<TaxiSolidaleEditD
                     _telepTaxiAnotherController.text = state.data[i].telefono;
                   }
                   setState(() {
-               idTaxiSolidaleEdit = state.data[i].idRequest;
-             });
+                    idTaxiSolidaleEdit = state.data[i].idRequest;
+                  });
                 }
-             
-            
               }
             }, builder: (context, state) {
               return state is ReadRequestLoadingState ||
@@ -132,15 +133,19 @@ class _TaxiSolidaleEditDataDestinatarioPageState extends State<TaxiSolidaleEditD
                                       EditDataTypeServiceRepository()
                                           .editRequest(
                                         context,
-                                       idTaxiSolidaleEdit,
+                                        idTaxiSolidaleEdit,
                                         '2',
-                                          _value == 1 ? globals.userData!.nome : _nameTaxiAnotherController.text, 
-                                  _value == 1 ? globals.userData!.telefono : _telepTaxiAnotherController.text,
-                                  '',
-                                  '',
+                                        _value == 1
+                                            ? globals.userData!.nome
+                                            : _nameTaxiAnotherController.text,
+                                        _value == 1
+                                            ? globals.userData!.telefono
+                                            : _telepTaxiAnotherController.text,
+                                        '',
+                                        '',
+                                        '',
                                       );
 
-                                    
                                       FocusScope.of(context).unfocus();
                                     },
                                     iconWidget: Text('')),

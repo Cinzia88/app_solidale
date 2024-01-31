@@ -4,6 +4,7 @@ import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/destinazione/destination_taxi_page.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,86 +58,76 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
 
-    return BlocBuilder<SendDataTypeServiceBloc, SendDataTypeServiceState>(
-        builder: (context, state) {
-      return state is SendDataTypeServiceLoadingState
-          ? loadingWidget(context)
-          : SingleChildScrollView(
-              child: Padding(
-                  padding: const EdgeInsets.all(
-                    20.0,
-                  ),
-                  child: Column(children: [
-                    SizedBox(
-                      width: 70,
-                      child: Image.asset(
-                        PathConstants.taxiSolidale,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 3 * blockSizeVertical,
-                    ),
-                    Text(
-                      'Taxi Solidale',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Fase 1 di 2',
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                      ],
-                    ),
-                    const Divider(
-                      color: ColorConstants.orangeGradients3,
-                    ),
-                    Form(
-                      key: _formKey,
-                      child: _formSelectService(),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        CommonStyleButton(
-                            title: 'Invia e Continua',
-                            onTap: () async {
-                              if (_formKey.currentState!.validate()) {
-                                bloc.add(
-                                  SendDataTypeServiceEvent(
-                                    serviceId: '2',
-                                    nome: _value == 1
+    return SingleChildScrollView(
+      child: Padding(
+          padding: const EdgeInsets.all(
+            20.0,
+          ),
+          child: Column(children: [
+            SizedBox(
+              width: 70,
+              child: Image.asset(
+                PathConstants.taxiSolidale,
+              ),
+            ),
+            SizedBox(
+              height: 3 * blockSizeVertical,
+            ),
+            Text(
+              'Taxi Solidale',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Fase 1 di 2',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ],
+            ),
+            const Divider(
+              color: ColorConstants.orangeGradients3,
+            ),
+            Form(
+              key: _formKey,
+              child: _formSelectService(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CommonStyleButton(
+                    title: 'Invia e Continua',
+                    onTap: () async {
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => DestinationTaxiPage(
+                                    nomeDestinatario: _value == 1
                                         ? globals.userData!.nome
                                         : _nameAnotherController.text,
-                                    telefono: _value == 1
+                                    telefonoDestinatario: _value == 1
                                         ? globals.userData!.telefono
-                                        : _telepAnotherController.text,
-                                    partenza: '',
-                                    destinazione: '',
-                                  ),
-                                );
-                              }
-                              FocusScope.of(context).unfocus();
-                              setState(() {
-                                taxiSolidaleIncompleto = true;
-                              });
-                              await ValueSharedPrefsViewSlide()
-                                  .setProfiloIncompletoUtenteTaxi(
-                                      taxiSolidaleIncompleto);
-                            },
-                            iconWidget: Text('')),
-                      ],
-                    ),
-                  ])),
-            );
-    });
+                                        : _telepAnotherController.text)));
+                        setState(() {
+                          taxiSolidaleIncompleto = true;
+                        });
+                        await ValueSharedPrefsViewSlide()
+                            .setProfiloIncompletoUtenteTaxi(
+                                taxiSolidaleIncompleto);
+                      }
+                    },
+                    iconWidget: Text('')),
+              ],
+            ),
+          ])),
+    );
   }
 
   _formSelectService() {

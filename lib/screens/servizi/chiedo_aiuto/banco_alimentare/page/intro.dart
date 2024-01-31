@@ -395,7 +395,8 @@ class _ContentPageBancoAlimentareState extends State<ContentPageBancoAlimentare>
                                                 telefono:
                                                     globals.userData!.telefono,
                                                     partenza: '',
-                                                    destinazione: ''
+                                                    destinazione: '',
+                                                    data: '',
                                               ));
                                               setState(() {
                                                 profiloIncompletoBancoAlim = true;
