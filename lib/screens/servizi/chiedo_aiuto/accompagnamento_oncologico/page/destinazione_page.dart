@@ -121,9 +121,7 @@ class _DestinationPageState extends State<DestinationPage> {
                             children: [
                               Text(
                                   'Inserisci indirizzo di partenza (indirizzo di residenza):'),
-                              SizedBox(
-                                height: 20,
-                              ),
+                             
                               TextFormFieldCustom(
                                 textEditingController: _partenzaController,
                                 labelTextCustom: 'Indirizzo di partenza:',
@@ -135,14 +133,12 @@ class _DestinationPageState extends State<DestinationPage> {
                                   return null;
                                 },
                               ),
-                              SizedBox(
+                               SizedBox(
                                 height: 20,
                               ),
                               Text(
                                   'Inserisci destinazione (struttura sanitaria):'),
-                              SizedBox(
-                                height: 20,
-                              ),
+                            
                               TextFormFieldCustom(
                                 textEditingController: _destinazioneController,
                                 labelTextCustom: 'Destinazione:',
@@ -157,9 +153,13 @@ class _DestinationPageState extends State<DestinationPage> {
                               SizedBox(
                                 height: 20,
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
+                             Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                               children: [
+                                 Text(
+                                      'Inserisci data:'),
+                               ],
+                             ),
                               TextFormFieldCustom(
                                 textEditingController:
                                     _dateController, //editing controller of this TextField
@@ -211,6 +211,9 @@ class _DestinationPageState extends State<DestinationPage> {
                                     print("Date is not selected");
                                   }
                                 },
+                              ),
+                               SizedBox(
+                                height: 20,
                               ),
                             ],
                           ),

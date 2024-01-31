@@ -122,7 +122,6 @@ class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
                             children: [
                               Text(
                                   'Inserisci indirizzo di partenza (indirizzo di residenza):'),
-                            
                               TextFormFieldCustom(
                                 textEditingController: _partenzaController,
                                 labelTextCustom: 'Indirizzo di partenza:',
@@ -139,7 +138,6 @@ class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
                               ),
                               Text(
                                   'Inserisci destinazione (struttura sanitaria):'),
-                             
                               TextFormFieldCustom(
                                 textEditingController: _destinazioneController,
                                 labelTextCustom: 'Destinazione:',
@@ -154,14 +152,12 @@ class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
                               SizedBox(
                                 height: 20,
                               ),
-                               Row(
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                 children: [
-                                   Text(
-                                      'Inserisci la data:'),
-                                 ],
-                               ),
-                            
+                                children: [
+                                  Text('Inserisci la data:'),
+                                ],
+                              ),
                               TextFormFieldCustom(
                                 textEditingController:
                                     _dateController, //editing controller of this TextField
@@ -214,7 +210,7 @@ class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
                                   }
                                 },
                               ),
-                               SizedBox(
+                              SizedBox(
                                 height: 20,
                               ),
                             ],
@@ -226,35 +222,31 @@ class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
                             CommonStyleButton(
                                 title: 'Invia e Continua',
                                 onTap: () async {
-                                        if (_formKey.currentState!.validate()) {
-                                          SendDataTypeServiceRepository()
-                                              .sendDataTypeservice(
-                                            context: context,
-                                            serviceId: '3',
-                                            nome: widget.nomeDestinatario,
-                                            telefono:
-                                                widget.telefonoDestinatario,
-                                            partenza: _partenzaController.text,
-                                            destinazione:
-                                                _destinazioneController.text,
-                                            data: _dateController.text,
-                                          );
-    setState(() {
-                          destinazioneTaxiIncompleto = true;
-                        });
-                        await ValueSharedPrefsViewSlide()
-                            .setProfiloIncompletoUtenteDestinazioneTaxi(
-                                destinazioneTaxiIncompleto);
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      DisabiliTaxiPage()));
-
-                                        
-                                        }
-                                      },
-                                    
+                                  if (_formKey.currentState!.validate()) {
+                                    SendDataTypeServiceRepository()
+                                        .sendDataTypeservice(
+                                      context: context,
+                                      serviceId: '3',
+                                      nome: widget.nomeDestinatario,
+                                      telefono: widget.telefonoDestinatario,
+                                      partenza: _partenzaController.text,
+                                      destinazione:
+                                          _destinazioneController.text,
+                                      data: _dateController.text,
+                                    );
+                                    setState(() {
+                                      destinazioneTaxiIncompleto = false;
+                                    });
+                                    await ValueSharedPrefsViewSlide()
+                                        .setProfiloIncompletoUtenteDestinazioneTaxi(
+                                            destinazioneTaxiIncompleto);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                DisabiliTaxiPage()));
+                                  }
+                                },
                                 iconWidget: Text('')),
                           ],
                         ),

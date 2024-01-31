@@ -51,7 +51,7 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
 
   bool yes = false;
   int disabile = 0;
-  bool taxiSolidaleIncompleto = false;
+  bool taxiDisabiliIncompleto = false;
 
 
 
@@ -185,10 +185,10 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
                                                         disabile);
                                      Navigator.push(context, MaterialPageRoute(builder: (_) => TaxiSolidaleEditPage()));
                                       setState(() {
-                               taxiSolidaleIncompleto = false;
+                               taxiDisabiliIncompleto = false;
                              });
                               await ValueSharedPrefsViewSlide()
-                                  .setProfiloIncompletoUtenteTaxi(taxiSolidaleIncompleto);
+                                  .setProfiloIncompletoUtenteDisabili(taxiDisabiliIncompleto);
                                       }
                                     } : () async{
                                       if (_formKey.currentState!.validate()) {
@@ -203,10 +203,10 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
                                                                 .text,
                                                         disabile);
                                             setState(() {
-                               taxiSolidaleIncompleto = false;
+                               taxiDisabiliIncompleto = false;
                              });
                               await ValueSharedPrefsViewSlide()
-                                  .setProfiloIncompletoUtenteTaxi(taxiSolidaleIncompleto);
+                                  .setProfiloIncompletoUtenteDisabili(taxiDisabiliIncompleto);
                                         SendDataTypeServiceRepository()
                                             .sendMailService(
                                                 context, 'Taxi Solidale');
@@ -276,10 +276,10 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
                                             disabile: disabile));
                                      Navigator.push(context, MaterialPageRoute(builder: (_) => TaxiSolidaleEditPage()));
                                       setState(() {
-                               taxiSolidaleIncompleto = false;
+                               taxiDisabiliIncompleto = false;
                              });
                               await ValueSharedPrefsViewSlide()
-                                  .setProfiloIncompletoUtenteTaxi(taxiSolidaleIncompleto);
+                                  .setProfiloIncompletoUtenteDisabili(taxiDisabiliIncompleto);
                                       }
                                     } : () async{
                                       if (_formKey.currentState!.validate()) {
@@ -289,10 +289,10 @@ class _FormDataDisabiliTaxiState extends State<FormDataDisabiliTaxi> {
                                                 : _numberController.text,
                                             disabile: disabile));
                                             setState(() {
-                               taxiSolidaleIncompleto = false;
+                               taxiDisabiliIncompleto = false;
                              });
                               await ValueSharedPrefsViewSlide()
-                                  .setProfiloIncompletoUtenteTaxi(taxiSolidaleIncompleto);
+                                  .setProfiloIncompletoUtenteTaxi(taxiDisabiliIncompleto);
                                         SendDataTypeServiceRepository()
                                             .sendMailService(
                                                 context, 'Taxi Solidale');

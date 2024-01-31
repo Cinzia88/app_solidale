@@ -25,6 +25,8 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
   int _value = 1;
   bool create = false;
   bool taxiSolidaleIncompleto = false;
+  bool disabiliTaxiIncompleti = false;
+  bool destinazioneTaxiIncompleto = false;
 
   bool forAnother = false;
 
@@ -117,10 +119,15 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
                                         : _telepAnotherController.text)));
                         setState(() {
                           taxiSolidaleIncompleto = true;
+                                                destinazioneTaxiIncompleto = true;
+                                                disabiliTaxiIncompleti = true;
                         });
                         await ValueSharedPrefsViewSlide()
                             .setProfiloIncompletoUtenteTaxi(
                                 taxiSolidaleIncompleto);
+                                                                 await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteDestinazioneTaxi(disabiliTaxiIncompleti);
+
+                                 await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteDisabili(disabiliTaxiIncompleti);
                       }
                     },
                     iconWidget: Text('')),
