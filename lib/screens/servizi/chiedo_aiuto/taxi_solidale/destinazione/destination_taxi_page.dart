@@ -33,7 +33,7 @@ class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
   final TextEditingController _destinazioneController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
 
-  bool accIncompleto = true;
+  bool destinazioneTaxiIncompleto = true;
 
   @override
   Widget build(BuildContext context) {
@@ -239,7 +239,12 @@ class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
                                                 _destinazioneController.text,
                                             data: _dateController.text,
                                           );
-
+    setState(() {
+                          destinazioneTaxiIncompleto = true;
+                        });
+                        await ValueSharedPrefsViewSlide()
+                            .setProfiloIncompletoUtenteDestinazioneTaxi(
+                                destinazioneTaxiIncompleto);
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(

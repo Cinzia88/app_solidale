@@ -46,9 +46,7 @@ getValueProfiloBancoCompleto();
 
 
 Future getValueProfiloTaxiCompleto() async {
-    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteTaxi().then((value) {
-      ValueSharedPrefsViewSlide().removeProfiloIncompletoUtenteTaxi();
-    });
+    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteTaxi();
 setState(() {
   globals.profiloIncompletoTaxi = value;
 });

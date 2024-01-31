@@ -8,7 +8,18 @@ class ValueSharedPrefsViewSlide {
 
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance(); 
 
+ Future setProfiloIncompletoUtenteDestinazioneTaxi(bool value) async{
+    final instance = await prefs;
 
+    instance.setBool('profiloCompletoUtenteDestinazioneTaxi', value);
+  }
+
+   Future<bool> getProfiloIncompletoUtenteDestinazioneTaxi() async{
+    final instance = await prefs;
+
+   final value = instance.getBool('profiloCompletoUtenteDestinazioneTaxi');
+   return value ?? false;
+  }
 
  Future setProfiloIncompletoUtenteTaxi(bool value) async{
     final instance = await prefs;
