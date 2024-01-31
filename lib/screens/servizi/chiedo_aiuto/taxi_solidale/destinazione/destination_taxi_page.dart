@@ -11,6 +11,7 @@ import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_d
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_acc.onc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disabili/carica_disabili_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/disabili/carica_disabili_page_taxi.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
@@ -244,7 +245,7 @@ class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) =>
-                                                DisabiliTaxiPage()));
+                                                DisabiliPage()));
                                   }
                                 },
                                 iconWidget: Text('')),

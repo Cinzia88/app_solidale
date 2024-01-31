@@ -274,9 +274,9 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                           globals.dataDisabili != null ?    CommonStyleButton(
-                                    title: 'Invia',
-                                    onTap: globals.profiloIncompletoBancoAlim == true ? () async{
+                            globals.dataDisabili != null ? 
+                            CommonStyleButton(title: 'Invia', iconWidget:  Text(''),
+                            onTap: () async{
                                       if (_formKey.currentState!.validate()) {
                                                                                 print('edit si disabili');
 
@@ -297,94 +297,7 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                                           disabiliIncompleti!);
                                           print('globals.filesIncompleti ${globals.filesIncompleti}');
                                       }
-                                    } : () async{
-                                      if (_formKey.currentState!.validate()) {
-                                        print('edit si');
-                                        EditDataDisabiliRepository()
-                                                    .editDataDisabili(
-                                                        context,
-                                                        globals.dataDisabili!.id,
-                                                        disabile == 0
-                                                            ? '0'
-                                                            : _numberController
-                                                                .text,
-                                                        disabile);
-                                             setState(() {
-                                    disabiliIncompleti = false;
-                                  });
-                                  await ValueSharedPrefsViewSlide()
-                                      .setProfiloIncompletoUtenteDisabili(
-                                          disabiliIncompleti!);
-                                          print('globals.filesIncompleti ${globals.filesIncompleti}');
-                              SendDataTypeServiceRepository()
-                                            .sendMailService(
-                                                context, 'Banco Alimentare');
-                                       
-
-                                        showDialog(
-                                            barrierDismissible: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title: Column(
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 50,
-                                                      child: Image.asset(
-                                                          PathConstants
-                                                              .bancoAlim),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      'Stiamo elaborando i tuoi dati',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleMedium,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                                content: const Text(
-                                                    'Ti contatteremo al più presto!'),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                ),
-                                                actions: [
-                                                  InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        PresentationPage()));
-                                                      },
-                                                      child: Text(
-                                                        'Torna alla home',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleMedium,
-                                                      ))
-                                                ],
-                                              );
-                                            });
-                                      }
-                                    },
-                                    iconWidget: Text('')) :    CommonStyleButton(
-                                    title: 'Invia',
-                                    onTap: globals.profiloIncompletoBancoAlim == true ? () async{
-                                      if (_formKey.currentState!.validate()) {
-                                      bloc.add(SendDisabiliFormEvent(
-                                            numeroDisabili: disabile == 0
-                                                ? '0'
-                                                : _numberController.text,
-                                            disabile: disabile));
-                                    if (globals.filesIncompleti == true) {
+                                         if (globals.filesIncompleti == true) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -397,16 +310,11 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                                             builder: (context) =>
                                                 IntroBancoAlimentareEdit()));
                                   }
-                                     setState(() {
-                                    disabiliIncompleti = false;
-                                  });
-                                  await ValueSharedPrefsViewSlide()
-                                      .setProfiloIncompletoUtenteDisabili(
-                                          disabiliIncompleti!);
-                                      }
-                                    } : () async{
+                                    },) : 
+                                    CommonStyleButton(title: 'Invia e Continua', iconWidget:  Text(''),
+                            onTap: () async{
                                       if (_formKey.currentState!.validate()) {
-                                        bloc.add(SendDisabiliFormEvent(
+                                                                               bloc.add(SendDisabiliFormEvent(
                                             numeroDisabili: disabile == 0
                                                 ? '0'
                                                 : _numberController.text,
@@ -417,65 +325,28 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                                   await ValueSharedPrefsViewSlide()
                                       .setProfiloIncompletoUtenteDisabili(
                                           disabiliIncompleti!);
-                                        SendDataTypeServiceRepository()
-                                            .sendMailService(
-                                                context, 'Banco Alimentare');
-
-                                        showDialog(
-                                            barrierDismissible: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title: Column(
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 50,
-                                                      child: Image.asset(
-                                                          PathConstants
-                                                              .bancoAlim),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      'Stiamo elaborando i tuoi dati',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleMedium,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                                content: const Text(
-                                                    'Ti contatteremo al più presto!'),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                ),
-                                                actions: [
-                                                  InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        PresentationPage()));
-                                                      },
-                                                      child: Text(
-                                                        'Torna alla home',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleMedium,
-                                                      ))
-                                                ],
-                                              );
-                                            });
                                       }
-                                    },
-                                    iconWidget: Text('')),
+                                         if (globals.filesIncompleti == true) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CaricaDocsPage()));
+                                  } else {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                IntroBancoAlimentareEdit()));
+                                  }
+                                    },),
+
+
+
+
+
+
+                           
                          
                         ],
                       ),
