@@ -46,6 +46,7 @@ getValueProfiloBancoCompleto();
       getValueProfiloDestinazioneCompleto();
     getValueProfiloDisabiliTaxi();
     getValueProfiloFilesTaxiCompleto();
+    
     readUser().then((value) => getRequestUser());
 
   }
