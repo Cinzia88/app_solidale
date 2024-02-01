@@ -35,7 +35,7 @@ bool? componentiIncompleti;
 bool? disabiliIncompleti;
 bool? filesIncompleti;
 
-bool? destinazioneTaxi;
+bool? destinazioneTaxiIncompleta;
 bool? filesTaxiIncompleti;
 
 

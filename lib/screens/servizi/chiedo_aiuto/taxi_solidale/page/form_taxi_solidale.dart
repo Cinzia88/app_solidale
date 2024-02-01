@@ -89,7 +89,7 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'Fase 1 di 3',
+                  'Fase 1 di 4',
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],

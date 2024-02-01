@@ -39,7 +39,9 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
   @override
   void initState() {
     super.initState();
-    getValueProfiloTaxiCompleto();
+     getValueProfiloDestinazioneCompleto();
+    getValueProfiloDisabiliTaxi();
+    getValueProfiloFilesCompleto();
     getDisabiliData();
   }
 
@@ -103,14 +105,33 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
     return data;
   }
 
-  Future getValueProfiloTaxiCompleto() async {
+  Future getValueProfiloFilesCompleto() async {
     final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteTaxi();
+        await ValueSharedPrefsViewSlide().getsetProfiloIncompletoUtenteFilesTaxi();
     setState(() {
-      globals.profiloIncompletoTaxi = value;
+      globals.filesTaxiIncompleti = value;
     });
 
-    print('profiloIncompletoTaxi ${globals.profiloIncompletoTaxi}');
+    print('files ${globals.filesTaxiIncompleti}');
+  }
+  Future getValueProfiloDestinazioneCompleto() async {
+    final value = await ValueSharedPrefsViewSlide()
+        .getProfiloIncompletoUtenteDestinazioneTaxi();
+    setState(() {
+      globals.destinazioneTaxiIncompleta = value;
+    });
+
+    print('componenti ${globals.destinazioneTaxiIncompleta}');
+  }
+
+  Future getValueProfiloDisabiliTaxi() async {
+    final value =
+        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
+    setState(() {
+      globals.disabiliIncompleti = value;
+    });
+
+    print('disabili ${globals.disabiliIncompleti}');
   }
 
   @override
@@ -196,31 +217,50 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                               .textTheme
                                               .titleSmall,
                                         ),
-                                        globals.profiloIncompletoTaxi == true
-                                            ? Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 40.0),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'Richiesta Incompleta:',
-                                                      style: TextStyle(
-                                                          color: Colors.red,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Text(
-                                                      '- Dati Disabilità Familiare Mancanti',
-                                                      style: TextStyle(
-                                                        color: Colors.red,
-                                                      ),
-                                                    )
-                                                  ],
+                                         globals.destinazioneTaxiIncompleta == true ||
+                            globals.disabiliIncompleti == true ||
+                            globals.filesTaxiIncompleti == true
+                                ? Padding(
+                                    padding: const EdgeInsets.only(top: 40.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Richiesta Incompleta:',
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        globals.destinazioneTaxiIncompleta == true
+                                            ? Text(
+                                                '- Dati Partenza/Destinazione Mancanti',
+                                                style: TextStyle(
+                                                  color: Colors.red,
+                                                ),
+                                              ) : SizedBox(),
+                                            
+                                        globals.disabiliIncompleti == true
+                                            ? Text(
+                                                '- Dati Disabilità Familiare Mancanti',
+                                                style: TextStyle(
+                                                  color: Colors.red,
+                                                ),
+                                              ) : SizedBox(),
+                                          
+                                        globals.filesTaxiIncompleti == true
+                                            ? Text(
+                                                '- Documenti Mancanti',
+                                                style: TextStyle(
+                                                  color: Colors.red,
                                                 ),
                                               )
-                                            : SizedBox()
+                                            : Text(''),
+                                      ],
+                                    ),
+                                  )
+                                : SizedBox(),
+                                        
                                       ],
                                     )
                                   ],
@@ -278,8 +318,7 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                       height: 60,
                                     ),
                                     GestureDetector(
-                                      onTap: globals.profiloIncompletoTaxi ==
-                                                  true &&
+                                      onTap: 
                                               globals.dataDisabili == null
                                           ? () {
                                               Navigator.push(
@@ -288,8 +327,7 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                                       builder: (context) =>
                                                           DisabiliTaxiPage()));
                                             }
-                                          : globals.profiloIncompletoTaxi ==
-                                                      true &&
+                                          : 
                                                   globals.dataDisabili != null
                                               ? () {
                                                   Navigator.push(
@@ -314,13 +352,11 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                               children: [
                                                 Expanded(
                                                   child: Text(
-                                                      globals.profiloIncompletoTaxi ==
-                                                                  true &&
+                                                     
                                                               globals.dataDisabili ==
                                                                   null
                                                           ? 'Aggiungi Dati Disabilità Familiare'
-                                                          : globals.profiloIncompletoTaxi ==
-                                                                      true &&
+                                                          : 
                                                                   globals.dataDisabili !=
                                                                       null
                                                               ? 'Modifica Dati Disabilità Familiare'
@@ -360,8 +396,10 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                         CommonStyleButton(
                                             title: 'Invia Richiesta',
                                             onTap:
-                                                globals.profiloIncompletoTaxi ==
-                                                        true
+                                              globals.destinazioneTaxiIncompleta == true &&
+                                               globals.disabiliIncompleti ==
+                                                    true && globals.filesTaxiIncompleti ==
+                                                    true
                                                     ? null
                                                     : () {
                                                         showDialog(

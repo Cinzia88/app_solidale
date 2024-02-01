@@ -275,7 +275,7 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                             globals.dataDisabili != null ? 
-                            CommonStyleButton(title: 'Invia', iconWidget:  Text(''),
+                            CommonStyleButton(title: 'Invia e Continua', iconWidget:  Text(''),
                             onTap: () async{
                                       if (_formKey.currentState!.validate()) {
                                                                                 print('edit si disabili');

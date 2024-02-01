@@ -21,6 +21,13 @@ class ValueSharedPrefsViewSlide {
    return value ?? false;
   }
 
+  Future<bool> removeProfiloIncompletoUtenteDestinazioneTaxi() async{
+    final instance = await prefs;
+
+   final value = instance.remove('profiloCompletoUtenteDestinazioneTaxi');
+   return value;
+  }
+
  Future setProfiloIncompletoUtenteTaxi(bool value) async{
     final instance = await prefs;
 
@@ -39,7 +46,12 @@ Future setProfiloIncompletoUtenteFilesTaxi(bool value) async{
    final value = instance.getBool('profiloCompletoUtenteFilesTaxi');
    return value ?? false;
   }
+ Future<bool> removeProfiloIncompletoUtenteFilesTaxi() async{
+    final instance = await prefs;
 
+   final value = instance.remove('profiloCompletoUtenteFilesTaxi');
+   return value;
+  }
 
    Future<bool> getProfiloIncompletoUtenteTaxi() async{
     final instance = await prefs;

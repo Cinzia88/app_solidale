@@ -106,7 +106,7 @@ class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              'Fase 2 di 3',
+                              'Fase 2 di 4',
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                           ],
@@ -245,7 +245,7 @@ class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) =>
-                                                DisabiliPage()));
+                                                DisabiliTaxiPage()));
                                   }
                                 },
                                 iconWidget: Text('')),
