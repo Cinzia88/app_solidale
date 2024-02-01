@@ -46,8 +46,6 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
     getValueProfiloFilesCompleto();
   }
 
- 
-
   Future getValueProfiloComponentiCompleto() async {
     final value = await ValueSharedPrefsViewSlide()
         .getProfiloIncompletoUtenteComponenti();
@@ -57,6 +55,7 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
 
     print('componenti ${globals.componentiIncompleti}');
   }
+
   bool? profiloIncompletoBancoAlim;
 
   Future getValueProfiloDisabiliBanco() async {
@@ -162,8 +161,8 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                               ],
                             ),
                             globals.componentiIncompleti == true ||
-                            globals.disabiliIncompleti == true ||
-                            globals.filesIncompleti == true
+                                    globals.disabiliIncompleti == true ||
+                                    globals.filesIncompleti == true
                                 ? Padding(
                                     padding: const EdgeInsets.only(top: 40.0),
                                     child: Column(
@@ -182,16 +181,16 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                                 style: TextStyle(
                                                   color: Colors.red,
                                                 ),
-                                              ) : SizedBox(),
-                                            
+                                              )
+                                            : SizedBox(),
                                         globals.disabiliIncompleti == true
                                             ? Text(
                                                 '- Dati Disabilità Familiare Mancanti',
                                                 style: TextStyle(
                                                   color: Colors.red,
                                                 ),
-                                              ) : SizedBox(),
-                                          
+                                              )
+                                            : SizedBox(),
                                         globals.filesIncompleti == true
                                             ? Text(
                                                 '- Documenti Mancanti',
@@ -393,7 +392,9 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                 const SizedBox(
                                   height: 40,
                                 ),
-                                globals.filesIncompleti == true && globals.profiloIncompletoBancoAlim == true 
+                                globals.filesIncompleti == true &&
+                                        globals.profiloIncompletoBancoAlim ==
+                                            true
                                     ? GestureDetector(
                                         onTap: () {
                                           Navigator.push(
@@ -490,37 +491,37 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                   children: [
                                     CommonStyleButton(
                                         title: 'Invia Richiesta',
-                                        onTap:
-                                            globals.componentiIncompleti ==
-                                                    true && globals.disabiliIncompleti ==
-                                                    true && globals.filesIncompleti ==
-                                                    true
-                                                ? null
-                                                : () async{
-                                                    EditDataTypeServiceRepository()
-                                                        .editRequest(
-                                                            context,
-                                                            idBancoEdit,
-                                                            '4',
-                                                            globals
-                                                                .userData!.nome,
-                                                            globals.userData!
-                                                                .telefono,
-                                                            '',
-                                                            '',
-                                                            '').then((value) async{
-                                                               SendDataTypeServiceRepository()
-                                                        .sendMailService(
-                                                            context,
-                                                            'Banco Alimentare');
-                                                            setState(() {
-                                                profiloIncompletoBancoAlim = true;
-                                                            });
-                                                                                                          await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteBanco(profiloIncompletoBancoAlim!);
-
-                                                            });
-                                                   
-                                                  },
+                                        onTap: globals.componentiIncompleti ==
+                                                    true &&
+                                                globals.disabiliIncompleti ==
+                                                    true &&
+                                                globals.filesIncompleti == true
+                                            ? null
+                                            : () async {
+                                                EditDataTypeServiceRepository()
+                                                    .editRequest(
+                                                        context,
+                                                        idBancoEdit,
+                                                        '4',
+                                                        globals.userData!.nome,
+                                                        globals
+                                                            .userData!.telefono,
+                                                        '',
+                                                        '',
+                                                        '')
+                                                    .then((value) async {
+                                                  SendDataTypeServiceRepository()
+                                                      .sendMailService(context,
+                                                          'Banco Alimentare');
+                                                  setState(() {
+                                                    profiloIncompletoBancoAlim =
+                                                        true;
+                                                  });
+                                                  await ValueSharedPrefsViewSlide()
+                                                      .setProfiloIncompletoUtenteBanco(
+                                                          profiloIncompletoBancoAlim!);
+                                                });
+                                              },
                                         iconWidget: Text('')),
                                   ],
                                 )

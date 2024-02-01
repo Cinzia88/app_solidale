@@ -44,7 +44,6 @@ getValueProfiloBancoCompleto();
 
 
       getValueProfiloDestinazioneCompleto();
-    getValueProfiloDisabiliTaxi();
     getValueProfiloFilesTaxiCompleto();
     
     readUser().then((value) => getRequestUser());
@@ -80,17 +79,6 @@ getValueProfiloBancoCompleto();
     print('componenti ${globals.destinazioneTaxiIncompleta}');
   }
 
-  Future getValueProfiloDisabiliTaxi() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili().then((value) {
-          ValueSharedPrefsViewSlide().removeProfiloIncompletoUtenteDisabili();
-        });
-    setState(() {
-      globals.disabiliIncompleti = value;
-    });
-
-    print('disabili ${globals.disabiliIncompleti}');
-  }
 
 
 
@@ -155,7 +143,9 @@ print('profiloIncompletoBanco ${globals.profiloIncompletoBancoAlim}');
 
   Future getValueProfiloDisabiliBanco() async {
     final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
+        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili().then((value) {
+          ValueSharedPrefsViewSlide().removeProfiloIncompletoUtenteDisabili();
+        });
     setState(() {
       globals.disabiliIncompleti = value;
     });

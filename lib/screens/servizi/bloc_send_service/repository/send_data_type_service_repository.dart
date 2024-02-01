@@ -85,12 +85,6 @@ print('response.statusCode ${response.statusCode}');
                     );
                   });
             }
-          } else if (response.body.contains('"service_id":2')) {
-            if (context.mounted) {
-
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => DisabiliTaxiPage()));
-            }
-            break;
           }  else if (response.body.contains('"service_id":4')) {
             if (context.mounted) {
 

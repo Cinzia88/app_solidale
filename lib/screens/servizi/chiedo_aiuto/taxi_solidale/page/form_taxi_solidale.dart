@@ -61,8 +61,12 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-
-    return SingleChildScrollView(
+ final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
+    return BlocBuilder<SendDataTypeServiceBloc, SendDataTypeServiceState>(builder: (context, state) {
+     
+      return state is SendDataTypeServiceLoadingState
+              ? loadingWidget(context)
+              :  SingleChildScrollView(
       child: Padding(
           padding: const EdgeInsets.all(
             20.0,
@@ -108,6 +112,15 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
                     title: 'Invia e Continua',
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
+                         bloc.add(SendDataTypeServiceEvent(
+                                                serviceId: '2',
+                                                nome: globals.userData!.nome,
+                                                telefono:
+                                                    globals.userData!.telefono,
+                                                    partenza: '',
+                                                    destinazione: '',
+                                                    data: '',
+                                              ));
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -144,7 +157,7 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
               ],
             ),
           ])),
-    );
+    );});
   }
 
   _formSelectService() {

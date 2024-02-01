@@ -1,4 +1,8 @@
 import 'dart:convert';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/destinazione/destination_taxi_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/destinazione/edit_destinazione/page_edit_destinazione.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/docs/carica_docs_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/docs/edit_docs/page/edit_docs_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
@@ -314,79 +318,286 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 60,
-                                    ),
-                                    GestureDetector(
-                                      onTap: 
-                                              globals.dataDisabili == null
-                                          ? () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          DisabiliTaxiPage()));
-                                            }
-                                          : 
-                                                  globals.dataDisabili != null
-                                              ? () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              DisabiliTaxiPageEdit()));
-                                                }
-                                              : () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              DisabiliTaxiPageEdit()));
-                                                },
-                                      child: CustomCardsCommon(
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                     
-                                                              globals.dataDisabili ==
-                                                                  null
-                                                          ? 'Aggiungi Dati Disabilità Familiare'
-                                                          : 
-                                                                  globals.dataDisabili !=
-                                                                      null
-                                                              ? 'Modifica Dati Disabilità Familiare'
-                                                              : 'Modifica Dati Disabilità Familiare',
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 2.5 *
-                                                            blockSizeVertical,
-                                                        color: ColorConstants
-                                                            .orangeGradients3,
-                                                      )),
-                                                ),
-                                              ],
-                                            ),
-                                            const Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Flexible(
-                                                  child: Text(
-                                                    'Modifica i dati della presenza di disabilità nel nucleo familiare',
+                                    SizedBox(
+                                        height: 40,
+                                      ),
+                                      globals.destinazioneTaxiIncompleta == true
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DestinationTaxiEditPage(
+                                                        
+                                                      )));
+                                        },
+                                        child: CustomCardsCommon(
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                        'Aggiungi Dati Partenza/Destinazione',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 2.5 *
+                                                              blockSizeVertical,
+                                                          color: ColorConstants
+                                                              .orangeGradients3,
+                                                        )),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                                ],
+                                              ),
+                                              const Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      'Aggiungi i dati di indirizzo di partenza e/o destinazione',
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    : GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DestinationTaxiEditPage()));
+                                        },
+                                        child: CustomCardsCommon(
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                        'Modifica Dati Partenza/Destinazione',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 2.5 *
+                                                              blockSizeVertical,
+                                                          color: ColorConstants
+                                                              .orangeGradients3,
+                                                        )),
+                                                  ),
+                                                ],
+                                              ),
+                                              const Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      'Modifica i dati di indirizzo di partenza e/o destinazione',
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
+                                    const SizedBox(
+                                      height: 40,
                                     ),
+                                    globals.disabiliIncompleti == true
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DisabiliTaxiPage()));
+                                        },
+                                        child: CustomCardsCommon(
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                        'Aggiungi Dati Disabilità Familiare',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 2.5 *
+                                                              blockSizeVertical,
+                                                          color: ColorConstants
+                                                              .orangeGradients3,
+                                                        )),
+                                                  ),
+                                                ],
+                                              ),
+                                              const Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      'Aggiungi i dati della presenza di disabilità nel nucleo familiare',
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    : GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DisabiliTaxiPageEdit()));
+                                        },
+                                        child: CustomCardsCommon(
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                        'Modifica Dati Disabilità Familiare',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 2.5 *
+                                                              blockSizeVertical,
+                                                          color: ColorConstants
+                                                              .orangeGradients3,
+                                                        )),
+                                                  ),
+                                                ],
+                                              ),
+                                              const Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      'Modifica i dati della presenza di disabilità nel nucleo familiare',
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      
+                                     const SizedBox(
+                                      height: 40,
+                                    ),
+                                    globals.filesTaxiIncompleti == true
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CaricaDocsTaxiPage()));
+                                        },
+                                        child: CustomCardsCommon(
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                        'Aggiungi Documenti',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 2.5 *
+                                                              blockSizeVertical,
+                                                          color: ColorConstants
+                                                              .orangeGradients3,
+                                                        )),
+                                                  ),
+                                                ],
+                                              ),
+                                              const Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      'Carica i tuoi documenti',
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    : GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CaricaDocsEditTaxiPage()));
+                                        },
+                                        child: CustomCardsCommon(
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                        'Modifica Documenti',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 2.5 *
+                                                              blockSizeVertical,
+                                                          color: ColorConstants
+                                                              .orangeGradients3,
+                                                        )),
+                                                  ),
+                                                ],
+                                              ),
+                                              const Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      'Modifica i tuoi documenti',
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    
                                     SizedBox(
                                       height: 60,
                                     ),
