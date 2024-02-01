@@ -4,7 +4,9 @@ import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/custom_textfield.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_destinazione.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/destinazione/destination_taxi_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/destinazione/edit_destinazione/page_edit_destinazione.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -124,13 +126,8 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => DestinationTaxiPage(
-                                    nomeDestinatario: _value == 1
-                                        ? globals.userData!.nome
-                                        : _nameAnotherController.text,
-                                    telefonoDestinatario: _value == 1
-                                        ? globals.userData!.telefono
-                                        : _telepAnotherController.text)));
+                                builder: (_) => DestinationTaxiEditPage(
+                                    )));
                         setState(() {
                           taxiSolidaleIncompleto = true;
                           destinazioneTaxiIncompleto = true;

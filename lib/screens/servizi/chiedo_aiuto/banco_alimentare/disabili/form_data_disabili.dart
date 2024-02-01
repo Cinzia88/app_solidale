@@ -258,12 +258,8 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                                         textEditingController:
                                             _numberController,
                                         obscureText: false)),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
+                            
+                            
                           ],
                         ),
                       ),

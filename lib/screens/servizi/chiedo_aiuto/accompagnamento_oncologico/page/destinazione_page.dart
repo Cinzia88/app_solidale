@@ -166,6 +166,12 @@ class _DestinationPageState extends State<DestinationPage> {
                                 labelTextCustom: 'Data:',
                                 readOnly: true,
                                 obscureText: false,
+                                 validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Campo Richiesto*';
+                                  }
+                                  return null;
+                                },
                                 //set it true, so that user will not able to edit text
                                 onTap: () async {
                                   DateTime? pickedDate = await showDatePicker(

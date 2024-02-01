@@ -118,6 +118,7 @@ class _CaricaDocsEditTaxiPageState extends State<CaricaDocsEditTaxiPage> {
               );
             } else if (state is ReadDocsLoadedState) {
               for (int i = 0; i < state.data.length; i++) {
+
                 setState(() {
                   selectedValue = state.data[i].nome;
                   idDocs = state.data[i].id;

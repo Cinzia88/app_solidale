@@ -9,6 +9,7 @@ import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_d
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -130,6 +131,7 @@ class _TaxiSolidaleEditDataDestinatarioPageState
                                 CommonStyleButton(
                                     title: 'Aggiorna',
                                     onTap: () {
+                                      if(_formKey.currentState!.validate()) {
                                       EditDataTypeServiceRepository()
                                           .editRequest(
                                         context,
@@ -145,8 +147,9 @@ class _TaxiSolidaleEditDataDestinatarioPageState
                                         '',
                                         '',
                                       );
-
+                                     Navigator.push(context, MaterialPageRoute(builder: (_) => TaxiSolidaleEditPage()));
                                       FocusScope.of(context).unfocus();
+                                      }
                                     },
                                     iconWidget: Text('')),
                               ],

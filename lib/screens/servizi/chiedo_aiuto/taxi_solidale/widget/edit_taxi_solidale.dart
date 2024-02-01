@@ -221,14 +221,21 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                               .textTheme
                                               .titleSmall,
                                         ),
-                                         globals.destinazioneTaxiIncompleta == true ||
+                                        
+                                        
+                                      ],
+                                    )
+                                  ],
+                                ),
+                            
+
+                                 globals.destinazioneTaxiIncompleta == true ||
                             globals.disabiliIncompleti == true ||
                             globals.filesTaxiIncompleti == true
                                 ? Padding(
                                     padding: const EdgeInsets.only(top: 40.0),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                   crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Richiesta Incompleta:',
@@ -264,11 +271,6 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                     ),
                                   )
                                 : SizedBox(),
-                                        
-                                      ],
-                                    )
-                                  ],
-                                ),
                                 SizedBox(
                                   height: 40,
                                 ),
@@ -318,7 +320,8 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
+                                   
+                                     SizedBox(
                                         height: 40,
                                       ),
                                       globals.destinazioneTaxiIncompleta == true
@@ -412,7 +415,7 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                           ),
                                         ),
                                       ),
-                                    const SizedBox(
+                                      const SizedBox(
                                       height: 40,
                                     ),
                                     globals.disabiliIncompleti == true
@@ -607,9 +610,9 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                         CommonStyleButton(
                                             title: 'Invia Richiesta',
                                             onTap:
-                                              globals.destinazioneTaxiIncompleta == true &&
+                                              globals.destinazioneTaxiIncompleta == true ||
                                                globals.disabiliIncompleti ==
-                                                    true && globals.filesTaxiIncompleti ==
+                                                    true || globals.filesTaxiIncompleti ==
                                                     true
                                                     ? null
                                                     : () {

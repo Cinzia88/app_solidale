@@ -113,7 +113,7 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                   nome = state.data[i].nome;
                   telefono = state.data[i].telefono;
                 });
-                if (globals.disabiliIncompleti == true) {
+                if (globals.destinazioneTaxiIncompleta == true) {
                   setState(() {
                     _partenzaController.text = '';
                     _destinazioneController.text = '';
@@ -156,7 +156,7 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                             Flexible(
                               child: Text(
                                 globals.destinazioneTaxiIncompleta == true
-                                    ? 'Aggiungi Partenza/Destinazione'
+                                    ? 'Fase 2 di 4'
                                     : 'Modifica Partenza/Destinazione',
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
@@ -174,11 +174,9 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                           child: Column(
                             children: [
                               Text(globals.destinazioneTaxiIncompleta == true
-                                  ? 'Aggiungi indirizzo di partenza (indirizzo di residenza):'
+                                  ? 'Inserisci indirizzo di partenza (indirizzo di residenza):'
                                   : 'Modifica indirizzo di partenza (indirizzo di residenza):'),
-                              SizedBox(
-                                height: 10,
-                              ),
+                             
                               TextFormFieldCustom(
                                 textEditingController: _partenzaController,
                                 labelTextCustom: 'Indirizzo di partenza:',
@@ -191,13 +189,12 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                                 },
                               ),
                               SizedBox(
-                                height: 25,
+                                height: 20,
                               ),
-                              Text(
-                                  'Modifica destinazione (struttura sanitaria):'),
-                              SizedBox(
-                                height: 10,
-                              ),
+                                Text(globals.destinazioneTaxiIncompleta == true
+                                  ? 'Inserisci destinazione (struttura sanitaria):'
+                                  : 'Modifica destinazione (struttura sanitaria):'),
+                             
                               TextFormFieldCustom(
                                 textEditingController: _destinazioneController,
                                 labelTextCustom: 'Destinazione:',
@@ -212,12 +209,26 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                               SizedBox(
                                 height: 20,
                               ),
+                               Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                 children: [
+                                   Text(globals.destinazioneTaxiIncompleta == true
+                                      ? 'Inserisci data:'
+                                      : 'Modifica data:'),
+                                 ],
+                               ),
                               TextFormFieldCustom(
                                 textEditingController:
                                     _dateController, //editing controller of this TextField
                                 labelTextCustom: 'Data:',
                                 readOnly: true,
                                 obscureText: false,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Campo Richiesto*';
+                                  }
+                                  return null;
+                                },
                                 //set it true, so that user will not able to edit text
                                 onTap: () async {
                                   DateTime? pickedDate = await showDatePicker(
@@ -276,9 +287,10 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                             CommonStyleButton(
                                 title:
                                     globals.destinazioneTaxiIncompleta == true
-                                        ? 'Invia'
+                                        ? 'Invia e Continua'
                                         : 'Aggiorna',
                                 onTap: () async {
+                                  if(_formKey.currentState!.validate()) {
                                   EditDataTypeServiceRepository().editRequest(
                                       context,
                                       idReq,
@@ -310,6 +322,7 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                                   }
 
                                   FocusScope.of(context).unfocus();
+                                  }
                                 },
                                 iconWidget: Text('')),
                           ],
