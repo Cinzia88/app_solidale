@@ -62,7 +62,7 @@ getValueProfiloBancoCompleto();
       globals.filesTaxiIncompleti = value;
     });
 
-    print('files ${globals.filesTaxiIncompleti}');
+    print('filesTaxi ${globals.filesTaxiIncompleti}');
   }
 
 
@@ -164,7 +164,9 @@ print('profiloIncompletoBanco ${globals.profiloIncompletoBancoAlim}');
 
   Future getValueProfiloFilesCompleto() async {
     final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteFiles();
+        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteFiles().then((value) {
+          ValueSharedPrefsViewSlide().removeFilesBanco();
+        });
     setState(() {
       globals.filesIncompleti = value;
     });
