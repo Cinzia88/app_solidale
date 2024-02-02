@@ -71,46 +71,11 @@ class _FormDocsState extends State<FormDocs> {
     }
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getValueProfiloComponentiCompleto();
-    getValueProfiloDisabiliBanco();
-    getValueProfiloFilesCompleto();
-  }
+
 
  
 
-  Future getValueProfiloComponentiCompleto() async {
-    final value = await ValueSharedPrefsViewSlide()
-        .getProfiloIncompletoUtenteComponenti();
-    setState(() {
-      globals.componentiIncompleti = value;
-    });
-
-    print('componenti ${globals.componentiIncompleti}');
-  }
-
-  Future getValueProfiloDisabiliBanco() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
-    setState(() {
-      globals.disabiliIncompleti = value;
-    });
-
-    print('disabili ${globals.disabiliIncompleti}');
-  }
-
-  Future getValueProfiloFilesCompleto() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteFiles();
-    setState(() {
-      globals.filesIncompleti = value;
-    });
-
-    print('files ${globals.filesIncompleti}');
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -360,11 +325,7 @@ class _FormDocsState extends State<FormDocs> {
                                         body: body,
                                         imagepath: imagesList,
                                         pdfpath: filePdf));
-                                        setState(() {
-                                              
-                                                filesIncompleti = false;
-                                              });
-                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteFiles(filesIncompleti!);
+                                       
                                    
                                    Navigator.push(context, MaterialPageRoute(builder: (_) => IntroBancoAlimentareEdit()));
                                     FocusScope.of(context).unfocus();

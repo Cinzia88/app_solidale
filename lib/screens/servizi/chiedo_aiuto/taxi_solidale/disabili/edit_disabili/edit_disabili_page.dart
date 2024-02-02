@@ -217,11 +217,7 @@ bool? taxiSolidaleIncompleto;
                                                             : _numberController
                                                                 .text,
                                                         disabile);
-                                                         setState(() {
-                               taxiSolidaleIncompleto = false;
-                             });
-                              await ValueSharedPrefsViewSlide()
-                                  .setProfiloIncompletoUtenteTaxi(taxiSolidaleIncompleto!);
+                                                         
                                                Navigator.push(context, MaterialPageRoute(builder: (_) => TaxiSolidaleEditPage()));
 
                                                 FocusScope.of(context)

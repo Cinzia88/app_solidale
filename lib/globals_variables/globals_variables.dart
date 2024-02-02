@@ -31,12 +31,7 @@ Map<String, dynamic> pdf = {};
 bool? profiloIncompletoTaxi;
 bool? profiloIncompletoAccOnc;
 bool? profiloIncompletoBancoAlim;
-bool? componentiIncompleti;
-bool? disabiliIncompleti;
-bool? filesIncompleti;
 
-bool? destinazioneTaxiIncompleta;
-bool? filesTaxiIncompleti;
 
 
 

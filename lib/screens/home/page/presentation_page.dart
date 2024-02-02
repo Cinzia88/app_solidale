@@ -10,6 +10,11 @@ import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
+import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/repo/edit_parents_repo.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/model/model_disabili.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto.dart';
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
@@ -37,53 +42,11 @@ class _PresentationPageState extends State<PresentationPage>
     getValueProfiloTaxiCompleto();
         getValueProfiloAccOncCompleto();
 getValueProfiloBancoCompleto();
-  getValueProfiloComponentiCompleto();
-    getValueProfiloDisabiliBanco();
-    getValueProfiloFilesCompleto();
 
-
-
-      getValueProfiloDestinazioneCompleto();
-    getValueProfiloFilesTaxiCompleto();
     
     readUser().then((value) => getRequestUser());
 
   }
-
-
-
-
-  Future getValueProfiloFilesTaxiCompleto() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getsetProfiloIncompletoUtenteFilesTaxi();
-    setState(() {
-      globals.filesTaxiIncompleti = value;
-    });
-
-    print('filesTaxi ${globals.filesTaxiIncompleti}');
-  }
-
-
-
- Future getValueProfiloDestinazioneCompleto() async {
-    final value = await ValueSharedPrefsViewSlide()
-        .getProfiloIncompletoUtenteDestinazioneTaxi();
-    setState(() {
-      globals.destinazioneTaxiIncompleta = value;
-    });
-
-    print('componenti ${globals.destinazioneTaxiIncompleta}');
-  }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -93,7 +56,9 @@ getValueProfiloBancoCompleto();
 
 
 Future getValueProfiloTaxiCompleto() async {
-    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteTaxi();
+    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteTaxi().then((value) {
+      ValueSharedPrefsViewSlide().removeProfiloIncompletoUtenteTaxi();
+    });
 setState(() {
   globals.profiloIncompletoTaxi = value;
 });
@@ -102,7 +67,9 @@ print('profiloIncompletoTaxi ${globals.profiloIncompletoTaxi}');
   }
 
   Future getValueProfiloAccOncCompleto() async {
-    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteAccOnc();
+    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteAccOnc().then((value) {
+      ValueSharedPrefsViewSlide().removeProfiloIncompletoUtenteAccOnc();
+    });
 setState(() {
   globals.profiloIncompletoAccOnc = value;
 });
@@ -111,7 +78,9 @@ print('profiloIncompletoAccOnc ${globals.profiloIncompletoAccOnc}');
   }
 
    Future getValueProfiloBancoCompleto() async {
-    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteBanco();
+    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteBanco().then((value) {
+      ValueSharedPrefsViewSlide().removeProfiloIncompletoUtenteBanco();
+    });
 setState(() {
   globals.profiloIncompletoBancoAlim = value;
 });
@@ -123,36 +92,7 @@ print('profiloIncompletoBanco ${globals.profiloIncompletoBancoAlim}');
 
 
 
-  Future getValueProfiloComponentiCompleto() async {
-    final value = await ValueSharedPrefsViewSlide()
-        .getProfiloIncompletoUtenteComponenti();
-    setState(() {
-      globals.componentiIncompleti = value;
-    });
-
-    print('compo ${globals.componentiIncompleti}');
-  }
-
-  Future getValueProfiloDisabiliBanco() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
-    setState(() {
-      globals.disabiliIncompleti = value;
-    });
-
-    print('disabili ${globals.disabiliIncompleti}');
-  }
-
-  Future getValueProfiloFilesCompleto() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteFiles();
-    setState(() {
-      globals.filesIncompleti = value;
-    });
-
-    print('files ${globals.filesIncompleti}');
-  }
-
+  
   
 Future<List<RequestData>> getRequestUser() async {
     var url =

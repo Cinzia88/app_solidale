@@ -59,43 +59,11 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getValueProfiloComponentiCompleto();
-    getValueProfiloDisabiliBanco();
-    getValueProfiloFilesCompleto();
+
     getDisabiliData();
   }
 
-  Future getValueProfiloComponentiCompleto() async {
-    final value = await ValueSharedPrefsViewSlide()
-        .getProfiloIncompletoUtenteComponenti();
-    setState(() {
-      globals.componentiIncompleti = value;
-    });
-
-    print('componenti ${globals.componentiIncompleti}');
-  }
-
-  bool? profiloIncompletoBancoAlim;
-
-  Future getValueProfiloDisabiliBanco() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
-    setState(() {
-      globals.disabiliIncompleti = value;
-    });
-
-    print('disabili ${globals.disabiliIncompleti}');
-  }
-
-  Future getValueProfiloFilesCompleto() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteFiles();
-    setState(() {
-      globals.filesIncompleti = value;
-    });
-
-    print('files ${globals.filesIncompleti}');
-  }
+  
 
   Future<DisabiliData> getDisabiliData() async {
     var url =
@@ -283,29 +251,7 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                                                   ? '0'
                                                   : _numberController.text,
                                               disabile);
-                                      setState(() {
-                                        disabiliIncompleti = false;
-                                      });
-                                      await ValueSharedPrefsViewSlide()
-                                          .setProfiloIncompletoUtenteDisabili(
-                                              disabiliIncompleti!);
-                                      print(
-                                          'globals.filesIncompleti ${globals.filesIncompleti}');
-                                    }
-                                    if (globals.filesIncompleti == true) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CaricaDocsPage()));
-                                    } else {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  IntroBancoAlimentareEdit()));
-                                    }
-                                  },
+                                    }}      
                                 )
                               : CommonStyleButton(
                                   title: 'Invia e Continua',
@@ -317,27 +263,9 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                                               ? '0'
                                               : _numberController.text,
                                           disabile: disabile));
-                                      setState(() {
-                                        disabiliIncompleti = false;
-                                      });
-                                      await ValueSharedPrefsViewSlide()
-                                          .setProfiloIncompletoUtenteDisabili(
-                                              disabiliIncompleti!);
-                                    }
-                                    if (globals.filesIncompleti == true) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CaricaDocsPage()));
-                                    } else {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  IntroBancoAlimentareEdit()));
-                                    }
-                                  },
+                                    
+                                    
+                                    }}
                                 ),
                         ],
                       ),

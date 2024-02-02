@@ -235,12 +235,7 @@ class _DestinationTaxiPageState extends State<DestinationTaxiPage> {
                                           _destinazioneController.text,
                                       data: _dateController.text,
                                     );
-                                    setState(() {
-                                      destinazioneTaxiIncompleto = false;
-                                    });
-                                    await ValueSharedPrefsViewSlide()
-                                        .setProfiloIncompletoUtenteDestinazioneTaxi(
-                                            destinazioneTaxiIncompleto);
+                                   
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(

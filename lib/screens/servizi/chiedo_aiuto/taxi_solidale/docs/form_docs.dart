@@ -7,6 +7,7 @@ import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/bloc/send_docs_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/edit_banco_alim/edit_banco_alim.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
@@ -15,7 +16,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart' as globals;
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 
 class FormDocsTaxi extends StatefulWidget {
   const FormDocsTaxi({super.key});
@@ -62,8 +64,7 @@ class _FormDocsTaxiState extends State<FormDocsTaxi> {
           }
         }
         print('imagesList ${imagesList}');
-                print('pdfList ${imagesList}');
-
+        print('pdfList ${imagesList}');
       } else {
         return null;
       }
@@ -76,41 +77,8 @@ class _FormDocsTaxiState extends State<FormDocsTaxi> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getValueProfiloComponentiCompleto();
-    getValueProfiloDisabiliBanco();
-    getValueProfiloFilesCompleto();
-  }
+    EditDocsRepository().getDocsData(context);
 
- 
-
-  Future getValueProfiloComponentiCompleto() async {
-    final value = await ValueSharedPrefsViewSlide()
-        .getProfiloIncompletoUtenteComponenti();
-    setState(() {
-      globals.componentiIncompleti = value;
-    });
-
-    print('componenti ${globals.componentiIncompleti}');
-  }
-
-  Future getValueProfiloDisabiliBanco() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
-    setState(() {
-      globals.disabiliIncompleti = value;
-    });
-
-    print('disabili ${globals.disabiliIncompleti}');
-  }
-
-  Future getValueProfiloFilesCompleto() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteFiles();
-    setState(() {
-      globals.filesIncompleti = value;
-    });
-
-    print('files ${globals.filesIncompleti}');
   }
 
   @override
@@ -188,18 +156,18 @@ class _FormDocsTaxiState extends State<FormDocsTaxi> {
                                   ),
                                 ),
                                 items: items
-                                    .map(
-                                        (String item) => DropdownMenuItem<String>(
-                                              value: item,
-                                              child: Text(
-                                                item,
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ))
+                                    .map((String item) =>
+                                        DropdownMenuItem<String>(
+                                          value: item,
+                                          child: Text(
+                                            item,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ))
                                     .toList(),
                                 value: selectedValue,
                                 onChanged: (String? value) {
@@ -210,8 +178,8 @@ class _FormDocsTaxiState extends State<FormDocsTaxi> {
                                 buttonStyleData: ButtonStyleData(
                                   height: 50,
                                   width: 160,
-                                  padding:
-                                      const EdgeInsets.only(left: 14, right: 14),
+                                  padding: const EdgeInsets.only(
+                                      left: 14, right: 14),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(14),
                                     border: Border.all(
@@ -231,7 +199,8 @@ class _FormDocsTaxiState extends State<FormDocsTaxi> {
                                 ),
                                 dropdownStyleData: DropdownStyleData(
                                   maxHeight: 200,
-                                  width: MediaQuery.of(context).size.width - 150,
+                                  width:
+                                      MediaQuery.of(context).size.width - 150,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(14),
                                     color: Colors.white,
@@ -251,7 +220,7 @@ class _FormDocsTaxiState extends State<FormDocsTaxi> {
                               ),
                             ),
                           ),
-                     GridView.builder(
+                          GridView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate:
@@ -259,7 +228,7 @@ class _FormDocsTaxiState extends State<FormDocsTaxi> {
                                       crossAxisCount: 3),
                               itemCount: imagesList.length,
                               itemBuilder: (context, index) {
-                                return  Padding(
+                                return Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: Stack(
                                     fit: StackFit.expand,
@@ -294,7 +263,7 @@ class _FormDocsTaxiState extends State<FormDocsTaxi> {
                                     ],
                                   ),
                                 );
-                              }) ,
+                              }),
                           ListView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
@@ -309,9 +278,11 @@ class _FormDocsTaxiState extends State<FormDocsTaxi> {
                                       width: 10,
                                     ),
                                     Expanded(
-                                      child: Text(filePdf[index].path.split('/').last,
-                                                                       overflow: TextOverflow.ellipsis,
-                                                softWrap: false,),
+                                      child: Text(
+                                        filePdf[index].path.split('/').last,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                      ),
                                     ),
                                     IconButton(
                                       onPressed: () {
@@ -349,30 +320,24 @@ class _FormDocsTaxiState extends State<FormDocsTaxi> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                       CommonStyleButton(
-                                title: 'Invia',
-                                iconWidget: SizedBox(),
-                                onTap:  () async{
-                                  if (_formKey.currentState!.validate()) {
-                                    Map<String, String> body = {
-                                      'nome': selectedValue,
-                                    };
-                                    bloc.add(SendDocsFormEvent(
-                                        body: body,
-                                        imagepath: imagesList,
-                                        pdfpath: filePdf));
-                                        setState(() {
-                                              
-                                                filesIncompleti = false;
-                                              });
-                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteFilesTaxi(filesIncompleti!);
-                                   
-                                   Navigator.push(context, MaterialPageRoute(builder: (_) => TaxiSolidaleEditPage()));
-                                    FocusScope.of(context).unfocus();
-                           }
-                                } 
-                                
-                              ) 
+                              CommonStyleButton(
+                                  title: 'Invia',
+                                  iconWidget: SizedBox(),
+                                  onTap: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      Map<String, String> body = {
+                                        'nome': selectedValue,
+                                      };
+                                      bloc.add(SendDocsFormEvent(
+                                          body: body,
+                                          imagepath: imagesList,
+                                          pdfpath: filePdf));
+                                    
+                                      
+                                      
+                                      FocusScope.of(context).unfocus();
+                                    }
+                                  })
                             ],
                           ),
                         ],

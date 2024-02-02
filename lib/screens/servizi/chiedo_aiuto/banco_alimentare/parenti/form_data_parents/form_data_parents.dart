@@ -32,42 +32,15 @@ class _FormDataParentsState extends State<FormDataParents> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getValueProfiloComponentiCompleto();
-    getValueProfiloDisabiliBanco();
-    getValueProfiloFilesCompleto();
+
   }
 
  
 
-  Future getValueProfiloComponentiCompleto() async {
-    final value = await ValueSharedPrefsViewSlide()
-        .getProfiloIncompletoUtenteComponenti();
-    setState(() {
-      globals.componentiIncompleti = value;
-    });
 
-    print('componenti ${globals.componentiIncompleti}');
-  }
 
-  Future getValueProfiloDisabiliBanco() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
-    setState(() {
-      globals.disabiliIncompleti = value;
-    });
 
-    print('disabili ${globals.disabiliIncompleti}');
-  }
-
-  Future getValueProfiloFilesCompleto() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteFiles();
-    setState(() {
-      globals.filesIncompleti = value;
-    });
-
-    print('files ${globals.filesIncompleti}');
-  }
+ 
 
   String selectedValue = '1';
   List<Widget>? growableList;
@@ -388,27 +361,7 @@ class _FormDataParentsState extends State<FormDataParents> {
                                               print('nomeC ${nome}');
 
                                              
-                                                           setState(() {
-                                               
-                                                componentiIncompleti = false;
-                                              });
-                                      
-                                              await ValueSharedPrefsViewSlide()
-                                                  .setProfiloIncompletoUtenteComponenti(
-                                                      componentiIncompleti!);
-                                                      if(globals.disabiliIncompleti == true) {
-                                                         Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          DisabiliPage()));
-                                                      } else {
-                                                         Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          IntroBancoAlimentareEdit()));
-                                                      }
+                                                          
                                             }
                                           }
                                         },

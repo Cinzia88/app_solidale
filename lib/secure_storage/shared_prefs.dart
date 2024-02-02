@@ -1,234 +1,129 @@
-
-
-
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ValueSharedPrefsViewSlide {
+  final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
-  final Future<SharedPreferences> prefs = SharedPreferences.getInstance(); 
-
- Future setProfiloIncompletoUtenteDestinazioneTaxi(bool value) async{
-    final instance = await prefs;
-
-    instance.setBool('profiloCompletoUtenteDestinazioneTaxi', value);
-  }
-
-   Future<bool> getProfiloIncompletoUtenteDestinazioneTaxi() async{
-    final instance = await prefs;
-
-   final value = instance.getBool('profiloCompletoUtenteDestinazioneTaxi');
-   return value ?? false;
-  }
-
-  Future<bool> removeProfiloIncompletoUtenteDestinazioneTaxi() async{
-    final instance = await prefs;
-
-   final value = instance.remove('profiloCompletoUtenteDestinazioneTaxi');
-   return value;
-  }
-
- Future setProfiloIncompletoUtenteTaxi(bool value) async{
+  Future setProfiloIncompletoUtenteTaxi(bool value) async {
     final instance = await prefs;
 
     instance.setBool('profiloCompletoUtenteTaxi', value);
   }
 
-Future setProfiloIncompletoUtenteFilesTaxi(bool value) async{
+  Future<bool> getProfiloIncompletoUtenteTaxi() async {
     final instance = await prefs;
 
-    instance.setBool('profiloCompletoUtenteFilesTaxi', value);
+    final value = instance.getBool('profiloCompletoUtenteTaxi');
+    return value ?? false;
   }
 
-   Future<bool> getsetProfiloIncompletoUtenteFilesTaxi() async{
+  Future<bool> removeProfiloIncompletoUtenteTaxi() async {
     final instance = await prefs;
 
-   final value = instance.getBool('profiloCompletoUtenteFilesTaxi');
-   return value ?? false;
-  }
- Future<bool> removeProfiloIncompletoUtenteFilesTaxi() async{
-    final instance = await prefs;
-
-   final value = instance.remove('profiloCompletoUtenteFilesTaxi');
-   return value;
+    final value = instance.remove('profiloCompletoUtenteTaxi');
+    return value;
   }
 
-   Future<bool> getProfiloIncompletoUtenteTaxi() async{
-    final instance = await prefs;
-
-   final value = instance.getBool('profiloCompletoUtenteTaxi');
-   return value ?? false;
-  }
-
-  Future<bool> removeProfiloIncompletoUtenteTaxi() async{
-    final instance = await prefs;
-
-   final value = instance.remove('profiloCompletoUtenteTaxi');
-   return value;
-  }
-
-
-Future setProfiloIncompletoUtenteAccOnc(bool value) async{
+  Future setProfiloIncompletoUtenteAccOnc(bool value) async {
     final instance = await prefs;
 
     instance.setBool('profiloCompletoUtenteAccOnc', value);
   }
 
-   Future<bool> getProfiloIncompletoUtenteAccOnc() async{
+  Future<bool> getProfiloIncompletoUtenteAccOnc() async {
     final instance = await prefs;
 
-   final value = instance.getBool('profiloCompletoUtenteAccOnc');
-   return value ?? false;
+    final value = instance.getBool('profiloCompletoUtenteAccOnc');
+    return value ?? false;
   }
-Future<bool> removeProfiloIncompletoUtenteAccOnc() async{
+
+  Future<bool> removeProfiloIncompletoUtenteAccOnc() async {
     final instance = await prefs;
 
-   final value = instance.remove('profiloCompletoUtenteAccOnc');
-   return value;
+    final value = instance.remove('profiloCompletoUtenteAccOnc');
+    return value;
   }
 
-
-Future setProfiloIncompletoUtenteBanco(bool value) async{
+  Future setProfiloIncompletoUtenteBanco(bool value) async {
     final instance = await prefs;
 
     instance.setBool('profiloCompletoUtenteBanco', value);
   }
 
-   Future<bool> getProfiloIncompletoUtenteBanco() async{
+  Future<bool> getProfiloIncompletoUtenteBanco() async {
     final instance = await prefs;
 
-   final value = instance.getBool('profiloCompletoUtenteBanco');
-   return value ?? false;
+    final value = instance.getBool('profiloCompletoUtenteBanco');
+    return value ?? false;
   }
 
-  Future<bool> removeProfiloIncompletoUtenteBanco() async{
+  Future<bool> removeProfiloIncompletoUtenteBanco() async {
     final instance = await prefs;
 
-   final value = instance.remove('profiloCompletoUtenteBanco');
-   return value;
+    final value = instance.remove('profiloCompletoUtenteBanco');
+    return value;
   }
 
-
-Future setProfiloIncompletoUtenteComponenti(bool value) async{
-    final instance = await prefs;
-
-    instance.setBool('profiloCompletoUtenteComponenti', value);
-  }
-
-   Future<bool> getProfiloIncompletoUtenteComponenti() async{
-    final instance = await prefs;
-
-   final value = instance.getBool('profiloCompletoUtenteComponenti');
-   return value ?? false;
-  }
-
-  Future<bool> removeProfiloIncompletoUtenteComponenti() async{
-    final instance = await prefs;
-
-   final value = instance.remove('profiloCompletoUtenteComponenti');
-   return value;
-  }
-
-Future setProfiloIncompletoUtenteDisabili(bool value) async{
-    final instance = await prefs;
-
-    instance.setBool('profiloCompletoUtenteDisabili', value);
-  }
-
-   Future<bool> getProfiloIncompletoUtenteDisabili() async{
-    final instance = await prefs;
-
-   final value = instance.getBool('profiloCompletoUtenteDisabili');
-   return value ?? false;
-  }
- Future<bool> removeProfiloIncompletoUtenteDisabili() async{
-    final instance = await prefs;
-
-   final value = instance.remove('profiloCompletoUtenteDisabili');
-   return value;
-  }
-  Future setProfiloIncompletoUtenteFiles(bool value) async{
-    final instance = await prefs;
-
-    instance.setBool('profiloCompletoUtenteFiles', value);
-  }
- Future<bool> removeFilesBanco() async{
-    final instance = await prefs;
-
-   final value = instance.remove('profiloCompletoUtenteFiles');
-   return value;
-  }
-   Future<bool> getProfiloIncompletoUtenteFiles() async{
-    final instance = await prefs;
-
-   final value = instance.getBool('profiloCompletoUtenteFiles');
-   return value ?? false;
-  }
-
-  
- Future setIdTaxiSolidale(String value) async{
+  Future setIdTaxiSolidale(String value) async {
     final instance = await prefs;
 
     instance.setString('idTaxiSolidale', value);
   }
 
-   Future<String> getIdTaxiSolidale() async{
+  Future<String> getIdTaxiSolidale() async {
     final instance = await prefs;
 
-   final value = instance.getString('idTaxiSolidale');
-   return value ?? '';
+    final value = instance.getString('idTaxiSolidale');
+    return value ?? '';
   }
-  
 
-  Future setuserId(String value) async{
+  Future setuserId(String value) async {
     final instance = await prefs;
 
     instance.setString('userId', value);
   }
 
-   Future<String> getuserId() async{
+  Future<String> getuserId() async {
     final instance = await prefs;
 
-   final value = instance.getString('userId');
-   return value ?? '';
+    final value = instance.getString('userId');
+    return value ?? '';
   }
 
-  Future removeuserId() async{
+  Future removeuserId() async {
     final instance = await prefs;
 
     instance.remove('userId');
   }
 
-  Future setValueViewSlide(bool value) async{
+  Future setValueViewSlide(bool value) async {
     final instance = await prefs;
 
     instance.setBool('viewSlide', value);
   }
 
-   Future<bool> getValueViewSlide() async{
+  Future<bool> getValueViewSlide() async {
     final instance = await prefs;
 
-   final value = instance.getBool('viewSlide');
-   return value ?? true;
+    final value = instance.getBool('viewSlide');
+    return value ?? true;
   }
 
-  Future removeValueViewSlide() async{
+  Future removeValueViewSlide() async {
     final instance = await prefs;
 
     instance.remove('viewSlide');
   }
 
-
-    Future setCreate(bool value) async{
+  Future setCreate(bool value) async {
     final instance = await prefs;
 
     instance.setBool('createRequest', value);
   }
 
-   Future<bool> getCreateReq() async{
+  Future<bool> getCreateReq() async {
     final instance = await prefs;
 
-   final value = instance.getBool('createRequest');
-   return value ?? true;
+    final value = instance.getBool('createRequest');
+    return value ?? true;
   }
 }

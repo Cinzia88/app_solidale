@@ -10,6 +10,7 @@ import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_d
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/destinazione_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/disabili/carica_disabili_page_taxi.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
@@ -38,29 +39,12 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    getValueProfiloDisabiliTaxi();
-    getValueProfiloDestinazioneCompleto();
-  }
+    EditDataDisabiliRepository().getDisabiliData(context);
 
-  Future getValueProfiloDestinazioneCompleto() async {
-    final value = await ValueSharedPrefsViewSlide()
-        .getProfiloIncompletoUtenteDestinazioneTaxi();
-    setState(() {
-      globals.destinazioneTaxiIncompleta = value;
-    });
 
-    print('componenti ${globals.destinazioneTaxiIncompleta}');
-  }
 
-  Future getValueProfiloDisabiliTaxi() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
-    setState(() {
-      globals.disabiliIncompleti = value;
-    });
-
-    print('disabili ${globals.disabiliIncompleti}');
   }
 
   @override
@@ -85,12 +69,14 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
           automaticallyImplyLeading: true,
           flexibleSpace: customAppBar(context: context),
           actions: [
-            IconButton(
+        _partenzaController.text == '' ||
+                             _destinazioneController.text == '' ||
+                             _dateController.text == '' ? SizedBox() : IconButton(
                 onPressed: () => Navigator.pop(context),
                 icon: const Icon(
                   Icons.arrow_back,
                   color: Colors.white,
-                ))
+                )) 
           ],
         ),
         drawer: NavigationDrawerWidget(),
@@ -102,22 +88,27 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
             );
           } else if (state is ReadRequestLoadedState) {
             for (int i = 0; i < state.data.length; i++) {
+              print('state.data ${state.data[i].partenza}');
               if (state.data[i].serviceId == '2') {
                 setState(() {
                   idReq = state.data[i].idRequest;
 
-                  _partenzaController.text = state.data[i].partenza!;
-                  _destinazioneController.text = state.data[i].destinazione!;
-                  _dateController.text = state.data[i].data!;
-
                   nome = state.data[i].nome;
                   telefono = state.data[i].telefono;
                 });
-                if (globals.destinazioneTaxiIncompleta == true) {
+                if (state.data[i].partenza == 'null' &&
+                    state.data[i].destinazione == 'null' &&
+                    state.data[i].data == 'null') {
                   setState(() {
                     _partenzaController.text = '';
                     _destinazioneController.text = '';
                     _dateController.text = '';
+                  });
+                } else {
+                  setState(() {
+                    _partenzaController.text = state.data[i].partenza!;
+                    _destinazioneController.text = state.data[i].destinazione!;
+                    _dateController.text = state.data[i].data!;
                   });
                 }
               }
@@ -155,9 +146,9 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                           children: [
                             Flexible(
                               child: Text(
-                                globals.destinazioneTaxiIncompleta == true
-                                    ? 'Fase 2 di 4'
-                                    : 'Modifica Partenza/Destinazione',
+                             _partenzaController.text == '' ||
+                             _destinazioneController.text == '' ||
+                             _dateController.text == '' ?    'Fase 2 di 4' : 'Modifica Partenza/Destinazione',
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                             ),
@@ -173,10 +164,11 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                           key: _formKey,
                           child: Column(
                             children: [
-                              Text(globals.destinazioneTaxiIncompleta == true
-                                  ? 'Inserisci indirizzo di partenza (indirizzo di residenza):'
-                                  : 'Modifica indirizzo di partenza (indirizzo di residenza):'),
-                             
+                              Text(
+                              _partenzaController.text == '' ||
+                             _destinazioneController.text == '' ||
+                             _dateController.text == '' ?     'Inserisci indirizzo di partenza (indirizzo di residenza):' :
+                              'Modifica indirizzo di partenza (indirizzo di residenza):'),
                               TextFormFieldCustom(
                                 textEditingController: _partenzaController,
                                 labelTextCustom: 'Indirizzo di partenza:',
@@ -191,10 +183,12 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                               SizedBox(
                                 height: 20,
                               ),
-                                Text(globals.destinazioneTaxiIncompleta == true
-                                  ? 'Inserisci destinazione (struttura sanitaria):'
-                                  : 'Modifica destinazione (struttura sanitaria):'),
-                             
+                              Text(
+                               _partenzaController.text == '' ||
+                             _destinazioneController.text == '' ||
+                             _dateController.text == '' ? 
+                                  'Inserisci destinazione (struttura sanitaria):' :
+                                  'Modifica destinazione (struttura sanitaria):'),
                               TextFormFieldCustom(
                                 textEditingController: _destinazioneController,
                                 labelTextCustom: 'Destinazione:',
@@ -209,14 +203,14 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                               SizedBox(
                                 height: 20,
                               ),
-                               Row(
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                 children: [
-                                   Text(globals.destinazioneTaxiIncompleta == true
-                                      ? 'Inserisci data:'
-                                      : 'Modifica data:'),
-                                 ],
-                               ),
+                                children: [
+                              _partenzaController.text == '' ||
+                             _destinazioneController.text == '' ||
+                             _dateController.text == '' ?    Text('Inserisci data:') :Text('Modifica data:'),
+                                ],
+                              ),
                               TextFormFieldCustom(
                                 textEditingController:
                                     _dateController, //editing controller of this TextField
@@ -285,43 +279,31 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             CommonStyleButton(
-                                title:
-                                    globals.destinazioneTaxiIncompleta == true
-                                        ? 'Invia e Continua'
-                                        : 'Aggiorna',
+                                title:  _partenzaController.text == '' ||
+                             _destinazioneController.text == '' ||
+                             _dateController.text == '' ? 'Invia e Continua' : 'Aggiorna',
                                 onTap: () async {
-                                  if(_formKey.currentState!.validate()) {
-                                  EditDataTypeServiceRepository().editRequest(
-                                      context,
-                                      idReq,
-                                      '2',
-                                      nome,
-                                      telefono,
-                                      _partenzaController.text,
-                                      _destinazioneController.text,
-                                      _dateController.text);
-
-                                  setState(() {
-                                    destinazioneTaxiIncompleto = false;
-                                  });
-                                  await ValueSharedPrefsViewSlide()
-                                      .setProfiloIncompletoUtenteDestinazioneTaxi(
-                                          destinazioneTaxiIncompleto);
-                                  if (globals.disabiliIncompleti == true) {
-                                    Navigator.push(
+                                  if (_formKey.currentState!.validate()) {
+                                    EditDataTypeServiceRepository().editRequest(
                                         context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                DisabiliTaxiPage()));
-                                  } else {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                TaxiSolidaleEditPage()));
-                                  }
+                                        idReq,
+                                        '2',
+                                        nome,
+                                        telefono,
+                                        _partenzaController.text,
+                                        _destinazioneController.text,
+                                        _dateController.text);
 
-                                  FocusScope.of(context).unfocus();
+                                  
+
+                                    if(globals.dataDisabili == null) {
+                                      Navigator.push(context, MaterialPageRoute(builder: (_) => DisabiliTaxiPage()));
+                                    } else {
+                                                                            Navigator.push(context, MaterialPageRoute(builder: (_) => TaxiSolidaleEditPage()));
+
+                                    }
+
+                                    FocusScope.of(context).unfocus();
                                   }
                                 },
                                 iconWidget: Text('')),

@@ -40,16 +40,11 @@ class _AccompagnamentoOncologicoEditPageState extends State<AccompagnamentoOncol
    @override
   void initState() {
     super.initState();
-    getValueProfiloAccOncCompleto();
-  }
-Future getValueProfiloAccOncCompleto() async {
-    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteAccOnc();
-setState(() {
-  globals.profiloIncompletoAccOnc = value;
-});
+    EditDataTypeServiceRepository().getRequestData(context);
 
-print('profiloIncompletoAccOnc ${globals.profiloIncompletoAccOnc}');
+    
   }
+
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;

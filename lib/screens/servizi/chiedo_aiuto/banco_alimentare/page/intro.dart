@@ -400,14 +400,10 @@ class _ContentPageBancoAlimentareState extends State<ContentPageBancoAlimentare>
                                               ));
                                               setState(() {
                                                 profiloIncompletoBancoAlim = true;
-                                                componentiIncompleti = true;
-                                                disabiliIncompleti = true;
-                                                filesIncompleti = true;
+                                               
                                               });
                                               await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteBanco(profiloIncompletoBancoAlim!);
-                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteComponenti(componentiIncompleti!);
-                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteDisabili(disabiliIncompleti!);
-                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteFiles(filesIncompleti!);
+                                             
                                             }
                                           : null,
                                       iconWidget: Text('')),

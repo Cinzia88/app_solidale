@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -57,8 +59,13 @@ print('sendimage success ${request.files.length}');
 
         switch (response.statusCode) {
           case 200:
-             
-           
+ if(context.mounted) {
+  Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      TaxiSolidaleEditPage()));
+ }
             
             break;
           case 401:

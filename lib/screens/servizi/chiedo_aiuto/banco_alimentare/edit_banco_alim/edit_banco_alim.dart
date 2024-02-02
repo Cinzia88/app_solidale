@@ -41,42 +41,9 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getValueProfiloComponentiCompleto();
-    getValueProfiloDisabiliBanco();
-    getValueProfiloFilesCompleto();
+  
   }
 
-  Future getValueProfiloComponentiCompleto() async {
-    final value = await ValueSharedPrefsViewSlide()
-        .getProfiloIncompletoUtenteComponenti();
-    setState(() {
-      globals.componentiIncompleti = value;
-    });
-
-    print('componenti ${globals.componentiIncompleti}');
-  }
-
-  bool? profiloIncompletoBancoAlim;
-
-  Future getValueProfiloDisabiliBanco() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteDisabili();
-    setState(() {
-      globals.disabiliIncompleti = value;
-    });
-
-    print('disabili ${globals.disabiliIncompleti}');
-  }
-
-  Future getValueProfiloFilesCompleto() async {
-    final value =
-        await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteFiles();
-    setState(() {
-      globals.filesIncompleti = value;
-    });
-
-    print('files ${globals.filesIncompleti}');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,10 +127,7 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                 )
                               ],
                             ),
-                            globals.componentiIncompleti == true ||
-                                    globals.disabiliIncompleti == true ||
-                                    globals.filesIncompleti == true
-                                ? Padding(
+                           Padding(
                                     padding: const EdgeInsets.only(top: 40.0),
                                     child: Column(
                                       crossAxisAlignment:
@@ -175,41 +139,37 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                               color: Colors.red,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        globals.componentiIncompleti == true
-                                            ? Text(
+                                        Text(
                                                 '- Dati Componenti Familiari Mancanti',
                                                 style: TextStyle(
                                                   color: Colors.red,
                                                 ),
                                               )
-                                            : SizedBox(),
-                                        globals.disabiliIncompleti == true
-                                            ? Text(
+                                           ,
+                                        Text(
                                                 '- Dati Disabilità Familiare Mancanti',
                                                 style: TextStyle(
                                                   color: Colors.red,
                                                 ),
                                               )
-                                            : SizedBox(),
-                                        globals.filesIncompleti == true
-                                            ? Text(
+                                            ,
+                                        Text(
                                                 '- Documenti Mancanti',
                                                 style: TextStyle(
                                                   color: Colors.red,
                                                 ),
                                               )
-                                            : Text(''),
+                                           ,
                                       ],
                                     ),
                                   )
-                                : SizedBox(),
+                               ,
                             SizedBox(
                               height: 40,
                             ),
                             Column(
                               children: [
-                                globals.componentiIncompleti == true
-                                    ? GestureDetector(
+                                 GestureDetector(
                                         onTap: () {
                                           Navigator.push(
                                               context,
@@ -252,8 +212,8 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                             ],
                                           ),
                                         ),
-                                      )
-                                    : GestureDetector(
+                                      ),
+                                     GestureDetector(
                                         onTap: () {
                                           Navigator.push(
                                               context,
@@ -300,8 +260,7 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                 const SizedBox(
                                   height: 40,
                                 ),
-                                globals.disabiliIncompleti == true
-                                    ? GestureDetector(
+                                GestureDetector(
                                         onTap: () {
                                           Navigator.push(
                                               context,
@@ -344,8 +303,8 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                             ],
                                           ),
                                         ),
-                                      )
-                                    : GestureDetector(
+                                      ),
+                                     GestureDetector(
                                         onTap: () {
                                           Navigator.push(
                                               context,
@@ -392,10 +351,7 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                 const SizedBox(
                                   height: 40,
                                 ),
-                                globals.filesIncompleti == true &&
-                                        globals.profiloIncompletoBancoAlim ==
-                                            true
-                                    ? GestureDetector(
+                                GestureDetector(
                                         onTap: () {
                                           Navigator.push(
                                               context,
@@ -438,8 +394,8 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                             ],
                                           ),
                                         ),
-                                      )
-                                    : GestureDetector(
+                                      ),
+                                     GestureDetector(
                                         onTap: () {
                                           Navigator.push(
                                               context,
@@ -491,13 +447,7 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                   children: [
                                     CommonStyleButton(
                                         title: 'Invia Richiesta',
-                                        onTap: globals.componentiIncompleti ==
-                                                    true ||
-                                                globals.disabiliIncompleti ==
-                                                    true ||
-                                                globals.filesIncompleti == true
-                                            ? null
-                                            : () async {
+                                        onTap:  () async {
                                                 EditDataTypeServiceRepository()
                                                     .editRequest(
                                                         context,
@@ -513,13 +463,7 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                                   SendDataTypeServiceRepository()
                                                       .sendMailService(context,
                                                           'Banco Alimentare');
-                                                  setState(() {
-                                                    profiloIncompletoBancoAlim =
-                                                        true;
-                                                  });
-                                                  await ValueSharedPrefsViewSlide()
-                                                      .setProfiloIncompletoUtenteBanco(
-                                                          profiloIncompletoBancoAlim!);
+                                                 
                                                 });
                                               },
                                         iconWidget: Text('')),

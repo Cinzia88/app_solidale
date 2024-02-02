@@ -27,9 +27,6 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
   int _value = 1;
   bool create = false;
   bool taxiSolidaleIncompleto = false;
-  bool disabiliTaxiIncompleti = false;
-  bool destinazioneTaxiIncompleto = false;
-  bool filesTaxiIncompleti = false;
 
   bool forAnother = false;
 
@@ -130,24 +127,12 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
                                     )));
                         setState(() {
                           taxiSolidaleIncompleto = true;
-                          destinazioneTaxiIncompleto = true;
-                          disabiliTaxiIncompleti = true;
-                          filesTaxiIncompleti = true;
+                         
                         });
                         await ValueSharedPrefsViewSlide()
                             .setProfiloIncompletoUtenteTaxi(
                                 taxiSolidaleIncompleto);
-                        await ValueSharedPrefsViewSlide()
-                            .setProfiloIncompletoUtenteDestinazioneTaxi(
-                                destinazioneTaxiIncompleto);
-
-                        await ValueSharedPrefsViewSlide()
-                            .setProfiloIncompletoUtenteDisabili(
-                                disabiliTaxiIncompleti);
-
-                                 await ValueSharedPrefsViewSlide()
-                            .setProfiloIncompletoUtenteFilesTaxi(
-                                filesTaxiIncompleti);
+                      
                       }
                     },
                     iconWidget: Text('')),

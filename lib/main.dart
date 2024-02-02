@@ -5,6 +5,7 @@ import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
 import 'package:app_solidale/screens/menu/area_personale/cambio_password/repository/change_password_repository.dart';
 import 'package:app_solidale/screens/news/repository/news_repository.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/bloc_edit_docs/bloc/read_docs_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/repository/send_docs_repository.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
@@ -38,7 +39,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   await setupFlutterNotifications();
 
-FlutterAppBadger.updateBadgeCount(badge++);
+  FlutterAppBadger.updateBadgeCount(badge++);
 
   showFlutterNotification(message);
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -89,7 +90,7 @@ void showFlutterNotification(RemoteMessage message) {
   RemoteNotification? notification = message.notification;
   AndroidNotification? android = message.notification?.android;
   print('remote message ${message.notification!.body}');
-      FlutterAppBadger.removeBadge;
+  FlutterAppBadger.removeBadge;
 
   if (notification != null && android != null && !kIsWeb) {
     print('remote notification ${notification.body}');
@@ -106,9 +107,7 @@ void showFlutterNotification(RemoteMessage message) {
           // TODO add a proper drawable resource to android, for now using
           //      one that already exists in example app.
           icon: '@mipmap/ic_launcher',
-          
         ),
-        
       ),
     );
     showDialog(
@@ -119,7 +118,7 @@ void showFlutterNotification(RemoteMessage message) {
           onWillPop: () async => false,
           child: AlertDialog(
             title: Text(
-             notification.title!,
+              notification.title!,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             content: Text(notification.body!),
@@ -170,114 +169,123 @@ class MyApp extends StatelessWidget {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return MultiRepositoryProvider(
+    return MultiBlocProvider(
       providers: [
-        RepositoryProvider<SignupRepository>(
-          create: (context) => SignupRepository(),
-        ),
-        RepositoryProvider<SignInRepository>(
-          create: (context) => SignInRepository(),
-        ),
-        RepositoryProvider<ReadDataUserRepository>(
-          create: (context) => ReadDataUserRepository(),
-        ),
-        RepositoryProvider<ChangePasswordRepository>(
-          create: (context) => ChangePasswordRepository(),
-        ),
-        RepositoryProvider<ForgetPasswordRepository>(
-          create: (context) => ForgetPasswordRepository(),
-        ),
-        RepositoryProvider<SendDataParentsRepository>(
-          create: (context) => SendDataParentsRepository(),
-        ),
-         RepositoryProvider<EditDataParentsRepository>(
-          create: (context) => EditDataParentsRepository(),
-        ),
-        RepositoryProvider<SendDisabiliDataRepository>(
-          create: (context) => SendDisabiliDataRepository(),
-        ),
-         RepositoryProvider<EditDataDisabiliRepository>(
-          create: (context) => EditDataDisabiliRepository(),
-        ),
-        RepositoryProvider<SendDocsRepository>(
-          create: (context) => SendDocsRepository(),
-        ),
-         RepositoryProvider<EditDocsRepository>(
-          create: (context) => EditDocsRepository(),
-        ),
-        RepositoryProvider<SendDataTypeServiceRepository>(
-          create: (context) => SendDataTypeServiceRepository(),
-        ),
-         RepositoryProvider<EditDataTypeServiceRepository>(
-          create: (context) => EditDataTypeServiceRepository(),
-        ),
-        RepositoryProvider<NewsRepository>(
-          create: (context) => NewsRepository(),
-        ),
+        BlocProvider<ReadDocsBloc>(
+            create: (_) => ReadDocsBloc(
+                editDocsRepository: context.read<EditDocsRepository>(),
+                context: context)..add(FetchDocsEvent())
+                )
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          useMaterial3: true,
-          unselectedWidgetColor: Colors.red, // <-- your color
+      child: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider<SignupRepository>(
+            create: (context) => SignupRepository(),
+          ),
+          RepositoryProvider<SignInRepository>(
+            create: (context) => SignInRepository(),
+          ),
+          RepositoryProvider<ReadDataUserRepository>(
+            create: (context) => ReadDataUserRepository(),
+          ),
+          RepositoryProvider<ChangePasswordRepository>(
+            create: (context) => ChangePasswordRepository(),
+          ),
+          RepositoryProvider<ForgetPasswordRepository>(
+            create: (context) => ForgetPasswordRepository(),
+          ),
+          RepositoryProvider<SendDataParentsRepository>(
+            create: (context) => SendDataParentsRepository(),
+          ),
+          RepositoryProvider<EditDataParentsRepository>(
+            create: (context) => EditDataParentsRepository(),
+          ),
+          RepositoryProvider<SendDisabiliDataRepository>(
+            create: (context) => SendDisabiliDataRepository(),
+          ),
+          RepositoryProvider<EditDataDisabiliRepository>(
+            create: (context) => EditDataDisabiliRepository(),
+          ),
+          RepositoryProvider<SendDocsRepository>(
+            create: (context) => SendDocsRepository(),
+          ),
+          RepositoryProvider<EditDocsRepository>(
+            create: (context) => EditDocsRepository(),
+          ),
+          RepositoryProvider<SendDataTypeServiceRepository>(
+            create: (context) => SendDataTypeServiceRepository(),
+          ),
+          RepositoryProvider<EditDataTypeServiceRepository>(
+            create: (context) => EditDataTypeServiceRepository(),
+          ),
+          RepositoryProvider<NewsRepository>(
+            create: (context) => NewsRepository(),
+          ),
+        ],
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            useMaterial3: true,
+            unselectedWidgetColor: Colors.red, // <-- your color
 
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-            background: Colors.white,
-            primary: Colors.white,
-          ),
-          switchTheme: SwitchThemeData(
-              trackOutlineColor:
-                  MaterialStateProperty.all(ColorConstants.orangeGradients3)),
-          textSelectionTheme: const TextSelectionThemeData(
-            cursorColor: ColorConstants.orangeGradients3,
-            selectionHandleColor: ColorConstants.orangeGradients3,
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              background: Colors.white,
+              primary: Colors.white,
+            ),
+            switchTheme: SwitchThemeData(
+                trackOutlineColor:
+                    MaterialStateProperty.all(ColorConstants.orangeGradients3)),
+            textSelectionTheme: const TextSelectionThemeData(
+              cursorColor: ColorConstants.orangeGradients3,
+              selectionHandleColor: ColorConstants.orangeGradients3,
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ColorConstants.secondaryColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+              ),
+            ),
+            textTheme: TextTheme(
+              titleSmall: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 2.5 * blockSizeVertical,
+                color: ColorConstants.titleText,
+              ),
+              titleMedium: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 2 * blockSizeVertical,
+                color: ColorConstants.titleText,
+              ),
+            ),
+            checkboxTheme: CheckboxThemeData(
+              side: AlwaysActiveBorderSide(),
+              checkColor:
+                  MaterialStateProperty.all(ColorConstants.orangeGradients3),
+            ),
+            radioTheme: RadioThemeData(
+                fillColor:
+                    MaterialStatePropertyAll(ColorConstants.orangeGradients3)),
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: ColorConstants.secondaryColor,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)),
+                  borderRadius: BorderRadius.circular(100)),
             ),
+            dividerTheme: const DividerThemeData(color: Colors.transparent),
           ),
-          textTheme: TextTheme(
-            titleSmall: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 2.5 * blockSizeVertical,
-              color: ColorConstants.titleText,
-            ),
-            titleMedium: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 2 * blockSizeVertical,
-              color: ColorConstants.titleText,
-            ),
-          ),
-          checkboxTheme: CheckboxThemeData(
-            side: AlwaysActiveBorderSide(),
-            checkColor:
-                MaterialStateProperty.all(ColorConstants.orangeGradients3),
-          ),
-          radioTheme: RadioThemeData(
-              fillColor:
-                  MaterialStatePropertyAll(ColorConstants.orangeGradients3)),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: ColorConstants.secondaryColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100)),
-          ),
-          dividerTheme: const DividerThemeData(color: Colors.transparent),
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('it'),
+          ],
+          scaffoldMessengerKey: messengerKey,
+          navigatorKey: navigatorKey,
+          home: SplashScreen(),
         ),
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('it'),
-        ],
-        scaffoldMessengerKey: messengerKey,
-        navigatorKey: navigatorKey,
-        home: SplashScreen(),
       ),
     );
   }
