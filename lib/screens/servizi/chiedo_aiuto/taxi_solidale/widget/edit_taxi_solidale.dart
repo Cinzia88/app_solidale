@@ -99,6 +99,9 @@ EditDataTypeServiceRepository().getRequestData(context);
                   SnackBar(content: Text(state.errorMessage)),
                 );
               } else if (state is ReadRequestLoadedState) {
+                EditDataDisabiliRepository().getDisabiliData(context);
+EditDocsRepository().getDocsData(context);
+EditDataTypeServiceRepository().getRequestData(context);
                 for (int i = 0; i < globals.listRequestData.length; i++) {
                     if (globals.listRequestData[i].serviceId == '2' &&
           globals.listRequestData[i].partenza != 'null' &&
