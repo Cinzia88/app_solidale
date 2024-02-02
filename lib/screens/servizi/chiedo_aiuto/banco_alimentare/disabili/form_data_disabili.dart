@@ -55,7 +55,7 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
   bool yes = false;
   int disabile = 0;
 
-   @override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -64,8 +64,6 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
     getValueProfiloFilesCompleto();
     getDisabiliData();
   }
-
- 
 
   Future getValueProfiloComponentiCompleto() async {
     final value = await ValueSharedPrefsViewSlide()
@@ -76,6 +74,7 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
 
     print('componenti ${globals.componentiIncompleti}');
   }
+
   bool? profiloIncompletoBancoAlim;
 
   Future getValueProfiloDisabiliBanco() async {
@@ -258,8 +257,6 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                                         textEditingController:
                                             _numberController,
                                         obscureText: false)),
-                            
-                            
                           ],
                         ),
                       ),
@@ -270,80 +267,78 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                            globals.dataDisabili != null ? 
-                            CommonStyleButton(title: 'Invia e Continua', iconWidget:  Text(''),
-                            onTap: () async{
-                                      if (_formKey.currentState!.validate()) {
-                                                                                print('edit si disabili');
+                          globals.dataDisabili != null
+                              ? CommonStyleButton(
+                                  title: 'Invia e Continua',
+                                  iconWidget: Text(''),
+                                  onTap: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      print('edit si disabili');
 
-                                       EditDataDisabiliRepository()
-                                                    .editDataDisabili(
-                                                        context,
-                                                        globals.dataDisabili!.id,
-                                                        disabile == 0
-                                                            ? '0'
-                                                            : _numberController
-                                                                .text,
-                                                        disabile);
-                                       setState(() {
-                                    disabiliIncompleti = false;
-                                  });
-                                  await ValueSharedPrefsViewSlide()
-                                      .setProfiloIncompletoUtenteDisabili(
-                                          disabiliIncompleti!);
-                                          print('globals.filesIncompleti ${globals.filesIncompleti}');
-                                      }
-                                         if (globals.filesIncompleti == true) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CaricaDocsPage()));
-                                  } else {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                IntroBancoAlimentareEdit()));
-                                  }
-                                    },) : 
-                                    CommonStyleButton(title: 'Invia e Continua', iconWidget:  Text(''),
-                            onTap: () async{
-                                      if (_formKey.currentState!.validate()) {
-                                                                               bloc.add(SendDisabiliFormEvent(
-                                            numeroDisabili: disabile == 0
-                                                ? '0'
-                                                : _numberController.text,
-                                            disabile: disabile));
-                                            setState(() {
-                                    disabiliIncompleti = false;
-                                  });
-                                  await ValueSharedPrefsViewSlide()
-                                      .setProfiloIncompletoUtenteDisabili(
-                                          disabiliIncompleti!);
-                                      }
-                                         if (globals.filesIncompleti == true) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CaricaDocsPage()));
-                                  } else {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                IntroBancoAlimentareEdit()));
-                                  }
-                                    },),
-
-
-
-
-
-
-                           
-                         
+                                      EditDataDisabiliRepository()
+                                          .editDataDisabili(
+                                              context,
+                                              globals.dataDisabili!.id,
+                                              disabile == 0
+                                                  ? '0'
+                                                  : _numberController.text,
+                                              disabile);
+                                      setState(() {
+                                        disabiliIncompleti = false;
+                                      });
+                                      await ValueSharedPrefsViewSlide()
+                                          .setProfiloIncompletoUtenteDisabili(
+                                              disabiliIncompleti!);
+                                      print(
+                                          'globals.filesIncompleti ${globals.filesIncompleti}');
+                                    }
+                                    if (globals.filesIncompleti == true) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CaricaDocsPage()));
+                                    } else {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  IntroBancoAlimentareEdit()));
+                                    }
+                                  },
+                                )
+                              : CommonStyleButton(
+                                  title: 'Invia e Continua',
+                                  iconWidget: Text(''),
+                                  onTap: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      bloc.add(SendDisabiliFormEvent(
+                                          numeroDisabili: disabile == 0
+                                              ? '0'
+                                              : _numberController.text,
+                                          disabile: disabile));
+                                      setState(() {
+                                        disabiliIncompleti = false;
+                                      });
+                                      await ValueSharedPrefsViewSlide()
+                                          .setProfiloIncompletoUtenteDisabili(
+                                              disabiliIncompleti!);
+                                    }
+                                    if (globals.filesIncompleti == true) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CaricaDocsPage()));
+                                    } else {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  IntroBancoAlimentareEdit()));
+                                    }
+                                  },
+                                ),
                         ],
                       ),
                     ),

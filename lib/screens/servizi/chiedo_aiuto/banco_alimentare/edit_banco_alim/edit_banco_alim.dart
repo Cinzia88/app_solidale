@@ -492,9 +492,9 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                     CommonStyleButton(
                                         title: 'Invia Richiesta',
                                         onTap: globals.componentiIncompleti ==
-                                                    true &&
+                                                    true ||
                                                 globals.disabiliIncompleti ==
-                                                    true &&
+                                                    true ||
                                                 globals.filesIncompleti == true
                                             ? null
                                             : () async {

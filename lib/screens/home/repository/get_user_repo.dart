@@ -33,7 +33,7 @@ class ReadDataUserRepository {
 
     UserData dataUser = UserData.fromJson(jsonDecode(response.body));
 
-    print('dataUser ${response.headers}');
+    print('dataUser ${response.statusCode}');
     switch (response.statusCode) {
       case 200:
         print('user auth ${dataUser.id}');
