@@ -13,7 +13,6 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncolo
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/disabili/carica_disabili_page_taxi.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
-import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -31,17 +30,24 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
   final TextEditingController _partenzaController = TextEditingController();
   final TextEditingController _destinazioneController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _timeController = TextEditingController();
+
   bool destinazioneTaxiIncompleto = true;
 
   String idReq = '';
   String nome = '';
   String telefono = '';
+  String partenza = '';
+  String destinazione = '';
+  String data = '';
+  String ora = '';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     EditDataDisabiliRepository().getDisabiliData(context);
+    _timeController.text = "";
   }
 
   @override
@@ -99,15 +105,21 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                     state.data[i].destinazione == 'null' &&
                     state.data[i].data == 'null') {
                   setState(() {
-                    _partenzaController.text ;
+                    _partenzaController.text;
                     _destinazioneController.text;
                     _dateController.text;
+                    _timeController.text;
+                    partenza = state.data[i].partenza!;
+                    destinazione = state.data[i].destinazione!;
+                    data = state.data[i].data!;
+                    ora = state.data[i].ora!;
                   });
                 } else {
                   setState(() {
                     _partenzaController.text = state.data[i].partenza!;
                     _destinazioneController.text = state.data[i].destinazione!;
                     _dateController.text = state.data[i].data!;
+                    _timeController.text = state.data[i].ora!;
                   });
                 }
               }
@@ -145,9 +157,10 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                           children: [
                             Flexible(
                               child: Text(
-                                _partenzaController.text == '' ||
-                                        _destinazioneController.text == '' ||
-                                        _dateController.text == ''
+                                partenza == 'null' ||
+                                        destinazione == 'null' ||
+                                        data == 'null' ||
+                                        ora == 'null'
                                     ? 'Fase 2 di 4'
                                     : 'Modifica Partenza/Destinazione',
                                 style: Theme.of(context).textTheme.titleSmall,
@@ -165,9 +178,10 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                           key: _formKey,
                           child: Column(
                             children: [
-                              Text(_partenzaController.text == '' ||
-                                      _destinazioneController.text == '' ||
-                                      _dateController.text == ''
+                              Text(partenza == 'null' ||
+                                      destinazione == 'null' ||
+                                      data == 'null' ||
+                                      ora == 'null'
                                   ? 'Inserisci indirizzo di partenza (indirizzo di residenza):'
                                   : 'Modifica indirizzo di partenza (indirizzo di residenza):'),
                               TextFormFieldCustom(
@@ -184,9 +198,10 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                               SizedBox(
                                 height: 20,
                               ),
-                              Text(_partenzaController.text == '' ||
-                                      _destinazioneController.text == '' ||
-                                      _dateController.text == ''
+                              Text(partenza == 'null' ||
+                                      destinazione == 'null' ||
+                                      data == 'null' ||
+                                      ora == 'null'
                                   ? 'Inserisci destinazione (struttura sanitaria):'
                                   : 'Modifica destinazione (struttura sanitaria):'),
                               TextFormFieldCustom(
@@ -206,9 +221,10 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  _partenzaController.text == '' ||
-                                          _destinazioneController.text == '' ||
-                                          _dateController.text == ''
+                                  partenza == 'null' ||
+                                          destinazione == 'null' ||
+                                          data == 'null' ||
+                                          ora == 'null'
                                       ? Text('Inserisci data:')
                                       : Text('Modifica data:'),
                                 ],
@@ -271,6 +287,79 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                                   }
                                 },
                               ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  partenza == 'null' ||
+                                          destinazione == 'null' ||
+                                          data == 'null' ||
+                                          ora == 'null'
+                                      ? Text('Inserisci ora:')
+                                      : Text('Modifica ora:'),
+                                ],
+                              ),
+                              TextFormFieldCustom(
+                                textEditingController:
+                                    _timeController, //editing controller of this TextField
+                                labelTextCustom: 'Ora:',
+                                readOnly: true,
+                                obscureText: false,
+
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Campo Richiesto*';
+                                  }
+                                  return null;
+                                },
+                                onTap: () async {
+                                  TimeOfDay? pickedTime = await showTimePicker(
+                                    initialTime: TimeOfDay.now(),
+                                    context: context,
+                                    builder:
+                                        (BuildContext context, Widget? child) {
+                                      return Theme(
+                                        data: ThemeData.light().copyWith(
+                                          colorScheme: const ColorScheme.dark(
+                                            primary:
+                                                ColorConstants.secondaryColor,
+                                            onPrimary: Colors.white,
+                                            surface: Colors.white,
+                                            onSurface:
+                                                ColorConstants.orangeGradients3,
+                                          ),
+                                          dialogBackgroundColor: Colors.white,
+                                        ),
+                                        child: child!,
+                                      );
+                                    },
+                                  );
+
+                                  if (pickedTime != null) {
+                                    print(pickedTime
+                                        .format(context)); //output 10:51 PM
+                                    DateTime parsedTime = DateFormat.Hm().parse(
+                                        pickedTime.format(context).toString());
+                                    //converting to DateTime so that we can further format on different pattern.
+                                    print(
+                                        'parsed $parsedTime'); //output 1970-01-01 22:53:00.000
+                                    String formattedTime =
+                                        DateFormat('HH:mm').format(parsedTime);
+                                    print(
+                                        'formattedTime $formattedTime'); //output 14:59:00
+                                    //DateFormat() is from intl package, you can format the time on any pattern you need.
+
+                                    setState(() {
+                                      _timeController.text =
+                                          formattedTime; //set the value of text field.
+                                    });
+                                  } else {
+                                    print("Time is not selected");
+                                  }
+                                },
+                              ),
                             ],
                           ),
                         ),
@@ -281,20 +370,24 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             CommonStyleButton(
-                                title: 'Invia e Continua'
-                                    ,
+                                title: partenza == 'null' ||
+                                        destinazione == 'null' ||
+                                        data == 'null' ||
+                                        ora == 'null'
+                                    ? 'Invia e Continua'
+                                    : 'Aggiorna',
                                 onTap: () async {
                                   if (_formKey.currentState!.validate()) {
                                     EditDataTypeServiceRepository().editRequest(
                                         context,
                                         idReq,
                                         '2',
-                                        
                                         nome,
                                         telefono,
                                         _partenzaController.text,
                                         _destinazioneController.text,
-                                        _dateController.text);
+                                        _dateController.text,
+                                        _timeController.text);
 
                                     if (globals.dataDisabili == null) {
                                       Navigator.push(

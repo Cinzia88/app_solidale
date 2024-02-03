@@ -37,6 +37,7 @@ class _AccompagnamentoOncologicoEditDestinatarioState
   String partenza = '';
   String destinazione = '';
   String data = '';
+  String ora = '';
 
   @override
   Widget build(BuildContext context) {
@@ -76,25 +77,23 @@ class _AccompagnamentoOncologicoEditDestinatarioState
                 SnackBar(content: Text(state.errorMessage)),
               );
             } else if (state is ReadRequestLoadedState) {
-               for (int i = 0; i < state.data.length; i++) {
-                                if (state.data[i].serviceId == '3') {
-
+              for (int i = 0; i < state.data.length; i++) {
+                if (state.data[i].serviceId == '3') {
                   if (state.data[i].nome != globals.userData!.nome &&
                       state.data[i].telefono != globals.userData!.telefono) {
                     _nameAnotherController.text = state.data[i].nome;
-                  _telepAnotherController.text = state.data[i].telefono;
-                      _value = 2;
+                    _telepAnotherController.text = state.data[i].telefono;
+                    _value = 2;
                   }
                   setState(() {
                     idReq = state.data[i].idRequest;
-                     partenza = state.data[i].partenza!;
-                  destinazione = state.data[i].destinazione!;
-                  data = state.data[i].data!;
+                    partenza = state.data[i].partenza!;
+                    destinazione = state.data[i].destinazione!;
+                    data = state.data[i].data!;
+                    ora = state.data[i].ora!;
                   });
                 }
-                }
-              
-             
+              }
             }
           }, builder: (context, state) {
             return state is ReadRequestLoadingState ||
@@ -145,6 +144,7 @@ class _AccompagnamentoOncologicoEditDestinatarioState
                               CommonStyleButton(
                                   title: 'Aggiorna',
                                   onTap: () {
+                                                if(_formKey.currentState!.validate()) {
                                     EditDataTypeServiceRepository().editRequest(
                                         context,
                                         idReq,
@@ -157,9 +157,11 @@ class _AccompagnamentoOncologicoEditDestinatarioState
                                             : _telepAnotherController.text,
                                         partenza,
                                         destinazione,
-                                        data);
-Navigator.push(context, MaterialPageRoute(builder: (_) => AccompagnamentoOncologicoEditPage()));
+                                        data,
+                                        ora);
+                                    Navigator.pop(context);
                                     FocusScope.of(context).unfocus();
+                                                }
                                   },
                                   iconWidget: Text('')),
                             ],
@@ -277,7 +279,7 @@ Navigator.push(context, MaterialPageRoute(builder: (_) => AccompagnamentoOncolog
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Campo Richiesto*';
-                        } else if(value.isNotEmpty && value.length < 10) {
+                        } else if (value.isNotEmpty && value.length < 10) {
                           return 'Inserire un numero di telefono valido';
                         }
                         return null;

@@ -34,6 +34,14 @@ class HomeChiedoAiuto extends StatefulWidget {
 class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
  List<String> serviceId = [];
 
+
+ @override
+  void initState() {
+        EditDataDisabiliRepository().getDisabiliData(context);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     showAlertDialog(
@@ -125,6 +133,8 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
               SnackBar(content: Text(state.errorMessage)),
             );
           } else if (state is ReadRequestLoadedState) {
+                    EditDataDisabiliRepository().getDisabiliData(context);
+
             for (int i = 0; i < state.data.length; i++) {
               setState(() {
                 serviceId.add(state.data[i].serviceId);

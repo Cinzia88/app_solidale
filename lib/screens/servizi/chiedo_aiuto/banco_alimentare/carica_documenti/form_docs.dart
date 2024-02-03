@@ -325,9 +325,10 @@ class _FormDocsState extends State<FormDocs> {
                                         body: body,
                                         imagepath: imagesList,
                                         pdfpath: filePdf));
-                                       
+                                        Future.delayed(Duration(milliseconds: 100)).then((_) {
+   Navigator.push(context, MaterialPageRoute(builder: (context)=> IntroBancoAlimentareEdit()));
+    });
                                    
-                                   Navigator.push(context, MaterialPageRoute(builder: (_) => IntroBancoAlimentareEdit()));
                                     FocusScope.of(context).unfocus();
                            }
                                 } 

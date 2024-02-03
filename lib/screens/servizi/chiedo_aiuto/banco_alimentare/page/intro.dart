@@ -8,7 +8,9 @@ import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/page/page_informativa_pdf.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
@@ -30,7 +32,13 @@ class IntroBancoAlimentare extends StatefulWidget {
 class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
 
 
-  
+  @override
+  void initState() {
+    EditDataDisabiliRepository().getDisabiliData(context);
+    
+       EditDocsRepository().getDocsData(context);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
   

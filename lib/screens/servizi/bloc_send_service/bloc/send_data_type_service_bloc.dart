@@ -24,7 +24,8 @@ class SendDataTypeServiceBloc
             nome: event.nome,
             telefono: event.telefono,
             partenza: event.partenza!,
-            destinazione: event.destinazione!);
+            destinazione: event.destinazione!,
+            data: event.data);
         emit(SendDataTypeServiceLoaded());
       } catch (e) {
         emit(

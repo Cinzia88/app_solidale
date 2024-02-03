@@ -18,7 +18,8 @@ class SendDataTypeServiceRepository {
     required String telefono,
      String? partenza,
      String? destinazione,
-     String? data,}
+     String? data,
+     String? ora,}
   ) async {
     try {
       var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta';
@@ -36,6 +37,7 @@ class SendDataTypeServiceRepository {
             'partenza': partenza,
             'destinazione': destinazione,
             'data': data,
+            'ora': ora,
           }));
 print('response.statusCode ${response.statusCode}');
       switch (response.statusCode) {

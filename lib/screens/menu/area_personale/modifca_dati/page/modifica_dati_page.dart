@@ -165,6 +165,7 @@ class _ModificaDatiPageState extends State<ModificaDatiPage> {
                                               title: 'Aggiorna',
                                               iconWidget: Icon(Icons.update),
                                               onTap: () {
+                                                if(_formKey.currentState!.validate()) {
                                                 ReadDataUserRepository()
                                                     .editUser(
                                                   context,
@@ -178,6 +179,7 @@ class _ModificaDatiPageState extends State<ModificaDatiPage> {
                                                 Navigator.pop(context);
                                                 /*FocusScope.of(context).unfocus();
                                                 bloc.add(SignUpTappedEvent()); */
+                                                }
                                               },
                                             ),
                                             const SizedBox(

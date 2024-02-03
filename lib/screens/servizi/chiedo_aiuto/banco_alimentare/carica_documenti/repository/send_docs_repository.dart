@@ -59,13 +59,7 @@ print('sendimage success ${request.files.length}');
 
         switch (response.statusCode) {
           case 200:
- if(context.mounted) {
-  Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      TaxiSolidaleEditPage()));
- }
+ 
             
             break;
           case 401:

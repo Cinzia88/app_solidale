@@ -34,6 +34,7 @@ class _TaxiSolidaleEditDataDestinatarioPageState
   String partenza = '';
   String destinazione = '';
   String data = '';
+  String ora = '';
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +89,7 @@ class _TaxiSolidaleEditDataDestinatarioPageState
                       partenza = state.data[i].partenza!;
                       destinazione = state.data[i].destinazione!;
                       data = state.data[i].data!;
+                      ora = state.data[i].ora!;
                     });
                   }
                 }
@@ -157,6 +159,7 @@ class _TaxiSolidaleEditDataDestinatarioPageState
                                           partenza,
                                           destinazione,
                                           data,
+                                          ora,
                                         );
                                         Navigator.push(
                                             context,
