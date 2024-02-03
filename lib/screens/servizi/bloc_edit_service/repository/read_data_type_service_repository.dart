@@ -164,9 +164,7 @@ print('reqdata ${response.statusCode}');
                   });
             }
           }  else if (response.body.contains('"service_id":"3"')) {
-            if (context.mounted) {
-              Navigator.pop(context);
-            }
+            
           } else if (response.body.contains('"service_id":"4"')) {
             if (context.mounted) {
 if (context.mounted) {

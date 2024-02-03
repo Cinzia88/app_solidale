@@ -10,6 +10,7 @@ import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_d
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_acc.onc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/disabili/edit_disabili/edit_disabili_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_data_destinatario.dart';
 import 'package:flutter/material.dart';
@@ -75,23 +76,25 @@ class _AccompagnamentoOncologicoEditDestinatarioState
                 SnackBar(content: Text(state.errorMessage)),
               );
             } else if (state is ReadRequestLoadedState) {
-              for (int i = 0; i < state.data.length; i++) {
-                if (state.data[i].serviceId == '3') {
+               for (int i = 0; i < state.data.length; i++) {
+                                if (state.data[i].serviceId == '3') {
+
+                  if (state.data[i].nome != globals.userData!.nome &&
+                      state.data[i].telefono != globals.userData!.telefono) {
+                    _nameAnotherController.text = state.data[i].nome;
+                  _telepAnotherController.text = state.data[i].telefono;
+                      _value = 2;
+                  }
                   setState(() {
                     idReq = state.data[i].idRequest;
-                    partenza = state.data[i].partenza!;
-                    destinazione = state.data[i].destinazione!;
-                    data = state.data[i].data!;
+                     partenza = state.data[i].partenza!;
+                  destinazione = state.data[i].destinazione!;
+                  data = state.data[i].data!;
                   });
                 }
-
-                if (state.data[i].nome != globals.userData!.nome &&
-                    state.data[i].telefono != globals.userData!.telefono) {
-                  _nameAnotherController.text = state.data[i].nome;
-                  _telepAnotherController.text = state.data[i].telefono;
-                  _value = 2;
                 }
-              }
+              
+             
             }
           }, builder: (context, state) {
             return state is ReadRequestLoadingState ||
@@ -155,7 +158,7 @@ class _AccompagnamentoOncologicoEditDestinatarioState
                                         partenza,
                                         destinazione,
                                         data);
-
+Navigator.push(context, MaterialPageRoute(builder: (_) => AccompagnamentoOncologicoEditPage()));
                                     FocusScope.of(context).unfocus();
                                   },
                                   iconWidget: Text('')),
@@ -269,10 +272,13 @@ class _AccompagnamentoOncologicoEditDestinatarioState
                     TextFormFieldCustom(
                       textEditingController: _telepAnotherController,
                       labelTextCustom: 'Telefono:',
+                      keyboardType: TextInputType.phone,
                       obscureText: false,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Campo Richiesto*';
+                        } else if(value.isNotEmpty && value.length < 10) {
+                          return 'Inserire un numero di telefono valido';
                         }
                         return null;
                       },

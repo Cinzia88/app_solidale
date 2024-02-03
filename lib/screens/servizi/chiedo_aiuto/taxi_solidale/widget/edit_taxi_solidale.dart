@@ -45,22 +45,15 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
   String idTaxiSolidaleEdit = '';
   bool? datiDestinazione;
   bool datiFiles = false;
-bool loading = true;
+  bool loading = true;
   @override
   void initState() {
-               
-                EditDataDisabiliRepository().getDisabiliData(context);
-EditDocsRepository().getDocsData(context);
-EditDataTypeServiceRepository().getRequestData(context);
+    EditDataDisabiliRepository().getDisabiliData(context);
+    EditDocsRepository().getDocsData(context);
+    EditDataTypeServiceRepository().getRequestData(context);
     super.initState();
-
   }
 
-
-
-
-
- 
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
@@ -100,29 +93,29 @@ EditDataTypeServiceRepository().getRequestData(context);
                 );
               } else if (state is ReadRequestLoadedState) {
                 EditDataDisabiliRepository().getDisabiliData(context);
-EditDocsRepository().getDocsData(context);
-EditDataTypeServiceRepository().getRequestData(context);
+                EditDocsRepository().getDocsData(context);
+                EditDataTypeServiceRepository().getRequestData(context);
                 for (int i = 0; i < globals.listRequestData.length; i++) {
-                    if (globals.listRequestData[i].serviceId == '2' &&
-          globals.listRequestData[i].partenza != 'null' &&
-          globals.listRequestData[i].destinazione != 'null' &&
-          globals.listRequestData[i].data != 'null') {
-        setState(() {
-          datiDestinazione = true;
-        });
-      } else if (globals.listRequestData[i].serviceId == '2' &&
-          globals.listRequestData[i].partenza == 'null' &&
-          globals.listRequestData[i].destinazione == 'null' &&
-          globals.listRequestData[i].data == 'null') {
-        setState(() {
-          datiDestinazione = false;
-        });
-      }
+                  if (globals.listRequestData[i].serviceId == '2' &&
+                      globals.listRequestData[i].partenza != 'null' &&
+                      globals.listRequestData[i].destinazione != 'null' &&
+                      globals.listRequestData[i].data != 'null') {
+                    setState(() {
+                      datiDestinazione = true;
+                    });
+                  } else if (globals.listRequestData[i].serviceId == '2' &&
+                      globals.listRequestData[i].partenza == 'null' &&
+                      globals.listRequestData[i].destinazione == 'null' &&
+                      globals.listRequestData[i].data == 'null') {
+                    setState(() {
+                      datiDestinazione = false;
+                    });
+                  }
                 }
               }
             }, builder: (context, state) {
               return state is ReadRequestLoadingState ||
-                      state is EditRequestLoadingState 
+                      state is EditRequestLoadingState
                   ? loadingWidget(context)
                   : SingleChildScrollView(
                       child: Padding(
@@ -171,8 +164,7 @@ EditDataTypeServiceRepository().getRequestData(context);
                                               'Richiesta Incompleta:',
                                               style: TextStyle(
                                                   color: Colors.red,
-                                                  fontWeight:
-                                                      FontWeight.bold),
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                             datiDestinazione == false
                                                 ? Text(
@@ -288,8 +280,7 @@ EditDataTypeServiceRepository().getRequestData(context);
                                                   ),
                                                   const Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .start,
+                                                        MainAxisAlignment.start,
                                                     children: [
                                                       Flexible(
                                                         child: Text(
@@ -335,8 +326,7 @@ EditDataTypeServiceRepository().getRequestData(context);
                                                   ),
                                                   const Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .start,
+                                                        MainAxisAlignment.start,
                                                     children: [
                                                       Flexible(
                                                         child: Text(
@@ -386,8 +376,7 @@ EditDataTypeServiceRepository().getRequestData(context);
                                                   ),
                                                   const Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .start,
+                                                        MainAxisAlignment.start,
                                                     children: [
                                                       Flexible(
                                                         child: Text(
@@ -433,8 +422,7 @@ EditDataTypeServiceRepository().getRequestData(context);
                                                   ),
                                                   const Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .start,
+                                                        MainAxisAlignment.start,
                                                     children: [
                                                       Flexible(
                                                         child: Text(
@@ -450,7 +438,7 @@ EditDataTypeServiceRepository().getRequestData(context);
                                     const SizedBox(
                                       height: 40,
                                     ),
-                                        globals.listDocsData.isEmpty
+                                    globals.listDocsData.isEmpty
                                         ? GestureDetector(
                                             onTap: () {
                                               Navigator.push(
@@ -484,8 +472,7 @@ EditDataTypeServiceRepository().getRequestData(context);
                                                   ),
                                                   const Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .start,
+                                                        MainAxisAlignment.start,
                                                     children: [
                                                       Flexible(
                                                         child: Text(
@@ -531,8 +518,7 @@ EditDataTypeServiceRepository().getRequestData(context);
                                                   ),
                                                   const Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .start,
+                                                        MainAxisAlignment.start,
                                                     children: [
                                                       Flexible(
                                                         child: Text(
@@ -549,83 +535,81 @@ EditDataTypeServiceRepository().getRequestData(context);
                                       height: 60,
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         CommonStyleButton(
                                             title: 'Invia Richiesta',
-                                            onTap:
-                                                globals.dataDisabili ==
-                                                            null ||
-                                                        datiDestinazione ==
-                                                            false ||
-                                                        globals.listDocsData.isEmpty
-                                                    ? null
-                                                    : () {
-                                                        showDialog(
-                                                            barrierDismissible:
-                                                                false,
-                                                            context: context,
-                                                            builder:
-                                                                (context) {
-                                                              return AlertDialog(
-                                                                title: Column(
-                                                                  children: [
-                                                                    SizedBox(
-                                                                      height:
-                                                                          50,
-                                                                      child: Image.asset(
-                                                                          PathConstants.taxiSolidale),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height:
-                                                                          10,
-                                                                    ),
-                                                                    Text(
-                                                                      'Stiamo elaborando i tuoi dati',
-                                                                      style: Theme.of(context)
-                                                                          .textTheme
-                                                                          .titleMedium,
-                                                                      textAlign:
-                                                                          TextAlign.center,
-                                                                    ),
-                                                                  ],
+                                            onTap: globals.dataDisabili ==
+                                                        null ||
+                                                    datiDestinazione == false ||
+                                                    globals.listDocsData.isEmpty
+                                                ? null
+                                                : () {
+                                                    showDialog(
+                                                        barrierDismissible:
+                                                            false,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return AlertDialog(
+                                                            title: Column(
+                                                              children: [
+                                                                SizedBox(
+                                                                  height: 50,
+                                                                  child: Image.asset(
+                                                                      PathConstants
+                                                                          .taxiSolidale),
                                                                 ),
-                                                                content:
-                                                                    const Text(
-                                                                        'Ti contatteremo al più presto!'),
-                                                                shape:
-                                                                    RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius.circular(
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                Text(
+                                                                  'Stiamo elaborando i tuoi dati',
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .titleMedium,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            content: const Text(
+                                                                'Ti contatteremo al più presto!'),
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
                                                                           20.0),
-                                                                ),
-                                                                actions: [
-                                                                  InkWell(
-                                                                      onTap:
-                                                                          () {
-                                                                        Navigator.push(
-                                                                            context,
-                                                                            MaterialPageRoute(builder: (context) => PresentationPage()));
-                                                                      },
-                                                                      child:
-                                                                          Text(
-                                                                        'Torna alla home',
-                                                                        style: Theme.of(context)
-                                                                            .textTheme
-                                                                            .titleMedium,
-                                                                      ))
-                                                                ],
-                                                              );
-                                                            });
-                                                        SendDataTypeServiceRepository()
-                                                            .sendMailService(
-                                                                context,
-                                                                'Taxi Solidale');
+                                                            ),
+                                                            actions: [
+                                                              InkWell(
+                                                                  onTap: () {
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                PresentationPage()));
+                                                                  },
+                                                                  child: Text(
+                                                                    'Torna alla home',
+                                                                    style: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .titleMedium,
+                                                                  ))
+                                                            ],
+                                                          );
+                                                        });
+                                                    SendDataTypeServiceRepository()
+                                                        .sendMailService(
+                                                            context,
+                                                            'Taxi Solidale');
 
-                                                        FocusScope.of(context)
-                                                            .unfocus();
-                                                      },
+                                                    FocusScope.of(context)
+                                                        .unfocus();
+                                                  },
                                             iconWidget: Text('')),
                                       ],
                                     )
@@ -739,10 +723,13 @@ EditDataTypeServiceRepository().getRequestData(context);
                     TextFormFieldCustom(
                       textEditingController: _telepAnotherController,
                       labelTextCustom: 'Telefono:',
+                       keyboardType: TextInputType.phone,
                       obscureText: false,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Campo Richiesto*';
+                        } else if(value.isNotEmpty && value.length < 10) {
+                          return 'Inserire un numero di telefono valido';
                         }
                         return null;
                       },

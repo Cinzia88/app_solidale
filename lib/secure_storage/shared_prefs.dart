@@ -3,66 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ValueSharedPrefsViewSlide {
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
-  Future setProfiloIncompletoUtenteTaxi(bool value) async {
-    final instance = await prefs;
-
-    instance.setBool('profiloCompletoUtenteTaxi', value);
-  }
-
-  Future<bool> getProfiloIncompletoUtenteTaxi() async {
-    final instance = await prefs;
-
-    final value = instance.getBool('profiloCompletoUtenteTaxi');
-    return value ?? false;
-  }
-
-  Future<bool> removeProfiloIncompletoUtenteTaxi() async {
-    final instance = await prefs;
-
-    final value = instance.remove('profiloCompletoUtenteTaxi');
-    return value;
-  }
-
-  Future setProfiloIncompletoUtenteAccOnc(bool value) async {
-    final instance = await prefs;
-
-    instance.setBool('profiloCompletoUtenteAccOnc', value);
-  }
-
-  Future<bool> getProfiloIncompletoUtenteAccOnc() async {
-    final instance = await prefs;
-
-    final value = instance.getBool('profiloCompletoUtenteAccOnc');
-    return value ?? false;
-  }
-
-  Future<bool> removeProfiloIncompletoUtenteAccOnc() async {
-    final instance = await prefs;
-
-    final value = instance.remove('profiloCompletoUtenteAccOnc');
-    return value;
-  }
-
-  Future setProfiloIncompletoUtenteBanco(bool value) async {
-    final instance = await prefs;
-
-    instance.setBool('profiloCompletoUtenteBanco', value);
-  }
-
-  Future<bool> getProfiloIncompletoUtenteBanco() async {
-    final instance = await prefs;
-
-    final value = instance.getBool('profiloCompletoUtenteBanco');
-    return value ?? false;
-  }
-
-  Future<bool> removeProfiloIncompletoUtenteBanco() async {
-    final instance = await prefs;
-
-    final value = instance.remove('profiloCompletoUtenteBanco');
-    return value;
-  }
-
+ 
   Future setIdTaxiSolidale(String value) async {
     final instance = await prefs;
 

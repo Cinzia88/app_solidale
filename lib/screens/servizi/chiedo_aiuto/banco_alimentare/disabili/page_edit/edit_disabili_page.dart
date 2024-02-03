@@ -192,7 +192,13 @@ class _DisabiliBancoPageEditPageState extends State<DisabiliBancoPageEdit> {
                                                     'Inserisci numero di persone con invalidità',
                                                 textEditingController:
                                                     _numberController,
-                                                obscureText: false)),
+                                                obscureText: false,
+                                                  validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Campo Richiesto*';
+            }
+            return null;
+          },)),
                                     SizedBox(
                                       height: 20,
                                     ),

@@ -6,6 +6,7 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/paren
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,14 @@ class ParentsPage extends StatefulWidget {
 }
 
 class _ParentsPageState extends State<ParentsPage> {
+
+
+     @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    EditDataDisabiliRepository().getDisabiliData(context);
+  }
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SendParentsDataBloc>(
@@ -43,6 +52,9 @@ class _ParentsPageState extends State<ParentsPage> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
+            } else if(state is SendParentsDataLoadedState) {
+                  EditDataDisabiliRepository().getDisabiliData(context);
+
             }
           },
           builder: (context, state) {

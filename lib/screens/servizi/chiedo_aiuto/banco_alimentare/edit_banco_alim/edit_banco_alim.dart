@@ -11,13 +11,16 @@ import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/carica_docs_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/page/edit_docs_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disabili/carica_disabili_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disabili/page_edit/edit_disabili_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/model/edit_parents_model.dart';
 
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/page/edit_parents_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/repo/edit_parents_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/form_data_parents/carica_parenti_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/model/model_disabili.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 
 import 'package:flutter/material.dart';
@@ -39,11 +42,11 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    EditDataParentsRepository().getParentsData(context);
+    EditDataDisabiliRepository().getDisabiliData(context);
+    EditDocsRepository().getDocsData(context);
     super.initState();
-  
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +87,9 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
               SnackBar(content: Text(state.errorMessage)),
             );
           } else if (state is ReadRequestLoadedState) {
+            EditDataParentsRepository().getParentsData(context);
+            EditDataDisabiliRepository().getDisabiliData(context);
+            EditDocsRepository().getDocsData(context);
             for (int i = 0; i < state.data.length; i++) {
               setState(() {
                 idBancoEdit = state.data[i].idRequest;
@@ -127,345 +133,346 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
                                 )
                               ],
                             ),
-                           Padding(
-                                    padding: const EdgeInsets.only(top: 40.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Richiesta Incompleta:',
-                                          style: TextStyle(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
+                           globals.listParentsData.isEmpty ||
+                                        globals.dataDisabili == null ||
+                                        globals.listDocsData.isEmpty
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 40.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Richiesta Incompleta:',
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            globals.listParentsData.isEmpty
+                                                ? Text(
+                                                    '- Dati Componenti Familiari Mancanti',
+                                                    style: TextStyle(
+                                                      color: Colors.red,
+                                                    ),
+                                                  )
+                                                : SizedBox(),
+                                            globals.dataDisabili == null
+                                                ? Text(
+                                                    '- Dati Disabilità Familiare Mancanti',
+                                                    style: TextStyle(
+                                                      color: Colors.red,
+                                                    ),
+                                                  )
+                                                : SizedBox(),
+                                            globals.listDocsData.isEmpty
+                                                ? Text(
+                                                    '- Documenti Mancanti',
+                                                    style: TextStyle(
+                                                      color: Colors.red,
+                                                    ),
+                                                  )
+                                                : SizedBox(),
+                                          ],
                                         ),
-                                        Text(
-                                                '- Dati Componenti Familiari Mancanti',
-                                                style: TextStyle(
-                                                  color: Colors.red,
-                                                ),
-                                              )
-                                           ,
-                                        Text(
-                                                '- Dati Disabilità Familiare Mancanti',
-                                                style: TextStyle(
-                                                  color: Colors.red,
-                                                ),
-                                              )
-                                            ,
-                                        Text(
-                                                '- Documenti Mancanti',
-                                                style: TextStyle(
-                                                  color: Colors.red,
-                                                ),
-                                              )
-                                           ,
-                                      ],
-                                    ),
-                                  )
-                               ,
+                                      )
+                                    : SizedBox(),
                             SizedBox(
                               height: 40,
                             ),
                             Column(
                               children: [
-                                 GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ParentsPage()));
-                                        },
-                                        child: CustomCardsCommon(
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                        'Aggiungi Dati Componenti Familiari',
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 2.5 *
-                                                              blockSizeVertical,
-                                                          color: ColorConstants
-                                                              .orangeGradients3,
-                                                        )),
-                                                  ),
-                                                ],
-                                              ),
-                                              const Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      'Aggiungi i dati dei tuoi componenti familiari',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                             globals.listParentsData.isEmpty ?   GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ParentsPage()));
+                                  },
+                                  child: CustomCardsCommon(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                  'Aggiungi Dati Componenti Familiari',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        2.5 * blockSizeVertical,
+                                                    color: ColorConstants
+                                                        .orangeGradients3,
+                                                  )),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                     GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ParentsPageEdit()));
-                                        },
-                                        child: CustomCardsCommon(
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                        'Modifica Dati Componenti Familiari',
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 2.5 *
-                                                              blockSizeVertical,
-                                                          color: ColorConstants
-                                                              .orangeGradients3,
-                                                        )),
-                                                  ),
-                                                ],
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                'Aggiungi i dati dei tuoi componenti familiari',
                                               ),
-                                              const Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      'Modifica i dati dei tuoi componenti familiari',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
+                                      ],
+                                    ),
+                                  ),
+                                ):
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ParentsPageEdit()));
+                                  },
+                                  child: CustomCardsCommon(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                  'Modifica Dati Componenti Familiari',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        2.5 * blockSizeVertical,
+                                                    color: ColorConstants
+                                                        .orangeGradients3,
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                'Modifica i dati dei tuoi componenti familiari',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 const SizedBox(
                                   height: 40,
                                 ),
+                             globals.dataDisabili == null ?   GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DisabiliPage()));
+                                  },
+                                  child: CustomCardsCommon(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                  'Aggiungi Dati Disabilità Familiare',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        2.5 * blockSizeVertical,
+                                                    color: ColorConstants
+                                                        .orangeGradients3,
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                'Aggiungi i dati della presenza di disabilità nel nucleo familiare',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ):
                                 GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DisabiliPage()));
-                                        },
-                                        child: CustomCardsCommon(
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                        'Aggiungi Dati Disabilità Familiare',
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 2.5 *
-                                                              blockSizeVertical,
-                                                          color: ColorConstants
-                                                              .orangeGradients3,
-                                                        )),
-                                                  ),
-                                                ],
-                                              ),
-                                              const Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      'Aggiungi i dati della presenza di disabilità nel nucleo familiare',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DisabiliBancoPageEdit()));
+                                  },
+                                  child: CustomCardsCommon(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                  'Modifica Dati Disabilità Familiare',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        2.5 * blockSizeVertical,
+                                                    color: ColorConstants
+                                                        .orangeGradients3,
+                                                  )),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                     GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DisabiliBancoPageEdit()));
-                                        },
-                                        child: CustomCardsCommon(
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                        'Modifica Dati Disabilità Familiare',
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 2.5 *
-                                                              blockSizeVertical,
-                                                          color: ColorConstants
-                                                              .orangeGradients3,
-                                                        )),
-                                                  ),
-                                                ],
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                'Modifica i dati della presenza di disabilità nel nucleo familiare',
                                               ),
-                                              const Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      'Modifica i dati della presenza di disabilità nel nucleo familiare',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 const SizedBox(
                                   height: 40,
                                 ),
+                             globals.listDocsData.isEmpty ?   GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CaricaDocsPage()));
+                                  },
+                                  child: CustomCardsCommon(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text('Aggiungi Documenti',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        2.5 * blockSizeVertical,
+                                                    color: ColorConstants
+                                                        .orangeGradients3,
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                'Carica i tuoi documenti',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ) :
                                 GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      CaricaDocsPage()));
-                                        },
-                                        child: CustomCardsCommon(
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                        'Aggiungi Documenti',
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 2.5 *
-                                                              blockSizeVertical,
-                                                          color: ColorConstants
-                                                              .orangeGradients3,
-                                                        )),
-                                                  ),
-                                                ],
-                                              ),
-                                              const Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      'Carica i tuoi documenti',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CaricaDocsEditPage()));
+                                  },
+                                  child: CustomCardsCommon(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                  'Modifica Documenti Caricati',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        2.5 * blockSizeVertical,
+                                                    color: ColorConstants
+                                                        .orangeGradients3,
+                                                  )),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                     GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      CaricaDocsEditPage()));
-                                        },
-                                        child: CustomCardsCommon(
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                        'Modifica Documenti Caricati',
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 2.5 *
-                                                              blockSizeVertical,
-                                                          color: ColorConstants
-                                                              .orangeGradients3,
-                                                        )),
-                                                  ),
-                                                ],
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                'Modifica i documenti che hai caricato',
                                               ),
-                                              const Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      'Modifica i documenti che hai caricato',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 SizedBox(
-                                  height: 40,
+                                  height: 60,
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     CommonStyleButton(
                                         title: 'Invia Richiesta',
-                                        onTap:  () async {
-                                                EditDataTypeServiceRepository()
-                                                    .editRequest(
-                                                        context,
-                                                        idBancoEdit,
-                                                        '4',
-                                                        globals.userData!.nome,
-                                                        globals
-                                                            .userData!.telefono,
-                                                        '',
-                                                        '',
-                                                        '')
-                                                    .then((value) async {
-                                                  SendDataTypeServiceRepository()
-                                                      .sendMailService(context,
-                                                          'Banco Alimentare');
-                                                 
-                                                });
-                                              },
+                                        onTap: globals.listParentsData.isEmpty ||
+                                        globals.dataDisabili == null ||
+                                        globals.listDocsData.isEmpty ? null :
+                                         () async {
+                                          EditDataTypeServiceRepository()
+                                              .editRequest(
+                                                  context,
+                                                  idBancoEdit,
+                                                  '4',
+                                                  globals.userData!.nome,
+                                                  globals.userData!.telefono,
+                                                  '',
+                                                  '',
+                                                  '')
+                                              .then((value) async {
+                                            SendDataTypeServiceRepository()
+                                                .sendMailService(context,
+                                                    'Banco Alimentare');
+                                          });
+                                        },
                                         iconWidget: Text('')),
                                   ],
                                 )

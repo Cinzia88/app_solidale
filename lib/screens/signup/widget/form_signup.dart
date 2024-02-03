@@ -95,14 +95,16 @@ class _SignUpFormState extends State<SignUpForm> {
                       TextFormFieldCustom(
                         textEditingController: _phoneController,
                         labelTextCustom: 'Telefono:',
-                        keyboardType: TextInputType.number,
-                        obscureText: false,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Campo Richiesto*';
-                          }
-                          return null;
-                        },
+                         keyboardType: TextInputType.phone,
+                      obscureText: false,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Richiesto*';
+                        } else if(value.isNotEmpty && value.length < 10) {
+                          return 'Inserire un numero di telefono valido';
+                        }
+                        return null;
+                      },
                       ),
                        TextFormFieldCustom(
                         textEditingController: _emailController,

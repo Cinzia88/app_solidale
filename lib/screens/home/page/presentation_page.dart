@@ -39,60 +39,14 @@ class _PresentationPageState extends State<PresentationPage>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    getValueProfiloTaxiCompleto();
-        getValueProfiloAccOncCompleto();
-getValueProfiloBancoCompleto();
+
 
     
     readUser().then((value) => getRequestUser());
 
   }
 
-
-
-
-
-
-
-
-Future getValueProfiloTaxiCompleto() async {
-    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteTaxi().then((value) {
-      ValueSharedPrefsViewSlide().removeProfiloIncompletoUtenteTaxi();
-    });
-setState(() {
-  globals.profiloIncompletoTaxi = value;
-});
-
-print('profiloIncompletoTaxi ${globals.profiloIncompletoTaxi}');
-  }
-
-  Future getValueProfiloAccOncCompleto() async {
-    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteAccOnc().then((value) {
-      ValueSharedPrefsViewSlide().removeProfiloIncompletoUtenteAccOnc();
-    });
-setState(() {
-  globals.profiloIncompletoAccOnc = value;
-});
-
-print('profiloIncompletoAccOnc ${globals.profiloIncompletoAccOnc}');
-  }
-
-   Future getValueProfiloBancoCompleto() async {
-    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteBanco().then((value) {
-      ValueSharedPrefsViewSlide().removeProfiloIncompletoUtenteBanco();
-    });
-setState(() {
-  globals.profiloIncompletoBancoAlim = value;
-});
-
-print('profiloIncompletoBanco ${globals.profiloIncompletoBancoAlim}');
-  }
-
  
-
-
-
-  
   
 Future<List<RequestData>> getRequestUser() async {
     var url =

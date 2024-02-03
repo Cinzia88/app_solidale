@@ -31,6 +31,9 @@ class _TaxiSolidaleEditDataDestinatarioPageState
       TextEditingController();
   int _value = 1;
   String idTaxiSolidaleEdit = '';
+  String partenza = '';
+  String destinazione = '';
+  String data = '';
 
   @override
   Widget build(BuildContext context) {
@@ -72,14 +75,21 @@ class _TaxiSolidaleEditDataDestinatarioPageState
                 );
               } else if (state is ReadRequestLoadedState) {
                 for (int i = 0; i < state.data.length; i++) {
-                  if (state.data[i].nome != globals.userData!.nome &&
-                      state.data[i].telefono != globals.userData!.telefono) {
-                    _nameTaxiAnotherController.text = state.data[i].nome;
-                    _telepTaxiAnotherController.text = state.data[i].telefono;
+                  if (state.data[i].serviceId == '2') {
+                    if (state.data[i].nome != globals.userData!.nome &&
+                        state.data[i].telefono != globals.userData!.telefono) {
+                      _nameTaxiAnotherController.text = state.data[i].nome;
+                      _telepTaxiAnotherController.text = state.data[i].telefono;
+                      _value = 2;
+                    }
+
+                    setState(() {
+                      idTaxiSolidaleEdit = state.data[i].idRequest;
+                      partenza = state.data[i].partenza!;
+                      destinazione = state.data[i].destinazione!;
+                      data = state.data[i].data!;
+                    });
                   }
-                  setState(() {
-                    idTaxiSolidaleEdit = state.data[i].idRequest;
-                  });
                 }
               }
             }, builder: (context, state) {
@@ -131,24 +141,29 @@ class _TaxiSolidaleEditDataDestinatarioPageState
                                 CommonStyleButton(
                                     title: 'Aggiorna',
                                     onTap: () {
-                                      if(_formKey.currentState!.validate()) {
-                                      EditDataTypeServiceRepository()
-                                          .editRequest(
-                                        context,
-                                        idTaxiSolidaleEdit,
-                                        '2',
-                                        _value == 1
-                                            ? globals.userData!.nome
-                                            : _nameTaxiAnotherController.text,
-                                        _value == 1
-                                            ? globals.userData!.telefono
-                                            : _telepTaxiAnotherController.text,
-                                        '',
-                                        '',
-                                        '',
-                                      );
-                                     Navigator.push(context, MaterialPageRoute(builder: (_) => TaxiSolidaleEditPage()));
-                                      FocusScope.of(context).unfocus();
+                                      if (_formKey.currentState!.validate()) {
+                                        EditDataTypeServiceRepository()
+                                            .editRequest(
+                                          context,
+                                          idTaxiSolidaleEdit,
+                                          '2',
+                                          _value == 1
+                                              ? globals.userData!.nome
+                                              : _nameTaxiAnotherController.text,
+                                          _value == 1
+                                              ? globals.userData!.telefono
+                                              : _telepTaxiAnotherController
+                                                  .text,
+                                          partenza,
+                                          destinazione,
+                                          data,
+                                        );
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) =>
+                                                    TaxiSolidaleEditPage()));
+                                        FocusScope.of(context).unfocus();
                                       }
                                     },
                                     iconWidget: Text('')),
@@ -262,10 +277,13 @@ class _TaxiSolidaleEditDataDestinatarioPageState
                     TextFormFieldCustom(
                       textEditingController: _telepTaxiAnotherController,
                       labelTextCustom: 'Telefono:',
+                      keyboardType: TextInputType.phone,
                       obscureText: false,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Campo Richiesto*';
+                        } else if(value.isNotEmpty && value.length < 10) {
+                          return 'Inserire un numero di telefono valido';
                         }
                         return null;
                       },

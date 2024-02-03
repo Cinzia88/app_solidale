@@ -169,11 +169,18 @@ EditDocsRepository().getDocsData(context);
                                     padding: const EdgeInsets.only(top: 20.0),
                                     child: TextFormFieldCustom(
                                         keyboardType: TextInputType.number,
+                                         validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Richiesto*';
+                        }
+                        return null;
+                      },
                                         labelTextCustom:
                                             'Inserisci numero di persone con invalidità',
                                         textEditingController:
                                             _numberController,
-                                        obscureText: false)),
+                                        obscureText: false,
+                                        )),
                             SizedBox(
                               height: 20,
                             ),

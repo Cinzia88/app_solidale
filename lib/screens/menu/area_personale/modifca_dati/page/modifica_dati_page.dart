@@ -134,7 +134,16 @@ class _ModificaDatiPageState extends State<ModificaDatiPage> {
                                               textEditingController:
                                                   _phoneController,
                                               labelTextCustom: 'Telefono:',
-                                              obscureText: false,
+                                               keyboardType: TextInputType.phone,
+                      obscureText: false,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Richiesto*';
+                        } else if(value.isNotEmpty && value.length < 10) {
+                          return 'Inserire un numero di telefono valido';
+                        }
+                        return null;
+                      },
                                             ),
                                             TextFormFieldCustom(
                                               textEditingController:

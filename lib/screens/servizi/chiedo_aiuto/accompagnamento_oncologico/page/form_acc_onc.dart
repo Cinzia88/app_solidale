@@ -8,6 +8,7 @@ import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/destinazione_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_destinazione.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,8 +38,12 @@ class _FormAccompagnamentoOncologicoState
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-
-    return SingleChildScrollView(
+ final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
+    return BlocBuilder<SendDataTypeServiceBloc, SendDataTypeServiceState>(builder: (context, state) {
+     
+      return state is SendDataTypeServiceLoadingState
+              ? loadingWidget(context)
+              : SingleChildScrollView(
       child: Padding(
           padding: const EdgeInsets.all(
             20.0,
@@ -84,27 +89,28 @@ class _FormAccompagnamentoOncologicoState
                     title: 'Invia e Continua',
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
+                         bloc.add(SendDataTypeServiceEvent(
+                                                serviceId: '3',
+                                                nome: globals.userData!.nome,
+                                                telefono:
+                                                    globals.userData!.telefono,
+                                                    partenza: '',
+                                                    destinazione: '',
+                                                    data: '',
+                                              ));
+                       
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => DestinationPage(
-                                    nomeDestinatario: _value == 1
-                                        ? globals.userData!.nome
-                                        : _nameAnotherController.text,
-                                    telefonoDestinatario: _value == 1
-                                        ? globals.userData!.telefono
-                                        : _telepAnotherController.text)));
-                        setState(() {
-                          accIncompleto = true;
-                        });
-                        await ValueSharedPrefsViewSlide()
-                            .setProfiloIncompletoUtenteAccOnc(accIncompleto);
+                                builder: (_) => DestinationEditPage(
+                                  )));
+                      
                       }
                     },
                     iconWidget: Text('')),
               ],
             ),
-          ])),
+          ])));},
     );
   }
 
@@ -211,10 +217,13 @@ class _FormAccompagnamentoOncologicoState
                     TextFormFieldCustom(
                       textEditingController: _telepAnotherController,
                       labelTextCustom: 'Telefono:',
+                       keyboardType: TextInputType.phone,
                       obscureText: false,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Campo Richiesto*';
+                        } else if(value.isNotEmpty && value.length < 10) {
+                          return 'Inserire un numero di telefono valido';
                         }
                         return null;
                       },

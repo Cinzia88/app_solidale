@@ -42,9 +42,6 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
     // TODO: implement initState
     super.initState();
     EditDataDisabiliRepository().getDisabiliData(context);
-
-
-
   }
 
   @override
@@ -69,14 +66,16 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
           automaticallyImplyLeading: true,
           flexibleSpace: customAppBar(context: context),
           actions: [
-        _partenzaController.text == '' ||
-                             _destinazioneController.text == '' ||
-                             _dateController.text == '' ? SizedBox() : IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                )) 
+            _partenzaController.text == '' ||
+                    _destinazioneController.text == '' ||
+                    _dateController.text == ''
+                ? SizedBox()
+                : IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ))
           ],
         ),
         drawer: NavigationDrawerWidget(),
@@ -100,9 +99,9 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                     state.data[i].destinazione == 'null' &&
                     state.data[i].data == 'null') {
                   setState(() {
-                    _partenzaController.text = '';
-                    _destinazioneController.text = '';
-                    _dateController.text = '';
+                    _partenzaController.text ;
+                    _destinazioneController.text;
+                    _dateController.text;
                   });
                 } else {
                   setState(() {
@@ -146,9 +145,11 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                           children: [
                             Flexible(
                               child: Text(
-                             _partenzaController.text == '' ||
-                             _destinazioneController.text == '' ||
-                             _dateController.text == '' ?    'Fase 2 di 4' : 'Modifica Partenza/Destinazione',
+                                _partenzaController.text == '' ||
+                                        _destinazioneController.text == '' ||
+                                        _dateController.text == ''
+                                    ? 'Fase 2 di 4'
+                                    : 'Modifica Partenza/Destinazione',
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                             ),
@@ -164,11 +165,11 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                           key: _formKey,
                           child: Column(
                             children: [
-                              Text(
-                              _partenzaController.text == '' ||
-                             _destinazioneController.text == '' ||
-                             _dateController.text == '' ?     'Inserisci indirizzo di partenza (indirizzo di residenza):' :
-                              'Modifica indirizzo di partenza (indirizzo di residenza):'),
+                              Text(_partenzaController.text == '' ||
+                                      _destinazioneController.text == '' ||
+                                      _dateController.text == ''
+                                  ? 'Inserisci indirizzo di partenza (indirizzo di residenza):'
+                                  : 'Modifica indirizzo di partenza (indirizzo di residenza):'),
                               TextFormFieldCustom(
                                 textEditingController: _partenzaController,
                                 labelTextCustom: 'Indirizzo di partenza:',
@@ -183,12 +184,11 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                               SizedBox(
                                 height: 20,
                               ),
-                              Text(
-                               _partenzaController.text == '' ||
-                             _destinazioneController.text == '' ||
-                             _dateController.text == '' ? 
-                                  'Inserisci destinazione (struttura sanitaria):' :
-                                  'Modifica destinazione (struttura sanitaria):'),
+                              Text(_partenzaController.text == '' ||
+                                      _destinazioneController.text == '' ||
+                                      _dateController.text == ''
+                                  ? 'Inserisci destinazione (struttura sanitaria):'
+                                  : 'Modifica destinazione (struttura sanitaria):'),
                               TextFormFieldCustom(
                                 textEditingController: _destinazioneController,
                                 labelTextCustom: 'Destinazione:',
@@ -206,9 +206,11 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                              _partenzaController.text == '' ||
-                             _destinazioneController.text == '' ||
-                             _dateController.text == '' ?    Text('Inserisci data:') :Text('Modifica data:'),
+                                  _partenzaController.text == '' ||
+                                          _destinazioneController.text == '' ||
+                                          _dateController.text == ''
+                                      ? Text('Inserisci data:')
+                                      : Text('Modifica data:'),
                                 ],
                               ),
                               TextFormFieldCustom(
@@ -279,28 +281,33 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             CommonStyleButton(
-                                title:  _partenzaController.text == '' ||
-                             _destinazioneController.text == '' ||
-                             _dateController.text == '' ? 'Invia e Continua' : 'Aggiorna',
+                                title: 'Invia e Continua'
+                                    ,
                                 onTap: () async {
                                   if (_formKey.currentState!.validate()) {
                                     EditDataTypeServiceRepository().editRequest(
                                         context,
                                         idReq,
                                         '2',
+                                        
                                         nome,
                                         telefono,
                                         _partenzaController.text,
                                         _destinazioneController.text,
                                         _dateController.text);
 
-                                  
-
-                                    if(globals.dataDisabili == null) {
-                                      Navigator.push(context, MaterialPageRoute(builder: (_) => DisabiliTaxiPage()));
+                                    if (globals.dataDisabili == null) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  DisabiliTaxiPage()));
                                     } else {
-                                                                            Navigator.push(context, MaterialPageRoute(builder: (_) => TaxiSolidaleEditPage()));
-
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  TaxiSolidaleEditPage()));
                                     }
 
                                     FocusScope.of(context).unfocus();

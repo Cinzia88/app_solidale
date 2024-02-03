@@ -9,6 +9,8 @@ import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/read_request_bloc.dart';
+import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_acc.onc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/page_acc_onc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
@@ -21,6 +23,7 @@ import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../const/color_constants.dart';
 
 class HomeChiedoAiuto extends StatefulWidget {
@@ -29,77 +32,7 @@ class HomeChiedoAiuto extends StatefulWidget {
 }
 
 class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
-  bool taxiSolidaleRichiedi = true;
-  bool accOncRichiedi = true;
-  bool bancoAlimRichiedi = true;
-  bool loading = false;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-     getValueProfiloTaxiCompleto();
-        getValueProfiloAccOncCompleto();
-getValueProfiloBancoCompleto();
-
-    getDataRequest();
-  }
-
-
-  Future getValueProfiloTaxiCompleto() async {
-    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteTaxi();
-setState(() {
-  globals.profiloIncompletoTaxi = value;
-});
-
-print('profiloIncompletoTaxi ${globals.profiloIncompletoTaxi}');
-  }
-
-  Future getValueProfiloAccOncCompleto() async {
-    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteAccOnc();
-setState(() {
-  globals.profiloIncompletoAccOnc = value;
-});
-
-print('profiloIncompletoAccOnc ${globals.profiloIncompletoAccOnc}');
-  }
-
-   Future getValueProfiloBancoCompleto() async {
-    final value = await ValueSharedPrefsViewSlide().getProfiloIncompletoUtenteBanco();
-setState(() {
-  globals.profiloIncompletoBancoAlim = value;
-});
-
-print('profiloIncompletoBanco ${globals.profiloIncompletoBancoAlim}');
-  }
-
- 
-
-  getDataRequest() {
-    for (int i = 0; i < globals.listRequestData.length; i++) {
-      switch (globals.listRequestData[i].serviceId) {
-        case '2':
-          setState(() {
-            taxiSolidaleRichiedi = false;
-            loading = false;
-          });
-          break;
-        case '3':
-          setState(() {
-            accOncRichiedi = false;
-            loading = false;
-          });
-          break;
-        case '4':
-          setState(() {
-            bancoAlimRichiedi = false;
-            loading = false;
-          });
-          break;
-        default:
-      }
-    }
-  }
+ List<String> serviceId = [];
 
   @override
   Widget build(BuildContext context) {
@@ -161,411 +94,434 @@ print('profiloIncompletoBanco ${globals.profiloIncompletoBancoAlim}');
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return Scaffold(
-        appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.white,
+    return BlocProvider<ReadRequestBloc>(
+      create: (context) => ReadRequestBloc(
+        context: context,
+        editDataTypeServiceRepository:
+            context.read<EditDataTypeServiceRepository>(),
+      )..add(FetchRequestEvent()),
+      child: Scaffold(
+          appBar: AppBar(
+            iconTheme: const IconThemeData(
+              color: Colors.white,
+            ),
+            toolbarHeight: 75.0,
+            automaticallyImplyLeading: true,
+            flexibleSpace: customAppBar(context: context),
+            actions: [
+              IconButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ))
+            ],
           ),
-          toolbarHeight: 75.0,
-          automaticallyImplyLeading: true,
-          flexibleSpace: customAppBar(context: context),
-          actions: [
-            IconButton(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                ))
-          ],
-        ),
-        drawer: NavigationDrawerWidget(),
-        body: loading
-            ? loadingWidget(context)
-            : SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            'Chiedo Aiuto',
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          const Divider(
-                            color: ColorConstants.orangeGradients3,
-                          ),
-                          taxiSolidaleRichiedi == false ||
-                                  globals.profiloIncompletoTaxi == true
-                              ? Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 40.0),
-                                  child: CustomCardsCommon(
-                                    child: CustomContainerService(
-                                      title: 'Taxi Solidale',
-                                      subtitle:
-                                          'Ti aiutiamo a raggiungere strutture e servizi primari in città',
-                                      image: PathConstants.taxiSolidale,
-                                      widget: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 15.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              TaxiSolidaleEditPage()));
-                                                },
-                                                child: Text(
-                                                  'Modifica',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize:
-                                                          blockSizeVertical *
-                                                              2),
-                                                )),
-                                            GestureDetector(
-                                              onTap: () {
-                                                showAlertDialog(
-                                                    title: TextConstants
-                                                        .infoAlertTitleTaxiSolidale,
-                                                    desc: TextConstants
-                                                        .infoAlertTaxiSolidale,
+          drawer: NavigationDrawerWidget(),
+          body:  BlocConsumer<ReadRequestBloc, ReadRequestState>(
+            listener: (context, state) {
+          if (state is ReadRequestErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.errorMessage)),
+            );
+          } else if (state is ReadRequestLoadedState) {
+            for (int i = 0; i < state.data.length; i++) {
+              setState(() {
+                serviceId.add(state.data[i].serviceId);
+              });
+            }
+            
+          }
+        }, builder: (context, state) {
+              return  state is ReadRequestLoadingState
+              ? loadingWidget(context)
+              : SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  'Chiedo Aiuto',
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
+                                const Divider(
+                                  color: ColorConstants.orangeGradients3,
+                                ),
+                                serviceId.contains('2') 
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 40.0),
+                                        child: CustomCardsCommon(
+                                          child: CustomContainerService(
+                                            title: 'Taxi Solidale',
+                                            subtitle:
+                                                'Ti aiutiamo a raggiungere strutture e servizi primari in città',
+                                            image: PathConstants.taxiSolidale,
+                                            widget: Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 15.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    TaxiSolidaleEditPage()));
+                                                      },
+                                                      child: Text(
+                                                        'Modifica',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize:
+                                                                blockSizeVertical *
+                                                                    2),
+                                                      )),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      showAlertDialog(
+                                                          title: TextConstants
+                                                              .infoAlertTitleTaxiSolidale,
+                                                          desc: TextConstants
+                                                              .infoAlertTaxiSolidale,
+                                                          onPressed: () {
+                                                            Navigator.pop(context);
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (context) =>
+                                                                        const TaxiSolidalePage()));
+                                                          });
+                                                    },
+                                                    child: SizedBox(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child: Image.asset(
+                                                          PathConstants.infoService),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 40.0),
+                                        child: CustomCardsCommon(
+                                          child: CustomContainerService(
+                                            title: 'Taxi Solidale',
+                                            subtitle:
+                                                'Ti aiutiamo a raggiungere strutture e servizi primari in città',
+                                            image: PathConstants.taxiSolidale,
+                                            widget: Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 15.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    const TaxiSolidalePage()));
+                                                      },
+                                                      child: Text(
+                                                        'Richiedi',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize:
+                                                                blockSizeVertical *
+                                                                    2),
+                                                      )),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      showAlertDialog(
+                                                          title: TextConstants
+                                                              .infoAlertTitleTaxiSolidale,
+                                                          desc: TextConstants
+                                                              .infoAlertTaxiSolidale,
+                                                          onPressed: () {
+                                                            Navigator.pop(context);
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (context) =>
+                                                                        const TaxiSolidalePage()));
+                                                          });
+                                                    },
+                                                    child: SizedBox(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child: Image.asset(
+                                                          PathConstants.infoService),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                  serviceId.contains('3') 
+                                    
+                                    ? Padding(
+                                        padding: const EdgeInsets.only(bottom: 40.0),
+                                        child: CustomCardsCommon(
+                                          child: CustomContainerService(
+                                            title: 'Accompagnamento Oncologico',
+                                            subtitle:
+                                                'Ti supportiamo per ricevere le cure necessarie',
+                                            image: PathConstants.accompagnamOncolog,
+                                            widget: Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 15.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    AccompagnamentoOncologicoEditPage()));
+                                                      },
+                                                      child: Text(
+                                                        'Modifica',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize:
+                                                                blockSizeVertical *
+                                                                    2),
+                                                      )),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      showAlertDialog(
+                                                        title: TextConstants
+                                                            .infoAlertTitleAccompagnOncol,
+                                                        desc: TextConstants
+                                                            .infoAlertAccompagnOncol,
+                                                        onPressed: () {
+                                                          Navigator.pop(context);
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                      AccompagnamentoOncologicoPage()));
+                                                        },
+                                                      );
+                                                    },
+                                                    child: SizedBox(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child: Image.asset(
+                                                          PathConstants.infoService),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.only(bottom: 40.0),
+                                        child: CustomCardsCommon(
+                                          child: CustomContainerService(
+                                            title: 'Accompagnamento Oncologico',
+                                            subtitle:
+                                                'Ti supportiamo per ricevere le cure necessarie',
+                                            image: PathConstants.accompagnamOncolog,
+                                            widget: Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 15.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    AccompagnamentoOncologicoPage()));
+                                                      },
+                                                      child: Text(
+                                                        'Richiedi',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize:
+                                                                blockSizeVertical *
+                                                                    2),
+                                                      )),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      showAlertDialog(
+                                                        title: TextConstants
+                                                            .infoAlertTitleAccompagnOncol,
+                                                        desc: TextConstants
+                                                            .infoAlertAccompagnOncol,
+                                                        onPressed: () {
+                                                          Navigator.pop(context);
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                      AccompagnamentoOncologicoPage()));
+                                                        },
+                                                      );
+                                                    },
+                                                    child: SizedBox(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child: Image.asset(
+                                                          PathConstants.infoService),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                 serviceId.contains('4') 
+                                    
+                                    ? CustomCardsCommon(
+                                        child: CustomContainerService(
+                                          title: 'Banco Alimentare',
+                                          subtitle:
+                                              'Prenota o conferma il ritiro del tuo pacco alimentare',
+                                          image: PathConstants.bancoAlim,
+                                          widget: Padding(
+                                            padding: const EdgeInsets.only(top: 15.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                ElevatedButton(
                                                     onPressed: () {
-                                                      Navigator.pop(context);
                                                       Navigator.push(
                                                           context,
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  const TaxiSolidalePage()));
-                                                    });
-                                              },
-                                              child: SizedBox(
-                                                width: 50,
-                                                height: 50,
-                                                child: Image.asset(
-                                                    PathConstants.infoService),
-                                              ),
+                                                                  IntroBancoAlimentareEdit()));
+                                                    },
+                                                    child: Text(
+                                                      'Modifica',
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize:
+                                                              blockSizeVertical * 2),
+                                                    )),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    showAlertDialog(
+                                                      title: TextConstants
+                                                          .infoAlertTitleBancoAlim,
+                                                      desc: TextConstants
+                                                          .infoAlertBancoAlim,
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    IntroBancoAlimentare()));
+                                                      },
+                                                    );
+                                                  },
+                                                  child: SizedBox(
+                                                    width: 50,
+                                                    height: 50,
+                                                    child: Image.asset(
+                                                        PathConstants.infoService),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 40.0),
-                                  child: CustomCardsCommon(
-                                    child: CustomContainerService(
-                                      title: 'Taxi Solidale',
-                                      subtitle:
-                                          'Ti aiutiamo a raggiungere strutture e servizi primari in città',
-                                      image: PathConstants.taxiSolidale,
-                                      widget: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 15.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const TaxiSolidalePage()));
-                                                },
-                                                child: Text(
-                                                  'Richiedi',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize:
-                                                          blockSizeVertical *
-                                                              2),
-                                                )),
-                                            GestureDetector(
-                                              onTap: () {
-                                                showAlertDialog(
-                                                    title: TextConstants
-                                                        .infoAlertTitleTaxiSolidale,
-                                                    desc: TextConstants
-                                                        .infoAlertTaxiSolidale,
+                                      )
+                                    : CustomCardsCommon(
+                                        child: CustomContainerService(
+                                          title: 'Banco Alimentare',
+                                          subtitle:
+                                              'Prenota o conferma il ritiro del tuo pacco alimentare',
+                                          image: PathConstants.bancoAlim,
+                                          widget: Padding(
+                                            padding: const EdgeInsets.only(top: 15.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                ElevatedButton(
                                                     onPressed: () {
-                                                      Navigator.pop(context);
                                                       Navigator.push(
                                                           context,
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  const TaxiSolidalePage()));
-                                                    });
-                                              },
-                                              child: SizedBox(
-                                                width: 50,
-                                                height: 50,
-                                                child: Image.asset(
-                                                    PathConstants.infoService),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                          accOncRichiedi == false ||
-                                  globals.profiloIncompletoAccOnc == true
-                              ? Padding(
-                                  padding: const EdgeInsets.only(bottom: 40.0),
-                                  child: CustomCardsCommon(
-                                    child: CustomContainerService(
-                                      title: 'Accompagnamento Oncologico',
-                                      subtitle:
-                                          'Ti supportiamo per ricevere le cure necessarie',
-                                      image: PathConstants.accompagnamOncolog,
-                                      widget: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 15.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              AccompagnamentoOncologicoEditPage()));
-                                                },
-                                                child: Text(
-                                                  'Modifica',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize:
-                                                          blockSizeVertical *
-                                                              2),
-                                                )),
-                                            GestureDetector(
-                                              onTap: () {
-                                                showAlertDialog(
-                                                  title: TextConstants
-                                                      .infoAlertTitleAccompagnOncol,
-                                                  desc: TextConstants
-                                                      .infoAlertAccompagnOncol,
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                AccompagnamentoOncologicoPage()));
+                                                                  IntroBancoAlimentare()));
+                                                    },
+                                                    child: Text(
+                                                      'Richiedi',
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize:
+                                                              blockSizeVertical * 2),
+                                                    )),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    showAlertDialog(
+                                                      title: TextConstants
+                                                          .infoAlertTitleBancoAlim,
+                                                      desc: TextConstants
+                                                          .infoAlertBancoAlim,
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    IntroBancoAlimentare()));
+                                                      },
+                                                    );
                                                   },
-                                                );
-                                              },
-                                              child: SizedBox(
-                                                width: 50,
-                                                height: 50,
-                                                child: Image.asset(
-                                                    PathConstants.infoService),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.only(bottom: 40.0),
-                                  child: CustomCardsCommon(
-                                    child: CustomContainerService(
-                                      title: 'Accompagnamento Oncologico',
-                                      subtitle:
-                                          'Ti supportiamo per ricevere le cure necessarie',
-                                      image: PathConstants.accompagnamOncolog,
-                                      widget: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 15.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              AccompagnamentoOncologicoPage()));
-                                                },
-                                                child: Text(
-                                                  'Richiedi',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize:
-                                                          blockSizeVertical *
-                                                              2),
-                                                )),
-                                            GestureDetector(
-                                              onTap: () {
-                                                showAlertDialog(
-                                                  title: TextConstants
-                                                      .infoAlertTitleAccompagnOncol,
-                                                  desc: TextConstants
-                                                      .infoAlertAccompagnOncol,
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                AccompagnamentoOncologicoPage()));
-                                                  },
-                                                );
-                                              },
-                                              child: SizedBox(
-                                                width: 50,
-                                                height: 50,
-                                                child: Image.asset(
-                                                    PathConstants.infoService),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                          bancoAlimRichiedi == false ||
-                                  globals.profiloIncompletoBancoAlim == true
-                              ? CustomCardsCommon(
-                                  child: CustomContainerService(
-                                    title: 'Banco Alimentare',
-                                    subtitle:
-                                        'Prenota o conferma il ritiro del tuo pacco alimentare',
-                                    image: PathConstants.bancoAlim,
-                                    widget: Padding(
-                                      padding: const EdgeInsets.only(top: 15.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            IntroBancoAlimentareEdit()));
-                                              },
-                                              child: Text(
-                                                'Modifica',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        blockSizeVertical * 2),
-                                              )),
-                                          GestureDetector(
-                                            onTap: () {
-                                              showAlertDialog(
-                                                title: TextConstants
-                                                    .infoAlertTitleBancoAlim,
-                                                desc: TextConstants
-                                                    .infoAlertBancoAlim,
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              IntroBancoAlimentare()));
-                                                },
-                                              );
-                                            },
-                                            child: SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: Image.asset(
-                                                  PathConstants.infoService),
+                                                  child: SizedBox(
+                                                    width: 50,
+                                                    height: 50,
+                                                    child: Image.asset(
+                                                        PathConstants.infoService),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                )
-                              : CustomCardsCommon(
-                                  child: CustomContainerService(
-                                    title: 'Banco Alimentare',
-                                    subtitle:
-                                        'Prenota o conferma il ritiro del tuo pacco alimentare',
-                                    image: PathConstants.bancoAlim,
-                                    widget: Padding(
-                                      padding: const EdgeInsets.only(top: 15.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            IntroBancoAlimentare()));
-                                              },
-                                              child: Text(
-                                                'Richiedi',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        blockSizeVertical * 2),
-                                              )),
-                                          GestureDetector(
-                                            onTap: () {
-                                              showAlertDialog(
-                                                title: TextConstants
-                                                    .infoAlertTitleBancoAlim,
-                                                desc: TextConstants
-                                                    .infoAlertBancoAlim,
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              IntroBancoAlimentare()));
-                                                },
-                                              );
-                                            },
-                                            child: SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: Image.asset(
-                                                  PathConstants.infoService),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              ));
+                    );
+            }
+          )),
+    );
   }
 }

@@ -229,8 +229,7 @@ class _DestinationPageState extends State<DestinationPage> {
                           children: [
                             CommonStyleButton(
                                 title: 'Invia',
-                                onTap: globals.profiloIncompletoAccOnc == true
-                                    ? () async {
+                                onTap: () async {
                                         if (_formKey.currentState!.validate()) {
                                           SendDataTypeServiceRepository()
                                               .sendDataTypeservice(
@@ -253,91 +252,11 @@ class _DestinationPageState extends State<DestinationPage> {
                                                       AccompagnamentoOncologicoEditPage()));
 
                                           FocusScope.of(context).unfocus();
-                                          setState(() {
-                                            accIncompleto = false;
-                                          });
-                                          await ValueSharedPrefsViewSlide()
-                                              .setProfiloIncompletoUtenteAccOnc(
-                                                  accIncompleto);
+                                      
                                         }
-                                      }
-                                    : () async {
-                                        if (_formKey.currentState!.validate()) {
-                                          SendDataTypeServiceRepository()
-                                              .sendDataTypeservice(
-                                                  context: context,
-                                                  serviceId: '3',
-                                                  nome: widget.nomeDestinatario,
-                                                  telefono: widget
-                                                      .telefonoDestinatario,
-                                                  partenza:
-                                                      _partenzaController.text,
-                                                  destinazione:
-                                                      _destinazioneController
-                                                          .text);
-
-                                          FocusScope.of(context).unfocus();
-                                          setState(() {
-                                            accIncompleto = false;
-                                          });
-                                          await ValueSharedPrefsViewSlide()
-                                              .setProfiloIncompletoUtenteAccOnc(
-                                                  accIncompleto);
-                                        }
-
-                                        showDialog(
-                                            barrierDismissible: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title: Column(
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 50,
-                                                      child: Image.asset(
-                                                          PathConstants
-                                                              .accompagnamOncolog),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      'Stiamo elaborando i tuoi dati',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleMedium,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                                content: const Text(
-                                                    'Ti contatteremo al più presto!'),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                ),
-                                                actions: [
-                                                  InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        PresentationPage()));
-                                                      },
-                                                      child: Text(
-                                                        'Torna alla home',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleMedium,
-                                                      ))
-                                                ],
-                                              );
-                                            });
                                       },
+                          
+                                    
                                 iconWidget: Text('')),
                           ],
                         ),

@@ -93,10 +93,7 @@ class _ContentPageBancoAlimentareState extends State<ContentPageBancoAlimentare>
       'https://appsolidale.it/storage/file_pdf/dichiarazione_sostitutiva_di_certificazione.pdf';
   String? _progress;
   final TextEditingController name = TextEditingController();
-  bool? profiloIncompletoBancoAlim;
-  bool? componentiIncompleti;
-  bool? disabiliIncompleti;
-  bool? filesIncompleti;
+
 
   var _progressList = <double>[];
 
@@ -398,11 +395,7 @@ class _ContentPageBancoAlimentareState extends State<ContentPageBancoAlimentare>
                                                     destinazione: '',
                                                     data: '',
                                               ));
-                                              setState(() {
-                                                profiloIncompletoBancoAlim = true;
-                                               
-                                              });
-                                              await ValueSharedPrefsViewSlide().setProfiloIncompletoUtenteBanco(profiloIncompletoBancoAlim!);
+                                             
                                              
                                             }
                                           : null,

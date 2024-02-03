@@ -28,9 +28,7 @@ List<DocsData> listDocsData = [];
 Map<String, dynamic> pdf = {};
 
 
-bool? profiloIncompletoTaxi;
-bool? profiloIncompletoAccOnc;
-bool? profiloIncompletoBancoAlim;
+
 
 
 

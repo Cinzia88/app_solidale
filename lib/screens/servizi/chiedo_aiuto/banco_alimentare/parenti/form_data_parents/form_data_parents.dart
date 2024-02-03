@@ -6,6 +6,7 @@ import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disabili/carica_disabili_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/edit_banco_alim/edit_banco_alim.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,11 +29,11 @@ class _FormDataParentsState extends State<FormDataParents> {
   bool? profiloIncompletoBancoAlim;
   bool? componentiIncompleti;
 
-   @override
+    @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    EditDataDisabiliRepository().getDisabiliData(context);
   }
 
  
@@ -358,7 +359,19 @@ class _FormDataParentsState extends State<FormDataParents> {
                                                   nomeParente: nome,
                                                   dataDiNascitaParente: anni,
                                                   gradoParente: grado));
-                                              print('nomeC ${nome}');
+                                             if (globals.dataDisabili == null) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  DisabiliPage()));
+                                    } else {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  IntroBancoAlimentareEdit()));
+                                    }
 
                                              
                                                           

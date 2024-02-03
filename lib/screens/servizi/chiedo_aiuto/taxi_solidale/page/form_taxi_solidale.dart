@@ -26,7 +26,6 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
   final TextEditingController _telepAnotherController = TextEditingController();
   int _value = 1;
   bool create = false;
-  bool taxiSolidaleIncompleto = false;
 
   bool forAnother = false;
 
@@ -113,9 +112,14 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
                       if (_formKey.currentState!.validate()) {
                          bloc.add(SendDataTypeServiceEvent(
                                                 serviceId: '2',
-                                                nome: globals.userData!.nome,
+                                              
+                                                nome: _value == 1
+                                        ? globals.userData!.nome
+                                        : _nameAnotherController.text,
                                                 telefono:
-                                                    globals.userData!.telefono,
+                                                   _value == 1
+                                        ? globals.userData!.telefono
+                                        : _telepAnotherController.text,
                                                     partenza: '',
                                                     destinazione: '',
                                                     data: '',
@@ -125,13 +129,7 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
                             MaterialPageRoute(
                                 builder: (_) => DestinationTaxiEditPage(
                                     )));
-                        setState(() {
-                          taxiSolidaleIncompleto = true;
-                         
-                        });
-                        await ValueSharedPrefsViewSlide()
-                            .setProfiloIncompletoUtenteTaxi(
-                                taxiSolidaleIncompleto);
+                     
                       
                       }
                     },
@@ -245,10 +243,13 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
                     TextFormFieldCustom(
                       textEditingController: _telepAnotherController,
                       labelTextCustom: 'Telefono:',
+ keyboardType: TextInputType.phone,
                       obscureText: false,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Campo Richiesto*';
+                        } else if(value.isNotEmpty && value.length < 10) {
+                          return 'Inserire un numero di telefono valido';
                         }
                         return null;
                       },
