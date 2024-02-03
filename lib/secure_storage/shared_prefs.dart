@@ -3,6 +3,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ValueSharedPrefsViewSlide {
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
+  Future setResponse(int value) async {
+    final instance = await prefs;
+
+    instance.setInt('statusCode', value);
+  }
+
+  Future<int> getResponse() async {
+    final instance = await prefs;
+
+    final value = instance.getInt('statusCode');
+    return value!;
+  }
  
   Future setIdTaxiSolidale(String value) async {
     final instance = await prefs;

@@ -6,6 +6,7 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disab
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/model/model_disabili.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_send/repo/send_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_send/send_disabili_bloc.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,28 @@ class DisabiliPage extends StatefulWidget {
 }
 
 class _DisabiliPageState extends State<DisabiliPage> {
- 
+ DisabiliData? dataDisabili;
+
+
+  @override
+  void initState() {
+    getDisabili();
+    super.initState();
+  }
+
+
+  Future getDisabili() async {
+    var data = await EditDataDisabiliRepository().getDisabiliData(context);
+    if(data.disabile.isEmpty || data.numeroDisabili.isEmpty) {
+setState(() {
+  dataDisabili = null;
+});
+    } else {
+      setState(() {
+  dataDisabili = data;
+});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -55,15 +55,27 @@ class _FormDataDisabiliState extends State<FormDataDisabili> {
 
   bool yes = false;
   int disabile = 0;
+DisabiliData? dataDisabili;
+
+
   @override
   void initState() {
-    // TODO: implement initState
+    getDisabili();
     super.initState();
-EditDataDisabiliRepository().getDisabiliData(context);
-EditDocsRepository().getDocsData(context);
+  }
 
 
-
+  Future getDisabili() async {
+    var data = await EditDataDisabiliRepository().getDisabiliData(context);
+    if(data.disabile.isEmpty || data.numeroDisabili.isEmpty) {
+setState(() {
+  dataDisabili = null;
+});
+    } else {
+      setState(() {
+  dataDisabili = data;
+});
+    }
   }
 
   
@@ -186,7 +198,7 @@ EditDocsRepository().getDocsData(context);
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          globals.dataDisabili != null
+                          dataDisabili != null
                               ? CommonStyleButton(
                                   title: 'Invia e Continua',
                                   iconWidget: Text(''),

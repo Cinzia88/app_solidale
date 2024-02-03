@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'package:app_solidale/const/path_constants.dart';
+import 'package:app_solidale/const/response.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/edit_banco_alim/edit_banco_alim.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
+import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +17,7 @@ class SendDocsRepository {
 
  Future sendDocs(BuildContext context, Map<String, String> body, List<File> imagepath,
       List<File> pdfpath) async {
+        ResponseStatusCode responseStatusCode;
     try {
       var url =
           '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/upload-documents';
@@ -54,13 +58,11 @@ class SendDocsRepository {
         }
       }
       http.StreamedResponse response = await request!.send();
-       print('statuscodedata ${response.statusCode}');
-print('sendimage success ${request.files.length}');
+   
 
         switch (response.statusCode) {
           case 200:
- 
-            
+await ValueSharedPrefsViewSlide().setResponse(response.statusCode);
             break;
           case 401:
             Navigator.of(context, rootNavigator: true).pushReplacement(
