@@ -195,12 +195,14 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(partenza == 'null' ||
-                                          destinazione == 'null' ||
-                                          data == 'null' ||
-                                          ora == 'null'
-                                      ? 'Inserisci indirizzo di partenza (indirizzo di residenza):'
-                                      : 'Modifica indirizzo di partenza (indirizzo di residenza):'),
+                                  Flexible(
+                                    child: Text(partenza == 'null' ||
+                                            destinazione == 'null' ||
+                                            data == 'null' ||
+                                            ora == 'null'
+                                        ? 'Inserisci indirizzo di partenza (indirizzo di residenza):'
+                                        : 'Modifica indirizzo di partenza (indirizzo di residenza):'),
+                                  ),
                                 ],
                               ),
                               TextFormFieldCustom(
@@ -220,12 +222,14 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(partenza == 'null' ||
-                                          destinazione == 'null' ||
-                                          data == 'null' ||
-                                          ora == 'null'
-                                      ? 'Inserisci destinazione (struttura sanitaria):'
-                                      : 'Modifica destinazione (struttura sanitaria):'),
+                                  Flexible(
+                                    child: Text(partenza == 'null' ||
+                                            destinazione == 'null' ||
+                                            data == 'null' ||
+                                            ora == 'null'
+                                        ? 'Inserisci destinazione (struttura sanitaria):'
+                                        : 'Modifica destinazione (struttura sanitaria):'),
+                                  ),
                                 ],
                               ),
                               TextFormFieldCustom(
@@ -249,8 +253,8 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                                           destinazione == 'null' ||
                                           data == 'null' ||
                                           ora == 'null'
-                                      ? Text('Inserisci data:')
-                                      : Text('Modifica data:'),
+                                      ? Flexible(child: Text('Inserisci data:'))
+                                      : Flexible(child: Text('Modifica data:')),
                                 ],
                               ),
                               TextFormFieldCustom(
@@ -321,8 +325,8 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                                           destinazione == 'null' ||
                                           data == 'null' ||
                                           ora == 'null'
-                                      ? Text('Inserisci ora:')
-                                      : Text('Modifica ora:'),
+                                      ? Flexible(child: Text('Inserisci ora:'))
+                                      : Flexible(child: Text('Modifica ora:')),
                                 ],
                               ),
                               TextFormFieldCustom(
