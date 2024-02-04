@@ -181,12 +181,17 @@ class _DestinationEditPageState extends State<DestinationEditPage> {
                           key: _formKey,
                           child: Column(
                             children: [
-                              Text(partenza == 'null' ||
-                                      destinazione == 'null' ||
-                                      data == 'null' ||
-                                      ora == 'null'
-                                  ? 'Inserisci indirizzo di partenza (indirizzo di residenza):'
-                                  : 'Modifica indirizzo di partenza (indirizzo di residenza):'),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(partenza == 'null' ||
+                                          destinazione == 'null' ||
+                                          data == 'null' ||
+                                          ora == 'null'
+                                      ? 'Inserisci indirizzo di partenza (indirizzo di residenza):'
+                                      : 'Modifica indirizzo di partenza (indirizzo di residenza):'),
+                                ],
+                              ),
                               TextFormFieldCustom(
                                 textEditingController: _partenzaController,
                                 labelTextCustom: 'Indirizzo di partenza:',
@@ -201,12 +206,17 @@ class _DestinationEditPageState extends State<DestinationEditPage> {
                               SizedBox(
                                 height: 20,
                               ),
-                              Text(partenza == 'null' ||
-                                      destinazione == 'null' ||
-                                      data == 'null' ||
-                                      ora == 'null'
-                                  ? 'Inserisci destinazione (struttura sanitaria):'
-                                  : 'Modifica destinazione (struttura sanitaria):'),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(partenza == 'null' ||
+                                          destinazione == 'null' ||
+                                          data == 'null' ||
+                                          ora == 'null'
+                                      ? 'Inserisci destinazione (struttura sanitaria):'
+                                      : 'Modifica destinazione (struttura sanitaria):'),
+                                ],
+                              ),
                               TextFormFieldCustom(
                                 textEditingController: _destinazioneController,
                                 labelTextCustom: 'Destinazione:',

@@ -41,19 +41,17 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
   String destinazione = '';
   String data = '';
   String ora = '';
-    DisabiliData? dataDisabili;
+  DisabiliData? dataDisabili;
 
-
- @override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getDisabili();
-        _timeController.text = "";
-
+    _timeController.text = "";
   }
 
-Future getDisabili() async {
+  Future getDisabili() async {
     var data = await EditDataDisabiliRepository().getDisabiliData(context);
     if (data.disabile.isEmpty || data.numeroDisabili.isEmpty) {
       setState(() {
@@ -65,9 +63,6 @@ Future getDisabili() async {
       });
     }
   }
-
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -197,12 +192,17 @@ Future getDisabili() async {
                           key: _formKey,
                           child: Column(
                             children: [
-                              Text(partenza == 'null' ||
-                                      destinazione == 'null' ||
-                                      data == 'null' ||
-                                      ora == 'null'
-                                  ? 'Inserisci indirizzo di partenza (indirizzo di residenza):'
-                                  : 'Modifica indirizzo di partenza (indirizzo di residenza):'),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(partenza == 'null' ||
+                                          destinazione == 'null' ||
+                                          data == 'null' ||
+                                          ora == 'null'
+                                      ? 'Inserisci indirizzo di partenza (indirizzo di residenza):'
+                                      : 'Modifica indirizzo di partenza (indirizzo di residenza):'),
+                                ],
+                              ),
                               TextFormFieldCustom(
                                 textEditingController: _partenzaController,
                                 labelTextCustom: 'Indirizzo di partenza:',
@@ -217,12 +217,17 @@ Future getDisabili() async {
                               SizedBox(
                                 height: 20,
                               ),
-                              Text(partenza == 'null' ||
-                                      destinazione == 'null' ||
-                                      data == 'null' ||
-                                      ora == 'null'
-                                  ? 'Inserisci destinazione (struttura sanitaria):'
-                                  : 'Modifica destinazione (struttura sanitaria):'),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(partenza == 'null' ||
+                                          destinazione == 'null' ||
+                                          data == 'null' ||
+                                          ora == 'null'
+                                      ? 'Inserisci destinazione (struttura sanitaria):'
+                                      : 'Modifica destinazione (struttura sanitaria):'),
+                                ],
+                              ),
                               TextFormFieldCustom(
                                 textEditingController: _destinazioneController,
                                 labelTextCustom: 'Destinazione:',
