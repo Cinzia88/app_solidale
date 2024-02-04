@@ -33,7 +33,15 @@ class _FormDataParentsState extends State<FormDataParents> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    EditDataDisabiliRepository().getDisabiliData(context);
+    getDisabili();
+  }
+
+  Future getDisabili() async {
+   try {
+      await EditDataDisabiliRepository().getDisabiliData(context);
+   } catch (e) {
+     print(e);
+   }
   }
 
  

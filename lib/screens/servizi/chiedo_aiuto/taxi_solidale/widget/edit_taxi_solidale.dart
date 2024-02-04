@@ -46,14 +46,49 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
   bool? datiDestinazione;
   bool datiFiles = false;
   bool loading = true;
+    DisabiliData? dataDisabili;
+  List<DocsData>? dataFiles;
+    bool loadingFiles = true;
+  bool loadingDisable = true;
+
   @override
   void initState() {
-    EditDataDisabiliRepository().getDisabiliData(context);
-    EditDocsRepository().getDocsData(context);
+    getDisabili();
+    getFiles();
     EditDataTypeServiceRepository().getRequestData(context);
     super.initState();
   }
 
+   
+
+  Future getDisabili() async {
+    var data = await EditDataDisabiliRepository().getDisabiliData(context);
+    if (data.disabile.isEmpty || data.numeroDisabili.isEmpty) {
+      setState(() {
+        dataDisabili = null;
+        loadingFiles = false;
+      });
+    } else {
+      setState(() {
+        dataDisabili = data;
+        loadingFiles = false;
+      });
+    }
+  }
+Future getFiles() async {
+    var data = await EditDocsRepository().getDocsData(context);
+    if (data.isEmpty) {
+      setState(() {
+        dataFiles = [];
+        loadingFiles = false;
+      });
+    } else {
+      setState(() {
+        dataFiles = data;
+        loadingFiles = false;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
@@ -92,9 +127,7 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                   SnackBar(content: Text(state.errorMessage)),
                 );
               } else if (state is ReadRequestLoadedState) {
-                EditDataDisabiliRepository().getDisabiliData(context);
-                EditDocsRepository().getDocsData(context);
-                EditDataTypeServiceRepository().getRequestData(context);
+               
                 for (int i = 0; i < globals.listRequestData.length; i++) {
                   if (globals.listRequestData[i].serviceId == '2' &&
                       globals.listRequestData[i].partenza != 'null' &&
@@ -115,7 +148,8 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
               }
             }, builder: (context, state) {
               return state is ReadRequestLoadingState ||
-                      state is EditRequestLoadingState
+                      state is EditRequestLoadingState ||
+                 loadingFiles == true
                   ? loadingWidget(context)
                   : SingleChildScrollView(
                       child: Padding(
@@ -150,9 +184,9 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                     )
                                   ],
                                 ),
-                                globals.dataDisabili == null ||
+                                dataDisabili == null ||
                                         datiDestinazione == false ||
-                                        globals.listDocsData.isEmpty
+                                        dataFiles!.isEmpty
                                     ? Padding(
                                         padding:
                                             const EdgeInsets.only(top: 40.0),
@@ -174,7 +208,7 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                                     ),
                                                   )
                                                 : SizedBox(),
-                                            globals.dataDisabili == null
+                                            dataDisabili == null
                                                 ? Text(
                                                     '- Dati Disabilità Familiare Mancanti',
                                                     style: TextStyle(
@@ -182,7 +216,7 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                                     ),
                                                   )
                                                 : SizedBox(),
-                                            globals.listDocsData.isEmpty
+                                            dataFiles!.isEmpty
                                                 ? Text(
                                                     '- Documenti Mancanti',
                                                     style: TextStyle(
@@ -342,7 +376,7 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                     const SizedBox(
                                       height: 40,
                                     ),
-                                    globals.dataDisabili == null
+                                    dataDisabili == null
                                         ? GestureDetector(
                                             onTap: () {
                                               Navigator.push(
@@ -438,7 +472,7 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                     const SizedBox(
                                       height: 40,
                                     ),
-                                    globals.listDocsData.isEmpty
+                                    dataFiles!.isEmpty
                                         ? GestureDetector(
                                             onTap: () {
                                               Navigator.push(
@@ -539,10 +573,10 @@ class _TaxiSolidaleEditPageState extends State<TaxiSolidaleEditPage> {
                                       children: [
                                         CommonStyleButton(
                                             title: 'Invia Richiesta',
-                                            onTap: globals.dataDisabili ==
+                                            onTap: dataDisabili ==
                                                         null ||
                                                     datiDestinazione == false ||
-                                                    globals.listDocsData.isEmpty
+                                                    dataFiles!.isEmpty
                                                 ? null
                                                 : () {
                                                     showDialog(

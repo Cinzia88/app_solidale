@@ -11,6 +11,7 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/caric
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/repo/edit_parents_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/repository/send_parents_data_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/bloc/edit_disabili_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_send/repo/send_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_taxi_repository.dart';
@@ -175,6 +176,11 @@ class MyApp extends StatelessWidget {
             create: (_) => ReadDocsBloc(
                 editDocsRepository: context.read<EditDocsRepository>(),
                 context: context)..add(FetchDocsEvent())
+                ),
+                BlocProvider<ReadDisabiliBloc>(
+            create: (_) => ReadDisabiliBloc(
+                editDataDisabiliRepository: context.read<EditDataDisabiliRepository>(),
+                context: context)..add(FetchDisabiliEvent())
                 )
       ],
       child: MultiRepositoryProvider(

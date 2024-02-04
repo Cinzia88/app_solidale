@@ -10,6 +10,7 @@ import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_d
 import 'package:app_solidale/screens/servizi/bloc_send_service/bloc/send_data_type_service_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_send_service/repository/send_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/destinazione_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/model/model_disabili.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/disabili/carica_disabili_page_taxi.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
@@ -31,7 +32,6 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
   final TextEditingController _destinazioneController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
-
   bool destinazioneTaxiIncompleto = true;
 
   String idReq = '';
@@ -41,14 +41,33 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
   String destinazione = '';
   String data = '';
   String ora = '';
+    DisabiliData? dataDisabili;
 
-  @override
+
+ @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    EditDataDisabiliRepository().getDisabiliData(context);
-    _timeController.text = "";
+    getDisabili();
+        _timeController.text = "";
+
   }
+
+Future getDisabili() async {
+    var data = await EditDataDisabiliRepository().getDisabiliData(context);
+    if (data.disabile.isEmpty || data.numeroDisabili.isEmpty) {
+      setState(() {
+        dataDisabili = null;
+      });
+    } else {
+      setState(() {
+        dataDisabili = data;
+      });
+    }
+  }
+
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -389,7 +408,7 @@ class _DestinationTaxiEditPageState extends State<DestinationTaxiEditPage> {
                                         _dateController.text,
                                         _timeController.text);
 
-                                    if (globals.dataDisabili == null) {
+                                    if (dataDisabili == null) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(

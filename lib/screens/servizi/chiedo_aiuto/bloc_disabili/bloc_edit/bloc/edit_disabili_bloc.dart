@@ -23,7 +23,7 @@ class ReadDisabiliBloc extends Bloc<ReadDisabiliEvent, ReadDisabiliState> {
           emit(ReadDisabiliLoadingState());
           try {
             final userdata = await editDataDisabiliRepository.getDisabiliData(context);
-            emit(ReadDisabiliLoadedState(data: userdata));
+            emit(ReadDisabiliLoadedState(data: userdata!));
           } catch (e) {
             emit(ReadDisabiliErrorState(errorMessage: e.toString()));
           }

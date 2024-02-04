@@ -5,6 +5,7 @@ import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/bloc/send_docs_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/form_docs.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/repository/send_docs_repository.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/edit_banco_alim/edit_banco_alim.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,6 +52,14 @@ class _CaricaDocsPageState extends State<CaricaDocsPage> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
+            } else if(state is SendDocsLoaded) {
+              Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) {
+
+                                               return IntroBancoAlimentareEdit();
+                                              }));  
             }
           }, builder: (context, state) {
             return FormDocs();

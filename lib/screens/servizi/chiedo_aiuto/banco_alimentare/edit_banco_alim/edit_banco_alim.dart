@@ -53,6 +53,7 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
   void initState() {
     getDisabili();
     getFiles();
+    getComponents();
     super.initState();
   }
 
@@ -68,7 +69,10 @@ class _IntroBancoAlimentareEditState extends State<IntroBancoAlimentareEdit> {
       });
     }
   }
-
+  Future getComponents() async {
+     await EditDataParentsRepository().getParentsData(context);
+    
+  }
   Future getFiles() async {
     var data = await EditDocsRepository().getDocsData(context);
     if (data.isEmpty) {

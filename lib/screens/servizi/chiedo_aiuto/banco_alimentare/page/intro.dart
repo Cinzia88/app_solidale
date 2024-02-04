@@ -32,13 +32,7 @@ class IntroBancoAlimentare extends StatefulWidget {
 class _IntroBancoAlimentareState extends State<IntroBancoAlimentare> {
 
 
-  @override
-  void initState() {
-    EditDataDisabiliRepository().getDisabiliData(context);
-    
-       EditDocsRepository().getDocsData(context);
-    super.initState();
-  }
+  
   @override
   Widget build(BuildContext context) {
   

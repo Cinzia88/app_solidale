@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/model/model_disabili.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_send/repo/send_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_send/send_disabili_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/disabili/form_data_disabili_taxi.dart';
@@ -23,9 +25,29 @@ class DisabiliTaxiPage extends StatefulWidget {
 class _DisabiliTaxiPageState extends State<DisabiliTaxiPage> {
 
 
+DisabiliData? dataDisabili;
 
 
+  @override
+  void initState() {
+    getDisabili();
+    EditDocsRepository().getDocsData(context);
+    super.initState();
+  }
 
+
+  Future getDisabili() async {
+    var data = await EditDataDisabiliRepository().getDisabiliData(context);
+    if(data.disabile.isEmpty || data.numeroDisabili.isEmpty) {
+setState(() {
+  dataDisabili = null;
+});
+    } else {
+      setState(() {
+  dataDisabili = data;
+});
+    }
+  }
  
   
  

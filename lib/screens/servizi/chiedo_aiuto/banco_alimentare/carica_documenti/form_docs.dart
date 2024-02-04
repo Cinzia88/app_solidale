@@ -333,17 +333,8 @@ class _FormDocsState extends State<FormDocs> {
                                           body: body,
                                           imagepath: imagesList,
                                           pdfpath: filePdf));
-await ValueSharedPrefsViewSlide().getResponse().then((value) {
-                                         Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) {
-                                                       EditDocsRepository().getDocsData(context);
-
-                                               return IntroBancoAlimentareEdit();
-                                              }));  
+                                         
                                        
-});
 
 
                                        

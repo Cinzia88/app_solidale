@@ -61,13 +61,14 @@ DisabiliData? dataDisabili;
   @override
   void initState() {
     getDisabili();
+    EditDocsRepository().getDocsData(context);
     super.initState();
   }
 
 
   Future getDisabili() async {
     var data = await EditDataDisabiliRepository().getDisabiliData(context);
-    if(data.disabile.isEmpty || data.numeroDisabili.isEmpty) {
+    if(data!.disabile.isEmpty || data.numeroDisabili.isEmpty) {
 setState(() {
   dataDisabili = null;
 });

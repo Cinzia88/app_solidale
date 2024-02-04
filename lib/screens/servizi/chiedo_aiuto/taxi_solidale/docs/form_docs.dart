@@ -333,13 +333,8 @@ class _FormDocsTaxiState extends State<FormDocsTaxi> {
                                           imagepath: imagesList,
                                           pdfpath: filePdf));
                                     
-                                      if(context.mounted) {
-  Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      TaxiSolidaleEditPage()));
- }
+                                      
+  
                                       
                                       FocusScope.of(context).unfocus();
                                     }

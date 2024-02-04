@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disabili/form_data_disabili.dart';
 
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
@@ -29,13 +30,14 @@ class _DisabiliPageState extends State<DisabiliPage> {
   @override
   void initState() {
     getDisabili();
+    EditDocsRepository().getDocsData(context);
     super.initState();
   }
 
 
   Future getDisabili() async {
     var data = await EditDataDisabiliRepository().getDisabiliData(context);
-    if(data.disabile.isEmpty || data.numeroDisabili.isEmpty) {
+    if(data!.disabile.isEmpty || data.numeroDisabili.isEmpty) {
 setState(() {
   dataDisabili = null;
 });

@@ -26,8 +26,17 @@ class _ParentsPageState extends State<ParentsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    EditDataDisabiliRepository().getDisabiliData(context);
+    getDisabili();
   }
+
+  Future getDisabili() async {
+   try {
+      await EditDataDisabiliRepository().getDisabiliData(context);
+   } catch (e) {
+     print(e);
+   }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SendParentsDataBloc>(
@@ -52,9 +61,6 @@ class _ParentsPageState extends State<ParentsPage> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
-            } else if(state is SendParentsDataLoadedState) {
-                  EditDataDisabiliRepository().getDisabiliData(context);
-
             }
           },
           builder: (context, state) {
