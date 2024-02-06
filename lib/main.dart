@@ -35,17 +35,16 @@ import 'screens/signup/repository/signup_repository.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 int badge = 0;
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
   await setupFlutterNotifications();
 
   FlutterAppBadger.updateBadgeCount(badge++);
 
-  showFlutterNotification(message);
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  print('Handling a background message ${message.messageId}');
+  print('Handling a background message ${message.notification!.body}');
 }
 
 /// Create a [AndroidNotificationChannel] for heads up notifications
@@ -122,7 +121,21 @@ void showFlutterNotification(RemoteMessage message) {
               notification.title!,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            content: Text(notification.body!),
+            content:   SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        notification.body!,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),

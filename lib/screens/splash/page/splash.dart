@@ -32,15 +32,14 @@ class _SplashScreenState extends State<SplashScreen>
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
   String? initialMessage;
   bool _resolved = false;
-    String _appBadgeSupported = 'Unknown';
-
+  String _appBadgeSupported = 'Unknown';
 
   @override
   void initState() {
     super.initState();
     initPlatformState();
 
-initializeFirebase();
+    initializeFirebase();
     getValueViewSlide();
     getTokenUser();
 
@@ -71,8 +70,6 @@ initializeFirebase();
     });
   }
 
- 
-
   Future getTokenUser() async {
     final value = await service.readToken();
     setState(() {
@@ -83,20 +80,21 @@ initializeFirebase();
   Future initializeFirebase() async {
     firebaseMessaging.subscribeToTopic('all');
     firebaseMessaging.getToken().then((token) => print('tokenFirebase $token'));
-FirebaseMessaging.instance.getInitialMessage().then(
+    FirebaseMessaging.instance.getInitialMessage().then(
           (value) => setState(
             () {
               _resolved = true;
               initialMessage = value?.data.toString();
             },
           ),
+          
         );
-    
 
     FirebaseMessaging.onMessage.listen(showFlutterNotification);
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
+      showFlutterNotification(message);
       FlutterAppBadger.removeBadge;
     });
   }
@@ -153,8 +151,6 @@ FirebaseMessaging.instance.getInitialMessage().then(
     );
   }
 }
-
-
 
 class MessageArguments {
   /// The RemoteMessage
