@@ -105,6 +105,7 @@ class _NewsPageState extends State<NewsPage> {
                     color: ColorConstants.orangeGradients3,
                   ),
                   ListView.builder(
+                    reverse: true,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: newsAll.length +

@@ -25,6 +25,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -38,13 +39,12 @@ int badge = 0;
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await setupFlutterNotifications();
 
   FlutterAppBadger.updateBadgeCount(badge++);
 
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  print('Handling a background message ${message.notification!.body}');
+  print('Handling a background message ${badge}');
 }
 
 /// Create a [AndroidNotificationChannel] for heads up notifications
@@ -95,21 +95,7 @@ void showFlutterNotification(RemoteMessage message) {
   if (notification != null && android != null && !kIsWeb) {
     print('remote notification ${notification.body}');
 
-    flutterLocalNotificationsPlugin!.show(
-      notification.hashCode,
-      notification.title,
-      notification.body,
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          channel.id,
-          channel.name,
-          channelDescription: channel.description,
-          // TODO add a proper drawable resource to android, for now using
-          //      one that already exists in example app.
-          icon: '@mipmap/ic_launcher',
-        ),
-      ),
-    );
+    
     showDialog(
       context: navigatorKey.currentContext!,
       barrierDismissible: false,
@@ -158,6 +144,7 @@ FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  NotifOnKill.toggleNotifOnKill(true);
   // Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -313,4 +300,32 @@ class MyApp extends StatelessWidget {
 class AlwaysActiveBorderSide extends MaterialStateBorderSide {
   @override
   BorderSide? resolve(_) => const BorderSide(color: Colors.black);
+}
+
+
+
+
+class NotifOnKill {
+  static const platform = MethodChannel(
+      'com.app.solidale/notif_on_kill');
+
+  static Future<void> toggleNotifOnKill(bool value) async {
+    try {
+      if (value) {
+        await platform.invokeMethod(
+          'setNotificationOnKillService',
+          {
+            'title': "Application killed !",
+            'description': "The application just got killed.",
+          },
+        );
+        print('NotificationOnKillService set with success');
+      } else {
+        await platform.invokeMethod('stopNotificationOnKillService');
+        print('NotificationOnKillService stopped with success');
+      }
+    } catch (e) {
+      print('NotificationOnKillService error: $e');
+    }
+  }
 }
