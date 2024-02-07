@@ -38,6 +38,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     initPlatformState();
+        FlutterAppBadger.removeBadge;
 
     initializeFirebase();
     getValueViewSlide();
@@ -95,6 +96,8 @@ class _SplashScreenState extends State<SplashScreen>
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
       showFlutterNotification(message);
+        FlutterAppBadger.removeBadge;
+
     });
   }
 

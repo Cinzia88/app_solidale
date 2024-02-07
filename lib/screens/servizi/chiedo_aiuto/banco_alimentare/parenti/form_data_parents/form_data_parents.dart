@@ -6,6 +6,7 @@ import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/disabili/carica_disabili_page.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/edit_banco_alim/edit_banco_alim.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/bloc/send_parents_data_bloc.dart';
+import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/model/model_disabili.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +29,10 @@ class _FormDataParentsState extends State<FormDataParents> {
   var gradoComponente = <TextEditingController>[];
   bool? profiloIncompletoBancoAlim;
   bool? componentiIncompleti;
+    DisabiliData? dataDisabili;
 
-    @override
+
+   @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -37,11 +40,16 @@ class _FormDataParentsState extends State<FormDataParents> {
   }
 
   Future getDisabili() async {
-   try {
-      await EditDataDisabiliRepository().getDisabiliData(context);
-   } catch (e) {
-     print(e);
-   }
+    var data = await EditDataDisabiliRepository().getDisabiliData(context);
+    if (data.disabile.isEmpty || data.numeroDisabili.isEmpty) {
+      setState(() {
+        dataDisabili = null;
+      });
+    } else {
+      setState(() {
+        dataDisabili = data;
+      });
+    }
   }
 
  
@@ -367,7 +375,7 @@ class _FormDataParentsState extends State<FormDataParents> {
                                                   nomeParente: nome,
                                                   dataDiNascitaParente: anni,
                                                   gradoParente: grado));
-                                             if (globals.dataDisabili == null) {
+                                             if (dataDisabili == null) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(

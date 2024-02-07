@@ -92,7 +92,7 @@ void showFlutterNotification(RemoteMessage message) {
   print('remote message ${message.notification!.body}');
   FlutterAppBadger.removeBadge;
 
-  if (notification != null && android != null && !kIsWeb) {
+  if (notification != null && !kIsWeb) {
     print('remote notification ${notification.body}');
 
     
@@ -307,7 +307,7 @@ class AlwaysActiveBorderSide extends MaterialStateBorderSide {
 
 class NotifOnKill {
   static const platform = MethodChannel(
-      'com.app.solidale/notif_on_kill');
+      'com.project.anf/notif_on_kill');
 
   static Future<void> toggleNotifOnKill(bool value) async {
     try {
