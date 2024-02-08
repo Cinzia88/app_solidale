@@ -144,7 +144,6 @@ FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  NotifOnKill.toggleNotifOnKill(true);
   // Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -305,27 +304,3 @@ class AlwaysActiveBorderSide extends MaterialStateBorderSide {
 
 
 
-class NotifOnKill {
-  static const platform = MethodChannel(
-      'com.project.anf/notif_on_kill');
-
-  static Future<void> toggleNotifOnKill(bool value) async {
-    try {
-      if (value) {
-        await platform.invokeMethod(
-          'setNotificationOnKillService',
-          {
-            'title': "Application killed !",
-            'description': "The application just got killed.",
-          },
-        );
-        print('NotificationOnKillService set with success');
-      } else {
-        await platform.invokeMethod('stopNotificationOnKillService');
-        print('NotificationOnKillService stopped with success');
-      }
-    } catch (e) {
-      print('NotificationOnKillService error: $e');
-    }
-  }
-}
