@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
+import 'package:app_solidale/main.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
@@ -19,7 +20,10 @@ import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:app_solidale/service/service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:http/http.dart' as http;
@@ -35,81 +39,76 @@ class PresentationPage extends StatefulWidget {
 
 class _PresentationPageState extends State<PresentationPage>
     with WidgetsBindingObserver {
+      final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+  String? initialMessage;
+  bool _resolved = false;
+  String _appBadgeSupported = 'Unknown';
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
 
-    
-    readUser().then((value) => getRequestUser());
+    initPlatformState();
+        FlutterAppBadger.removeBadge;
 
+    initializeFirebase();
+    readUser();
+
+  }
+
+Future initializeFirebase() async {
+    firebaseMessaging.subscribeToTopic('all');
+    FirebaseMessaging.instance.deleteToken().then((value) async{
+      String? token = await firebaseMessaging.getToken();
+print('tokenFirebase $token');    });
+
+    //firebaseMessaging.getToken().then((token) => print('tokenFirebase $token'));
+    FirebaseMessaging.instance.getInitialMessage().then(
+          (value) => setState(
+            () {
+              _resolved = true;
+              initialMessage = value?.data.toString();
+            },
+          ),
+          
+        );
+
+    FirebaseMessaging.onMessage.listen(showFlutterNotification);
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+      showFlutterNotification(message);
+        FlutterAppBadger.removeBadge;
+
+    });
+  }
+
+  initPlatformState() async {
+    String appBadgeSupported;
+    try {
+      bool res = await FlutterAppBadger.isAppBadgeSupported();
+      if (res) {
+        appBadgeSupported = 'Supported';
+      } else {
+        appBadgeSupported = 'Not supported';
+      }
+    } on PlatformException {
+      appBadgeSupported = 'Failed to get badge support.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _appBadgeSupported = appBadgeSupported;
+    });
   }
 
  
   
-Future<List<RequestData>> getRequestUser() async {
-    var url =
-        '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta/show/${globals.userData!.id}';
-    // Await the http get response, then decode the json-formatted response.
-    var response = await http.get(
-      Uri.parse(url),
-      headers: {
-        'Accept': 'application/json',
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer ${globals.tokenValue}'
-      },
-    );
-    final List<dynamic> body = json.decode(response.body);
-    var data = body.map((e) => RequestData.fromJson(e)).toList();
-    setState(() {
-      globals.listRequestData = data;
-    });
-    print('reqdata ${globals.listRequestData}');
-    switch (response.statusCode) {
-      case 200:
-        print('success data request');
-      case 401:
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => PresentationPage()));
-
-        break;
-      case 400:
-        String message = 'Utente non trovato';
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => PresentationPage()));
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(
-              message,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            )));
-        break;
-      case 500:
-        String message = 'Errore Server: impossibile stabilire una connessione';
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => PresentationPage()));
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(
-              message,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            )));
-        break;
-      default:
-        print('errore generico');
-    }
-    return data;
-  }
-
 
 
   Future readUser() async {
