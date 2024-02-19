@@ -3,6 +3,7 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/menu/area_personale/profilo_page.dart';
 import 'package:app_solidale/screens/menu/logout/logout.dart';
+import 'package:app_solidale/screens/menu/messages/page.dart';
 import 'package:app_solidale/screens/news/page/news_page.dart';
 import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto.dart';
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
@@ -67,6 +68,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                     MaterialPageRoute(
                         builder: (context) => PresentationPage()));
               }),
+               
           ListTile(
               leading: Icon(
                 Icons.newspaper,
@@ -84,6 +86,26 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                 Navigator.pop(context);
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => NewsPage()));
+              }),
+               ListTile(
+              leading: Icon(
+                Icons.message,
+                color: Colors.white,
+                size: 3.5 * blockSizeVertical,
+              ),
+              title: Text(
+                'Messaggi',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 2.5 * blockSizeVertical,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MessagesPage()));
               }),
           ListTile(
               leading: Icon(
