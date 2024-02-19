@@ -29,13 +29,18 @@ class _SplashScreenState extends State<SplashScreen>
   ValueSharedPrefsViewSlide valueSharedPrefsViewSlide =
       ValueSharedPrefsViewSlide();
   Service service = Service();
-  
+   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+  String? initialMessage;
+  bool _resolved = false;
+  String _appBadgeSupported = 'Unknown';
 
   @override
   void initState() {
     super.initState();
         FlutterAppBadger.removeBadge;
+ initPlatformState();
 
+    initializeFirebase();
     getValueViewSlide();
     getTokenUser();
 
@@ -58,6 +63,56 @@ class _SplashScreenState extends State<SplashScreen>
       );
     });
   }
+Future initializeFirebase() async {
+    firebaseMessaging.subscribeToTopic('all');
+  
+
+    firebaseMessaging.getToken().then((token) => print('tokenFirebase $token'));
+    FirebaseMessaging.instance.getInitialMessage().then(
+          (value) => setState(
+            () {
+              _resolved = true;
+              initialMessage = value?.data.toString();
+            },
+          ),
+          
+        );
+
+    FirebaseMessaging.onMessage.listen(showFlutterNotification);
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+      showFlutterNotification(message);
+        FlutterAppBadger.removeBadge;
+
+    });
+  }
+
+  initPlatformState() async {
+    String appBadgeSupported;
+    try {
+      bool res = await FlutterAppBadger.isAppBadgeSupported();
+      if (res) {
+        appBadgeSupported = 'Supported';
+      } else {
+        appBadgeSupported = 'Not supported';
+      }
+    } on PlatformException {
+      appBadgeSupported = 'Failed to get badge support.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _appBadgeSupported = appBadgeSupported;
+    });
+  }
+
+ 
+  
 
   Future getValueViewSlide() async {
     final value = await valueSharedPrefsViewSlide.getValueViewSlide();
