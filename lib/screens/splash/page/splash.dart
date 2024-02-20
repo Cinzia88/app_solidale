@@ -31,7 +31,6 @@ class _SplashScreenState extends State<SplashScreen>
   Service service = Service();
    final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
   String? initialMessage;
-  bool _resolved = false;
   String _appBadgeSupported = 'Unknown';
 
   @override
@@ -67,14 +66,18 @@ Future initializeFirebase() async {
     firebaseMessaging.subscribeToTopic('all');
   
 
-    firebaseMessaging.getToken().then((token) => print('tokenFirebase $token'));
+    firebaseMessaging.getToken().then((token) {
+      globals.tokenFCM = token!;
+    print('globals.tokenFCM ${globals.tokenFCM}');
+    } );
     FirebaseMessaging.instance.getInitialMessage().then(
-          (value) => setState(
-            () {
-              _resolved = true;
-              initialMessage = value?.data.toString();
-            },
-          ),
+          (value) {
+            if(value != null) {
+              showFlutterNotification(value);
+            }
+            
+          }
+          
           
         );
 

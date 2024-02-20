@@ -3,6 +3,7 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/forget_password/repository/forget_password_repository.dart';
 import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
 import 'package:app_solidale/screens/menu/area_personale/cambio_password/repository/change_password_repository.dart';
+import 'package:app_solidale/screens/menu/messages/page.dart';
 import 'package:app_solidale/screens/news/repository/news_repository.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/bloc_edit_docs/bloc/read_docs_bloc.dart';
@@ -37,16 +38,13 @@ import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
-int badge = 0;
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
-  FlutterAppBadger.updateBadgeCount(badge++);
 
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  print('Handling a background message ${badge}');
 }
 
 /// Create a [AndroidNotificationChannel] for heads up notifications
@@ -68,6 +66,7 @@ Future<void> setupFlutterNotifications() async {
         'This channel is used for important notifications.', // description
     importance: Importance.high,
     showBadge: true,
+
   );
 
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -143,7 +142,18 @@ void showFlutterNotification(RemoteMessage message) {
               ),
             ),
             actions: [
-              TextButton(
+          notification.title == 'Nuovo Messaggio' ?   TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MessagesPage()));
+                },
+                child: Text(
+                  'Messaggi',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ) : TextButton(
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text(
                   'Chiudi',

@@ -9,6 +9,8 @@ import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 
 class ModificaDatiPage extends StatefulWidget {
   const ModificaDatiPage({super.key});
@@ -174,6 +176,7 @@ class _ModificaDatiPageState extends State<ModificaDatiPage> {
                                                   _addressController.text,
                                                   _phoneController.text,
                                                   _emailController.text,
+                                                  globals.tokenFCM,
                                                 );
 
                                                 Navigator.pop(context);

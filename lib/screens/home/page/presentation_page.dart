@@ -48,16 +48,25 @@ class _PresentationPageState extends State<PresentationPage>
 
         FlutterAppBadger.removeBadge;
 
-    readUser();
+     readUser().then((value) =>  editUser());
 
   }
 
+Future editUser() async {
+ await ReadDataUserRepository().saveToken(
+  context,
+  
+globals.tokenFCM,);    
 
+
+    print('globals.userData ${globals.userData}');
+}
 
   Future readUser() async {
-    var data = await ReadDataUserRepository().readUser(context);
+   final data =  await ReadDataUserRepository().readUser(context);
     setState(() {
       globals.userData = data;
+      globals.userData!.token = globals.tokenFCM;
     });
   }
 

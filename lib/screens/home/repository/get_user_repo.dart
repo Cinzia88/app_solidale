@@ -97,6 +97,7 @@ class ReadDataUserRepository {
     String indirizzo,
     String telefono,
     String email,
+    String deviceToken,
   ) async {
     try {
       var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/edit-user/$id';
@@ -112,6 +113,71 @@ class ReadDataUserRepository {
             'indirizzo': indirizzo,
             'telefono': telefono,
             'email': email,
+            'device_token': deviceToken,
+          }));
+
+      print('status ${response.statusCode}');
+
+      switch (response.statusCode) {
+        case 200:
+          print('utente modificato');
+          // ignore: use_build_context_synchronously
+           
+          
+          break;
+        case 422:
+          
+          break;
+        case 500:
+          String message =
+              'Errore Server: impossibile stabilire una connessione';
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+          break;
+        default:
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                'Errore generico',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )));
+      }
+
+      return response;
+    } catch (e) {
+      print('sendimage error $e');
+    }
+  }
+
+  Future saveToken(
+    BuildContext context,
+    
+    String deviceToken,
+  ) async {
+    try {
+      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/save-token/${globals.userData!.id}';
+      // Await the http get response, then decode the json-formatted response.
+      var response = await http.put(Uri.parse(url),
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer ${globals.tokenValue}'
+          },
+          body: jsonEncode({
+           
+            'device_token': deviceToken,
           }));
 
       print('status ${response.statusCode}');

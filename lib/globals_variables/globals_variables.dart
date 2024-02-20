@@ -6,7 +6,7 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/paren
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/model/model_disabili.dart';
 
 
-
+String tokenFCM = '';
 dynamic tokenValue;
 String? userId;
 String? typeRichiesta;

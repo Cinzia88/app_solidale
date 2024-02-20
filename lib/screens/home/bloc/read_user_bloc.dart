@@ -34,6 +34,7 @@ class ReadUserBloc extends Bloc<ReadUserEvent, ReadUserState> {
               event.indirizzo,
               event.telefono,
               event.email,
+              event.tokenFCM,
             );
             emit(EditUserLoadedState());
           } catch (e) {

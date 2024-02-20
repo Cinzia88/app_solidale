@@ -7,14 +7,16 @@ class UserData extends Equatable {
   final String telefono;
   final String email;
   final int verified;
+   String token;
 
-  const UserData({
+   UserData({
     required this.id,
     required this.nome,
     required this.indirizzo,
     required this.telefono,
     required this.email,
     required this.verified,
+    required this.token,
   });
 
   factory UserData.fromJson(Map<String, dynamic> json) {
@@ -25,6 +27,7 @@ class UserData extends Equatable {
       telefono: json["telefono"].toString(),
       email: json["email"].toString(),
       verified: json["is_verified"] ?? 0,
+      token: json["device_token"].toString()
     );
   }
 

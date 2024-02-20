@@ -13,6 +13,7 @@ class EditUserEvent extends ReadUserEvent {
   String indirizzo;
   String telefono;
   String email;
+  String tokenFCM;
 
   EditUserEvent({
     required this.id,
@@ -20,9 +21,9 @@ class EditUserEvent extends ReadUserEvent {
     required this.indirizzo,
     required this.telefono,
     required this.email,
-  
+  required this.tokenFCM,
   });
   @override
   List<Object?> get props =>
-      [id, nome, indirizzo, telefono, email, ];
+      [id, nome, indirizzo, telefono, email, tokenFCM];
 }
