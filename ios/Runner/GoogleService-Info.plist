@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.app.solidale</string>
+	<string>com.project.anf</string>
 	<key>PROJECT_ID</key>
 	<string>appsolidalepushnotifications</string>
 	<key>STORAGE_BUCKET</key>

@@ -87,7 +87,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => NewsPage()));
               }),
-               ListTile(
+             /*  ListTile(
               leading: Icon(
                 Icons.message,
                 color: Colors.white,
@@ -106,7 +106,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => MessagesPage()));
-              }),
+              }), */
           ListTile(
               leading: Icon(
                 Icons.account_circle,

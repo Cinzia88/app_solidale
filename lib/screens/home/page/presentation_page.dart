@@ -23,7 +23,6 @@ import 'package:app_solidale/service/service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:http/http.dart' as http;
@@ -46,7 +45,6 @@ class _PresentationPageState extends State<PresentationPage>
     WidgetsBinding.instance.addObserver(this);
 
 
-        FlutterAppBadger.removeBadge;
 
      readUser().then((value) =>  editUser());
 

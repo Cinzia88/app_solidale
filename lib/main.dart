@@ -33,7 +33,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 
@@ -110,7 +109,6 @@ void showFlutterNotification(RemoteMessage message) {
   RemoteNotification? notification = message.notification;
   AndroidNotification? android = message.notification?.android;
   print('remote message ${message.notification!.body}');
-  FlutterAppBadger.removeBadge;
 
   if (notification != null && !kIsWeb) {
     print('remote notification ${notification.body}');
@@ -175,7 +173,7 @@ Future main() async {
   await Firebase.initializeApp();
   // Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-FlutterLocalNotifications().init();
+ FlutterLocalNotifications().init();
   if (!kIsWeb) {
     await setupFlutterNotifications();
   }
