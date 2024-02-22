@@ -180,11 +180,17 @@ class ReadDataUserRepository {
             'device_token': deviceToken,
           }));
 
-      print('status ${response.statusCode}');
+      print('statusreaduser ${response.statusCode}');
 
       switch (response.statusCode) {
         case 200:
           print('utente modificato');
+          // ignore: use_build_context_synchronously
+           
+          
+          break;
+           case 404:
+          print('statuserr ${response.body}');
           // ignore: use_build_context_synchronously
            
           
