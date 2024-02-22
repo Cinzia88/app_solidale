@@ -142,7 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       sevice.deleteAccount(context);
                     },
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.red, onPrimary: Colors.white),
+                        foregroundColor: Colors.white, backgroundColor: Colors.red),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

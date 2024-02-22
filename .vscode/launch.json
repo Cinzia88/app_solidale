@@ -1,5 +1,9 @@
 {
     "configurations": [
+        
+        
+
+
         {
             "name": "Flutter (ZTE BLADE V0820)",
             "program": "lib/main.dart",
