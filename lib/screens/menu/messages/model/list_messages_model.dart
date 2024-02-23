@@ -1,26 +1,23 @@
 class ListMessageModel {
  final String id;
- final String titolo;
- final String? immagine;
- final String testo;
- final String slug;
+ final String userId;
+ final String serviceId;
+ final String dataConsegna;
  
 
   ListMessageModel({
     required this.id,
-    required this.titolo,
-     this.immagine,
-    required this.testo,
-    required this.slug,
+    required this.userId,
+    required this.serviceId,
+    required this.dataConsegna,
   });
 
   factory ListMessageModel.fromJson(Map<String, dynamic> json) {
     return ListMessageModel(
     id: json["id"].toString(),
-    titolo: json['titolo'],
-    immagine: json['immagine'] ?? '',
-    testo: json["testo"],
-    slug: json["slug"],
+    userId: json['user_id'],
+    serviceId: json['service_id'],
+    dataConsegna: json["data_consegna"],
     );
   }
 }

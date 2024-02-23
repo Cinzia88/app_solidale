@@ -10,9 +10,9 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
 import 'package:flutter/material.dart';
 
 class MessageRepository {
-  List<ListMessageModel>? newsList;
-  Future<List<ListMessageModel>> getListNews(BuildContext context, int page) async {
-    var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/news?page=$page';
+  List<ListMessageModel>? messagesList;
+  Future<List<ListMessageModel>> getListMessages(BuildContext context, int page) async {
+    var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/food/message/${globals.userId}?page=$page';
     var client = http.Client();
 
     http.Response response =
@@ -21,12 +21,12 @@ class MessageRepository {
       HttpHeaders.contentTypeHeader: "application/json",
       HttpHeaders.authorizationHeader: "Bearer ${globals.tokenValue}",
     });
-print('page $page');
     List<dynamic> list = jsonDecode(response.body)['data'];
-    print('listnews ${response.body}');
-    newsList =
+    messagesList =
         List<ListMessageModel>.from(list.map((x) => ListMessageModel.fromJson(x)));
-
+print('page $page');
+    print('messagesList ${jsonDecode(response.body)['data']}');
+       print('messagesError ${response.statusCode}');
     switch (response.statusCode) {
       case 200:
         break;
@@ -63,6 +63,6 @@ print('page $page');
               ),
             )));
     }
-    return newsList ?? [];
+    return messagesList ?? [];
   }
 }

@@ -29,8 +29,8 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
     on<FetchMessageEvent>((event, emit) async {
       emit(MessageLoadingState());
       try {
-        final news = await messageRepository.getListNews(context,page);
-        emit(MessageLoadedState(news));
+        final messages = await messageRepository.getListMessages(context,page);
+        emit(MessageLoadedState(messages));
         page++;
       } catch (e) {
         emit(MessageErrorState(e.toString()));

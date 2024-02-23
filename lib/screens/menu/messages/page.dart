@@ -2,6 +2,9 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:app_solidale/screens/menu/messages/bloc/message_bloc.dart';
+import 'package:app_solidale/screens/menu/messages/model/list_messages_model.dart';
+import 'package:app_solidale/screens/menu/messages/repository/message_repository.dart';
 import 'package:app_solidale/screens/news/bloc/news_bloc.dart';
 import 'package:app_solidale/screens/news/model/list_news_model.dart';
 import 'package:app_solidale/screens/news/page/single_new_page.dart';
@@ -14,8 +17,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../../const/color_constants.dart';
 
-
-
 class MessagesPage extends StatefulWidget {
   const MessagesPage({super.key});
 
@@ -24,9 +25,8 @@ class MessagesPage extends StatefulWidget {
 }
 
 class _MessagesPageState extends State<MessagesPage> {
- 
-   bool isMessageRead = false;
-
+  bool isMessageRead = false;
+  List<ListMessageModel> messagesAll = [];
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +35,11 @@ class _MessagesPageState extends State<MessagesPage> {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return BlocProvider<NewsBloc>(
-      create: (context) => NewsBloc(
-          context: context, newsRepository: context.read<NewsRepository>())
-        ..add(FetchNewsEvent()),
+    return BlocProvider<MessageBloc>(
+      create: (context) => MessageBloc(
+          context: context,
+          messageRepository: context.read<MessageRepository>())
+        ..add(FetchMessageEvent()),
       child: Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(
@@ -49,16 +50,16 @@ class _MessagesPageState extends State<MessagesPage> {
           flexibleSpace: customAppBar(context: context),
         ),
         drawer: NavigationDrawerWidget(),
-        body: BlocConsumer<NewsBloc, NewsState>(
+        body: BlocConsumer<MessageBloc, MessageState>(
           listener: (context, state) {
-            if (state is NewsLoadingState) {
+            if (state is MessageLoadingState) {
               loadingWidget(context);
-            } else if (state is NewsErrorState) {
+            } else if (state is MessageErrorState) {
               Center(
                 child: Text(state.error.toString()),
               );
-              context.read<NewsBloc>().isFetching = false;
-            } else if (state is NewsLoadedState && state.news.isEmpty) {
+              context.read<MessageBloc>().isFetching = false;
+            } else if (state is MessageLoadedState && state.messages.isEmpty) {
               const Center(
                 child: Text('Nessun messaggio'),
               );
@@ -66,25 +67,26 @@ class _MessagesPageState extends State<MessagesPage> {
             return;
           },
           builder: (context, state) {
-            if (state is NewsLoadingState ) {
+            if (state is MessageLoadingState) {
               return loadingWidget(context);
-            } else if (state is NewsLoadedState) {
-              
-              context.read<NewsBloc>().isFetching = false;
-            } else if (state is NewsErrorState ) {
+            } else if (state is MessageLoadedState) {
+              messagesAll.addAll(state.messages);
+              context.read<MessageBloc>().isFetching = false;
+            } else if (state is MessageErrorState && messagesAll.isEmpty) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
                     onPressed: () {
-                      context.read<NewsBloc>()
+                      context.read<MessageBloc>()
                         ..isFetching = true
-                        ..add(FetchNewsEvent());
+                        ..add(FetchMessageEvent());
                     },
                     icon: const Icon(Icons.refresh),
                   ),
                   const SizedBox(height: 15),
+
                   Text(state.error, textAlign: TextAlign.center),
                 ],
               );
@@ -94,7 +96,7 @@ class _MessagesPageState extends State<MessagesPage> {
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
               child: ListView(
                 shrinkWrap: true,
-                controller: context.read<NewsBloc>().scrollController,
+                controller: context.read<MessageBloc>().scrollController,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -111,45 +113,75 @@ class _MessagesPageState extends State<MessagesPage> {
                   ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 10,
+                      itemCount: messagesAll.length +
+                          (context.read<MessageBloc>().isFetching ? 1 : 0),
                       itemBuilder: (context, index) {
+                        if (index < messagesAll.length) {
                           return GestureDetector(
-      onTap: (){
-      },
-      child: Container(
-        padding: EdgeInsets.only(top: 10,bottom: 10),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Row(
-                children: <Widget>[
-                  CircleAvatar(
-                    backgroundImage: AssetImage(PathConstants.bancoAlim),
-                    maxRadius: 30,
-                  ),
-                  SizedBox(width: 16,),
-                  Expanded(
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text('Banco Alimentare', style: TextStyle(fontSize: 16),),
-                          SizedBox(height: 6,),
-                          Text('Consegna prevista',style: TextStyle(fontSize: 13,color: Colors.grey.shade600, fontWeight: isMessageRead?FontWeight.bold:FontWeight.normal),),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Text('Oggi',style: TextStyle(fontSize: 12,fontWeight: isMessageRead?FontWeight.bold:FontWeight.normal),),
-          ],
-        ),
-      ),
-    );
-                        
+                            onTap: () {},
+                            child: Container(
+                              padding: EdgeInsets.only(top: 10, bottom: 10),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Row(
+                                      children: <Widget>[
+                                        CircleAvatar(
+                                          backgroundImage: AssetImage(
+                                              PathConstants.bancoAlim),
+                                          maxRadius: 18,
+                                        ),
+                                        SizedBox(
+                                          width: 16,
+                                        ),
+                                        Expanded(
+                                          child: Container(
+                                            color: Colors.transparent,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  'Banco Alimentare',
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                                SizedBox(
+                                                  height: 6,
+                                                ),
+                                                Text(
+                                                  messagesAll[index]
+                                                      .dataConsegna,
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      color:
+                                                          Colors.grey.shade600,
+                                                      fontWeight: isMessageRead
+                                                          ? FontWeight.bold
+                                                          : FontWeight.normal),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    'Oggi',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: isMessageRead
+                                            ? FontWeight.bold
+                                            : FontWeight.normal),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        } else {
+                          return loadingWidget(context);
+                        }
                       })
                 ],
               ),

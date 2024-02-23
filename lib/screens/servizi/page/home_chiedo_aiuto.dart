@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/const/text_constants.dart';
@@ -9,6 +10,7 @@ import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:app_solidale/screens/menu/messages/model/list_messages_model.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/read_request_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_acc.onc.dart';
@@ -19,7 +21,11 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/page/tax
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/widget/edit_taxi_solidale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../../../const/color_constants.dart';
+import 'package:http/http.dart' as http;
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 
 class HomeChiedoAiuto extends StatefulWidget {
   @override
@@ -148,6 +154,7 @@ class _HomeChiedoAiutoState extends State<HomeChiedoAiuto> {
                                 const Divider(
                                   color: ColorConstants.orangeGradients3,
                                 ),
+                                
                                 serviceId.contains('2') 
                                     ? Padding(
                                         padding: const EdgeInsets.symmetric(
