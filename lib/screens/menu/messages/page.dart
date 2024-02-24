@@ -5,6 +5,7 @@ import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/menu/messages/bloc/message_bloc.dart';
 import 'package:app_solidale/screens/menu/messages/model/list_messages_model.dart';
 import 'package:app_solidale/screens/menu/messages/repository/message_repository.dart';
+import 'package:app_solidale/screens/menu/messages/single_message_page.dart';
 import 'package:app_solidale/screens/news/bloc/news_bloc.dart';
 import 'package:app_solidale/screens/news/model/list_news_model.dart';
 import 'package:app_solidale/screens/news/page/single_new_page.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:intl/intl.dart';
 
 import '../../../const/color_constants.dart';
 
@@ -72,7 +74,7 @@ class _MessagesPageState extends State<MessagesPage> {
             } else if (state is MessageLoadedState) {
               messagesAll.addAll(state.messages);
               context.read<MessageBloc>().isFetching = false;
-            } else if (state is MessageErrorState && messagesAll.isEmpty) {
+            }else if (state is MessageErrorState && messagesAll.isEmpty) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -86,12 +88,11 @@ class _MessagesPageState extends State<MessagesPage> {
                     icon: const Icon(Icons.refresh),
                   ),
                   const SizedBox(height: 15),
-
                   Text(state.error, textAlign: TextAlign.center),
                 ],
               );
             }
-            return Padding(
+            return  Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
               child: ListView(
@@ -110,6 +111,7 @@ class _MessagesPageState extends State<MessagesPage> {
                   const Divider(
                     color: ColorConstants.orangeGradients3,
                   ),
+                  messagesAll.isEmpty ? Center(child: Text('Nessun Messaggio')) : 
                   ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -118,7 +120,18 @@ class _MessagesPageState extends State<MessagesPage> {
                       itemBuilder: (context, index) {
                         if (index < messagesAll.length) {
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              
+                               Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (contex) => SingleMessagePage(
+                                            
+                                            date: messagesAll[index].dataConsegna,
+                                            idMessage: messagesAll[index].id,
+                                          )));
+                            
+                            },
                             child: Container(
                               padding: EdgeInsets.only(top: 10, bottom: 10),
                               child: Row(
@@ -126,11 +139,31 @@ class _MessagesPageState extends State<MessagesPage> {
                                   Expanded(
                                     child: Row(
                                       children: <Widget>[
-                                        CircleAvatar(
-                                          backgroundImage: AssetImage(
-                                              PathConstants.bancoAlim),
-                                          maxRadius: 18,
-                                        ),
+                                        messagesAll[index].serviceId == '4'
+                                            ? CircleAvatar(
+                                                backgroundImage: AssetImage(
+                                                    PathConstants.bancoAlim),
+                                                maxRadius: 18,
+                                              )
+                                            : messagesAll[index].serviceId ==
+                                                    '3'
+                                                ? CircleAvatar(
+                                                    backgroundImage: AssetImage(
+                                                        PathConstants
+                                                            .accompagnamOncolog),
+                                                    maxRadius: 18,
+                                                  )
+                                                : messagesAll[index]
+                                                            .serviceId ==
+                                                        '2'
+                                                    ? CircleAvatar(
+                                                        backgroundImage:
+                                                            AssetImage(
+                                                                PathConstants
+                                                                    .taxiSolidale),
+                                                        maxRadius: 18,
+                                                      )
+                                                    : SizedBox(),
                                         SizedBox(
                                           width: 16,
                                         ),
@@ -142,21 +175,35 @@ class _MessagesPageState extends State<MessagesPage> {
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Text(
-                                                  'Banco Alimentare',
-                                                  style:
+                                                  messagesAll[index]
+                                                              .serviceId ==
+                                                          '4'
+                                                      ? 'Banco Alimentare'
+                                                      : messagesAll[index]
+                                                                  .serviceId ==
+                                                              '3'
+                                                          ? 'Accompagnamento Oncologico'
+                                                          : messagesAll[index]
+                                                                      .serviceId ==
+                                                                  '2'
+                                                              ? 'Taxi Solidale'
+                                                              : '',
+                                                  style: isMessageRead == false ? 
+                                                   TextStyle(fontSize: 16, fontWeight: FontWeight.bold) : 
                                                       TextStyle(fontSize: 16),
                                                 ),
-                                                SizedBox(
-                                                  height: 6,
-                                                ),
+                                                
                                                 Text(
-                                                  messagesAll[index]
-                                                      .dataConsegna,
+                                                  'Ciao, in seguito alla tua richiesta del servizio "Banco Alimentare", ti informiamo che la consegna del pacco è prevista per il giorno:',
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 2,
+                                                  softWrap: false,
                                                   style: TextStyle(
                                                       fontSize: 13,
                                                       color:
                                                           Colors.grey.shade600,
-                                                      fontWeight: isMessageRead
+                                                      fontWeight: isMessageRead == false
                                                           ? FontWeight.bold
                                                           : FontWeight.normal),
                                                 ),
@@ -168,10 +215,13 @@ class _MessagesPageState extends State<MessagesPage> {
                                     ),
                                   ),
                                   Text(
-                                    'Oggi',
+                                    DateFormat.MMMd('it_IT')
+                                        .format(DateTime.parse(
+                                      messagesAll[index].dataConsegna,
+                                    )),
                                     style: TextStyle(
                                         fontSize: 12,
-                                        fontWeight: isMessageRead
+                                        fontWeight: isMessageRead == false
                                             ? FontWeight.bold
                                             : FontWeight.normal),
                                   ),

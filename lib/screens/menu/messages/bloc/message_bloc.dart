@@ -17,7 +17,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
     final BuildContext context;
 
   MessageBloc({required this.context, required this.messageRepository,}) : super(MessageLoadingState()) {
-      scrollController.addListener(() {
+     scrollController.addListener(() {
                           if (scrollController.offset ==
                                   scrollController.position.maxScrollExtent &&
                               !isFetching) {
@@ -25,9 +25,10 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
                               add(FetchMessageEvent());
                           }
                         });
-   
-    on<FetchMessageEvent>((event, emit) async {
-      emit(MessageLoadingState());
+      on<MessageEvent>(
+      (event, emit) async {
+        if (event is FetchMessageEvent) {
+          emit(MessageLoadingState());
       try {
         final messages = await messageRepository.getListMessages(context,page);
         emit(MessageLoadedState(messages));
@@ -35,7 +36,29 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
       } catch (e) {
         emit(MessageErrorState(e.toString()));
       }
-    });
+        } else if (event is EditMessageEvent) {
+          emit(EditMessageLoadingState());
+          try {
+            final messagedata = await messageRepository.editMessage(
+              context,
+              event.idMessage,
+              event.serviceId,
+              event.inviato,
+              event.dataConsegna,
+              event.risposta,
+              event.consegnato,
+              event.file,
+            );
+            emit(EditMessageLoadedState());
+          } catch (e) {
+            emit(EditMessageErrorState(errorMessage: e.toString()));
+          }
+        }
+      },
+    );
+     
+   
+    
     
   }
 }

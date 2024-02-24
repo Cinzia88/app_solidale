@@ -1,11 +1,13 @@
 part of 'message_bloc.dart';
 
 
-abstract class MessageState extends Equatable {}
+abstract class MessageState extends Equatable {
+   @override
+  List<Object?> get props => [];
+}
 
 class MessageLoadingState extends MessageState {
-  @override
-  List<Object?> get props => [];
+ 
 }
 
 class MessageLoadedState extends MessageState {
@@ -24,4 +26,23 @@ class MessageErrorState extends MessageState {
 
   @override
   List<Object?> get props => [error];
+}
+
+
+class EditMessageLoadingState extends MessageState {}
+
+class EditMessageLoadedState extends MessageState {
+  
+
+ 
+}
+
+class EditMessageErrorState extends MessageState {
+  String errorMessage;
+  EditMessageErrorState({
+    required this.errorMessage,
+  });
+
+  @override
+  List<Object?> get props => [errorMessage];
 }

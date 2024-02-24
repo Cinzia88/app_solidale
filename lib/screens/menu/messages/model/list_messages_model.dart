@@ -15,9 +15,9 @@ class ListMessageModel {
   factory ListMessageModel.fromJson(Map<String, dynamic> json) {
     return ListMessageModel(
     id: json["id"].toString(),
-    userId: json['user_id'],
-    serviceId: json['service_id'],
-    dataConsegna: json["data_consegna"],
+    userId: json['user_id'].toString(),
+    serviceId: json['service_id'].toString(),
+    dataConsegna: json["data_consegna"].toString(),
     );
   }
 }

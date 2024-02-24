@@ -141,7 +141,7 @@ void showFlutterNotification(RemoteMessage message) {
               ),
             ),
             actions: [
-          notification.title == 'Nuovo Messaggio' ?   TextButton(
+          notification.title == 'Nuovo Messaggio: Banco Alimentare' ?   TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
