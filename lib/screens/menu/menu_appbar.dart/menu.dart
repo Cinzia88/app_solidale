@@ -8,6 +8,7 @@ import 'package:app_solidale/screens/news/page/news_page.dart';
 import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto.dart';
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:app_solidale/screens/signin/page/signin_page.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -143,9 +144,10 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                 Navigator.of(context, rootNavigator: true).pushReplacement(
                     MaterialPageRoute(builder: (context) => SignInPage()));
                 serviceLogout.logoutUser(context);
+
               }),
           Divider(
-            color: ColorConstants.colorDoctNotActive,
+            color: const Color.fromARGB(255, 29, 21, 18),
           ),
           ListTile(
               leading: Icon(

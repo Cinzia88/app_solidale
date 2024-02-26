@@ -16,11 +16,13 @@ import '../../common_widgets/background_style/custom_appbar.dart';
 class SingleMessagePage extends StatefulWidget {
   String date;
   String idMessage;
+  String serviceId;
 
   SingleMessagePage({
     Key? key,
     required this.date,
     required this.idMessage,
+    required this.serviceId,
   }) : super(key: key);
 
   @override
@@ -85,7 +87,13 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Banco Alimentare: Avviso di Consegna',
+                            widget.serviceId == '4'
+                                ? 'Banco Alimentare'
+                                : widget.serviceId == '3'
+                                    ? 'Accompagnamento Oncologico'
+                                    : widget.serviceId == '2'
+                                        ? 'Taxi Solidale'
+                                        : '',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 2 * blockSizeVertical,
@@ -101,7 +109,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                                     MessageRepository().editMessage(
                                       context,
                                       widget.idMessage,
-                                      '4',
+                                      widget.serviceId,
                                       '',
                                       widget.date,
                                       _value == 1
@@ -111,47 +119,61 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                                       '',
                                     );
 
-                                     showDialog(
-                  barrierColor: Colors.black87,
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Column(
-                        children: [
-                          SizedBox(
-                            height: 50,
-                            child: Image.asset(PathConstants.bancoAlim),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Messaggio Inviato',
-                            style: Theme.of(context).textTheme.titleMedium,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      actions: [
-                        InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          PresentationPage()));
-                            },
-                            child: Text(
-                              'Torna alla home',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ))
-                      ],
-                    );
-                  });
+                                    showDialog(
+                                        barrierColor: Colors.black87,
+                                        barrierDismissible: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: Column(
+                                              children: [
+                                             widget.serviceId == '4' ?  SizedBox(
+                                                  height: 50,
+                                                  child: Image.asset(
+                                                    PathConstants.bancoAlim),
+                                                ) :  widget.serviceId == '3' ?  SizedBox(
+                                                  height: 50,
+                                                  child: Image.asset(
+                                                    PathConstants.accompagnamOncolog),
+                                                ) :  widget.serviceId == '2' ?  SizedBox(
+                                                  height: 50,
+                                                  child: Image.asset(
+                                                    PathConstants.taxiSolidale),
+                                                ) : SizedBox(),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  'Messaggio Inviato',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleMedium,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ],
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                            actions: [
+                                              InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                PresentationPage()));
+                                                  },
+                                                  child: Text(
+                                                    'Torna alla home',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium,
+                                                  ))
+                                            ],
+                                          );
+                                        });
                                     FocusScope.of(context).unfocus();
                                   },
                                   iconWidget: Text('')),
@@ -175,7 +197,13 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
         child: Column(
           children: [
             Text(
-              'Ciao, in seguito alla tua richiesta del servizio "Banco Alimentare", ti informiamo che la consegna del pacco è prevista per il giorno: $dataConsegna.',
+              widget.serviceId == '4'
+                  ? 'Ciao, in seguito alla tua richiesta del servizio "Banco Alimentare", ti informiamo che la consegna del pacco è prevista per il giorno: $dataConsegna.'
+                  : widget.serviceId == '3'
+                      ? 'Ciao, in seguito alla tua richiesta del servizio "Accompagnamento Oncologico", ti informiamo che sarà effettuato il giorno: $dataConsegna.'
+                      : widget.serviceId == '2'
+                      ? 'Ciao, in seguito alla tua richiesta del servizio "Taxi Solidale", ti informiamo che sarà effettuato il giorno: $dataConsegna.'
+                          : '',
             ),
             Text(
                 'Clicca "Conferma" per confermare questa data, oppure clicca "Riprogramma" se preferisci una data diversa che ti comunicheremo.')

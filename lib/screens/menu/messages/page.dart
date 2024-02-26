@@ -74,7 +74,7 @@ class _MessagesPageState extends State<MessagesPage> {
             } else if (state is MessageLoadedState) {
               messagesAll.addAll(state.messages);
               context.read<MessageBloc>().isFetching = false;
-            }else if (state is MessageErrorState && messagesAll.isEmpty) {
+            } else if (state is MessageErrorState && messagesAll.isEmpty) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,7 +92,7 @@ class _MessagesPageState extends State<MessagesPage> {
                 ],
               );
             }
-            return  Padding(
+            return Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
               child: ListView(
@@ -111,128 +111,154 @@ class _MessagesPageState extends State<MessagesPage> {
                   const Divider(
                     color: ColorConstants.orangeGradients3,
                   ),
-                  messagesAll.isEmpty ? Center(child: Text('Nessun Messaggio')) : 
-                  ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: messagesAll.length +
-                          (context.read<MessageBloc>().isFetching ? 1 : 0),
-                      itemBuilder: (context, index) {
-                        if (index < messagesAll.length) {
-                          return GestureDetector(
-                            onTap: () {
-                              
-                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (contex) => SingleMessagePage(
-                                            
-                                            date: messagesAll[index].dataConsegna,
-                                            idMessage: messagesAll[index].id,
-                                          )));
-                            
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(top: 10, bottom: 10),
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Row(
-                                      children: <Widget>[
-                                        messagesAll[index].serviceId == '4'
-                                            ? CircleAvatar(
-                                                backgroundImage: AssetImage(
-                                                    PathConstants.bancoAlim),
-                                                maxRadius: 18,
-                                              )
-                                            : messagesAll[index].serviceId ==
-                                                    '3'
+                  messagesAll.isEmpty
+                      ? Center(child: Text('Nessun Messaggio'))
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: messagesAll.length +
+                              (context.read<MessageBloc>().isFetching ? 1 : 0),
+                          itemBuilder: (context, index) {
+                            if (index < messagesAll.length) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (contex) =>
+                                              SingleMessagePage(
+                                                date: messagesAll[index]
+                                                    .dataConsegna,
+                                                idMessage:
+                                                    messagesAll[index].id,
+                                                     serviceId: messagesAll[index]
+                                                    .serviceId,
+                                              )));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.only(top: 10, bottom: 10),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Row(
+                                          children: <Widget>[
+                                            messagesAll[index].serviceId == '4'
                                                 ? CircleAvatar(
                                                     backgroundImage: AssetImage(
                                                         PathConstants
-                                                            .accompagnamOncolog),
+                                                            .bancoAlim),
                                                     maxRadius: 18,
                                                   )
                                                 : messagesAll[index]
                                                             .serviceId ==
-                                                        '2'
+                                                        '3'
                                                     ? CircleAvatar(
-                                                        backgroundImage:
-                                                            AssetImage(
-                                                                PathConstants
-                                                                    .taxiSolidale),
+                                                        backgroundImage: AssetImage(
+                                                            PathConstants
+                                                                .accompagnamOncolog),
                                                         maxRadius: 18,
                                                       )
-                                                    : SizedBox(),
-                                        SizedBox(
-                                          width: 16,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            color: Colors.transparent,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Text(
-                                                  messagesAll[index]
-                                                              .serviceId ==
-                                                          '4'
-                                                      ? 'Banco Alimentare'
-                                                      : messagesAll[index]
+                                                    : messagesAll[index]
+                                                                .serviceId ==
+                                                            '2'
+                                                        ? CircleAvatar(
+                                                            backgroundImage:
+                                                                AssetImage(
+                                                                    PathConstants
+                                                                        .taxiSolidale),
+                                                            maxRadius: 18,
+                                                          )
+                                                        : SizedBox(),
+                                            SizedBox(
+                                              width: 16,
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                color: Colors.transparent,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      messagesAll[index]
                                                                   .serviceId ==
-                                                              '3'
-                                                          ? 'Accompagnamento Oncologico'
+                                                              '4'
+                                                          ? 'Banco Alimentare'
                                                           : messagesAll[index]
                                                                       .serviceId ==
-                                                                  '2'
-                                                              ? 'Taxi Solidale'
-                                                              : '',
-                                                  style: isMessageRead == false ? 
-                                                   TextStyle(fontSize: 16, fontWeight: FontWeight.bold) : 
-                                                      TextStyle(fontSize: 16),
+                                                                  '3'
+                                                              ? 'Accompagnamento Oncologico'
+                                                              : messagesAll[index]
+                                                                          .serviceId ==
+                                                                      '2'
+                                                                  ? 'Taxi Solidale'
+                                                                  : '',
+                                                      style: isMessageRead ==
+                                                              false
+                                                          ? TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)
+                                                          : TextStyle(
+                                                              fontSize: 16),
+                                                    ),
+                                                    Text(
+                                                      messagesAll[index]
+                                                                  .serviceId ==
+                                                              '4'
+                                                          ? 'Ciao, in seguito alla tua richiesta del servizio "Banco Alimentare", ti informiamo che '
+                                                          : messagesAll[index]
+                                                                      .serviceId ==
+                                                                  '3'
+                                                              ? 'Ciao, in seguito alla tua richiesta del servizio "Accompagnamento Oncologico", ti informiamo che '
+                                                              : messagesAll[index]
+                                                                          .serviceId ==
+                                                                      '2'
+                                                                  ? 'Ciao, in seguito alla tua richiesta del servizio "Taxi Solidale", ti informiamo che '
+                                                                  : '',
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 2,
+                                                      softWrap: false,
+                                                      style: TextStyle(
+                                                          fontSize: 13,
+                                                          color: Colors
+                                                              .grey.shade600,
+                                                          fontWeight:
+                                                              isMessageRead ==
+                                                                      false
+                                                                  ? FontWeight
+                                                                      .bold
+                                                                  : FontWeight
+                                                                      .normal),
+                                                    ),
+                                                  ],
                                                 ),
-                                                
-                                                Text(
-                                                  'Ciao, in seguito alla tua richiesta del servizio "Banco Alimentare", ti informiamo che la consegna del pacco è prevista per il giorno:',
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 2,
-                                                  softWrap: false,
-                                                  style: TextStyle(
-                                                      fontSize: 13,
-                                                      color:
-                                                          Colors.grey.shade600,
-                                                      fontWeight: isMessageRead == false
-                                                          ? FontWeight.bold
-                                                          : FontWeight.normal),
-                                                ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      Text(
+                                        DateFormat.MMMd('it_IT')
+                                            .format(DateTime.parse(
+                                          messagesAll[index].dataConsegna,
+                                        )),
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: isMessageRead == false
+                                                ? FontWeight.bold
+                                                : FontWeight.normal),
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    DateFormat.MMMd('it_IT')
-                                        .format(DateTime.parse(
-                                      messagesAll[index].dataConsegna,
-                                    )),
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: isMessageRead == false
-                                            ? FontWeight.bold
-                                            : FontWeight.normal),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        } else {
-                          return loadingWidget(context);
-                        }
-                      })
+                                ),
+                              );
+                            } else {
+                              return loadingWidget(context);
+                            }
+                          })
                 ],
               ),
             );

@@ -66,6 +66,8 @@ Future initializeFirebase() async {
     firebaseMessaging.getToken().then((token) {
       globals.tokenFCM = token!;
     print('globals.tokenFCM ${globals.tokenFCM}');
+        print('tokenFCM ${token}');
+
     } );
     FirebaseMessaging.instance.getInitialMessage().then(
           (value) {

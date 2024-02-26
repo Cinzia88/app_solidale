@@ -1,5 +1,6 @@
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
+import 'package:app_solidale/screens/signin/page/signin_page.dart';
 import 'package:app_solidale/secure_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -109,7 +110,7 @@ class Service {
       switch (response.statusCode) {
         case 200:
           Navigator.of(context, rootNavigator: true).pushReplacement(
-              MaterialPageRoute(builder: (context) => PresentationPage()));
+              MaterialPageRoute(builder: (context) => SignInPage()));
           await SecureStorage().deleteAll();
           globals.tokenValue = '';
           print('token logout ${globals.tokenValue}');

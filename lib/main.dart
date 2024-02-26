@@ -41,8 +41,6 @@ final navigatorKey = GlobalKey<NavigatorState>();
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-
-
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
 }
@@ -66,35 +64,32 @@ Future<void> setupFlutterNotifications() async {
         'This channel is used for important notifications.', // description
     importance: Importance.high,
     showBadge: true,
-
   );
 
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
-
-
 
   /// Create an Android Notification Channel.
   ///
   /// We use this channel in the `AndroidManifest.xml` file to override the
   /// default FCM channel to enable heads up notifications.
 
-if (Platform.isAndroid) {
-      await flutterLocalNotificationsPlugin
-          ?.resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
-          ?.createNotificationChannel(channel);
-    }
-if (Platform.isIOS) {
-      await flutterLocalNotificationsPlugin
-          ?.resolvePlatformSpecificImplementation<
-              IOSFlutterLocalNotificationsPlugin>()
-          ?.requestPermissions(
-            alert: true,
-            badge: true,
-            sound: true,
-          );
-    } 
+  if (Platform.isAndroid) {
+    await flutterLocalNotificationsPlugin
+        ?.resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+  }
+  if (Platform.isIOS) {
+    await flutterLocalNotificationsPlugin
+        ?.resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+  }
 
   /// Update the iOS foreground notification presentation options to allow
   /// heads up notifications.
@@ -114,7 +109,6 @@ void showFlutterNotification(RemoteMessage message) {
   if (notification != null && !kIsWeb) {
     print('remote notification ${notification.body}');
 
-    
     showDialog(
       context: navigatorKey.currentContext!,
       barrierDismissible: false,
@@ -126,39 +120,38 @@ void showFlutterNotification(RemoteMessage message) {
               notification.title!,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            content:   SingleChildScrollView(
+            content: SingleChildScrollView(
               child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                 
-                      Text(
-                        notification.body!,
-                      ),
-                    ],
-                 
+                  Text(
+                    notification.body!,
+                  ),
+                ],
               ),
             ),
             actions: [
-          notification.title == 'Nuovo Messaggio: Banco Alimentare' ?   TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MessagesPage()));
-                },
-                child: Text(
-                  'Messaggi',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ) : TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text(
-                  'Chiudi',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
+              notification.title == 'Nuovo Messaggio'
+                  ? TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MessagesPage()));
+                      },
+                      child: Text(
+                        'Messaggi',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    )
+                  : TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text(
+                        'Chiudi',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
             ],
           ),
         );
@@ -167,14 +160,12 @@ void showFlutterNotification(RemoteMessage message) {
   }
 }
 
-
-
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   // Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
- FlutterLocalNotifications().init();
+  FlutterLocalNotifications().init();
   if (!kIsWeb) {
     await setupFlutterNotifications();
   }
@@ -202,13 +193,14 @@ class MyApp extends StatelessWidget {
         BlocProvider<ReadDocsBloc>(
             create: (_) => ReadDocsBloc(
                 editDocsRepository: context.read<EditDocsRepository>(),
-                context: context)..add(FetchDocsEvent())
-                ),
-                BlocProvider<ReadDisabiliBloc>(
+                context: context)
+              ..add(FetchDocsEvent())),
+        BlocProvider<ReadDisabiliBloc>(
             create: (_) => ReadDisabiliBloc(
-                editDataDisabiliRepository: context.read<EditDataDisabiliRepository>(),
-                context: context)..add(FetchDisabiliEvent())
-                )
+                editDataDisabiliRepository:
+                    context.read<EditDataDisabiliRepository>(),
+                context: context)
+              ..add(FetchDisabiliEvent()))
       ],
       child: MultiRepositoryProvider(
         providers: [
@@ -254,7 +246,7 @@ class MyApp extends StatelessWidget {
           RepositoryProvider<NewsRepository>(
             create: (context) => NewsRepository(),
           ),
-           RepositoryProvider<MessageRepository>(
+          RepositoryProvider<MessageRepository>(
             create: (context) => MessageRepository(),
           ),
         ],
@@ -331,7 +323,3 @@ class AlwaysActiveBorderSide extends MaterialStateBorderSide {
   @override
   BorderSide? resolve(_) => const BorderSide(color: Colors.black);
 }
-
-
-
-
