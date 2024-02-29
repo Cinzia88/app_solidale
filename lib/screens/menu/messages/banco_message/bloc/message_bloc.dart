@@ -47,7 +47,6 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
               event.dataConsegna,
               event.risposta,
               event.consegnato,
-              event.file,
             );
             emit(EditMessageLoadedState());
           } catch (e) {

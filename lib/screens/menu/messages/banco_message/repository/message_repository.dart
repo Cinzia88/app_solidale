@@ -78,7 +78,6 @@ class MessageRepository {
     String dataConsegna,
     String risposta,
     String consegnato,
-    String file,
   ) async {
     try {
       var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/message/update/$idMessage';
@@ -95,7 +94,6 @@ class MessageRepository {
             'data_consegna': dataConsegna,
             'risposta': risposta,
             'consegnato': consegnato,
-            'file': file,
           }));
 
       print('status ${response.statusCode}');

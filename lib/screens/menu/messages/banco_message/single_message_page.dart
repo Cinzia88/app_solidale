@@ -116,7 +116,6 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                                           ? 'Confermata'
                                           : 'Riprogramma',
                                       '',
-                                      '',
                                     );
 
                                     showDialog(

@@ -16,7 +16,6 @@ class EditMessageEvent extends MessageEvent {
   String dataConsegna;
   String risposta;
   String consegnato;
-  String file;
 
   EditMessageEvent({
     required this.idMessage,
@@ -25,8 +24,7 @@ class EditMessageEvent extends MessageEvent {
     required this.dataConsegna,
     required this.risposta,
     required this.consegnato,
-    required this.file,
   });
   @override
-  List<Object?> get props => [idMessage, serviceId, inviato, dataConsegna, risposta, consegnato, file];
+  List<Object?> get props => [idMessage, serviceId, inviato, dataConsegna, risposta, consegnato, ];
 }
