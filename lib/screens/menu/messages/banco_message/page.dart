@@ -2,10 +2,10 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/menu/messages/bloc/message_bloc.dart';
-import 'package:app_solidale/screens/menu/messages/model/list_messages_model.dart';
-import 'package:app_solidale/screens/menu/messages/repository/message_repository.dart';
-import 'package:app_solidale/screens/menu/messages/single_message_page.dart';
+import 'package:app_solidale/screens/menu/messages/banco_message/bloc/message_bloc.dart';
+import 'package:app_solidale/screens/menu/messages/banco_message/model/list_messages_model.dart';
+import 'package:app_solidale/screens/menu/messages/banco_message/repository/message_repository.dart';
+import 'package:app_solidale/screens/menu/messages/banco_message/single_message_page.dart';
 import 'package:app_solidale/screens/news/bloc/news_bloc.dart';
 import 'package:app_solidale/screens/news/model/list_news_model.dart';
 import 'package:app_solidale/screens/news/page/single_new_page.dart';
@@ -17,7 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
 
-import '../../../const/color_constants.dart';
+import '../../../../const/color_constants.dart';
 
 class MessagesPage extends StatefulWidget {
   const MessagesPage({super.key});

@@ -3,15 +3,15 @@ import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/menu/messages/bloc/message_bloc.dart';
-import 'package:app_solidale/screens/menu/messages/repository/message_repository.dart';
+import 'package:app_solidale/screens/menu/messages/banco_message/bloc/message_bloc.dart';
+import 'package:app_solidale/screens/menu/messages/banco_message/repository/message_repository.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../common_widgets/background_style/custom_appbar.dart';
+import '../../../common_widgets/background_style/custom_appbar.dart';
 
 class SingleMessagePage extends StatefulWidget {
   String date;

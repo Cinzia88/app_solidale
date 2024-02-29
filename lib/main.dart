@@ -3,8 +3,8 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/forget_password/repository/forget_password_repository.dart';
 import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
 import 'package:app_solidale/screens/menu/area_personale/cambio_password/repository/change_password_repository.dart';
-import 'package:app_solidale/screens/menu/messages/page.dart';
-import 'package:app_solidale/screens/menu/messages/repository/message_repository.dart';
+import 'package:app_solidale/screens/menu/messages/banco_message/page.dart';
+import 'package:app_solidale/screens/menu/messages/banco_message/repository/message_repository.dart';
 import 'package:app_solidale/screens/news/repository/news_repository.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/bloc_edit_docs/bloc/read_docs_bloc.dart';
@@ -132,7 +132,7 @@ void showFlutterNotification(RemoteMessage message) {
               ),
             ),
             actions: [
-              notification.title == 'Nuovo Messaggio'
+              notification.body == 'Nuovo Messaggio'
                   ? TextButton(
                       onPressed: () {
                         Navigator.push(

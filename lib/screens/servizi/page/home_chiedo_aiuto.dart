@@ -10,7 +10,7 @@ import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/home/widgets/custom_container_service.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/menu/messages/model/list_messages_model.dart';
+import 'package:app_solidale/screens/menu/messages/banco_message/model/list_messages_model.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/bloc/read_request_bloc.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/accompagnamento_oncologico/page/edit_acc_onc/page_edit_acc.onc.dart';

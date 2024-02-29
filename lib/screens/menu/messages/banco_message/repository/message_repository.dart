@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
-import 'package:app_solidale/screens/menu/messages/model/list_messages_model.dart';
+import 'package:app_solidale/screens/menu/messages/banco_message/model/list_messages_model.dart';
 import 'package:app_solidale/screens/news/model/list_news_model.dart';
 import 'package:app_solidale/screens/signin/page/signin_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

@@ -1,6 +1,6 @@
 // ignore: depend_on_referenced_packages
-import 'package:app_solidale/screens/menu/messages/model/list_messages_model.dart';
-import 'package:app_solidale/screens/menu/messages/repository/message_repository.dart';
+import 'package:app_solidale/screens/menu/messages/banco_message/model/list_messages_model.dart';
+import 'package:app_solidale/screens/menu/messages/banco_message/repository/message_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
