@@ -60,10 +60,14 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
           body: BlocConsumer<MessageTaxiBloc, MessageTaxiState>(
               listener: (context, state) {
             if (state is MessageTaxiErrorState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.error)),
-              );
+              Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Nessun Messaggio'),
+                    ],
+                  );
             } else if (state is MessageTaxiLoadedState) {
+              
                idMessage = state.messages.id;
              data = state.messages.data;
              if(state.messages.risposta == 'Riprogramma') {
@@ -77,10 +81,17 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
             }
             return;
           }, builder: (context, state) {
-            return state is MessageLoadingState ||
-                    state is EditMessageLoadingState
+            return state is MessageTaxiLoadingState ||
+                    state is EditMessageTaxiLoadingState
                 ? loadingWidget(context)
-                : SingleChildScrollView(
+                : idMessage == '' && data == '' ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Nessun Messaggio'),
+                    ],
+                  ),
+                ) : SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 20.0),
@@ -123,7 +134,7 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
                                                SizedBox(
                                                   height: 50,
                                                   child: Image.asset(
-                                                    PathConstants.bancoAlim),
+                                                    PathConstants.taxiSolidale),
                                                 ),
                                                 SizedBox(
                                                   height: 10,
@@ -182,8 +193,7 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
         child: Column(
           children: [
             Text(
-               'Ciao, in seguito alla tua richiesta del servizio "Banco Alimentare", ti informiamo che la consegna del pacco è prevista per il giorno: $dataConsegna.'
-                 ,
+'Ciao, in seguito alla tua richiesta del servizio "Taxi Solidale", ti informiamo che sarà effettuato il giorno: $dataConsegna.'                 ,
             ),
             Text(
                 'Clicca "Conferma" per confermare questa data, oppure clicca "Riprogramma" se preferisci una data diversa che ti comunicheremo.')
@@ -225,8 +235,3 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
     ]);
   }
 }
-/* : widget.serviceId == '3'
-                      ? 'Ciao, in seguito alla tua richiesta del servizio "Accompagnamento Oncologico", ti informiamo che sarà effettuato il giorno: $dataConsegna.'
-                      : widget.serviceId == '2'
-                      ? 'Ciao, in seguito alla tua richiesta del servizio "Taxi Solidale", ti informiamo che sarà effettuato il giorno: $dataConsegna.'
-                          : '' */

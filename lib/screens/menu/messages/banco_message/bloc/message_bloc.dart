@@ -10,7 +10,6 @@ part 'message_event.dart';
 part 'message_state.dart';
 
 class MessageBloc extends Bloc<MessageEvent, MessageState> {
-  ScrollController scrollController = ScrollController();
   final MessageBancoRepository messageRepository;
     final BuildContext context;
 

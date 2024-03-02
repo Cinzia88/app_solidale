@@ -58,9 +58,12 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
           body: BlocConsumer<MessageBloc, MessageState>(
               listener: (context, state) {
             if (state is MessageErrorState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.error)),
-              );
+             Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Nessun Messaggio'),
+                    ],
+                  );
             } else if (state is MessageLoadedState) {
                idMessage = state.messages.id;
              dataConsegna = state.messages.dataConsegna;
@@ -78,7 +81,14 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
             return state is MessageLoadingState ||
                     state is EditMessageLoadingState
                 ? loadingWidget(context)
-                : SingleChildScrollView(
+                : idMessage == '' && dataConsegna == '' ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Nessun Messaggio'),
+                    ],
+                  ),
+                ) : SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 20.0),

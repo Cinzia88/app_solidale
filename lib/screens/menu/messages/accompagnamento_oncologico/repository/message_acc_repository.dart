@@ -29,7 +29,7 @@ class MessageAccRepository {
 
     MessageModelAcc dataMessageAcc = MessageModelAcc.fromJson(jsonDecode(response.body)[0]);
 
-    print('dataUser ${response.body}');
+    print('dataUser ${dataMessageAcc.id}');
     switch (response.statusCode) {
       case 200:
         break;

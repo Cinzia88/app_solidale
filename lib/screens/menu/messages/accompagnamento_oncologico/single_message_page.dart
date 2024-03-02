@@ -62,9 +62,13 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
           body: BlocConsumer<MessageAccBloc, MessageAccState>(
               listener: (context, state) {
             if (state is MessageAccErrorState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.error)),
-              );
+              Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Nessun Messaggio'),
+                    ],
+                  );
+                
             } else if (state is MessageAccLoadedState) {
                idMessage = state.messages.id;
              data = state.messages.data;
@@ -79,10 +83,17 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
             }
             return;
           }, builder: (context, state) {
-            return state is MessageLoadingState ||
-                    state is EditMessageLoadingState
+            return state is MessageAccLoadingState ||
+                    state is EditMessageAccLoadingState
                 ? loadingWidget(context)
-                : SingleChildScrollView(
+                : idMessage == '' && data == '' ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Nessun Messaggio'),
+                    ],
+                  ),
+                ) :  SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 20.0),
@@ -125,7 +136,7 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
                                                SizedBox(
                                                   height: 50,
                                                   child: Image.asset(
-                                                    PathConstants.bancoAlim),
+                                                    PathConstants.accompagnamOncolog),
                                                 ),
                                                 SizedBox(
                                                   height: 10,
@@ -184,8 +195,7 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
         child: Column(
           children: [
             Text(
-               'Ciao, in seguito alla tua richiesta del servizio "Banco Alimentare", ti informiamo che la consegna del pacco è prevista per il giorno: $dataConsegna.'
-                 ,
+'Ciao, in seguito alla tua richiesta del servizio "Accompagnamento Oncologico", ti informiamo che sarà effettuato il giorno: $dataConsegna.'                 ,
             ),
             Text(
                 'Clicca "Conferma" per confermare questa data, oppure clicca "Riprogramma" se preferisci una data diversa che ti comunicheremo.')
@@ -228,7 +238,7 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
   }
 }
 /* : widget.serviceId == '3'
-                      ? 'Ciao, in seguito alla tua richiesta del servizio "Accompagnamento Oncologico", ti informiamo che sarà effettuato il giorno: $dataConsegna.'
+                      ? 
                       : widget.serviceId == '2'
                       ? 'Ciao, in seguito alla tua richiesta del servizio "Taxi Solidale", ti informiamo che sarà effettuato il giorno: $dataConsegna.'
                           : '' */
