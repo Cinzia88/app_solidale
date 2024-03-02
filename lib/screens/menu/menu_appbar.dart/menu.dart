@@ -3,7 +3,7 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/menu/area_personale/profilo_page.dart';
 import 'package:app_solidale/screens/menu/logout/logout.dart';
-import 'package:app_solidale/screens/menu/messages/banco_message/page.dart';
+import 'package:app_solidale/screens/menu/messages/page.dart';
 import 'package:app_solidale/screens/news/page/news_page.dart';
 import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto.dart';
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
@@ -106,7 +106,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MessagesPage()));
+                        builder: (context) => MessagesPage(serviceNotification: '',)));
               }), 
           ListTile(
               leading: Icon(

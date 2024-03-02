@@ -3,8 +3,11 @@ import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/screens/forget_password/repository/forget_password_repository.dart';
 import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
 import 'package:app_solidale/screens/menu/area_personale/cambio_password/repository/change_password_repository.dart';
-import 'package:app_solidale/screens/menu/messages/banco_message/page.dart';
+import 'package:app_solidale/screens/menu/messages/accompagnamento_oncologico/repository/message_acc_repository.dart';
+import 'package:app_solidale/screens/menu/messages/page.dart';
 import 'package:app_solidale/screens/menu/messages/banco_message/repository/message_repository.dart';
+import 'package:app_solidale/screens/menu/messages/taxi_solidale/bloc/message_taxi_bloc.dart';
+import 'package:app_solidale/screens/menu/messages/taxi_solidale/repository/message_taxi_repository.dart';
 import 'package:app_solidale/screens/news/repository/news_repository.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/bloc_edit_docs/bloc/read_docs_bloc.dart';
@@ -132,13 +135,13 @@ void showFlutterNotification(RemoteMessage message) {
               ),
             ),
             actions: [
-              notification.body == 'Nuovo Messaggio'
+              notification.title == 'Nuovo Messaggio'
                   ? TextButton(
                       onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MessagesPage()));
+                                builder: (context) => MessagesPage(serviceNotification: notification.body!)));
                       },
                       child: Text(
                         'Messaggi',
@@ -246,8 +249,14 @@ class MyApp extends StatelessWidget {
           RepositoryProvider<NewsRepository>(
             create: (context) => NewsRepository(),
           ),
-          RepositoryProvider<MessageRepository>(
-            create: (context) => MessageRepository(),
+          RepositoryProvider<MessageTaxiRepository>(
+            create: (context) => MessageTaxiRepository(),
+          ),
+           RepositoryProvider<MessageAccRepository>(
+            create: (context) => MessageAccRepository(),
+          ),
+           RepositoryProvider<MessageBancoRepository>(
+            create: (context) => MessageBancoRepository(),
           ),
         ],
         child: MaterialApp(

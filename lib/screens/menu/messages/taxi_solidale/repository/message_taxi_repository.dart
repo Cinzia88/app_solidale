@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/menu/messages/banco_message/model/message_banco_model.dart';
+import 'package:app_solidale/screens/menu/messages/taxi_solidale/model/message_taxi_model.dart';
 import 'package:app_solidale/screens/news/model/list_news_model.dart';
 import 'package:app_solidale/screens/signin/page/signin_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -11,12 +12,12 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 import 'package:flutter/material.dart';
 
-class MessageBancoRepository {
+class MessageTaxiRepository {
 
-  Future<MessageModelBanco> getMessageBanco(BuildContext context) async {
+  Future<MessageModelTaxi> getMessageTaxi(BuildContext context) async {
     var client = http.Client();
  var url =
-        '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/food/message/${globals.userData!.id}';
+        '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/taxi/message/${globals.userData!.id}';
 
     http.Response response =
         await client.get(Uri.parse(url), headers: <String, String>{
@@ -25,7 +26,7 @@ class MessageBancoRepository {
       HttpHeaders.authorizationHeader: "Bearer ${globals.tokenValue}",
     });
 
-    MessageModelBanco dataMessageBanco = MessageModelBanco.fromJson(jsonDecode(response.body)[0]);
+    MessageModelTaxi dataMessageTaxi = MessageModelTaxi.fromJson(jsonDecode(response.body)[0]);
 
     print('dataUser ${response.body}');
     switch (response.statusCode) {
@@ -65,21 +66,20 @@ class MessageBancoRepository {
             )));
     }
 
-    return dataMessageBanco;
+    return dataMessageTaxi;
   }
 
  
 
-  Future editMessageBanco(
+  Future editMessageTaxi(
     BuildContext context,
     String idMessage,
     String serviceId,
-    String dataConsegna,
+    String data,
     String risposta,
-    String consegnato,
   ) async {
     try {
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/message-food/update/$idMessage';
+      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/message-taxi/update/$idMessage';
       // Await the http get response, then decode the json-formatted response.
       var response = await http.put(Uri.parse(url),
           headers: {
@@ -89,9 +89,8 @@ class MessageBancoRepository {
           },
           body: jsonEncode({
              'service_id': serviceId,
-            'data_consegna': dataConsegna,
+            'data': data,
             'risposta': risposta,
-            'consegnato': consegnato,
           }));
 
       print('status ${response.statusCode}');

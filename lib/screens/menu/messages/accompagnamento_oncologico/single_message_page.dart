@@ -3,8 +3,12 @@ import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
+import 'package:app_solidale/screens/menu/messages/accompagnamento_oncologico/bloc/message_acc_bloc.dart';
+import 'package:app_solidale/screens/menu/messages/accompagnamento_oncologico/repository/message_acc_repository.dart';
 import 'package:app_solidale/screens/menu/messages/banco_message/bloc/message_bloc.dart';
 import 'package:app_solidale/screens/menu/messages/banco_message/repository/message_repository.dart';
+import 'package:app_solidale/screens/menu/messages/taxi_solidale/bloc/message_taxi_bloc.dart';
+import 'package:app_solidale/screens/menu/messages/taxi_solidale/repository/message_taxi_repository.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,17 +17,17 @@ import 'package:intl/intl.dart';
 
 import '../../../common_widgets/background_style/custom_appbar.dart';
 
-class SingleMessagePage extends StatefulWidget {
+class SingleMessageAccPage extends StatefulWidget {
  
 
   @override
-  State<SingleMessagePage> createState() => _SingleMessagePageState();
+  State<SingleMessageAccPage> createState() => _SingleMessageAccPageState();
 }
 
-class _SingleMessagePageState extends State<SingleMessagePage> {
+class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
   int _value = 1;
   String idMessage = '';
-  String dataConsegna = '';
+  String data = '';
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +36,11 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    return BlocProvider<MessageBloc>(
-        create: (context) => MessageBloc(
+    return BlocProvider<MessageAccBloc>(
+        create: (context) => MessageAccBloc(
             context: context,
-            messageRepository: context.read<MessageBancoRepository>())
-          ..add(FetchMessageEvent()),
+            messageRepository: context.read<MessageAccRepository>())
+          ..add(FetchMessageAccEvent()),
         child: Scaffold(
           appBar: AppBar(
             iconTheme: const IconThemeData(
@@ -55,20 +59,20 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
             ],
           ),
           drawer: NavigationDrawerWidget(),
-          body: BlocConsumer<MessageBloc, MessageState>(
+          body: BlocConsumer<MessageAccBloc, MessageAccState>(
               listener: (context, state) {
-            if (state is MessageErrorState) {
+            if (state is MessageAccErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.error)),
               );
-            } else if (state is MessageLoadedState) {
+            } else if (state is MessageAccLoadedState) {
                idMessage = state.messages.id;
-             dataConsegna = state.messages.dataConsegna;
+             data = state.messages.data;
              if(state.messages.risposta == 'Riprogramma') {
               _value = 2;
              }
             
-            } else if (state is EditMessageErrorState) {
+            } else if (state is EditMessageAccErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.errorMessage)),
               );
@@ -86,29 +90,28 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                             'Messaggio: Banco Alimentare'
+                             'Messaggio: Accompagnamento Oncologico'
                                ,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 2 * blockSizeVertical,
                             ),
                           ),
-                          _formSelectService(dataConsegna),
+                          _formSelectService(data),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CommonStyleButton(
                                   title: 'Invia',
                                   onTap: () {
-                                    MessageBancoRepository().editMessageBanco(
+                                    MessageAccRepository().editMessageAcc(
                                       context,
                                      idMessage,
                                      '4',
-                                     dataConsegna,
+                                     data,
                                       _value == 1
                                           ? 'Confermata'
                                           : 'Riprogramma',
-                                      '',
                                     );
 
                                     showDialog(

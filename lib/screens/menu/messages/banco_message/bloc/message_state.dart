@@ -11,7 +11,7 @@ class MessageLoadingState extends MessageState {
 }
 
 class MessageLoadedState extends MessageState {
-  final List<ListMessageModel> messages;
+  final MessageModelBanco messages;
 
   MessageLoadedState(this.messages);
 
