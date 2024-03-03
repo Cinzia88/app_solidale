@@ -18,8 +18,6 @@ import 'package:intl/intl.dart';
 import '../../../common_widgets/background_style/custom_appbar.dart';
 
 class SingleMessageAccPage extends StatefulWidget {
- 
-
   @override
   State<SingleMessageAccPage> createState() => _SingleMessageAccPageState();
 }
@@ -28,6 +26,7 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
   int _value = 1;
   String idMessage = '';
   String data = '';
+  String dataMessaggio = '';
 
   @override
   Widget build(BuildContext context) {
@@ -63,19 +62,19 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
               listener: (context, state) {
             if (state is MessageAccErrorState) {
               Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Nessun Messaggio'),
-                    ],
-                  );
-                
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Nessun Messaggio'),
+                ],
+              );
             } else if (state is MessageAccLoadedState) {
-               idMessage = state.messages.id;
-             data = state.messages.data;
-             if(state.messages.risposta == 'Riprogramma') {
-              _value = 2;
-             }
-            
+              idMessage = state.messages.id;
+              data = state.messages.data;
+              dataMessaggio = state.messages.messaggioRicevuto;
+
+              if (state.messages.risposta == 'Riprogramma') {
+                _value = 2;
+              }
             } else if (state is EditMessageAccErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.errorMessage)),
@@ -86,101 +85,115 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
             return state is MessageAccLoadingState ||
                     state is EditMessageAccLoadingState
                 ? loadingWidget(context)
-                : idMessage == '' && data == '' ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Nessun Messaggio'),
-                    ],
-                  ),
-                ) :  SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                             'Messaggio: Accompagnamento Oncologico'
-                               ,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 2 * blockSizeVertical,
-                            ),
-                          ),
-                          _formSelectService(data),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                : idMessage == '' && data == ''
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Nessun Messaggio'),
+                          ],
+                        ),
+                      )
+                    : SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CommonStyleButton(
-                                  title: 'Invia',
-                                  onTap: () {
-                                    MessageAccRepository().editMessageAcc(
-                                      context,
-                                     idMessage,
-                                     '4',
-                                     data,
-                                      _value == 1
-                                          ? 'Confermata'
-                                          : 'Riprogramma',
-                                    );
+                              Text(
+                                'Messaggio: Accompagnamento Oncologico',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 2 * blockSizeVertical,
+                                ),
+                              ),
+                                Text(
+                                DateFormat('dd-MM-yyyy').format(DateTime.parse(
+                                  dataMessaggio,
+                                )),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 2 * blockSizeVertical,
+                                ),
+                              ),
+                              _formSelectService(data),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  CommonStyleButton(
+                                      title: 'Invia',
+                                      onTap: () {
+                                        MessageAccRepository().editMessageAcc(
+                                          context,
+                                          idMessage,
+                                          '4',
+                                          data,
+                                          _value == 1
+                                              ? 'Confermata'
+                                              : 'Riprogramma',
+                                        );
 
-                                    showDialog(
-                                        barrierColor: Colors.black87,
-                                        barrierDismissible: false,
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: Column(
-                                              children: [
-                                               SizedBox(
-                                                  height: 50,
-                                                  child: Image.asset(
-                                                    PathConstants.accompagnamOncolog),
+                                        showDialog(
+                                            barrierColor: Colors.black87,
+                                            barrierDismissible: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: Column(
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 50,
+                                                      child: Image.asset(
+                                                          PathConstants
+                                                              .accompagnamOncolog),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      'Messaggio Inviato',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ],
                                                 ),
-                                                SizedBox(
-                                                  height: 10,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
                                                 ),
-                                                Text(
-                                                  'Messaggio Inviato',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleMedium,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ],
-                                            ),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                            ),
-                                            actions: [
-                                              InkWell(
-                                                  onTap: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                PresentationPage()));
-                                                  },
-                                                  child: Text(
-                                                    'Torna alla home',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium,
-                                                  ))
-                                            ],
-                                          );
-                                        });
-                                    FocusScope.of(context).unfocus();
-                                  },
-                                  iconWidget: Text('')),
+                                                actions: [
+                                                  InkWell(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        PresentationPage()));
+                                                      },
+                                                      child: Text(
+                                                        'Torna alla home',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleMedium,
+                                                      ))
+                                                ],
+                                              );
+                                            });
+                                        FocusScope.of(context).unfocus();
+                                      },
+                                      iconWidget: Text('')),
+                                ],
+                              ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                  );
+                        ),
+                      );
           }),
         ));
   }
@@ -189,13 +202,16 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
     String dataConsegna = DateFormat('dd-MM-yyyy').format(DateTime.parse(
       dataConsegnaParam,
     ));
+    String oraConsegna = DateFormat('HH:mm').format(DateTime.parse(
+      dataConsegnaParam,
+    ));
     return Column(children: [
       Padding(
         padding: EdgeInsets.symmetric(vertical: 20.0),
         child: Column(
           children: [
             Text(
-'Ciao, in seguito alla tua richiesta del servizio "Accompagnamento Oncologico", ti informiamo che sarà effettuato il giorno: $dataConsegna.'                 ,
+              'Ciao, in seguito alla tua richiesta del servizio "Accompagnamento Oncologico", ti informiamo che sarà effettuato il giorno $dataConsegna alle ore $oraConsegna.',
             ),
             Text(
                 'Clicca "Conferma" per confermare questa data, oppure clicca "Riprogramma" se preferisci una data diversa che ti comunicheremo.')
@@ -233,12 +249,7 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
           ),
           Text('Riprogramma'),
         ],
-      )
+      ),
     ]);
   }
 }
-/* : widget.serviceId == '3'
-                      ? 
-                      : widget.serviceId == '2'
-                      ? 'Ciao, in seguito alla tua richiesta del servizio "Taxi Solidale", ti informiamo che sarà effettuato il giorno: $dataConsegna.'
-                          : '' */

@@ -26,6 +26,8 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
   int _value = 1;
   String idMessage = '';
   String data = '';
+    String dataMessaggio = '';
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +72,8 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
               
                idMessage = state.messages.id;
              data = state.messages.data;
+                          dataMessaggio = state.messages.messaggioRicevuto;
+
              if(state.messages.risposta == 'Riprogramma') {
               _value = 2;
              }
@@ -106,6 +110,15 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
                               fontSize: 2 * blockSizeVertical,
                             ),
                           ),
+                            Text(
+                                DateFormat('dd-MM-yyyy').format(DateTime.parse(
+                                  dataMessaggio,
+                                )),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 2 * blockSizeVertical,
+                                ),
+                              ),
                           _formSelectService(data),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -187,13 +200,16 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
     String dataConsegna = DateFormat('dd-MM-yyyy').format(DateTime.parse(
       dataConsegnaParam,
     ));
+    String oraConsegna = DateFormat('HH:mm').format(DateTime.parse(
+      dataConsegnaParam,
+    ));
     return Column(children: [
       Padding(
         padding: EdgeInsets.symmetric(vertical: 20.0),
         child: Column(
           children: [
             Text(
-'Ciao, in seguito alla tua richiesta del servizio "Taxi Solidale", ti informiamo che sarà effettuato il giorno: $dataConsegna.'                 ,
+'Ciao, in seguito alla tua richiesta del servizio "Taxi Solidale", ti informiamo che sarà effettuato il giorno $dataConsegna alle ore $oraConsegna.'                 ,
             ),
             Text(
                 'Clicca "Conferma" per confermare questa data, oppure clicca "Riprogramma" se preferisci una data diversa che ti comunicheremo.')

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/signin/page/signin_page.dart';
@@ -62,13 +63,21 @@ class _SplashScreenState extends State<SplashScreen>
 Future initializeFirebase() async {
     firebaseMessaging.subscribeToTopic('all');
   
+if (Platform.isIOS) {
+            await FirebaseMessaging.instance.getAPNSToken().then((token) {
+      globals.tokenFCM = token!;
+    print('globals.tokenFCM ${globals.tokenFCM}');
+        print('tokenFCM ${token}');
 
+    } );
+          } else {
     firebaseMessaging.getToken().then((token) {
       globals.tokenFCM = token!;
     print('globals.tokenFCM ${globals.tokenFCM}');
         print('tokenFCM ${token}');
 
     } );
+          }
     FirebaseMessaging.instance.getInitialMessage().then(
           (value) {
             if(value != null) {

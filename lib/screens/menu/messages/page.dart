@@ -65,7 +65,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                 builder: (context) => SingleMessageTaxiPage()));
                       },
                   child: Container(
-                    padding: EdgeInsets.only(top: 10, bottom: 10),
+                    padding: EdgeInsets.only(top: 20, bottom: 10),
                     child: Row(
                       children: <Widget>[
                         Expanded(
@@ -94,11 +94,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
-                                      widget.serviceNotification ==
-                                              
-                                                'Taxi Solidale' 
-                                            ? 'Nuovo Messaggio'
-                                            : 'Leggi Messaggio',
+                                     'Leggi Messaggio',
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 2,
                                         softWrap: false,
@@ -160,12 +156,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
-                                        widget.serviceNotification ==
-                                                'Accompagnamento Oncologico' &&  widget.serviceNotification ==
-                                                'Banco Alimentare' &&  widget.serviceNotification ==
-                                                'Taxi Solidale' 
-                                            ? 'Nuovo Messaggio'
-                                            : 'Nessun Messaggio',
+                                        'Leggi Messaggio',
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 2,
                                         softWrap: false,
@@ -227,12 +218,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
-                                         widget.serviceNotification ==
-                                                'Accompagnamento Oncologico' &&  widget.serviceNotification ==
-                                                'Banco Alimentare' &&  widget.serviceNotification ==
-                                                'Taxi Solidale' 
-                                            ? 'Nuovo Messaggio'
-                                            : 'Leggi Messaggio',
+                                         'Leggi Messaggio',
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 2,
                                         softWrap: false,

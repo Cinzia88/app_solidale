@@ -4,6 +4,8 @@ class MessageModelBanco {
  final String serviceId;
  final String dataConsegna;
  String? risposta;
+final String messaggioRicevuto;
+
  
 
   MessageModelBanco({
@@ -12,6 +14,7 @@ class MessageModelBanco {
     required this.serviceId,
     required this.dataConsegna,
     this.risposta,
+    required this.messaggioRicevuto,
   });
 
   factory MessageModelBanco.fromJson(Map<String, dynamic> json) {
@@ -21,6 +24,7 @@ class MessageModelBanco {
     serviceId: json['service_id'].toString(),
     dataConsegna: json["data_consegna"].toString(),
     risposta: json["risposta"].toString(),
+        messaggioRicevuto: json["created_at"].toString(),
     );
   }
 }

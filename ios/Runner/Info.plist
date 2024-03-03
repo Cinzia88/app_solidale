@@ -55,6 +55,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
+ 	<string>NO</string>
 </dict>
 </plist>
