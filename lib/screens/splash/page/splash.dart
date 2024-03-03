@@ -66,15 +66,15 @@ Future initializeFirebase() async {
 if (Platform.isIOS) {
             await FirebaseMessaging.instance.getAPNSToken().then((token) {
       globals.tokenFCM = token!;
-    print('globals.tokenFCM ${globals.tokenFCM}');
-        print('tokenFCM ${token}');
+    print('globals.tokenFCMiOS ${globals.tokenFCM}');
+        print('tokenFCMiOS ${token}');
 
     } );
           } else {
     firebaseMessaging.getToken().then((token) {
       globals.tokenFCM = token!;
-    print('globals.tokenFCM ${globals.tokenFCM}');
-        print('tokenFCM ${token}');
+    print('globals.tokenFCMAndroid ${globals.tokenFCM}');
+        print('tokenFCMAndroid ${token}');
 
     } );
           }
