@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
   ValueSharedPrefsViewSlide valueSharedPrefsViewSlide =
       ValueSharedPrefsViewSlide();
   Service service = Service();
-   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
   String? initialMessage;
   String _appBadgeSupported = 'Unknown';
 
@@ -60,48 +60,36 @@ class _SplashScreenState extends State<SplashScreen>
       );
     });
   }
-Future initializeFirebase() async {
+
+  Future initializeFirebase() async {
     firebaseMessaging.subscribeToTopic('all');
-  
-if (Platform.isIOS) {
-            await FirebaseMessaging.instance.getAPNSToken().then((token) {
-      globals.tokenFCM = token!;
-    print('globals.tokenFCMiOS ${globals.tokenFCM}');
+
+    if (Platform.isIOS) {
+      await FirebaseMessaging.instance.getAPNSToken().then((token) {
+        globals.tokenFCM = token!;
+        print('globals.tokenFCMiOS ${globals.tokenFCM}');
         print('tokenFCMiOS ${token}');
-
-    } );
-          } else {
-    firebaseMessaging.getToken().then((token) {
-      globals.tokenFCM = token!;
-    print('globals.tokenFCMAndroid ${globals.tokenFCM}');
+      });
+    } else {
+      firebaseMessaging.getToken().then((token) {
+        globals.tokenFCM = token!;
+        print('globals.tokenFCMAndroid ${globals.tokenFCM}');
         print('tokenFCMAndroid ${token}');
-
-    } );
-          }
-    FirebaseMessaging.instance.getInitialMessage().then(
-          (value) {
-            if(value != null) {
-              showFlutterNotification(value);
-            }
-            
-          }
-          
-          
-        );
+      });
+    }
+    FirebaseMessaging.instance.getInitialMessage().then((value) {
+      if (value != null) {
+        showFlutterNotification(value);
+      }
+    });
 
     FirebaseMessaging.onMessage.listen(showFlutterNotification);
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
       showFlutterNotification(message);
-
     });
   }
-
-  
-
- 
-  
 
   Future getValueViewSlide() async {
     final value = await valueSharedPrefsViewSlide.getValueViewSlide();
@@ -117,7 +105,6 @@ if (Platform.isIOS) {
     });
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
