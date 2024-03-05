@@ -64,19 +64,17 @@ class _SplashScreenState extends State<SplashScreen>
   Future initializeFirebase() async {
     firebaseMessaging.subscribeToTopic('all');
 
+
+
     if (Platform.isIOS) {
-      await FirebaseMessaging.instance.getAPNSToken().then((token) {
-        globals.tokenFCM = token!;
-        print('globals.tokenFCMiOS ${globals.tokenFCM}');
-        print('tokenFCMiOS ${token}');
-      });
-    } else {
-      firebaseMessaging.getToken().then((token) {
+            await FirebaseMessaging.instance.getAPNSToken();
+          } else {}
+firebaseMessaging.getToken().then((token) {
         globals.tokenFCM = token!;
         print('globals.tokenFCMAndroid ${globals.tokenFCM}');
         print('tokenFCMAndroid ${token}');
       });
-    }
+ 
     FirebaseMessaging.instance.getInitialMessage().then((value) {
       if (value != null) {
         showFlutterNotification(value);
