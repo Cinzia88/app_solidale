@@ -1,8 +1,6 @@
-import 'dart:convert';
 
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
-import 'package:app_solidale/main.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
@@ -10,22 +8,11 @@ import 'package:app_solidale/screens/home/widgets/custom_container_service.dart'
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
-import 'package:app_solidale/screens/servizi/bloc_edit_service/model/model_request.dart';
-import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/carica_documenti/edit_docs/repo/edit_docs_repo.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/parenti/edit_parents/repo/edit_parents_repo.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/model/model_disabili.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto.dart';
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
-import 'package:app_solidale/secure_storage/shared_prefs.dart';
 import 'package:app_solidale/service/service.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:http/http.dart' as http;
 
 
 // ignore: must_be_immutable
