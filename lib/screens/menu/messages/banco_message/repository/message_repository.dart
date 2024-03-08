@@ -91,7 +91,7 @@ class MessageBancoRepository {
              'service_id': serviceId,
             'data_consegna': dataConsegna,
             'risposta': risposta,
-            'consegnato': consegnato,
+            'consegnato': 'No',
           }));
 
       print('status ${response.statusCode}');
