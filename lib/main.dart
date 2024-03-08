@@ -66,7 +66,7 @@ Future<void> setupFlutterNotifications() async {
     description:
         'This channel is used for important notifications.', // description
     importance: Importance.high,
-    showBadge: true,
+    showBadge: false,
   );
 
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -89,7 +89,7 @@ Future<void> setupFlutterNotifications() async {
             IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
           alert: true,
-          badge: true,
+          badge: false,
           sound: true,
         );
   }
@@ -98,7 +98,7 @@ Future<void> setupFlutterNotifications() async {
   /// heads up notifications.
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
-    badge: true,
+    badge: false,
     sound: true,
   );
   isFlutterLocalNotificationsInitialized = true;
