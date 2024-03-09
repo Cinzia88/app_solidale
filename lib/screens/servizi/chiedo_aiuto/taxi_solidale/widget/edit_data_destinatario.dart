@@ -71,9 +71,8 @@ class _TaxiSolidaleEditDataDestinatarioPageState
             body: BlocConsumer<ReadRequestBloc, ReadRequestState>(
                 listener: (context, state) {
               if (state is ReadRequestErrorState) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.errorMessage)),
-                );
+                              print(state.errorMessage,);
+
               } else if (state is ReadRequestLoadedState) {
                 for (int i = 0; i < state.data.length; i++) {
                   if (state.data[i].serviceId == '2') {

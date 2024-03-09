@@ -111,9 +111,8 @@ class _ParentsPageEditState extends State<ParentsPageEdit> {
         body: BlocConsumer<ReadParentsBloc, ReadParentsState>(
           listener: (context, state) {
             if (state is ReadParentsErrorState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.errorMessage)),
-              );
+                            print(state.errorMessage,);
+
             } else if (state is ReadParentsLoadedState) {
               setState(() {
                 selectedValue = state.data.length.toString();

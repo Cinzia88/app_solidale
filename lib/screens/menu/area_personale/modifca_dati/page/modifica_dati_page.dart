@@ -63,9 +63,7 @@ class _ModificaDatiPageState extends State<ModificaDatiPage> {
           body: BlocConsumer<ReadUserBloc, ReadUserState>(
               listener: (context, state) {
             if (state is ReadUserErrorState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.errorMessage)),
-              );
+              print(state.errorMessage,);
             } else if (state is ReadUserLoadedState) {
               _nameController.text = state.data.nome;
               _emailController.text = state.data.email;

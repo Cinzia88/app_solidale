@@ -123,9 +123,8 @@ Future getFiles() async {
             body: BlocConsumer<ReadRequestBloc, ReadRequestState>(
                 listener: (context, state) {
               if (state is ReadRequestErrorState) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.errorMessage)),
-                );
+                              print(state.errorMessage,);
+
               } else if (state is ReadRequestLoadedState) {
                
                 for (int i = 0; i < globals.listRequestData.length; i++) {

@@ -80,9 +80,8 @@ class _AccompagnamentoOncologicoEditPageState
             body: BlocConsumer<ReadRequestBloc, ReadRequestState>(
                 listener: (context, state) {
               if (state is ReadRequestErrorState) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.errorMessage)),
-                );
+                              print(state.errorMessage,);
+
               } else if (state is ReadRequestLoadedState) {
              
                 EditDataTypeServiceRepository().getRequestData(context);

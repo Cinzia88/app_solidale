@@ -109,9 +109,8 @@ class _CaricaDocsEditPageState extends State<CaricaDocsEditPage> {
           body: BlocConsumer<ReadDocsBloc, ReadDocsState>(
               listener: (context, state) {
             if (state is ReadDocsErrorState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.errorMessage)),
-              );
+                            print(state.errorMessage,);
+
             } else if (state is EditDocsErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.errorMessage)),

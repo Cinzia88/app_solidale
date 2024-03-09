@@ -199,16 +199,16 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
     String dataConsegna = DateFormat('dd-MM-yyyy').format(DateTime.parse(
       dataConsegnaParam,
     ));
-    String oraConsegna = DateFormat('HH:mm').format(DateTime.parse(
+   /* String oraConsegna = DateFormat('HH:mm').format(DateTime.parse(
       dataConsegnaParam,
-    ));
+    )); */
     return Column(children: [
       Padding(
         padding: EdgeInsets.symmetric(vertical: 20.0),
         child: Column(
           children: [
             Text(
-              'Ciao, in seguito alla tua richiesta del servizio "Banco Alimentare", ti informiamo che la consegna del pacco è prevista per il giorno $dataConsegna alle ore $oraConsegna.',
+              'Ti informiamo che la consegna del pacco alimentare da parte dell\' ANF sarà effettuata nella giornata di $dataConsegna.',
             ),
             Text(
                 'Clicca "Conferma" per confermare questa data, oppure clicca "Riprogramma" se preferisci una data diversa che ti comunicheremo.')

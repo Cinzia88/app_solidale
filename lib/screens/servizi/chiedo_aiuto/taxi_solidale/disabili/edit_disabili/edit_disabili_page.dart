@@ -86,9 +86,8 @@ bool? taxiSolidaleIncompleto;
             body: BlocConsumer<ReadDisabiliBloc, ReadDisabiliState>(
                 listener: (context, state) {
               if (state is ReadDisabiliErrorState) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.errorMessage)),
-                );
+                             print(state.errorMessage,);
+
               } else if (state is ReadDisabiliLoadedState) {
                 if (state.data.numeroDisabili != '' &&
                     state.data.disabile == '1') {
