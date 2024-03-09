@@ -6,7 +6,6 @@ import 'package:app_solidale/screens/menu/area_personale/cambio_password/reposit
 import 'package:app_solidale/screens/menu/messages/accompagnamento_oncologico/repository/message_acc_repository.dart';
 import 'package:app_solidale/screens/menu/messages/page.dart';
 import 'package:app_solidale/screens/menu/messages/banco_message/repository/message_repository.dart';
-import 'package:app_solidale/screens/menu/messages/taxi_solidale/bloc/message_taxi_bloc.dart';
 import 'package:app_solidale/screens/menu/messages/taxi_solidale/repository/message_taxi_repository.dart';
 import 'package:app_solidale/screens/news/repository/news_repository.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
@@ -19,24 +18,19 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/banco_alimentare/paren
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/bloc/edit_disabili_bloc.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edit/repo/edit_disabili_repo.dart';
 import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_send/repo/send_disabili_repo.dart';
-import 'package:app_solidale/screens/servizi/chiedo_aiuto/taxi_solidale/repository/send_data_taxi_repository.dart';
 import 'dart:io' show Platform;
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
-import 'package:app_solidale/secure_storage/secure_storage.dart';
 import 'package:app_solidale/service/flutter_local_notification.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:upgrader/upgrader.dart';
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 
@@ -138,10 +132,9 @@ void showFlutterNotification(RemoteMessage message) {
               notification.title == 'Nuovo Messaggio'
                   ? TextButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MessagesPage(serviceNotification: notification.body!)));
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                                builder: (context) => MessagesPage(serviceNotification: notification.body!)), (route) => false);
+                       
                       },
                       child: Text(
                         'Messaggi',
@@ -166,6 +159,7 @@ void showFlutterNotification(RemoteMessage message) {
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  //await Upgrader.clearSavedSettings(); // REMOVE this for release builds
   // Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FlutterLocalNotifications().init();
@@ -321,7 +315,7 @@ class MyApp extends StatelessWidget {
           ],
           scaffoldMessengerKey: messengerKey,
           navigatorKey: navigatorKey,
-          home: SplashScreen(),
+          home:  SplashScreen(),
         ),
       ),
     );

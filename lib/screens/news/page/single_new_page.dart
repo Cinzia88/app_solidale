@@ -59,24 +59,30 @@ class _SingleNewPageState extends State<SingleNewPage> {
                    Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                      children: [
-                       Padding(
-                                        padding: const EdgeInsets.only(bottom: 8.0),
-                         child: CachedNetworkImage(
-                                       imageUrl: widget.image ,
-                                         placeholder: (context, url) => const Center(
-                            child: SizedBox(
-                          height: 100,
-                          child: CupertinoActivityIndicator(
-                            color: Color(0xff003b5b),
-                          ),
-                                         )),
-                                         errorWidget: (context, url, error) =>  SizedBox(
-                          height: 60,
-                          child: Image.asset(
-                            PathConstants.logoanfcompletovertic,
-                          ),
+                       Flexible(
+                         child: Padding(
+                                          padding: const EdgeInsets.only(bottom: 8.0),
+                           child: CachedNetworkImage(
+                            height: 200,
+                                         imageUrl: widget.image ,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          fit: BoxFit.contain,
+                                           placeholder: (context, url) => const Center(
+                              child: SizedBox(
+                            height: 100,
+                            child: CupertinoActivityIndicator(
+                              color: Color(0xff003b5b),
+                            ),
+                                           )),
+                                           errorWidget: (context, url, error) =>  SizedBox(
+                            height: 60,
+                            child: Image.asset(
+                              PathConstants.logoanfcompletovertic,
+                            ),
+                                           ),
                                          ),
-                                       ),
+                         ),
                        ),
                      ],
                    ) ,

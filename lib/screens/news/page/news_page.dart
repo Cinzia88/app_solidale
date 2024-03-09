@@ -118,7 +118,7 @@ class _NewsPageState extends State<NewsPage> {
                                   MaterialPageRoute(
                                       builder: (contex) => SingleNewPage(
                                             image:
-                                                '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/storage/${newsAll[index].immagine!}',
+                                                '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/storage/images/${newsAll[index].immagine!}',
                                             title: newsAll[index].titolo,
                                             desc: newsAll[index].testo,
                                           )));
@@ -134,9 +134,9 @@ class _NewsPageState extends State<NewsPage> {
                                         height: 200,
                                         width:
                                             MediaQuery.of(context).size.width,
-                                        fit: BoxFit.cover,
+                                        fit: BoxFit.contain,
                                         imageUrl:
-                                            '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/storage/${newsAll[index].immagine!}',
+                                            '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/storage/images/${newsAll[index].immagine!}',
                                         placeholder: (context, url) =>
                                             const Center(
                                                 child: SizedBox(
