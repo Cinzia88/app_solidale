@@ -12,7 +12,6 @@ import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
-import 'package:upgrader/upgrader.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 
@@ -70,16 +69,8 @@ globals.tokenFCM,);
       readUser();
     }
   }
-static const appcastURL =
-    'https://raw.githubusercontent.com/larryaasen/upgrader/master/test/testappcast.xml';
-final upgrader = Upgrader(
-  debugLogging: true,
-          debugDisplayAlways: true,
-          languageCode: 'it',
-          countryCode: 'IT',
-          minAppVersion: '1.0.0',
-    appcastConfig:
-        AppcastConfiguration(url: appcastURL, supportedOS: ['android']));
+
+
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
@@ -97,11 +88,7 @@ final upgrader = Upgrader(
         flexibleSpace: customAppBar(context: context),
       ),
       drawer: NavigationDrawerWidget(),
-      body: UpgradeAlert(
-        dialogStyle: UpgradeDialogStyle.cupertino,
-        cupertinoButtonTextStyle: TextStyle(color: ColorConstants.orangeGradients3, fontWeight: FontWeight.bold),
-        upgrader: upgrader,
-        child: Center(
+      body:  Center(
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -234,16 +221,8 @@ final upgrader = Upgrader(
             ),
           ),
         ),
-      ),
     );
   }
 }
 
 
-/* Upgrader(
-          debugLogging: true,
-          debugDisplayAlways: true,
-          languageCode: 'it',
-          countryCode: 'IT',
-          minAppVersion: '1.0.0'
-        ) */

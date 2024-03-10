@@ -159,7 +159,6 @@ void showFlutterNotification(RemoteMessage message) {
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  //await Upgrader.clearSavedSettings(); // REMOVE this for release builds
   // Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FlutterLocalNotifications().init();
