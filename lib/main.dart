@@ -30,7 +30,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:upgrader/upgrader.dart';
 import 'screens/signin/repository/signin_repository.dart';
 import 'screens/signup/repository/signup_repository.dart';
 
