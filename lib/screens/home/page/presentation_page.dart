@@ -1,6 +1,9 @@
 
+import 'dart:io';
+
 import 'package:app_solidale/const/color_constants.dart';
 import 'package:app_solidale/const/path_constants.dart';
+import 'package:app_solidale/main.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_cards_common.dart';
 import 'package:app_solidale/screens/home/repository/get_user_repo.dart';
@@ -12,9 +15,9 @@ import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
+import 'package:releasenotes/releasenotes.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:upgrader/upgrader.dart';
-
+import 'package:releasenotes/models/release_notes_model.dart';
 
 
 // ignore: must_be_immutable
@@ -27,9 +30,58 @@ class PresentationPage extends StatefulWidget {
 
 class _PresentationPageState extends State<PresentationPage>
     with WidgetsBindingObserver {
+         ReleaseNotes? releaseNotes;
+    String url = "";
+
+   
+
+  String? notes;
+  String? version;
+  bool? isLatest;
+  bool isLoading = false;
+
+  getReleaseNotes() async {
+    if(Platform.isAndroid) {
+      print('true android');
+    setState(() {
+      releaseNotes = ReleaseNotes(
+    appBundleId: "com.app.solidale",
+    currentVersion: "0.0.1",
+  );
+  setState(() {
+        url = "https://play.google.com/store/apps/details?id=com.app.solidale&gl=IT&hl=it&_cb=1710352566010294";
+
+  });
+     
+    }); 
+    } else {
+            print('true ios');
+
+      releaseNotes = ReleaseNotes(
+    appBundleId: "com.project.anf",
+    currentVersion: "0.0.1",
+  );
+   setState(() {
+        url = "https://apps.apple.com/it/app/app-solidale/id6471244265";
+
+  });
+    }
+    setState(() => isLoading = true);
+
+    final ReleaseNotesModel? releaseNotesModel =
+        await releaseNotes!.getReleaseNotes("it", "IT", locale: "it_IT");
+    setState(() {
+      notes = releaseNotesModel?.notes ?? "Without notes";
+      version = releaseNotesModel?.version ?? "No version find";
+      isLatest = releaseNotesModel?.isLatestVersion ?? false;
+      isLoading = false;
+    });
+  }
      
   @override
   void initState() {
+        getReleaseNotes();
+
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
@@ -71,6 +123,57 @@ globals.tokenFCM,);
       readUser();
     }
   }
+void showDialogIfFirstLoaded(BuildContext context) {
+ 
+
+    showDialog(
+      context: navigatorKey.currentContext!,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            title: Text(
+              'Aggiorna App Solidale',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            content: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'E\' disponibile una nuova versione dell\' app. Scaricala subito!',
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+
+             TextButton(
+                      onPressed: () {
+                        launchUrlString(url);
+                       
+                      },
+                      child: Text(
+                        'Aggiorna',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                   TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text(
+                        'Ignora',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+            ],
+          )
+        );
+      },
+    );
+  }
+
 
 
   @override
@@ -80,17 +183,9 @@ globals.tokenFCM,);
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-     
-    return UpgradeAlert(
-      
-      dialogStyle: UpgradeDialogStyle.cupertino,
-      upgrader: Upgrader(
-        debugLogging: true,
-        debugDisplayAlways: true,
-        appcast: Appcast(),
-      
-      ),
-      child: Scaffold(
+      isLatest == false ?       Future.delayed(Duration.zero, () => showDialogIfFirstLoaded(context)) : null;
+
+    return  Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(
             color: Colors.white,
@@ -107,6 +202,11 @@ globals.tokenFCM,);
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                      Text("current version: 0.0.1"),
+                  Text("store release notes: $notes"),
+                  Text("store version: $version"),
+                  Text("isLatest: $isLatest"),
+                    
                     globals.userData != null
                         ? globals.userData!.verified == 0
                             ? Column(
@@ -163,9 +263,8 @@ globals.tokenFCM,);
                                   ],)
                             
                                 ],
-                              )
-                            : const SizedBox()
-                        : const SizedBox(),
+                              ): SizedBox() : SizedBox(),
+                            
                     const SizedBox(
                       height: 30,
                     ),
@@ -233,7 +332,6 @@ globals.tokenFCM,);
               ),
             ),
           ),
-      ),
     );
   }
 }
