@@ -40,12 +40,11 @@ class _PresentationPageState extends State<PresentationPage>
   getReleaseNotes() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-    String appName = packageInfo.appName;
     String packageName = packageInfo.packageName;
     String version = packageInfo.version;
     if (Platform.isAndroid) {
-      print('packageName $packageName');
-      print('version ${packageInfo.version}');
+      print('packageNameAndroid $packageName');
+      print('versionAndroid ${packageInfo.version}');
 
       setState(() {
         url =
