@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:app_solidale/const/color_constants.dart';
@@ -15,10 +14,10 @@ import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:releasenotes/releasenotes.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:releasenotes/models/release_notes_model.dart';
-
 
 // ignore: must_be_immutable
 class PresentationPage extends StatefulWidget {
@@ -30,10 +29,8 @@ class PresentationPage extends StatefulWidget {
 
 class _PresentationPageState extends State<PresentationPage>
     with WidgetsBindingObserver {
-         ReleaseNotes? releaseNotes;
-    String url = "";
-
-   
+  ReleaseNotes? releaseNotes;
+  String url = "";
 
   String? notes;
   String? version;
@@ -41,30 +38,38 @@ class _PresentationPageState extends State<PresentationPage>
   bool isLoading = false;
 
   getReleaseNotes() async {
-    if(Platform.isAndroid) {
-      print('true android');
-    setState(() {
-      releaseNotes = ReleaseNotes(
-    appBundleId: "com.app.solidale",
-    currentVersion: "0.0.1",
-  );
-  setState(() {
-        url = "https://play.google.com/store/apps/details?id=com.app.solidale&gl=IT&hl=it&_cb=1710352566010294";
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-  });
-     
-    }); 
+    String packageName = packageInfo.packageName;
+    String version = packageInfo.version;
+
+
+      
+    if (Platform.isAndroid) {
+      print('packageNameAndroid $packageName');
+      print('versionAndroid ${packageInfo.version}');
+
+      setState(() {
+        url =
+            "https://play.google.com/store/apps/details?id=com.app.solidale&gl=IT&hl=it&_cb=1710352566010294";
+        releaseNotes = ReleaseNotes(
+          appBundleId: packageName,
+          currentVersion: version,
+        );
+      });
     } else {
-            print('true ios');
+      print('true ios');
 
-      releaseNotes = ReleaseNotes(
-    appBundleId: "com.project.anf",
-    currentVersion: "0.0.1",
-  );
-   setState(() {
+      print('packageNameIos $packageName');
+      print('versionIOs ${packageInfo.version}');
+
+      setState(() {
         url = "https://apps.apple.com/it/app/app-solidale/id6471244265";
-
-  });
+        releaseNotes = ReleaseNotes(
+          appBundleId: packageName,
+          currentVersion: version,
+        );
+      });
     }
     setState(() => isLoading = true);
 
@@ -76,33 +81,31 @@ class _PresentationPageState extends State<PresentationPage>
       isLatest = releaseNotesModel?.isLatestVersion ?? false;
       isLoading = false;
     });
+          print('isLatest ${version}');
+
   }
-     
+
   @override
   void initState() {
-        getReleaseNotes();
+    getReleaseNotes();
 
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-
-
-     readUser().then((value) =>  editUser());
-
+    readUser().then((value) => editUser());
   }
 
-Future editUser() async {
- await ReadDataUserRepository().saveToken(
-  context,
-  
-globals.tokenFCM,);    
-
+  Future editUser() async {
+    await ReadDataUserRepository().saveToken(
+      context,
+      globals.tokenFCM,
+    );
 
     print('globals.userData ${globals.userData}');
-}
+  }
 
   Future readUser() async {
-   final data =  await ReadDataUserRepository().readUser(context);
+    final data = await ReadDataUserRepository().readUser(context);
     setState(() {
       globals.userData = data;
       globals.userData!.token = globals.tokenFCM;
@@ -123,58 +126,52 @@ globals.tokenFCM,);
       readUser();
     }
   }
-void showDialogIfFirstLoaded(BuildContext context) {
- 
 
+  void showDialogIfFirstLoaded(BuildContext context) {
     showDialog(
       context: navigatorKey.currentContext!,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return WillPopScope(
-          onWillPop: () async => false,
-          child: AlertDialog(
-            title: Text(
-              'Aggiorna App Solidale',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            content: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'E\' disponibile una nuova versione dell\' app. Scaricala subito!',
-                  ),
-                ],
+            onWillPop: () async => false,
+            child: AlertDialog(
+              title: Text(
+                'Aggiorna App Solidale',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-            ),
-            actions: [
-
-             TextButton(
-                      onPressed: () {
-                        launchUrlString(url);
-                       
-                      },
-                      child: Text(
-                        'Aggiorna',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
+              content: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'E\' disponibile una nuova versione dell\' app. Scaricala subito!',
                     ),
-                   TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text(
-                        'Ignora',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-            ],
-          )
-        );
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    launchUrlString(url);
+                  },
+                  child: Text(
+                    'Aggiorna',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text(
+                    'Ignora',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ],
+            ));
       },
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -183,47 +180,45 @@ void showDialogIfFirstLoaded(BuildContext context) {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-      isLatest == false ?       Future.delayed(Duration.zero, () => showDialogIfFirstLoaded(context)) : null;
+    isLatest == false
+        ? Future.delayed(Duration.zero, () => showDialogIfFirstLoaded(context))
+        : null;
 
-    return  Scaffold(
-        appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.white,
-          ),
-          toolbarHeight: 75.0,
-          automaticallyImplyLeading: true,
-          flexibleSpace: customAppBar(context: context),
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
         ),
-        drawer: NavigationDrawerWidget(),
-        body:  Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                      Text("current version: 0.0.1"),
-                  Text("store release notes: $notes"),
-                  Text("store version: $version"),
-                  Text("isLatest: $isLatest"),
-                    
-                    globals.userData != null
-                        ? globals.userData!.verified == 0
-                            ? Column(
+        toolbarHeight: 75.0,
+        automaticallyImplyLeading: true,
+        flexibleSpace: customAppBar(context: context),
+      ),
+      drawer: NavigationDrawerWidget(),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+           
+                globals.userData != null
+                    ? globals.userData!.verified == 0
+                        ? Column(
+                            children: [
+                              Text(
+                                'La tua email non è stata ancora verificata.',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 2 * blockSizeVertical),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'La tua email non è stata ancora verificata.',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 2 * blockSizeVertical),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                     Text(
                                     'Per verificarla ',
                                     style: TextStyle(
                                         color: Colors.black,
@@ -231,109 +226,107 @@ void showDialogIfFirstLoaded(BuildContext context) {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                              Service()
-                                                  .verifyUser(
-                                                      globals.userData!.email,
-                                                      context)
-                                                  .then((value) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar( SnackBar(
-                                                        backgroundColor:
-                                                            ColorConstants
-                                                                .orangeGradients3,
-                                                        content: Text(
-                                                          'Ti abbiamo inviato un\' email di verifica',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                                fontSize: 2 * blockSizeVertical,
-                                                          ),
-                                                        )));
-                                              });},
-                                    child:  Text(
-                                             'clicca qui',
-                                            style:  TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: ColorConstants.orangeGradients3,
-                                                                                                          fontSize: 2.2 * blockSizeVertical,
-          
-                                            ),),
+                                      Service()
+                                          .verifyUser(
+                                              globals.userData!.email, context)
+                                          .then((value) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                backgroundColor: ColorConstants
+                                                    .orangeGradients3,
+                                                content: Text(
+                                                  'Ti abbiamo inviato un\' email di verifica',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        2 * blockSizeVertical,
+                                                  ),
+                                                )));
+                                      });
+                                    },
+                                    child: Text(
+                                      'clicca qui',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: ColorConstants.orangeGradients3,
+                                        fontSize: 2.2 * blockSizeVertical,
+                                      ),
+                                    ),
                                   ),
-                                  ],)
-                            
                                 ],
-                              ): SizedBox() : SizedBox(),
-                            
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeChiedoAiuto()));
-                      },
-                      child: CustomCardsCommon(
-                        child: CustomContainerService(
-                          serviceId: '0',
-                          title: 'Chiedo Aiuto',
-                          subtitle: 'Scopri i nostri principali servizi',
-                          image: PathConstants.onboarding3,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => OffroAiutoPage()));
-                      },
-                      child: CustomCardsCommon(
-                        child: CustomContainerService(
-                          serviceId: '1',
-                          title: 'Offro Aiuto',
-                          subtitle: 'Dona il tuo tempo a chi ne ha bisogno',
-                          image: PathConstants.offroAiuto,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5 * blockSizeVertical,
-                    ),
-                    Text(
-                      'Vuoi sostenere l\'ANF?',
-                      style: TextStyle(
-                          color: Colors.black, fontSize: 2 * blockSizeVertical),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        launchUrlString('https://www.anfam.net/come-sostenerci');
-                      },
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'DONA ORA',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 2 * blockSizeVertical),
-                            )
-                          ]),
-                    ),
-                  ],
+                              )
+                            ],
+                          )
+                        : SizedBox()
+                    : SizedBox(),
+                const SizedBox(
+                  height: 30,
                 ),
-              ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HomeChiedoAiuto()));
+                  },
+                  child: CustomCardsCommon(
+                    child: CustomContainerService(
+                      serviceId: '0',
+                      title: 'Chiedo Aiuto',
+                      subtitle: 'Scopri i nostri principali servizi',
+                      image: PathConstants.onboarding3,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => OffroAiutoPage()));
+                  },
+                  child: CustomCardsCommon(
+                    child: CustomContainerService(
+                      serviceId: '1',
+                      title: 'Offro Aiuto',
+                      subtitle: 'Dona il tuo tempo a chi ne ha bisogno',
+                      image: PathConstants.offroAiuto,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5 * blockSizeVertical,
+                ),
+                Text(
+                  'Vuoi sostenere l\'ANF?',
+                  style: TextStyle(
+                      color: Colors.black, fontSize: 2 * blockSizeVertical),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    launchUrlString('https://www.anfam.net/come-sostenerci');
+                  },
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'DONA ORA',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 2 * blockSizeVertical),
+                        )
+                      ]),
+                ),
+              ],
             ),
           ),
+        ),
+      ),
     );
   }
 }
-
-

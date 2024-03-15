@@ -22,6 +22,7 @@ import 'dart:io' show Platform;
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
 import 'package:app_solidale/service/flutter_local_notification.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -172,10 +173,15 @@ Future main() async {
 Timer? timer;
 final messengerKey = GlobalKey<ScaffoldMessengerState>();
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+   
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
