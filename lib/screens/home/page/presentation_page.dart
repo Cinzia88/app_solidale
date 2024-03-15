@@ -45,6 +45,7 @@ class _PresentationPageState extends State<PresentationPage>
 
 
       
+
     if (Platform.isAndroid) {
       print('packageNameAndroid $packageName');
       print('versionAndroid ${packageInfo.version}');
@@ -329,4 +330,5 @@ class _PresentationPageState extends State<PresentationPage>
       ),
     );
   }
+
 }
