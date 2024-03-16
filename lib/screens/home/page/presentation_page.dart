@@ -10,16 +10,16 @@ import 'package:app_solidale/screens/home/widgets/custom_container_service.dart'
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
-import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto.dart';
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:releasenotes/releasenotes.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:releasenotes/models/release_notes_model.dart';
+
+import '../../servizi/offro aiuto/page/form_offro_aiuto.dart';
 
 // ignore: must_be_immutable
 class PresentationPage extends StatefulWidget {
@@ -330,7 +330,13 @@ class _PresentationPageState extends State<PresentationPage>
                 ),
                 ElevatedButton(
                   onPressed: ()  {
+                    /**
+                     FlutterExitApp.exitApp(iosForceExit: true).then((value) {
+                      _launchInBrowser(websiteAnf);
+                    });
+                     */
                     _launchInBrowser(websiteAnf);
+                    
                   },
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
