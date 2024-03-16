@@ -190,11 +190,7 @@ class _PresentationPageState extends State<PresentationPage>
     )) {
       throw Exception('Could not launch $url');
     }
-    if(Platform.isAndroid) {
-      SystemNavigator.pop();
-    } else {
-      exit(0);
-    }
+   
   }
 
 
