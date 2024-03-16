@@ -22,7 +22,6 @@ import 'dart:io' show Platform;
 
 import 'package:app_solidale/screens/splash/page/splash.dart';
 import 'package:app_solidale/service/flutter_local_notification.dart';
-import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';

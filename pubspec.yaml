@@ -62,7 +62,6 @@ dependencies:
   dio: ^5.4.0
   permission_handler: ^11.0.1
   releasenotes: ^1.0.5
-  app_tracking_transparency: ^2.0.4
   package_info_plus: ^4.2.0
 
 
