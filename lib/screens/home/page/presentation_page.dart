@@ -14,8 +14,10 @@ import 'package:app_solidale/screens/servizi/offro%20aiuto/page/form_offro_aiuto
 import 'package:app_solidale/screens/servizi/page/home_chiedo_aiuto.dart';
 import 'package:app_solidale/service/service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:releasenotes/releasenotes.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:releasenotes/models/release_notes_model.dart';
 
@@ -29,9 +31,10 @@ class PresentationPage extends StatefulWidget {
 
 class _PresentationPageState extends State<PresentationPage>
     with WidgetsBindingObserver {
+      final websiteAnf = Uri.parse('https://www.anfam.net/come-sostenerci');
+
   ReleaseNotes? releaseNotes;
   String url = "";
-
   String? notes;
   String? versionStore;
   bool? isLatest;
@@ -179,6 +182,23 @@ class _PresentationPageState extends State<PresentationPage>
     );
   }
 
+
+ Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+    if(Platform.isAndroid) {
+      SystemNavigator.pop();
+    } else {
+      exit(0);
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     //final screenWidth = MediaQuery.of(context).size.width;
@@ -313,8 +333,8 @@ class _PresentationPageState extends State<PresentationPage>
                       color: Colors.black, fontSize: 2 * blockSizeVertical),
                 ),
                 ElevatedButton(
-                  onPressed: () async {
-                    launchUrlString('https://www.anfam.net/come-sostenerci');
+                  onPressed: ()  {
+                    _launchInBrowser(websiteAnf);
                   },
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
