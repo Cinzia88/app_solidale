@@ -33,29 +33,33 @@ class _PresentationPageState extends State<PresentationPage>
   String url = "";
 
   String? notes;
-  String? version;
+  String? versionStore;
   bool? isLatest;
   bool isLoading = false;
+   String? versionApp;
 
   getReleaseNotes() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     String packageName = packageInfo.packageName;
-    String version = packageInfo.version;
+    setState(() {
+      versionApp= packageInfo.version;
+    }); 
 
 
       
 
     if (Platform.isAndroid) {
       print('packageNameAndroid $packageName');
-      print('versionAndroid ${packageInfo.version}');
+      print('versionApp ${packageInfo.version}');
+      
 
       setState(() {
         url =
             "https://play.google.com/store/apps/details?id=com.app.solidale&gl=IT&hl=it&_cb=1710352566010294";
         releaseNotes = ReleaseNotes(
           appBundleId: packageName,
-          currentVersion: version,
+          currentVersion: versionApp!,
         );
       });
     } else {
@@ -68,7 +72,7 @@ class _PresentationPageState extends State<PresentationPage>
         url = "https://apps.apple.com/it/app/app-solidale/id6471244265";
         releaseNotes = ReleaseNotes(
           appBundleId: packageName,
-          currentVersion: version,
+          currentVersion: versionApp!,
         );
       });
     }
@@ -78,11 +82,11 @@ class _PresentationPageState extends State<PresentationPage>
         await releaseNotes!.getReleaseNotes("it", "IT", locale: "it_IT");
     setState(() {
       notes = releaseNotesModel?.notes ?? "Without notes";
-      version = releaseNotesModel?.version ?? "No version find";
+      versionStore = releaseNotesModel?.version ?? "No version find";
       isLatest = releaseNotesModel?.isLatestVersion ?? false;
       isLoading = false;
     });
-          print('isLatest ${version}');
+          print('isLatest ${releaseNotesModel?.isLatestVersion}');
 
   }
 
@@ -154,7 +158,8 @@ class _PresentationPageState extends State<PresentationPage>
               actions: [
                 TextButton(
                   onPressed: () {
-                    launchUrlString(url);
+                    launchUrlString(url,
+                   );
                   },
                   child: Text(
                     'Aggiorna',
@@ -181,9 +186,9 @@ class _PresentationPageState extends State<PresentationPage>
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
-    isLatest == false
-        ? Future.delayed(Duration.zero, () => showDialogIfFirstLoaded(context))
-        : null;
+    isLatest == false ?
+         Future.delayed(Duration.zero, () => showDialogIfFirstLoaded(context))
+        : SizedBox();
 
     return Scaffold(
       appBar: AppBar(
