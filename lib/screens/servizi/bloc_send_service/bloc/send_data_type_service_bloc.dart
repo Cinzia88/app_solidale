@@ -21,6 +21,7 @@ class SendDataTypeServiceBloc
         await sendDataTypeServiceRepository.sendDataTypeservice(
             context: context,
             serviceId: event.serviceId,
+            codiceFamiglia: event.codiceFamiglia,
             nome: event.nome,
             telefono: event.telefono,
             partenza: event.partenza!,

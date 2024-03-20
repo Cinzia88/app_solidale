@@ -399,6 +399,7 @@ class _DestinationEditPageState extends State<DestinationEditPage> {
                                         context,
                                         idReq,
                                         '3',
+                                        '',
                                         nome,
                                         telefono,
                                         _partenzaController.text,

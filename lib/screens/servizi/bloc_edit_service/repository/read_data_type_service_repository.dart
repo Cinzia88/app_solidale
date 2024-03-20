@@ -78,6 +78,7 @@ class EditDataTypeServiceRepository {
     BuildContext context,
     String idRequest,
     String serviceId,
+    String codiceFamiglia,
     String nome,
     String telefono,
     String partenza,
@@ -97,6 +98,7 @@ class EditDataTypeServiceRepository {
           },
           body: jsonEncode({
             'service_id': serviceId,
+            'codice_famglia': codiceFamiglia,
             'nome': nome,
             'telefono': telefono,
             'partenza': partenza,

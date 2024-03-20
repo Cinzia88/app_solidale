@@ -32,6 +32,7 @@ class ReadRequestBloc extends Bloc<ReadRequestEvent, ReadRequestState> {
               context,
               event.id,
               event.serviceId,
+              event.codiceFamiglia!,
               event.nome,
               event.telefono,
               event.partenza!,

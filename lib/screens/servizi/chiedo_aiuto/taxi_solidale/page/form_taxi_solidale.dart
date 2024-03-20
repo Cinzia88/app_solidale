@@ -59,85 +59,83 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
- final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
-    return BlocBuilder<SendDataTypeServiceBloc, SendDataTypeServiceState>(builder: (context, state) {
-     
+    final bloc = BlocProvider.of<SendDataTypeServiceBloc>(context);
+    return BlocBuilder<SendDataTypeServiceBloc, SendDataTypeServiceState>(
+        builder: (context, state) {
       return state is SendDataTypeServiceLoadingState
-              ? loadingWidget(context)
-              :  SingleChildScrollView(
-      child: Padding(
-          padding: const EdgeInsets.all(
-            20.0,
-          ),
-          child: Column(children: [
-            SizedBox(
-              width: 70,
-              child: Image.asset(
-                PathConstants.taxiSolidale,
-              ),
-            ),
-            SizedBox(
-              height: 3 * blockSizeVertical,
-            ),
-            Text(
-              'Taxi Solidale',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Fase 1 di 4',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ],
-            ),
-            const Divider(
-              color: ColorConstants.orangeGradients3,
-            ),
-            Form(
-              key: _formKey,
-              child: _formSelectService(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CommonStyleButton(
-                    title: 'Invia e Continua',
-                    onTap: () async {
-                      if (_formKey.currentState!.validate()) {
-                         bloc.add(SendDataTypeServiceEvent(
-                                                serviceId: '2',
-                                              
-                                                nome: _value == 1
-                                        ? globals.userData!.nome
-                                        : _nameAnotherController.text,
-                                                telefono:
-                                                   _value == 1
-                                        ? globals.userData!.telefono
-                                        : _telepAnotherController.text,
-                                                    partenza: '',
-                                                    destinazione: '',
-                                                    data: '',
-                                              ));
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => DestinationTaxiEditPage(
-                                    )));
-                     
-                      
-                      }
-                    },
-                    iconWidget: Text('')),
-              ],
-            ),
-          ])),
-    );});
+          ? loadingWidget(context)
+          : SingleChildScrollView(
+              child: Padding(
+                  padding: const EdgeInsets.all(
+                    20.0,
+                  ),
+                  child: Column(children: [
+                    SizedBox(
+                      width: 70,
+                      child: Image.asset(
+                        PathConstants.taxiSolidale,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 3 * blockSizeVertical,
+                    ),
+                    Text(
+                      'Taxi Solidale',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Fase 1 di 4',
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ],
+                    ),
+                    const Divider(
+                      color: ColorConstants.orangeGradients3,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: _formSelectService(),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CommonStyleButton(
+                            title: 'Invia e Continua',
+                            onTap: () async {
+                              if (_formKey.currentState!.validate()) {
+                                bloc.add(SendDataTypeServiceEvent(
+                                  serviceId: '2',
+                                  codiceFamiglia: '',
+                                  nome: _value == 1
+                                      ? globals.userData!.nome
+                                      : _nameAnotherController.text,
+                                  telefono: _value == 1
+                                      ? globals.userData!.telefono
+                                      : _telepAnotherController.text,
+                                  partenza: '',
+                                  destinazione: '',
+                                  data: '',
+                                ));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) =>
+                                            DestinationTaxiEditPage()));
+                              }
+                            },
+                            iconWidget: Text('')),
+                      ],
+                    ),
+                  ])),
+            );
+    });
   }
 
   _formSelectService() {
@@ -243,12 +241,12 @@ class _FormTaxiSolidaleState extends State<FormTaxiSolidale> {
                     TextFormFieldCustom(
                       textEditingController: _telepAnotherController,
                       labelTextCustom: 'Telefono:',
- keyboardType: TextInputType.phone,
+                      keyboardType: TextInputType.phone,
                       obscureText: false,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Campo Richiesto*';
-                        } else if(value.isNotEmpty && value.length < 10) {
+                        } else if (value.isNotEmpty && value.length < 10) {
                           return 'Inserire un numero di telefono valido';
                         }
                         return null;

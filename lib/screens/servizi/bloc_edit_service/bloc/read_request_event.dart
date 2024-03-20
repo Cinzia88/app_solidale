@@ -12,6 +12,8 @@ class FetchRequestEvent extends ReadRequestEvent {}
 class EditRequestEvent extends ReadRequestEvent {
   String id;
   String serviceId;
+      String? codiceFamiglia;
+
   String nome;
   String telefono;
     String? partenza;
@@ -23,6 +25,7 @@ class EditRequestEvent extends ReadRequestEvent {
   EditRequestEvent({
     required this.id,
     required this.serviceId,
+    this.codiceFamiglia,
     required this.nome,
     required this.telefono,
   this.partenza,
@@ -32,5 +35,5 @@ class EditRequestEvent extends ReadRequestEvent {
   });
   @override
   List<Object?> get props =>
-      [id, serviceId, nome, telefono, partenza, destinazione, data, ora];
+      [id, serviceId, codiceFamiglia, nome, telefono, partenza, destinazione, data, ora];
 }

@@ -91,6 +91,7 @@ class _FormAccompagnamentoOncologicoState
                       if (_formKey.currentState!.validate()) {
                          bloc.add(SendDataTypeServiceEvent(
                                                 serviceId: '3',
+                                                codiceFamiglia: '',
                                                 nome: globals.userData!.nome,
                                                 telefono:
                                                     globals.userData!.telefono,

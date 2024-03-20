@@ -390,6 +390,8 @@ class _ContentPageBancoAlimentareState extends State<ContentPageBancoAlimentare>
                                           ? () async {
                                               bloc.add(SendDataTypeServiceEvent(
                                                 serviceId: '4',
+                                                                                                codiceFamiglia: '',
+
                                                 nome: globals.userData!.nome,
                                                 telefono:
                                                     globals.userData!.telefono,

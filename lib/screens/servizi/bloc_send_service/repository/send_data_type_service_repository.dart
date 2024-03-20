@@ -11,16 +11,17 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 
 class SendDataTypeServiceRepository {
-  Future sendDataTypeservice(
-   { required BuildContext context,
+  Future sendDataTypeservice({
+    required BuildContext context,
     required String serviceId,
+    String? codiceFamiglia,
     required String nome,
     required String telefono,
-     String? partenza,
-     String? destinazione,
-     String? data,
-     String? ora,}
-  ) async {
+    String? partenza,
+    String? destinazione,
+    String? data,
+    String? ora,
+  }) async {
     try {
       var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/richiesta';
       // Await the http get response, then decode the json-formatted response.
@@ -32,6 +33,7 @@ class SendDataTypeServiceRepository {
           },
           body: jsonEncode({
             'service_id': serviceId,
+            'codice_famiglia': codiceFamiglia,
             'nome': nome,
             'telefono': telefono,
             'partenza': partenza,
@@ -39,7 +41,7 @@ class SendDataTypeServiceRepository {
             'data': data,
             'ora': ora,
           }));
-print('response.statusCode ${response.statusCode}');
+      print('response.statusCode ${response.statusCode}');
       switch (response.statusCode) {
         case 200:
           if (response.body.contains('"service_id":1')) {
@@ -87,9 +89,8 @@ print('response.statusCode ${response.statusCode}');
                     );
                   });
             }
-          }  else if (response.body.contains('"service_id":4')) {
+          } else if (response.body.contains('"service_id":4')) {
             if (context.mounted) {
-
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ParentsPage()));
             }

@@ -8,6 +8,7 @@ abstract class SendServiceEvent extends Equatable {
 // ignore: must_be_immutable
 class SendDataTypeServiceEvent extends SendServiceEvent {
   String serviceId;
+  String? codiceFamiglia;
   String nome;
   String telefono;
     String? partenza;
@@ -19,6 +20,7 @@ class SendDataTypeServiceEvent extends SendServiceEvent {
  
   SendDataTypeServiceEvent({
     required this.serviceId,
+    this.codiceFamiglia,
     required this.nome,
     required this.telefono,
      this.partenza,
@@ -27,5 +29,5 @@ class SendDataTypeServiceEvent extends SendServiceEvent {
      this.ora,
   });
   @override
-  List<Object?> get props => [serviceId, nome, telefono, partenza, destinazione, data, ora];
+  List<Object?> get props => [serviceId, codiceFamiglia, nome, telefono, partenza, destinazione, data, ora];
 }
