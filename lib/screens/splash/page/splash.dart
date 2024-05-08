@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../../const/color_constants.dart';
 import '../../../main.dart';
@@ -64,17 +65,15 @@ class _SplashScreenState extends State<SplashScreen>
   Future initializeFirebase() async {
     firebaseMessaging.subscribeToTopic('all');
 
-
-
     if (Platform.isIOS) {
-            await FirebaseMessaging.instance.getAPNSToken();
-          } else {}
-firebaseMessaging.getToken().then((token) {
-        globals.tokenFCM = token!;
-        print('globals.tokenFCMAndroid ${globals.tokenFCM}');
-        print('tokenFCMAndroid ${token}');
-      });
- 
+      await FirebaseMessaging.instance.getAPNSToken();
+    } else {}
+    firebaseMessaging.getToken().then((token) {
+      globals.tokenFCM = token!;
+      print('globals.tokenFCMAndroid ${globals.tokenFCM}');
+      print('tokenFCMAndroid ${token}');
+    });
+
     FirebaseMessaging.instance.getInitialMessage().then((value) {
       if (value != null) {
         showFlutterNotification(value);
@@ -106,6 +105,7 @@ firebaseMessaging.getToken().then((token) {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -129,7 +129,17 @@ firebaseMessaging.getToken().then((token) {
           ),
         ),
       ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(width: 50,  child: Image.asset(PathConstants.anfvet)),
+            SizedBox(width: 50,  child: Image.asset(PathConstants.regpug)),
+            SizedBox(width: 50,  child: Image.asset(PathConstants.minlav)),
+          ],
+        ),
+      ),
     );
   }
 }
-
