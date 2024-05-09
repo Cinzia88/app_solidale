@@ -108,8 +108,12 @@ class _SplashScreenState extends State<SplashScreen>
 
       body: Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        height: MediaQuery.of(context).size.height / 1.3,
         decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(500),
+            bottomRight: Radius.circular(500),
+          ),
             gradient: LinearGradient(
           colors: [
             ColorConstants.orangeGradients1,
@@ -119,25 +123,32 @@ class _SplashScreenState extends State<SplashScreen>
           begin: Alignment.topLeft,
           end: Alignment.center,
         )),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                  width: 200, child: Image.asset(PathConstants.logoanfcompleto))
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+                width: 200, child: Image.asset(PathConstants.logoanfcompleto))
+          ],
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(width: 50,  child: Image.asset(PathConstants.anfvet)),
-            SizedBox(width: 50,  child: Image.asset(PathConstants.regpug)),
-            SizedBox(width: 50,  child: Image.asset(PathConstants.minlav)),
-          ],
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, ),
+        child: Container(
+            width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height / 4.3,
+          child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(width: 80,  child: Image.asset(PathConstants.anfvet)),
+                  SizedBox(width: 80,  child: Image.asset(PathConstants.regpug)),
+                  SizedBox(width: 80,  child: Image.asset(PathConstants.minlav)),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
