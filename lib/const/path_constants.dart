@@ -8,6 +8,7 @@ class PathConstants {
     static const String regpug = 'assets/images/logo_anf/regione_puglia.png';
     static const String anfvet = 'assets/images/logo_anf/anf_vett.png';
     static const String minlav = 'assets/images/logo_anf/min_lav.png';
+    static const String loghiappsol = 'assets/images/logo_anf/loghi-app-solidale.png';
 
 
 

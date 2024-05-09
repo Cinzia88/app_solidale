@@ -133,20 +133,13 @@ class _SplashScreenState extends State<SplashScreen>
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, ),
-        child: Container(
+        child: SizedBox(
             width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height / 4.3,
           child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(width: 80,  child: Image.asset(PathConstants.anfvet)),
-                  SizedBox(width: 80,  child: Image.asset(PathConstants.regpug)),
-                  SizedBox(width: 80,  child: Image.asset(PathConstants.minlav)),
-                ],
-              ),
+              Expanded(child: Image.asset(PathConstants.loghiappsol)),
             ],
           ),
         ),
