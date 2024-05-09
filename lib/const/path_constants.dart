@@ -5,9 +5,6 @@ class PathConstants {
     static const String logoanfcompletoorizz = 'assets/images/logo_anf/logo-negativo-completo-orizzontale.png';
     static const String logoanfcompletovertic = 'assets/images/logo_anf/logo-negativo-completo.png';
     static const String testologo = 'assets/images/logo_anf/testo_logo.png';
-    static const String regpug = 'assets/images/logo_anf/regione_puglia.png';
-    static const String anfvet = 'assets/images/logo_anf/anf_vett.png';
-    static const String minlav = 'assets/images/logo_anf/min_lav.png';
     static const String loghiappsol = 'assets/images/logo_anf/loghi-app-solidale.png';
 
 
