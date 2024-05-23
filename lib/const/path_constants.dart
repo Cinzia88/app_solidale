@@ -1,9 +1,13 @@
 class PathConstants {
   //Logo
-  static const String logoanf = 'assets/images/logo_anf/logo_anf.jpg';
+  static const String logoanf = 'assets/images/logo_anf/logo.png';
   static const String logoanfcompleto = 'assets/images/logo_anf/logo-negativo-completo.png';
     static const String logoanfcompletoorizz = 'assets/images/logo_anf/logo-negativo-completo-orizzontale.png';
     static const String logoanfcompletovertic = 'assets/images/logo_anf/logo-negativo-completo.png';
+    static const String testologo = 'assets/images/logo_anf/testo_logo.png';
+    static const String loghiappsol = 'assets/images/logo_anf/loghi-app-solidale.png';
+
+
 
 
   

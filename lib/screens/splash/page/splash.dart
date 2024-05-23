@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:app_solidale/globals_variables/globals_variables.dart'
     as globals;
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../../const/color_constants.dart';
 import '../../../main.dart';
@@ -64,17 +65,15 @@ class _SplashScreenState extends State<SplashScreen>
   Future initializeFirebase() async {
     firebaseMessaging.subscribeToTopic('all');
 
-
-
     if (Platform.isIOS) {
-            await FirebaseMessaging.instance.getAPNSToken();
-          } else {}
-firebaseMessaging.getToken().then((token) {
-        globals.tokenFCM = token!;
-        print('globals.tokenFCMAndroid ${globals.tokenFCM}');
-        print('tokenFCMAndroid ${token}');
-      });
- 
+      await FirebaseMessaging.instance.getAPNSToken();
+    } else {}
+    firebaseMessaging.getToken().then((token) {
+      globals.tokenFCM = token!;
+      print('globals.tokenFCMAndroid ${globals.tokenFCM}');
+      print('tokenFCMAndroid ${token}');
+    });
+
     FirebaseMessaging.instance.getInitialMessage().then((value) {
       if (value != null) {
         showFlutterNotification(value);
@@ -106,10 +105,15 @@ firebaseMessaging.getToken().then((token) {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        height: MediaQuery.of(context).size.height / 1.3,
         decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(500),
+            bottomRight: Radius.circular(500),
+          ),
             gradient: LinearGradient(
           colors: [
             ColorConstants.orangeGradients1,
@@ -119,12 +123,23 @@ firebaseMessaging.getToken().then((token) {
           begin: Alignment.topLeft,
           end: Alignment.center,
         )),
-        child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+                width: 200, child: Image.asset(PathConstants.logoanfcompleto))
+          ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, ),
+        child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height / 4.3,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                  width: 200, child: Image.asset(PathConstants.logoanfcompleto))
+              Expanded(child: Image.asset(PathConstants.loghiappsol)),
             ],
           ),
         ),
@@ -132,4 +147,3 @@ firebaseMessaging.getToken().then((token) {
     );
   }
 }
-
