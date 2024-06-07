@@ -3,6 +3,7 @@ import 'package:app_solidale/screens/common_widgets/background_style/custom_appb
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/menu/messages/accompagnamento_oncologico/single_message_page.dart';
 import 'package:app_solidale/screens/menu/messages/banco_message/single_message_page.dart';
+import 'package:app_solidale/screens/menu/messages/questionario/single_message_page.dart';
 import 'package:app_solidale/screens/menu/messages/taxi_solidale/single_message_page.dart';
 import 'package:flutter/material.dart';
 import '../../../const/color_constants.dart';
@@ -245,7 +246,7 @@ class _MessagesPageState extends State<MessagesPage> {
                      Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SingleMessagePage()));
+                                builder: (context) => SingleMessageNotificationPage()));
                       },
                   child: Container(
                     padding: EdgeInsets.only(top: 10, bottom: 10),
