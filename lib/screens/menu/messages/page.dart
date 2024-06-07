@@ -2,19 +2,15 @@ import 'package:app_solidale/const/path_constants.dart';
 import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/menu/messages/accompagnamento_oncologico/single_message_page.dart';
-import 'package:app_solidale/screens/menu/messages/banco_message/model/message_banco_model.dart';
 import 'package:app_solidale/screens/menu/messages/banco_message/single_message_page.dart';
 import 'package:app_solidale/screens/menu/messages/taxi_solidale/single_message_page.dart';
-import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import '../../../const/color_constants.dart';
 
+// ignore: must_be_immutable
 class MessagesPage extends StatefulWidget {
   String serviceNotification;
-  MessagesPage({required this.serviceNotification});
+  MessagesPage({super.key, required this.serviceNotification});
 
   @override
   State<MessagesPage> createState() => _MessagesPageState();
@@ -233,6 +229,68 @@ class _MessagesPageState extends State<MessagesPage> {
                                            
                                                     ? FontWeight.bold
                                                     : FontWeight.normal),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector( onTap: () {
+                     Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SingleMessagePage()));
+                      },
+                  child: Container(
+                    padding: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Row(
+                            children: <Widget>[
+                            const  CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                                backgroundImage:
+                                    AssetImage(PathConstants.logoanf),
+                                maxRadius: 18,
+                              ),
+                              SizedBox(
+                                width: 16,
+                              ),
+                              Expanded(
+                                child: Container(
+                                  color: Colors.transparent,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        'Inizia Questionario',
+                                        style: TextStyle(
+                                            color:
+                                                ColorConstants.orangeColorScheme,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        'Leggi Messaggio',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        softWrap: false,
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            color: Colors.grey.shade600,
+                                            fontWeight:     widget.serviceNotification ==
+                                                'Accompagnamento Oncologico' &&  widget.serviceNotification ==
+                                                'Banco Alimentare' &&  widget.serviceNotification ==
+                                                'Taxi Solidale'
+                                                ? FontWeight.bold
+                                                : FontWeight.normal),
                                       ),
                                     ],
                                   ),

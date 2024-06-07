@@ -6,6 +6,7 @@ import 'package:app_solidale/screens/menu/area_personale/cambio_password/reposit
 import 'package:app_solidale/screens/menu/messages/accompagnamento_oncologico/repository/message_acc_repository.dart';
 import 'package:app_solidale/screens/menu/messages/page.dart';
 import 'package:app_solidale/screens/menu/messages/banco_message/repository/message_repository.dart';
+import 'package:app_solidale/screens/menu/messages/questionario/repository/message_notification_repository.dart';
 import 'package:app_solidale/screens/menu/messages/taxi_solidale/repository/message_taxi_repository.dart';
 import 'package:app_solidale/screens/news/repository/news_repository.dart';
 import 'package:app_solidale/screens/servizi/bloc_edit_service/repository/read_data_type_service_repository.dart';
@@ -128,11 +129,12 @@ void showFlutterNotification(RemoteMessage message) {
               ),
             ),
             actions: [
-              notification.title == 'Nuovo Messaggio'
+              notification.title == 'Nuovo Messaggio' ||  notification.title == 'Questionario'
                   ? TextButton(
                       onPressed: () {
                         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                                builder: (context) => MessagesPage(serviceNotification: notification.body!)), (route) => false);
+                                builder: (context) => MessagesPage(
+                                  serviceNotification: notification.body!)), (route) => false);
                        
                       },
                       child: Text(
@@ -254,6 +256,9 @@ class _MyAppState extends State<MyApp> {
           ),
            RepositoryProvider<MessageBancoRepository>(
             create: (context) => MessageBancoRepository(),
+          ),
+          RepositoryProvider<MessageNoticationRepository>(
+            create: (context) => MessageNoticationRepository(),
           ),
         ],
         child: MaterialApp(
