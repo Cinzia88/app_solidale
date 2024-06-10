@@ -8,7 +8,6 @@ import 'package:app_solidale/screens/servizi/chiedo_aiuto/bloc_disabili/bloc_edi
 
 String tokenFCM = '';
 dynamic tokenValue;
-String? userId;
 String? typeRichiesta;
 bool? viewSlide;
 UserData? userData;

@@ -4,12 +4,15 @@ import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
 import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
 import 'package:app_solidale/screens/menu/messages/banco_message/bloc/message_bloc.dart';
-import 'package:app_solidale/screens/menu/messages/banco_message/repository/message_repository.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 import 'package:app_solidale/screens/menu/messages/questionario/bloc/message_bloc.dart';
 import 'package:app_solidale/screens/menu/messages/questionario/repository/message_notification_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common_widgets/background_style/custom_appbar.dart';
 
@@ -21,11 +24,21 @@ class SingleMessageNotificationPage extends StatefulWidget {
 
 class _SingleMessageNotificationPageState
     extends State<SingleMessageNotificationPage> {
-  int _value = 1;
   String idMessage = '';
   String title = '';
   String body = '';
   String dataMessaggio = '';
+  final websiteAppSolidale = Uri.parse(
+      '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/questionario-app-solidale/${globals.userData!.id}');
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +87,7 @@ class _SingleMessageNotificationPageState
             }
             return;
           }, builder: (context, state) {
-            return state is MessageLoadingState ||
-                    state is EditMessageLoadingState
+            return state is MessageNotificationLoadingState 
                 ? loadingWidget(context)
                 : idMessage == ''
                     ? Center(
@@ -109,67 +121,25 @@ class _SingleMessageNotificationPageState
                                   fontSize: 2 * blockSizeVertical,
                                 ),
                               ),
-                              _startQuestionary(),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 20.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Ti informiamo che dovrai compilare un questionario',
+                                    ),
+                                    Text(
+                                        'Clicca "Inizia Questionario" per compilare il form sul nostro sito')
+                                  ],
+                                ),
+                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   CommonStyleButton(
-                                      title: 'Invia',
+                                      title: 'Inizia Questionario',
                                       onTap: () {
-                                        
-
-                                        showDialog(
-                                            barrierColor: Colors.black87,
-                                            barrierDismissible: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title: Column(
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 50,
-                                                      child: Image.asset(
-                                                          PathConstants
-                                                              .bancoAlim),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      'Messaggio Inviato',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleMedium,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                ),
-                                                actions: [
-                                                  InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        PresentationPage()));
-                                                      },
-                                                      child: Text(
-                                                        'Torna alla home',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleMedium,
-                                                      ))
-                                                ],
-                                              );
-                                            });
-                                        FocusScope.of(context).unfocus();
+                                         _launchInBrowser(websiteAppSolidale);
                                       },
                                       iconWidget: Text('')),
                                 ],
@@ -181,60 +151,4 @@ class _SingleMessageNotificationPageState
           }),
         ));
   }
-
-  _startQuestionary() {
-    
-   
-    return Column(children: [
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: 20.0),
-        child: Column(
-          children: [
-            Text(
-              'Ti informiamo che dovrai compilare un questionario',
-            ),
-            Text(
-                'Clicca "Inizia Questionario" per compilare il form sul nostro sito')
-          ],
-        ),
-      ),
-      Row(
-        children: [
-          Radio(
-              value: 1,
-              groupValue: _value,
-              onChanged: (value) {
-                setState(() {
-                  _value = value!;
-                });
-              }),
-          SizedBox(
-            width: 10,
-          ),
-          Text('Conferma'),
-        ],
-      ),
-      Row(
-        children: [
-          Radio(
-              value: 2,
-              groupValue: _value,
-              onChanged: (value) {
-                setState(() {
-                  _value = value!;
-                });
-              }),
-          SizedBox(
-            width: 10,
-          ),
-          Text('Riprogramma'),
-        ],
-      )
-    ]);
-  }
 }
-/* : widget.serviceId == '3'
-                      ? 'Ciao, in seguito alla tua richiesta del servizio "Accompagnamento Oncologico", ti informiamo che sarà effettuato il giorno: $dataConsegna.'
-                      : widget.serviceId == '2'
-                      ? 'Ciao, in seguito alla tua richiesta del servizio "Taxi Solidale", ti informiamo che sarà effettuato il giorno: $dataConsegna.'
-                          : '' */
