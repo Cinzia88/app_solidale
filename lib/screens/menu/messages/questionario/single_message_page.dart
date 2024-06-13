@@ -1,11 +1,9 @@
-import 'package:app_solidale/const/path_constants.dart';
+
+
+import 'package:app_solidale/screens/common_widgets/background_style/custom_appbar.dart';
 import 'package:app_solidale/screens/common_widgets/custom_button.dart';
 import 'package:app_solidale/screens/common_widgets/loading_widget.dart';
-import 'package:app_solidale/screens/home/page/presentation_page.dart';
 import 'package:app_solidale/screens/menu/menu_appbar.dart/menu.dart';
-import 'package:app_solidale/screens/menu/messages/banco_message/bloc/message_bloc.dart';
-import 'package:app_solidale/globals_variables/globals_variables.dart'
-    as globals;
 import 'package:app_solidale/screens/menu/messages/questionario/bloc/message_bloc.dart';
 import 'package:app_solidale/screens/menu/messages/questionario/repository/message_notification_repository.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +11,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../common_widgets/background_style/custom_appbar.dart';
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 
 class SingleMessageNotificationPage extends StatefulWidget {
+  String? idSurvey;
+   SingleMessageNotificationPage({
+    
+     this.idSurvey,
+  });
   @override
   State<SingleMessageNotificationPage> createState() =>
       _SingleMessageNotificationPageState();
@@ -28,8 +31,6 @@ class _SingleMessageNotificationPageState
   String title = '';
   String body = '';
   String dataMessaggio = '';
-  final websiteAppSolidale = Uri.parse(
-      '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/questionario-app-solidale/${globals.userData!.id}');
 
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
@@ -126,10 +127,9 @@ class _SingleMessageNotificationPageState
                                 child: Column(
                                   children: [
                                     Text(
-                                      'Ti informiamo che dovrai compilare un questionario',
+                                      'Compila questo Questionario per noi! Potresti essere scelto per un Progetto Importante!',
                                     ),
-                                    Text(
-                                        'Clicca "Inizia Questionario" per compilare il form sul nostro sito')
+                                   
                                   ],
                                 ),
                               ),
@@ -137,9 +137,10 @@ class _SingleMessageNotificationPageState
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   CommonStyleButton(
-                                      title: 'Inizia Questionario',
+                                      title: 'Vai al Questionario',
                                       onTap: () {
-                                         _launchInBrowser(websiteAppSolidale);
+                                         _launchInBrowser( Uri.parse(
+      '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/questionario-app-solidale/${widget.idSurvey}/${globals.userData!.id}'));
                                       },
                                       iconWidget: Text('')),
                                 ],
