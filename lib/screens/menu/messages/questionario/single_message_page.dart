@@ -113,15 +113,7 @@ class _SingleMessageNotificationPageState
                                   fontSize: 2 * blockSizeVertical,
                                 ),
                               ),
-                              Text(
-                                DateFormat('dd-MM-yyyy').format(DateTime.parse(
-                                  dataMessaggio,
-                                )),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 2 * blockSizeVertical,
-                                ),
-                              ),
+                             
                               const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 20.0),
                                 child: Column(

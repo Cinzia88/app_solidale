@@ -103,15 +103,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                                   fontSize: 2 * blockSizeVertical,
                                 ),
                               ),
-                              Text(
-                                DateFormat('dd-MM-yyyy').format(DateTime.parse(
-                                  dataMessaggio,
-                                )),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 2 * blockSizeVertical,
-                                ),
-                              ),
+                             
                               _formSelectService(dataConsegna),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
