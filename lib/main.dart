@@ -129,7 +129,7 @@ void showFlutterNotification(RemoteMessage message) {
               ),
             ),
             actions: [
-              notification.title == 'Nuovo Messaggio' ||  notification.title == 'Questionario'
+              notification.title == 'Nuovo Messaggio: Taxi Solidale' ||  notification.title ==  'Nuovo Messaggio: Banco Alimentare' ||  notification.title ==  'Nuovo Messaggio: Accompagnamento Oncologico' ||  notification.title == 'Questionario'
                   ? TextButton(
                       onPressed: () {
                         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(

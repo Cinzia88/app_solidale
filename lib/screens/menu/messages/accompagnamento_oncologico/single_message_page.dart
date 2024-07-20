@@ -119,7 +119,7 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
                                         MessageAccRepository().editMessageAcc(
                                           context,
                                           idMessage,
-                                          '4',
+                                          '3',
                                           data,
                                           _value == 1
                                               ? 'Confermata'

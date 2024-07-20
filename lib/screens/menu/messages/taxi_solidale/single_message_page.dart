@@ -121,7 +121,7 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
                                     MessageTaxiRepository().editMessageTaxi(
                                       context,
                                      idMessage,
-                                     '4',
+                                     '2',
                                      data,
                                       _value == 1
                                           ? 'Confermata'
@@ -192,7 +192,7 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
     String dataConsegna = DateFormat('dd-MM-yyyy').format(DateTime.parse(
       dataConsegnaParam,
     ));
-    String oraConsegna = DateFormat('HH:mm').format(DateTime.parse(
+    String oraConsegna =  DateFormat('HH:mm').format(DateTime.parse(
       dataConsegnaParam,
     ));
     return Column(children: [
