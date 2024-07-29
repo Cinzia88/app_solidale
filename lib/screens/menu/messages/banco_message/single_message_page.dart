@@ -23,6 +23,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
   String idMessage = '';
   String dataConsegna = '';
   String dataMessaggio = '';
+  String rispostaMessaggio = '';
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
     final screenHeight = mediaQueryData.size.height;
     //final blockSizeHorizontal = screenWidth / 100;
     final blockSizeVertical = screenHeight / 100;
+
     return BlocProvider<MessageBloc>(
         create: (context) => MessageBloc(
             context: context,
@@ -67,6 +69,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
               idMessage = state.messages.id;
               dataConsegna = state.messages.dataConsegna;
               dataMessaggio = state.messages.messaggioRicevuto;
+              rispostaMessaggio = state.messages.risposta!;
               if (state.messages.risposta == 'Riprogramma') {
                 _value = 2;
               }
@@ -81,108 +84,198 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                     state is EditMessageLoadingState
                 ? loadingWidget(context)
                 : idMessage == '' && dataConsegna == ''
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Nessun Messaggio'),
-                          ],
-                        ),
+                    ? Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'Messaggio: Banco Alimentare',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 2 * blockSizeVertical,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Nessun Messaggio',
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       )
-                    : SingleChildScrollView(
-                        child: Padding(
+                    : rispostaMessaggio == 'Confermata'
+                        ? Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 20.0),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Messaggio: Banco Alimentare',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 2 * blockSizeVertical,
-                                ),
-                              ),
-                             
-                              _formSelectService(dataConsegna),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  CommonStyleButton(
-                                      title: 'Invia',
-                                      onTap: () {
-                                        MessageBancoRepository()
-                                            .editMessageBanco(
-                                          context,
-                                          idMessage,
-                                          '4',
-                                          dataConsegna,
-                                          _value == 1
-                                              ? 'Confermata'
-                                              : 'Riprogramma',
-                                          '',
-                                        );
-
-                                        showDialog(
-                                            barrierColor: Colors.black87,
-                                            barrierDismissible: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title: Column(
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 50,
-                                                      child: Image.asset(
-                                                          PathConstants
-                                                              .bancoAlim),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      'Messaggio Inviato',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleMedium,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                ),
-                                                actions: [
-                                                  InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        PresentationPage()));
-                                                      },
-                                                      child: Text(
-                                                        'Torna alla home',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleMedium,
-                                                      ))
-                                                ],
-                                              );
-                                            });
-                                        FocusScope.of(context).unfocus();
-                                      },
-                                      iconWidget: Text('')),
+                                  Text(
+                                    'Messaggio: Banco Alimentare',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 2 * blockSizeVertical,
+                                    ),
+                                  ),
                                 ],
                               ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                  'Hai confermato la consegna prevista per la data ${DateFormat('dd-MM-yyyy').format(DateTime.parse(
+                                dataConsegna,
+                              ))}.'),
                             ],
                           ),
-                        ),
-                      );
+                        )
+                        : rispostaMessaggio == 'Riprogramma'
+                            ? Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 20.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'Messaggio: Banco Alimentare',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 2 * blockSizeVertical,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                      'Hai riprogrammato la consegna prevista per la data ${DateFormat('dd-MM-yyyy').format(DateTime.parse(
+                                dataConsegna,
+                              ))}.\nRiceverai un altro messaggio per "Confermare" oppure "Riprogrammare" la data che ti comunicheremo.'),
+                                ],
+                              ),
+                            )
+                            : SingleChildScrollView(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 20.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Messaggio: Banco Alimentare',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 2 * blockSizeVertical,
+                                        ),
+                                      ),
+                                      _formSelectService(dataConsegna),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          CommonStyleButton(
+                                              title: 'Invia',
+                                              onTap: () {
+                                                MessageBancoRepository()
+                                                    .editMessageBanco(
+                                                  context,
+                                                  idMessage,
+                                                  '4',
+                                                  dataConsegna,
+                                                  _value == 1
+                                                      ? 'Confermata'
+                                                      : 'Riprogramma',
+                                                  '',
+                                                );
+
+                                                showDialog(
+                                                    barrierColor:
+                                                        Colors.black87,
+                                                    barrierDismissible: false,
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        title: Column(
+                                                          children: [
+                                                            SizedBox(
+                                                              height: 50,
+                                                              child: Image.asset(
+                                                                  PathConstants
+                                                                      .bancoAlim),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Text(
+                                                              'Messaggio Inviato',
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .titleMedium,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      20.0),
+                                                        ),
+                                                        actions: [
+                                                          InkWell(
+                                                              onTap: () {
+                                                                Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                PresentationPage()));
+                                                              },
+                                                              child: Text(
+                                                                'Torna alla home',
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .titleMedium,
+                                                              ))
+                                                        ],
+                                                      );
+                                                    });
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                              },
+                                              iconWidget: Text('')),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
           }),
         ));
   }
@@ -191,7 +284,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
     String dataConsegna = DateFormat('dd-MM-yyyy').format(DateTime.parse(
       dataConsegnaParam,
     ));
-   /* String oraConsegna = DateFormat('HH:mm').format(DateTime.parse(
+    /* String oraConsegna = DateFormat('HH:mm').format(DateTime.parse(
       dataConsegnaParam,
     )); */
     return Column(children: [

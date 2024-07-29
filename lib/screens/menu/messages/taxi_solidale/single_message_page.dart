@@ -16,8 +16,6 @@ import 'package:intl/intl.dart';
 import '../../../common_widgets/background_style/custom_appbar.dart';
 
 class SingleMessageTaxiPage extends StatefulWidget {
- 
-
   @override
   State<SingleMessageTaxiPage> createState() => _SingleMessageTaxiPageState();
 }
@@ -26,8 +24,8 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
   int _value = 1;
   String idMessage = '';
   String data = '';
-    String dataMessaggio = '';
-
+  String dataMessaggio = '';
+  String rispostaMessaggio = '';
 
   @override
   Widget build(BuildContext context) {
@@ -63,21 +61,20 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
               listener: (context, state) {
             if (state is MessageTaxiErrorState) {
               Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Nessun Messaggio'),
-                    ],
-                  );
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Nessun Messaggio'),
+                ],
+              );
             } else if (state is MessageTaxiLoadedState) {
-              
-               idMessage = state.messages.id;
-             data = state.messages.data;
-                          dataMessaggio = state.messages.messaggioRicevuto;
+              idMessage = state.messages.id;
+              data = state.messages.data;
+              dataMessaggio = state.messages.messaggioRicevuto;
+              rispostaMessaggio = state.messages.risposta!;
 
-             if(state.messages.risposta == 'Riprogramma') {
-              _value = 2;
-             }
-            
+              if (state.messages.risposta == 'Riprogramma') {
+                _value = 2;
+              }
             } else if (state is EditMessageTaxiErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.errorMessage)),
@@ -88,102 +85,195 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
             return state is MessageTaxiLoadingState ||
                     state is EditMessageTaxiLoadingState
                 ? loadingWidget(context)
-                : idMessage == '' && data == '' ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Nessun Messaggio'),
-                    ],
-                  ),
-                ) : SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                : idMessage == '' && data == ''
+                    ? Stack(
                         children: [
-                          Text(
-                             'Messaggio: Taxi Solidale'
-                               ,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 2 * blockSizeVertical,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'Messaggio: Taxi Solidale',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 2 * blockSizeVertical,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                           
-                          _formSelectService(data),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              CommonStyleButton(
-                                  title: 'Invia',
-                                  onTap: () {
-                                    MessageTaxiRepository().editMessageTaxi(
-                                      context,
-                                     idMessage,
-                                     '2',
-                                     data,
-                                      _value == 1
-                                          ? 'Confermata'
-                                          : 'Riprogramma',
-                                    );
-
-                                    showDialog(
-                                        barrierColor: Colors.black87,
-                                        barrierDismissible: false,
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: Column(
-                                              children: [
-                                               SizedBox(
-                                                  height: 50,
-                                                  child: Image.asset(
-                                                    PathConstants.taxiSolidale),
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  'Messaggio Inviato',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleMedium,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ],
-                                            ),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                            ),
-                                            actions: [
-                                              InkWell(
-                                                  onTap: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                PresentationPage()));
-                                                  },
-                                                  child: Text(
-                                                    'Torna alla home',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium,
-                                                  ))
-                                            ],
-                                          );
-                                        });
-                                    FocusScope.of(context).unfocus();
-                                  },
-                                  iconWidget: Text('')),
-                            ],
+                          Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Nessun Messaggio',
+                                ),
+                              ],
+                            ),
                           ),
                         ],
-                      ),
-                    ),
-                  );
+                      )
+                    : rispostaMessaggio == 'Confermata'
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Messaggio: Taxi Solidale',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 2 * blockSizeVertical,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                    'Hai confermato la data ${DateFormat('dd-MM-yyyy').format(DateTime.parse(
+                                  data,
+                                ))}.'),
+                              ],
+                            ),
+                          )
+                        : rispostaMessaggio == 'Riprogramma'
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0, vertical: 20.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'Messaggio: Taxi Solidale',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 2 * blockSizeVertical,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                        'Hai riprogrammato la data ${DateFormat('dd-MM-yyyy').format(DateTime.parse(
+                                      data,
+                                    ))}.\nRiceverai un altro messaggio per "Confermare" oppure "Riprogrammare" la data che ti comunicheremo.'),
+                                  ],
+                                ),
+                              )
+                            : SingleChildScrollView(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 20.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Messaggio: Taxi Solidale',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 2 * blockSizeVertical,
+                                        ),
+                                      ),
+                                      _formSelectService(data),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          CommonStyleButton(
+                                              title: 'Invia',
+                                              onTap: () {
+                                                MessageTaxiRepository()
+                                                    .editMessageTaxi(
+                                                  context,
+                                                  idMessage,
+                                                  '2',
+                                                  data,
+                                                  _value == 1
+                                                      ? 'Confermata'
+                                                      : 'Riprogramma',
+                                                );
+
+                                                showDialog(
+                                                    barrierColor:
+                                                        Colors.black87,
+                                                    barrierDismissible: false,
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        title: Column(
+                                                          children: [
+                                                            SizedBox(
+                                                              height: 50,
+                                                              child: Image.asset(
+                                                                  PathConstants
+                                                                      .taxiSolidale),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Text(
+                                                              'Messaggio Inviato',
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .titleMedium,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      20.0),
+                                                        ),
+                                                        actions: [
+                                                          InkWell(
+                                                              onTap: () {
+                                                                Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                PresentationPage()));
+                                                              },
+                                                              child: Text(
+                                                                'Torna alla home',
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .titleMedium,
+                                                              ))
+                                                        ],
+                                                      );
+                                                    });
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                              },
+                                              iconWidget: Text('')),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
           }),
         ));
   }
@@ -192,7 +282,7 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
     String dataConsegna = DateFormat('dd-MM-yyyy').format(DateTime.parse(
       dataConsegnaParam,
     ));
-    String oraConsegna =  DateFormat('HH:mm').format(DateTime.parse(
+    String oraConsegna = DateFormat('HH:mm').format(DateTime.parse(
       dataConsegnaParam,
     ));
     return Column(children: [
@@ -201,7 +291,7 @@ class _SingleMessageTaxiPageState extends State<SingleMessageTaxiPage> {
         child: Column(
           children: [
             Text(
-'Ciao, in seguito alla tua richiesta del servizio "Taxi Solidale", ti informiamo che sarà effettuato il giorno $dataConsegna alle ore $oraConsegna.'                 ,
+              'Ciao, in seguito alla tua richiesta del servizio "Taxi Solidale", ti informiamo che sarà effettuato il giorno $dataConsegna alle ore $oraConsegna.',
             ),
             Text(
                 'Clicca "Conferma" per confermare questa data, oppure clicca "Riprogramma" se preferisci una data diversa che ti comunicheremo.')

@@ -27,6 +27,8 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
   String idMessage = '';
   String data = '';
   String dataMessaggio = '';
+    String rispostaMessaggio = '';
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +73,7 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
               idMessage = state.messages.id;
               data = state.messages.data;
               dataMessaggio = state.messages.messaggioRicevuto;
+              rispostaMessaggio = state.messages.risposta!;
 
               if (state.messages.risposta == 'Riprogramma') {
                 _value = 2;
@@ -86,15 +89,93 @@ class _SingleMessageAccPageState extends State<SingleMessageAccPage> {
                     state is EditMessageAccLoadingState
                 ? loadingWidget(context)
                 : idMessage == '' && data == ''
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Nessun Messaggio'),
-                          ],
-                        ),
+                    ? Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                'Messaggio: Accompagnamento Oncologico',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 2 * blockSizeVertical,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Nessun Messaggio',
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       )
-                    : SingleChildScrollView(
+                    : rispostaMessaggio == 'Confermata'
+                        ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                                              'Messaggio: Accompagnamento Oncologico',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 2 * blockSizeVertical,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                  'Hai confermato la data ${DateFormat('dd-MM-yyyy').format(DateTime.parse(
+                                data,
+                              ))}.'),
+                            ],
+                          ),
+                        )
+                        : rispostaMessaggio == 'Riprogramma'
+                            ? Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 20.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                'Messaggio: Accompagnamento Oncologico',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 2 * blockSizeVertical,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                      'Hai riprogrammato la data ${DateFormat('dd-MM-yyyy').format(DateTime.parse(
+                                data,
+                              ))}.\nRiceverai un altro messaggio per "Confermare" oppure "Riprogrammare" la data che ti comunicheremo.'),
+                                ],
+                              ),
+                            )
+                            : SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 20.0),
