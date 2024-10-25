@@ -32,6 +32,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
               context,
               event.idMessage,
               event.serviceId,
+              event.dataInvio,
               event.dataConsegna,
               event.risposta,
               event.consegnato,

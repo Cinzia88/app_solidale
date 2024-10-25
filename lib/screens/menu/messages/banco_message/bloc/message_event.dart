@@ -12,6 +12,7 @@ class FetchMessageEvent extends MessageEvent {
 class EditMessageEvent extends MessageEvent {
   String idMessage;
   String serviceId;
+    String dataInvio;
   String dataConsegna;
   String risposta;
   String consegnato;
@@ -19,10 +20,11 @@ class EditMessageEvent extends MessageEvent {
   EditMessageEvent({
     required this.idMessage,
     required this.serviceId,
+        required this.dataInvio,
     required this.dataConsegna,
     required this.risposta,
     required this.consegnato,
   });
   @override
-  List<Object?> get props => [idMessage, serviceId, dataConsegna, risposta, consegnato, ];
+  List<Object?> get props => [idMessage, serviceId, dataInvio, dataConsegna, risposta, consegnato, ];
 }

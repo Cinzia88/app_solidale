@@ -21,6 +21,7 @@ class SingleMessagePage extends StatefulWidget {
 class _SingleMessagePageState extends State<SingleMessagePage> {
   int _value = 1;
   String idMessage = '';
+  String dataInvio = '';
   String dataConsegna = '';
   String dataMessaggio = '';
   String rispostaMessaggio = '';
@@ -67,6 +68,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
               );
             } else if (state is MessageLoadedState) {
               idMessage = state.messages.id;
+              dataInvio = state.messages.dataInvio;
               dataConsegna = state.messages.dataConsegna;
               dataMessaggio = state.messages.messaggioRicevuto;
               rispostaMessaggio = state.messages.risposta!;
@@ -202,6 +204,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                                                   context,
                                                   idMessage,
                                                   '4',
+                                                  dataInvio,
                                                   dataConsegna,
                                                   _value == 1
                                                       ? 'Confermata'
