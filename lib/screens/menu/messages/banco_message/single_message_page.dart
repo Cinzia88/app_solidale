@@ -10,7 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
+import 'package:app_solidale/globals_variables/globals_variables.dart'
+    as globals;
 import '../../../common_widgets/background_style/custom_appbar.dart';
 
 class SingleMessagePage extends StatefulWidget {
@@ -70,7 +71,6 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
               idMessage = state.messages.id;
               dataInvio = state.messages.dataInvio;
               dataConsegna = state.messages.dataConsegna;
-              dataMessaggio = state.messages.messaggioRicevuto;
               rispostaMessaggio = state.messages.risposta!;
               if (state.messages.risposta == 'Riprogramma') {
                 _value = 2;
@@ -203,13 +203,14 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                                                     .editMessageBanco(
                                                   context,
                                                   idMessage,
+                                                  globals.userData!.id,
                                                   '4',
                                                   dataInvio,
                                                   dataConsegna,
                                                   _value == 1
                                                       ? 'Confermata'
                                                       : 'Riprogramma',
-                                                  '',
+                                                  'No',
                                                 );
 
                                                 showDialog(
@@ -282,7 +283,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
           }),
         ));
   }
-//
+
   _formSelectService(String dataConsegnaParam) {
     String dataConsegna = DateFormat('dd-MM-yyyy').format(DateTime.parse(
       dataConsegnaParam,

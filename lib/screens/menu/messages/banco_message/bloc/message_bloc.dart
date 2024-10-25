@@ -31,6 +31,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
             final messagedata = await messageRepository.editMessageBanco(
               context,
               event.idMessage,
+              event.userId,
               event.serviceId,
               event.dataInvio,
               event.dataConsegna,

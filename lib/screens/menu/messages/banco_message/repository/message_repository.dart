@@ -12,10 +12,9 @@ import 'package:app_solidale/globals_variables/globals_variables.dart'
 import 'package:flutter/material.dart';
 
 class MessageBancoRepository {
-
   Future<MessageModelBanco> getMessageBanco(BuildContext context) async {
     var client = http.Client();
- var url =
+    var url =
         '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/food/message/${globals.userData!.id}';
 
     http.Response response =
@@ -25,7 +24,8 @@ class MessageBancoRepository {
       HttpHeaders.authorizationHeader: "Bearer ${globals.tokenValue}",
     });
 
-    MessageModelBanco dataMessageBanco = MessageModelBanco.fromJson(jsonDecode(response.body)[0]);
+    MessageModelBanco dataMessageBanco =
+        MessageModelBanco.fromJson(jsonDecode(response.body)[0]);
 
     print('dataUser ${response.body}');
     switch (response.statusCode) {
@@ -68,18 +68,19 @@ class MessageBancoRepository {
     return dataMessageBanco;
   }
 
- 
-
   Future editMessageBanco(
     BuildContext context,
     String idMessage,
+    String userId,
     String serviceId,
+    String dataInvio,
     String dataConsegna,
     String risposta,
     String consegnato,
   ) async {
     try {
-      var url = '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/message-food/update/$idMessage';
+      var url =
+          '${dotenv.env['NEXT_PUBLIC_BACKEND_URL']!}/api/message-food/update/$idMessage';
       // Await the http get response, then decode the json-formatted response.
       var response = await http.put(Uri.parse(url),
           headers: {
@@ -88,7 +89,9 @@ class MessageBancoRepository {
             'Authorization': 'Bearer ${globals.tokenValue}'
           },
           body: jsonEncode({
-             'service_id': serviceId,
+            'user_id': userId,
+            'service_id': serviceId,
+            'data_invio': dataInvio,
             'data_consegna': dataConsegna,
             'risposta': risposta,
             'consegnato': 'No',
@@ -98,10 +101,7 @@ class MessageBancoRepository {
 
       switch (response.statusCode) {
         case 200:
-              print('message ${response.statusCode}');
-
-             
-            
+          print('message ${response.statusCode}');
 
           break;
         case 422:
