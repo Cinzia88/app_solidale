@@ -1,0 +1,2 @@
+C:/Users/marra/Desktop/Progetti/App Solidale/app_solidale/android/app/.cxx/RelWithDebInfo/0142p625/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/marra/Desktop/Progetti/App Solidale/app_solidale/android/app/.cxx/RelWithDebInfo/0142p625/x86_64/CMakeFiles/rebuild_cache.dir

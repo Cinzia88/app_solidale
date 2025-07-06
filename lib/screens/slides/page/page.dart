@@ -94,7 +94,7 @@ class _SlidesPageState extends State<SlidesPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: DotsIndicator(
                 dotsCount: 4,
-                position: _curr,
+                position: _curr.toDouble(),
                 decorator: const DotsDecorator(
                   color: ColorConstants.colorDoctNotActive,
                   activeColor: ColorConstants.primaryColor,
